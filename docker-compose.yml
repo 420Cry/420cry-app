@@ -1,0 +1,73 @@
+services:
+  python:
+    container_name: gpt_python
+    image: dotweb.test/python
+    build:
+      context: ./
+      dockerfile: ./infrastructure/docker/Dockerfile
+      target: app
+    restart: on-failure
+    depends_on:
+      - gpt_mysql
+    networks:
+      - internal
+      - dotweb.test
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MODEL_NAME=${MODEL_NAME}
+      - BLUEVI_GPT=${BLUEVI_GPT}
+      - GGUF_MODEL=${GGUF_MODEL}
+      - BEARER_TOKEN=${BEARER_TOKEN}
+      - DB_HOST=gpt_mysql
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=gpt_user
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PORT=3306
+      - API_URL=${API_URL}
+      - REDIS_HOST=gpt_redis
+      - REDIS_PORT=6379
+
+  nginx:
+    container_name: gpt_web
+    image: dotweb.test/nginx:python
+    depends_on:
+      - python
+    restart: on-failure
+    networks:
+      - internal
+      - dotweb.test
+    volumes:
+      - .:/app
+
+  gpt_mysql:
+    container_name: gpt_db.dotweb.test
+    image: mysql:8
+    restart: on-failure
+    volumes:
+      - gpt_db_data:/var/lib/gpt_mysql
+    ports:
+      - "3308:3306"
+    networks:
+      - internal
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=gpt_user
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+
+  redis:
+    container_name: gpt_redis
+    image: redis:6.2.6-bullseye
+    restart: on-failure
+    networks:
+      - internal
+    volumes:
+      - ./storage/redis/data:/data
+    ports:
+      - "6376:6379"
+    command: redis-server --save 20 1 --loglevel warning
+
+networks:
+  dotweb.test:
+    name: dotweb.test
+    external: true
