@@ -1,0 +1,32 @@
+services:
+  next:
+    container_name: next_app
+    image: 420.crypto.test/next
+    build:
+      context: ./
+      dockerfile: ./infrastructure/docker/Dockerfile
+    restart: on-failure
+    networks:
+      - internal
+      - 420cry.test
+    volumes:
+      - .:/app
+
+  nginx:
+    container_name: app_web
+    image: 420.crypto.test/nginx:next
+    depends_on:
+      - next
+    restart: on-failure
+    networks:
+      - internal
+      - 420cry.test
+    volumes:
+      - .:/app
+
+networks:
+  internal:
+    name: app_internal
+  420cry.test:
+    name: 420cry.test
+    external: true
