@@ -40,11 +40,6 @@ This is a Next 420cry application.
     bun run lint
     ```
 
-
-5. Run Test:
-    ```bash
-    bun run test
-    ```
 ### With Docker
 1. Shutdown the dev server docker compose for this project.
     ```bash
