@@ -19,6 +19,12 @@ This is a Next 420cry application.
     ```bash
     cp .env.example .env
     ```
+
+3. **NPM LIB**:
+    We use private npm package. Run the command below in order to have access to the package
+    ```bash
+    export NPM_TOKEN=(gh auth token)
+    ```
 ## Installation
 
 1. Clone the repository
