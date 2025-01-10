@@ -20,18 +20,33 @@ This is a Next 420cry application.
     cp .env.example .env
     ```
 
-3. **NPM LIB**:
-    We use private npm package. Run the command below in order to have access to the package
+3. **Access Private NPM Package**:
+    We use a private npm package. To access the package, follow these steps:
+    - Obtain your token from https://github.com/settings/tokens with the `write:packages` permission.
+    - Run the following command to set your NPM token:
+
+```bash
+gh auth login --scopes read:packages
+```
+
+After authenticating, you can add the token to your environment variables by running:
+
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+```
+
+❕If you do not wish to use the GitHub CLI, you can authenticate using creating a PAT [here](https://github.com/settings/tokens) and add the token by using the following command (ensure the PAT token has the scope `read:packages`):
+
+```bash
+export GITHUB_TOKEN=<your token>
+```
+
+After authenticating you can install the dependencies using:
     ```bash
-    export NPM_TOKEN=(gh auth token)
+    npm config set registry http://registry.npmjs.org      
+    bun i
     ```
 ## Installation
-
-1. Clone the repository
-2. Install dependencies:
-    ```bash
-    bun install
-    ```
 3. Build the Next application:
     ```bash
     bun run build
