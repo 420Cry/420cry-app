@@ -1,10 +1,11 @@
 services:
   next:
     container_name: next_app
-    image: 420.crypto.test/next
     build:
-      context: ./
+      context: .
       dockerfile: ./infrastructure/docker/Dockerfile
+      secrets:
+        - github_token
     restart: on-failure
     networks:
       - internal
@@ -30,3 +31,7 @@ networks:
   420cry.test:
     name: 420cry.test
     external: true
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN

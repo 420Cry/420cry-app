@@ -1,10 +1,6 @@
 # 420cry-app
 
 This is a Next 420cry application.
-## Prerequisites
-
-- Bun 1.1.22
-
 ## Preparation
 
 1. **Add Development Hosts to the `/etc/hosts` File**:
@@ -19,25 +15,45 @@ This is a Next 420cry application.
     ```bash
     cp .env.example .env
     ```
-## Installation
 
-1. Clone the repository
-2. Install dependencies:
-    ```bash
-    bun install
+3. **Access Private NPM Package**:
+    We use a private npm package. To access the package, follow these steps:
+    - Obtain your token from https://github.com/settings/tokens with the `write:packages` permission.
+    - Run the following command to set your NPM token:
+
+```bash
+gh auth login --scopes read:packages
+```
+
+After authenticating, you can add the token to your environment variables by running:
+
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+```
+
+❕If you do not wish to use the GitHub CLI, you can authenticate using creating a PAT [here](https://github.com/settings/tokens) and add the token by using the following command (ensure the PAT token has the scope `read:packages`):
+
+```bash
+export GITHUB_TOKEN=<your token>
+```
+
+After authenticating you can install the dependencies using:
+    ```bash  
+    npm i
     ```
-3. Build the Next application:
+## Installation
+1. Build the Next application:
     ```bash
-    bun run build
+    npm run build
     ```
-4. Run the server:
+2. Run the server:
     ```bash
-    bun run dev
+    npm run dev
     ```
 
 4. Run lint:
     ```bash
-    bun run lint
+    npm run lint
     ```
 
 ### With Docker
@@ -48,10 +64,10 @@ This is a Next 420cry application.
 
 2. Build and start application in production mode.
     ```bash
-    docker compose build
+    GITHUB_TOKEN=$(gh auth token) docker compose build
     ```
 
 3. Start the application in DEV mode.
     ```bash
-    docker compose up -d
+    docker-compose up -d
    ```

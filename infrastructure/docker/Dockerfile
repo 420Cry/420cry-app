@@ -1,30 +1,33 @@
-FROM node:18-bullseye-slim
+FROM node:20.13.1-alpine3.18
 
 # Set the working directory
 WORKDIR /app
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-  curl bash git unzip && \
-  npm install --global corepack
+# Create a non-root user and set ownership for the app directory
+RUN adduser -D appuser
+RUN chown -R appuser:appuser /app
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
+# Copy the application code
+COPY . /app
 
-# Add Bun to PATH
-ENV PATH="/root/.bun/bin:$PATH"
+# Use Docker secrets to handle the GitHub token
+RUN echo registry=https://registry.npmjs.org/ >> ~/.npmrc
+RUN echo @420cry:registry=https://npm.pkg.github.com/ >> ~/.npmrc
+RUN --mount=type=secret,id=github_token \
+    GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
+    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc
 
-# Copy application files
-COPY . .
+# Install project dependencies
+RUN npm install
 
-# Install dependencies
-RUN bun install
+# Build the Next.js app 
+RUN npm run build
 
-# Build Next.js app
-RUN bun run next build
-
-# Expose the app's port
+# Expose the application's port
 EXPOSE 3000
 
-# Start the Next.js app
-CMD ["bun", "run", "next", "start"]
+# Switch to the non-root user
+USER appuser
+
+# Start the Next.js application
+CMD ["npm", "run", "start"]
