@@ -25,6 +25,12 @@ jobs:
       - name: Enable Docker BuildKit
         run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
+      # Create the GitHub token file and add it as a Docker secret
+      - name: Create GitHub Token Secret
+        run: |
+          echo "${{ secrets.GH_TOKEN }}" > github_token.txt
+          docker secret create github_token github_token.txt
+
       # Build the Docker image with the Dockerfile in ./infrastructure/docker/Dockerfile
       - name: Build Docker image
         run: |
@@ -32,6 +38,7 @@ jobs:
             --file ./infrastructure/docker/Dockerfile \
             --tag 420cry.test/next:latest \
             --build-arg GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
+            --secret id=github_token,src=github_token.txt \
             .
         env:
           DOCKER_BUILDKIT: 1
