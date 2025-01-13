@@ -33,7 +33,7 @@ jobs:
             --tag 420cry.test/next:latest \
             --secret id=github_token,src=${{ secrets.GH_TOKEN }} \
             --secret id=github_token,src=/dev/null \
-            .
-         env:
+          .
+        env:
           DOCKER_BUILDKIT: 1
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
