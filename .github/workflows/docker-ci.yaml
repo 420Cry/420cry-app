@@ -26,7 +26,7 @@ jobs:
         run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
       # Build the Docker image with the Dockerfile in ./infrastructure/docker/Dockerfile
-  - name: Build Docker image
+      - name: Build Docker image
         run: |
           docker build \
             --file ./infrastructure/docker/Dockerfile \
