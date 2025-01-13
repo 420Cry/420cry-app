@@ -28,7 +28,7 @@ jobs:
 
       # Run linting
       - name: Run lint
-        run: bun run lint
+        run: npm run lint
 
       # Build the Next.js app
       - name: Build Next.js app
