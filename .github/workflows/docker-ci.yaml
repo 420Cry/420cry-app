@@ -27,6 +27,5 @@ jobs:
           docker build \
             --file ./infrastructure/docker/Dockerfile \
             --tag 420cry.test/next:latest \
+            --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             .
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
