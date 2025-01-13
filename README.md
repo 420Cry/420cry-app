@@ -1,10 +1,6 @@
 # 420cry-app
 
 This is a Next 420cry application.
-## Prerequisites
-
-- Bun 1.1.22
-
 ## Preparation
 
 1. **Add Development Hosts to the `/etc/hosts` File**:
@@ -42,23 +38,22 @@ export GITHUB_TOKEN=<your token>
 ```
 
 After authenticating you can install the dependencies using:
-    ```bash
-    npm config set registry http://registry.npmjs.org      
-    bun i
+    ```bash  
+    npm i
     ```
 ## Installation
 1. Build the Next application:
     ```bash
-    bun run build
+    npm run build
     ```
 2. Run the server:
     ```bash
-    bun run dev
+    npm run dev
     ```
 
 4. Run lint:
     ```bash
-    bun run lint
+    npm run lint
     ```
 
 ### With Docker
