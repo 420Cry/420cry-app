@@ -21,22 +21,10 @@ jobs:
         with:
           node-version: '18'
 
-      - name: 'Setup bun'
-        uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe5 # v2.0.1
-        with:
-          bun-version: 1.1.36
-
-
-      - name: Cache Bun dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.bun
-          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
-          restore-keys: |
-            ${{ runner.os }}-bun-
-
-      - name: Install dependencies with Bun
-        run: bun install
+      - name: Install dependencies with npm
+        run: npm install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Run linting
       - name: Run lint
@@ -44,4 +32,4 @@ jobs:
 
       # Build the Next.js app
       - name: Build Next.js app
-        run: bun run build
+        run: npm run build
