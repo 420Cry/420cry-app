@@ -1,30 +1,30 @@
-FROM node:18-bullseye-slim
+# Use the Bun base image
+FROM oven/bun:1.1.36-alpine
+
+# Install git and other necessary dependencies
+RUN apk add --no-cache git openssh
 
 # Set the working directory
 WORKDIR /app
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-  curl bash git unzip && \
-  npm install --global corepack
+# Copy the application code
+COPY . /app
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
+# Use Docker secrets to handle the GitHub token (avoid hardcoding the token)
+RUN --mount=type=secret,id=github_token \
+    GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
+    echo registry=https://registry.npmjs.org/ >> ~/.npmrc && \
+    echo @420cry:registry=https://npm.pkg.github.com/ >> ~/.npmrc && \
+    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc
 
-# Add Bun to PATH
-ENV PATH="/root/.bun/bin:$PATH"
-
-# Copy application files
-COPY . .
-
-# Install dependencies
+# Install dependencies using Bun (instead of npm)
 RUN bun install
 
-# Build Next.js app
-RUN bun run next build
+# Build the Next.js app using Bun
+RUN bun run build
 
-# Expose the app's port
+# Expose the application's port
 EXPOSE 3000
 
-# Start the Next.js app
+# Start the Next.js application using Bun
 CMD ["bun", "run", "next", "start"]

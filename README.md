@@ -47,11 +47,11 @@ After authenticating you can install the dependencies using:
     bun i
     ```
 ## Installation
-3. Build the Next application:
+1. Build the Next application:
     ```bash
     bun run build
     ```
-4. Run the server:
+2. Run the server:
     ```bash
     bun run dev
     ```
@@ -69,10 +69,10 @@ After authenticating you can install the dependencies using:
 
 2. Build and start application in production mode.
     ```bash
-    docker compose build
+    GITHUB_TOKEN=$(gh auth token) docker compose build
     ```
 
 3. Start the application in DEV mode.
     ```bash
-    docker compose up -d
+    docker-compose up -d
    ```
