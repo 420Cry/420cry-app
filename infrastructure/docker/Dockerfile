@@ -13,9 +13,12 @@ COPY . /app
 # Use Docker secrets to handle the GitHub token
 RUN echo registry=https://registry.npmjs.org/ >> ~/.npmrc
 RUN echo @420cry:registry=https://npm.pkg.github.com/ >> ~/.npmrc
+
+# Debug: Write the GitHub token to a temporary file (for inspection inside the container)
 RUN --mount=type=secret,id=github_token \
     GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
-    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc
+    echo "GitHub token is written to /tmp/github_token.txt" && \
+    echo ${GITHUB_TOKEN} > /tmp/github_token.txt
 
 # Install project dependencies
 RUN npm install
