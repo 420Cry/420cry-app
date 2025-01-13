@@ -31,6 +31,5 @@ jobs:
           docker build \
             --file ./infrastructure/docker/Dockerfile \
             --tag 420cry.test/next:latest \
+            --secret id=github_token,src=${{ secrets.GH_TOKEN }} \
             .
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
