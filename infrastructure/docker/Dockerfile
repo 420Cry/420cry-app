@@ -30,4 +30,4 @@ EXPOSE 3000
 USER appuser
 
 # Start the Next.js application
-CMD ["npm", "run", "start"]
+CMD ["sh", "-c", "npm run build && npm run start"]
