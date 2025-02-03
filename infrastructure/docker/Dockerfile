@@ -14,8 +14,8 @@ COPY . /app
 RUN echo registry=https://registry.npmjs.org/ >> ~/.npmrc
 RUN echo @420cry:registry=https://npm.pkg.github.com/ >> ~/.npmrc
 RUN --mount=type=secret,id=github_token \
-    GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
-    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc
+    /bin/sh -c 'GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
+    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc'
 
 # Install project dependencies
 RUN npm install
