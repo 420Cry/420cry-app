@@ -10,7 +10,7 @@
     "lint:fix": "npx prettier --write '**/*.{js,ts,jsx,tsx,json,md}'"
   },
   "dependencies": {
-    "@420cry/420cry-lib": "0.0.7",
+    "@420cry/420cry-lib": "0.0.15",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",
     "next": "^15.1.6",
