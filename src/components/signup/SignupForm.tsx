@@ -2,8 +2,8 @@
 import { CryButton, GoogleIcon, DiscordIcon } from "@420cry/420cry-lib";
 import React, { useState } from "react";
 import { useAlert } from "@/src/context/AlertContext";
-import { emailRegex, ISignUp } from "@/src/types";
-import { formValidate, renderTextField, showAlert } from "@/src/utils";
+import { ISignUp } from "@/src/types";
+import { emailRegex, formValidate, renderTextField, showAlert } from "@/src/utils";
 
 const initialFormState: ISignUp = {
   fullname: "",

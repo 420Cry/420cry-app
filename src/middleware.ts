@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { NextRequest } from "next/server";
-import { API_URL } from "./utils";
+
+const API_URL = process.env.API_URL
+  ? `http://${process.env.API_URL}`
+  : null;
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl;
@@ -22,7 +25,6 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
 
     const response = await axios.get(testUrl);
 
-    // Log the full response to see its structure
     console.log("API response:", response);
 
     if (response.status === 200 && response.data.loggedIn) {
@@ -34,13 +36,11 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     }
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
-      // Handle Axios error specifically
       console.error(
         "Error checking login status:",
         error.response?.data || error.message,
       );
     } else {
-      // Handle unexpected error
       console.error("An unexpected error occurred:", error);
     }
     return NextResponse.redirect(new URL("/login", req.url));
@@ -48,5 +48,5 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
 }
 
 export const config = {
-  matcher: ["/"], // Add routes here that need protection
+  matcher: ["/"],
 };

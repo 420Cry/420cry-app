@@ -1,6 +1,8 @@
-import { IUserBase } from "../user/IUserBase";
-
-export interface ISignUp extends IUserBase {
+export interface ISignUp {
+  fullname: string;
+  email: string;
+  username: string;
+  password: string;
   repeatedPassword: string;
   [key: string]: string;
 }
