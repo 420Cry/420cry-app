@@ -12,6 +12,8 @@ services:
       - 420cry.test
     volumes:
       - .:/app
+    ports:
+      - "3000:3000"
 
   nginx:
     container_name: app_web

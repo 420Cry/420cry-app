@@ -2,12 +2,8 @@
 import { CryButton, GoogleIcon, DiscordIcon } from "@420cry/420cry-lib";
 import React, { useState } from "react";
 import { useAlert } from "@/src/context/AlertContext";
-import { ISignUp } from "@/src/types";
-import {
-  formValidate,
-  renderTextField,
-  showAlert,
-} from "@/src/utils";
+import { emailRegex, ISignUp } from "@/src/types";
+import { formValidate, renderTextField, showAlert } from "@/src/utils";
 
 const initialFormState: ISignUp = {
   fullname: "",
@@ -40,7 +36,6 @@ const SignupForm: React.FC = () => {
         return true;
       },
       (data: ISignUp) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(data.email)) {
           showAlert("danger", "Invalid email address.", setAlert);
           return false;
@@ -119,16 +114,16 @@ const SignupForm: React.FC = () => {
             "password",
             "circle",
           )}
-          <div className="flex justify-center">
-            <CryButton
-              circle
-              className="bg-green-600 w-52 sm:w-60 text-white"
-              onClick={handleSubmit}
-            >
-              Sign Up
-            </CryButton>
-          </div>
         </form>
+        <div className="flex justify-center">
+          <CryButton
+            circle
+            className="bg-green-600 w-52 sm:w-60 text-white"
+            onClick={handleSubmit}
+          >
+            Sign Up
+          </CryButton>
+        </div>
         <div className="text-center text-sm sm:text-base mt-6 sm:mt-10 text-yellow-600">
           Or sign up using
         </div>

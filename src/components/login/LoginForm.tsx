@@ -1,12 +1,8 @@
 "use client";
-import { CryButton } from "@420cry/420cry-lib";
+import { CryButton, DiscordIcon, GoogleIcon } from "@420cry/420cry-lib";
 import React, { useState } from "react";
 import { useAlert } from "@/src/context/AlertContext";
-import {
-  formValidate,
-  showAlert,
-  renderTextField,
-} from "@/src/utils";
+import { formValidate, showAlert, renderTextField } from "@/src/utils";
 import { ISignIn } from "@/src/types";
 
 const initialFormState: ISignIn = {
@@ -69,16 +65,42 @@ const LoginForm: React.FC = () => {
             "password",
             "circle",
           )}
-          <div className="flex justify-center">
-            <CryButton
-              circle
-              className="bg-green-600 w-52 sm:w-60 text-white"
-              onClick={handleSubmit}
-            >
-              Login
-            </CryButton>
-          </div>
         </form>
+        <div className="text-right">
+          <a
+            href="/reset-password"
+            className="text-sm font-bold text-white hover:underline"
+          >
+            Forgot your password?
+          </a>
+        </div>
+        <div className="flex flex-wrap justify-center my-6 gap-4">
+          {[
+            { icon: DiscordIcon, label: "Discord" },
+            { icon: GoogleIcon, label: "Google" },
+          ].map(({ icon: Icon, label }) => (
+            <CryButton key={label} className="bg-transparent w-12" circle>
+              <div className="flex items-center justify-center">
+                <Icon className="h-8 w-8" />
+              </div>
+            </CryButton>
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <CryButton
+            circle
+            className="bg-green-600 w-52 sm:w-60 text-white"
+            onClick={handleSubmit}
+          >
+            Login
+          </CryButton>
+        </div>
+
+        <div className="text-center sm:text-base sm:mt-4">
+          <a href="/signup" className="text-sm text-yellow-600 hover:underline">
+            Don't have an account? Signup here
+          </a>
+        </div>
       </div>
     </div>
   );

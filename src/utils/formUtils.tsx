@@ -28,7 +28,7 @@ export const renderTextField = <T extends { [key: string]: ISignIn | ISignUp }>(
               toggleSlotContent ? (
                 toggleSlotContent(isVisible)
               ) : (
-                <div className="px-2 py-1 text-xs rounded text-black">
+                <div className="px-2 py-1 text-xs rounded text-black hover:underline">
                   {isVisible ? "Hide" : "Show"}
                 </div>
               )
@@ -37,7 +37,6 @@ export const renderTextField = <T extends { [key: string]: ISignIn | ISignUp }>(
     />
   </div>
 );
-
 
 export const formValidate = <T extends { [key: string]: string }>(
   formData: T,
