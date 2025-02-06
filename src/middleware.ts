@@ -1,21 +1,17 @@
 import { NextResponse } from "next/server";
 import axios from "axios";
 import { NextRequest } from "next/server";
+import { PUBLIC_ROUTES, SIGN_IN_ROUTE } from "./constants/routes";
 
-const API_URL = process.env.API_URL
-  ? `http://${process.env.API_URL}`
-  : null;
+const API_URL = process.env.API_URL ? `http://${process.env.API_URL}` : null;
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl;
 
   console.log("Middleware executed for:", pathname);
 
-  // Define the routes that can be accessed by non-logged-in users
-  const publicRoutes = ["/login", "/signup", "/reset-password"];
-
   // If the user is accessing a public route, no login check is required
-  if (publicRoutes.includes(pathname)) {
+  if (PUBLIC_ROUTES.includes(pathname)) {
     return NextResponse.next();
   }
 
@@ -32,7 +28,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
       return NextResponse.next();
     } else {
       console.log("User is not logged in, redirecting to /login.");
-      return NextResponse.redirect(new URL("/login", req.url));
+      return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url));
     }
   } catch (error: unknown) {
     if (axios.isAxiosError(error)) {
@@ -43,7 +39,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     } else {
       console.error("An unexpected error occurred:", error);
     }
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url));
   }
 }
 

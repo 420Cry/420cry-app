@@ -1,21 +1,28 @@
 "use client";
-import { CryButton, DiscordIcon, GoogleIcon } from "@420cry/420cry-lib";
+import {
+  CryButton,
+  CryCheckBox,
+  DiscordIcon,
+  GoogleIcon,
+} from "@420cry/420cry-lib";
 import React, { useState } from "react";
 import { useAlert } from "@/src/context/AlertContext";
 import { formValidate, showAlert, renderTextField } from "@/src/utils";
 import { ISignIn } from "@/src/types";
+import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from "@/src/constants/routes";
 
-const initialFormState: ISignIn = {
+const initialFormValue: ISignIn = {
   username: "",
   password: "",
+  remember: false,
 };
 
 const LoginForm: React.FC = () => {
-  const [formState, setFormState] = useState<ISignIn>(initialFormState);
+  const [formValue, setFormValue] = useState<ISignIn>(initialFormValue);
   const { setAlert } = useAlert();
 
-  const updateFormState = (key: keyof ISignIn) => (value: string) =>
-    setFormState((prev) => ({ ...prev, [key]: value }));
+  const updateFormState = (key: keyof ISignIn) => (value: string | boolean) =>
+    setFormValue((prev) => ({ ...prev, [key]: value }));
 
   const formValidateHandler = (): boolean => {
     const validations: Array<(data: ISignIn) => boolean> = [
@@ -32,11 +39,12 @@ const LoginForm: React.FC = () => {
       },
     ];
 
-    return formValidate(formState, validations, setAlert);
+    return formValidate(formValue, validations, setAlert);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formValue);
     if (formValidateHandler()) {
       showAlert("success", "Login successful!", setAlert);
     }
@@ -52,7 +60,7 @@ const LoginForm: React.FC = () => {
           {renderTextField(
             "Username",
             "username",
-            formState.username,
+            formValue.username,
             updateFormState("username"),
             "text",
             "circle",
@@ -60,20 +68,31 @@ const LoginForm: React.FC = () => {
           {renderTextField(
             "Password",
             "password",
-            formState.password,
+            formValue.password,
             updateFormState("password"),
             "password",
             "circle",
           )}
+          <div className="flex justify-between w-full">
+            <div className="text-left">
+              <CryCheckBox
+                text="Remember me?"
+                size="sm"
+                modelValue={formValue.remember}
+                onClick={(e) => updateFormState("remember")(e.target.checked)}
+                className="!text-black"
+              />
+            </div>
+            <div className="text-right">
+              <a
+                href={RESET_PASSWORD_ROUTE}
+                className="text-sm font-bold text-white hover:underline"
+              >
+                Forgot your password?
+              </a>
+            </div>
+          </div>
         </form>
-        <div className="text-right">
-          <a
-            href="/reset-password"
-            className="text-sm font-bold text-white hover:underline"
-          >
-            Forgot your password?
-          </a>
-        </div>
         <div className="flex flex-wrap justify-center my-6 gap-4">
           {[
             { icon: DiscordIcon, label: "Discord" },
@@ -97,8 +116,11 @@ const LoginForm: React.FC = () => {
         </div>
 
         <div className="text-center sm:text-base sm:mt-4">
-          <a href="/signup" className="text-sm text-yellow-600 hover:underline">
-            Don not have an account? Signup here
+          <a
+            href={SIGN_UP_ROUTE}
+            className="text-sm text-yellow-600 hover:underline"
+          >
+            Don not have an account? Sign up here
           </a>
         </div>
       </div>

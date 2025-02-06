@@ -1,7 +1,6 @@
 export interface ISignIn {
   username: string;
-
   password: string;
-
-  [key: string]: string;
+  remember: boolean;
+  [key: string]: string | boolean;
 }

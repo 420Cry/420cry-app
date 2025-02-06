@@ -1,4 +1,4 @@
-import { IAlert } from "../types";
+import { IAlert } from "@/src/types";
 
 export const showAlert = (
   type: "success" | "danger" | "info" | "warning",

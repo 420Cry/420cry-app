@@ -1,3 +1,4 @@
+import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from "@/src/constants/routes";
 import { CryButton } from "@420cry/420cry-lib";
 import React from "react";
 
@@ -18,9 +19,9 @@ const LoginHeader: React.FC<LoginHeaderProps> = ({ signUp = false }) => {
         </CryButton>
         {signUp ? (
           <CryButton
-            to="/signup"
+            to={SIGN_UP_ROUTE}
             circle
-            className="w-52 h-12 text-green sm:mr-2"
+            className="w-52 h-12 text-green-800 sm:mr-2"
             color="success"
             outlined
           >
@@ -28,9 +29,9 @@ const LoginHeader: React.FC<LoginHeaderProps> = ({ signUp = false }) => {
           </CryButton>
         ) : (
           <CryButton
-            to="/login"
+            to={SIGN_IN_ROUTE}
             circle
-            className="w-60 h-12 sm:mr-2"
+            className="w-60 h-12 sm:mr-2 text-green-800"
             color="success"
             outlined
           >

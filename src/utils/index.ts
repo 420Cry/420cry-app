@@ -1,3 +1,3 @@
-export * from "./formUtils";
-export * from "./showAlert";
+export * from "./components/formUtils";
+export * from "./components/showAlert";
 export * from "./emailRegix";

@@ -38,7 +38,7 @@ export const renderTextField = <T extends { [key: string]: ISignIn | ISignUp }>(
   </div>
 );
 
-export const formValidate = <T extends { [key: string]: string }>(
+export const formValidate = <T extends { [key: string]: string | boolean }>(
   formData: T,
   validations: Array<(data: T) => boolean>,
   setAlert: (alert: IAlert) => void,

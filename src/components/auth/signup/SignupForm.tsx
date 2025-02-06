@@ -3,9 +3,14 @@ import { CryButton, GoogleIcon, DiscordIcon } from "@420cry/420cry-lib";
 import React, { useState } from "react";
 import { useAlert } from "@/src/context/AlertContext";
 import { ISignUp } from "@/src/types";
-import { emailRegex, formValidate, renderTextField, showAlert } from "@/src/utils";
+import {
+  emailRegex,
+  formValidate,
+  renderTextField,
+  showAlert,
+} from "@/src/utils";
 
-const initialFormState: ISignUp = {
+const initialFormValue: ISignUp = {
   fullname: "",
   email: "",
   username: "",
@@ -14,11 +19,11 @@ const initialFormState: ISignUp = {
 };
 
 const SignupForm: React.FC = () => {
-  const [formState, setFormState] = useState<ISignUp>(initialFormState);
+  const [formValue, setFormValue] = useState<ISignUp>(initialFormValue);
   const { setAlert } = useAlert();
 
   const updateFormState = (key: keyof ISignUp) => (value: string) =>
-    setFormState((prev) => ({ ...prev, [key]: value }));
+    setFormValue((prev) => ({ ...prev, [key]: value }));
 
   const formValidateHandler = (): boolean => {
     const validations = [
@@ -51,7 +56,7 @@ const SignupForm: React.FC = () => {
       },
     ];
 
-    return formValidate(formState, validations, setAlert);
+    return formValidate(formValue, validations, setAlert);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -73,7 +78,7 @@ const SignupForm: React.FC = () => {
               {renderTextField(
                 "Full Name",
                 "fullname",
-                formState.fullname,
+                formValue.fullname,
                 updateFormState("fullname"),
                 "text",
                 "circle",
@@ -83,7 +88,7 @@ const SignupForm: React.FC = () => {
               {renderTextField(
                 "Email",
                 "email",
-                formState.email,
+                formValue.email,
                 updateFormState("email"),
                 "text",
                 "circle",
@@ -93,7 +98,7 @@ const SignupForm: React.FC = () => {
           {renderTextField(
             "Username",
             "username",
-            formState.username,
+            formValue.username,
             updateFormState("username"),
             "text",
             "circle",
@@ -101,7 +106,7 @@ const SignupForm: React.FC = () => {
           {renderTextField(
             "Password",
             "password",
-            formState.password,
+            formValue.password,
             updateFormState("password"),
             "password",
             "circle",
@@ -109,7 +114,7 @@ const SignupForm: React.FC = () => {
           {renderTextField(
             "Repeated Password",
             "repeatedPassword",
-            formState.repeatedPassword,
+            formValue.repeatedPassword,
             updateFormState("repeatedPassword"),
             "password",
             "circle",
