@@ -1,29 +1,29 @@
-"use client";
-import { CryButton, GoogleIcon, DiscordIcon } from "@420cry/420cry-lib";
-import React, { useState } from "react";
-import { useAlert } from "@/src/context/AlertContext";
-import { ISignUp } from "@/src/types";
+'use client'
+import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
+import React, { useState } from 'react'
+import { useAlert } from '@/src/context/AlertContext'
+import { ISignUp } from '@/src/types'
 import {
   emailRegex,
   formValidate,
-  renderTextField,
+  renderFormTextField,
   showAlert,
-} from "@/src/utils";
+} from '@/src/utils'
 
 const initialFormValue: ISignUp = {
-  fullname: "",
-  email: "",
-  username: "",
-  password: "",
-  repeatedPassword: "",
-};
+  fullname: '',
+  email: '',
+  username: '',
+  password: '',
+  repeatedPassword: '',
+}
 
 const SignupForm: React.FC = () => {
-  const [formValue, setFormValue] = useState<ISignUp>(initialFormValue);
-  const { setAlert } = useAlert();
+  const [formValue, setFormValue] = useState<ISignUp>(initialFormValue)
+  const { setAlert } = useAlert()
 
   const updateFormState = (key: keyof ISignUp) => (value: string) =>
-    setFormValue((prev) => ({ ...prev, [key]: value }));
+    setFormValue((prev) => ({ ...prev, [key]: value }))
 
   const formValidateHandler = (): boolean => {
     const validations = [
@@ -35,36 +35,37 @@ const SignupForm: React.FC = () => {
           !data.password ||
           !data.repeatedPassword
         ) {
-          showAlert("danger", "All fields are required.", setAlert);
-          return false;
+          showAlert('danger', 'All fields are required.', setAlert)
+          return false
         }
-        return true;
+        return true
       },
       (data: ISignUp) => {
         if (!emailRegex.test(data.email)) {
-          showAlert("danger", "Invalid email address.", setAlert);
-          return false;
+          showAlert('danger', 'Invalid email address.', setAlert)
+          return false
         }
-        return true;
+        return true
       },
       (data: ISignUp) => {
         if (data.password !== data.repeatedPassword) {
-          showAlert("danger", "Passwords do not match.", setAlert);
-          return false;
+          showAlert('danger', 'Passwords do not match.', setAlert)
+          return false
         }
-        return true;
+        return true
       },
-    ];
+    ]
 
-    return formValidate(formValue, validations, setAlert);
-  };
+    return formValidate(formValue, validations, setAlert)
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (formValidateHandler()) {
-      showAlert("success", "Signup successful!", setAlert);
+      // TODO: Signup action
+      showAlert('success', 'Signup successful!', setAlert)
     }
-  };
+  }
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-24 px-4">
@@ -74,50 +75,50 @@ const SignupForm: React.FC = () => {
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
-            <div className="w-full sm:w-1/2 sm:pr-2">
-              {renderTextField(
-                "Full Name",
-                "fullname",
+            <div className="w-full sm:w-1/2 sm:pr-4">
+              {renderFormTextField(
+                'Full Name',
+                'fullname',
                 formValue.fullname,
-                updateFormState("fullname"),
-                "text",
-                "circle",
+                updateFormState('fullname'),
+                'text',
+                'circle',
               )}
             </div>
             <div className="w-full sm:w-1/2">
-              {renderTextField(
-                "Email",
-                "email",
+              {renderFormTextField(
+                'Email',
+                'email',
                 formValue.email,
-                updateFormState("email"),
-                "text",
-                "circle",
+                updateFormState('email'),
+                'text',
+                'circle',
               )}
             </div>
           </div>
-          {renderTextField(
-            "Username",
-            "username",
+          {renderFormTextField(
+            'Username',
+            'username',
             formValue.username,
-            updateFormState("username"),
-            "text",
-            "circle",
+            updateFormState('username'),
+            'text',
+            'circle',
           )}
-          {renderTextField(
-            "Password",
-            "password",
+          {renderFormTextField(
+            'Password',
+            'password',
             formValue.password,
-            updateFormState("password"),
-            "password",
-            "circle",
+            updateFormState('password'),
+            'password',
+            'circle',
           )}
-          {renderTextField(
-            "Repeated Password",
-            "repeatedPassword",
+          {renderFormTextField(
+            'Repeated Password',
+            'repeatedPassword',
             formValue.repeatedPassword,
-            updateFormState("repeatedPassword"),
-            "password",
-            "circle",
+            updateFormState('repeatedPassword'),
+            'password',
+            'circle',
           )}
         </form>
         <div className="flex justify-center">
@@ -134,8 +135,8 @@ const SignupForm: React.FC = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-6">
           {[
-            { icon: GoogleIcon, label: "Google" },
-            { icon: DiscordIcon, label: "Discord" },
+            { icon: GoogleIcon, label: 'Google' },
+            { icon: DiscordIcon, label: 'Discord' },
           ].map(({ icon: Icon, label }) => (
             <CryButton
               key={label}
@@ -153,7 +154,7 @@ const SignupForm: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SignupForm;
+export default SignupForm

@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React, { JSX } from 'react'
 
 export default function Home(): JSX.Element {
   return (
@@ -7,5 +7,5 @@ export default function Home(): JSX.Element {
         Reset-password (newpassword)
       </h1>
     </>
-  );
+  )
 }

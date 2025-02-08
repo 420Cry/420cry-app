@@ -1,33 +1,33 @@
-"use client";
-import React, { createContext, useState, useContext, ReactNode } from "react";
-import { IAlertContext, IAlert } from "../types";
+'use client'
+import React, { createContext, useState, useContext, ReactNode } from 'react'
+import { IAlertContext, IAlert } from '../types'
 
-const AlertContext = createContext<IAlertContext | undefined>(undefined);
+const AlertContext = createContext<IAlertContext | undefined>(undefined)
 
 export const useAlert = (): IAlertContext => {
-  const context = useContext(AlertContext);
+  const context = useContext(AlertContext)
   if (!context) {
-    throw new Error("useAlert must be used within an AlertProvider");
+    throw new Error('useAlert must be used within an AlertProvider')
   }
-  return context;
-};
+  return context
+}
 
 interface AlertProviderProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 export const AlertProvider: React.FC<AlertProviderProps> = ({ children }) => {
   const [alert, setAlertState] = useState<IAlert>({
-    message: "",
+    message: '',
     show: false,
-    type: "danger",
-  });
+    type: 'danger',
+  })
 
-  const setAlert = (alert: IAlert) => setAlertState(alert);
+  const setAlert = (alert: IAlert) => setAlertState(alert)
 
   return (
     <AlertContext.Provider value={{ alert, setAlert }}>
       {children}
     </AlertContext.Provider>
-  );
-};
+  )
+}

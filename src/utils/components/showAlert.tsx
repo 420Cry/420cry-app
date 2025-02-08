@@ -1,9 +1,9 @@
-import { IAlert } from "@/src/types";
+import { IAlert } from '@/src/types'
 
 export const showAlert = (
-  type: "success" | "danger" | "info" | "warning",
+  type: 'success' | 'danger' | 'info' | 'warning',
   message: string,
   setAlert: (alert: IAlert) => void,
 ): void => {
-  setAlert({ show: type !== "info", type, message });
-};
+  setAlert({ show: type !== 'info', type, message })
+}

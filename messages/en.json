@@ -1,0 +1,16 @@
+{
+  "app": {
+    "appTitle": "420Crypto"
+  },
+  "header": {
+    "menu": "Menu",
+    "signUp": "Sign Up",
+    "alreadyHasAnAccount": "already has an account?"
+  },
+  "login": {
+    "login": "Login",
+    "forgotYourPassword": "forgot your password?",
+    "rememberMe": "Remember me?",
+    "doNotHaveAnAccount": "Do not have an account? Sign up here"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "app": {
+    "appTitle": "420Crypto"
+  },
+  "header": {
+    "menu": "Menu",
+    "signUp": "Đăng ký",
+    "alreadyHasAnAccount": "đã có tài khoản?"
+  },
+  "login": {
+    "login": "Đăng nhập",
+    "forgotYourPassword": "quên mật khẩu?",
+    "rememberMe": "Ghi nhớ đăng nhập?",
+    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
+  }
+}

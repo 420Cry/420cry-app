@@ -1,15 +1,17 @@
-import { IAlert, ISignIn, ISignUp } from "@/src/types";
-import { CryTextField } from "@420cry/420cry-lib";
-import { JSX } from "react";
-import { showAlert } from "./showAlert";
+import { IAlert, ISignIn, ISignUp } from '@/src/types'
+import { CryTextField } from '@420cry/420cry-lib'
+import { JSX } from 'react'
+import { showAlert } from './showAlert'
 
-export const renderTextField = <T extends { [key: string]: ISignIn | ISignUp }>(
+export const renderFormTextField = <
+  T extends { [key: string]: ISignIn | ISignUp },
+>(
   label: string,
   name: keyof T,
   value: string,
   onChange: (value: string) => void,
-  type: "text" | "password" = "text",
-  shape: "circle" | "square" | "rounded" | undefined,
+  type: 'text' | 'password' = 'text',
+  shape: 'circle' | 'square' | 'rounded' | undefined,
   toggleSlotContent?: (isVisible: boolean) => JSX.Element,
 ): JSX.Element => (
   <div className="mb-6">
@@ -23,20 +25,20 @@ export const renderTextField = <T extends { [key: string]: ISignIn | ISignUp }>(
       onChange={onChange}
       shape={shape}
       toggleSlot={
-        type === "password"
+        type === 'password'
           ? (isVisible) =>
               toggleSlotContent ? (
                 toggleSlotContent(isVisible)
               ) : (
                 <div className="px-2 py-1 text-xs rounded text-black hover:underline">
-                  {isVisible ? "Hide" : "Show"}
+                  {isVisible ? 'Hide' : 'Show'}
                 </div>
               )
           : undefined
       }
     />
   </div>
-);
+)
 
 export const formValidate = <T extends { [key: string]: string | boolean }>(
   formData: T,
@@ -45,9 +47,9 @@ export const formValidate = <T extends { [key: string]: string | boolean }>(
 ): boolean => {
   for (const validation of validations) {
     if (!validation(formData)) {
-      return false;
+      return false
     }
   }
-  showAlert("info", "", setAlert);
-  return true;
-};
+  showAlert('info', '', setAlert)
+  return true
+}

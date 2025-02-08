@@ -1,24 +1,43 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { AlertProvider } from "@/src/context/AlertContext";
-import ClientLayout from "./ClientLayout";
-import { JSX } from "react";
+import type { Metadata } from 'next'
+import './globals.css'
+import { AlertProvider } from '@/src/context/AlertContext'
+import { JSX } from 'react'
+import { getLocale, getMessages } from 'next-intl/server'
+import { ClientWrapper } from '../components'
+import { ILocaleData } from '../types'
 
 export const metadata: Metadata = {
-  title: "420Crypto",
-  description: "420Cry-app",
-};
+  title: '420Crypto',
+  description: '420Cry-app',
+}
 
-export default function RootLayout({
+export default async function asyncRootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>): JSX.Element {
+}: Readonly<{ children: React.ReactNode }>): Promise<JSX.Element> {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
+  // Get the timezone
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+  // Combine the values into a single object with the ILocaleData type
+  const localeData: ILocaleData = {
+    locale,
+    messages,
+    timeZone,
+  }
+
+  localeData.locale = 'vn'
+  // Log the combined object for debugging purposes
+  console.log('Locale Data:', localeData)
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="antialiased">
         <AlertProvider>
-          <ClientLayout>{children}</ClientLayout>
+          <ClientWrapper localeData={localeData}>{children}</ClientWrapper>
         </AlertProvider>
       </body>
     </html>
-  );
+  )
 }
