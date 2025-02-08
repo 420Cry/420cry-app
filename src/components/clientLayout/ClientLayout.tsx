@@ -1,3 +1,4 @@
+'use client'
 import { useAlert } from '@/src/context/AlertContext'
 import { ILocaleData } from '@/src/types'
 import { CryAlert } from '@420cry/420cry-lib'
