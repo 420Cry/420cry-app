@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server'
 import axios from 'axios'
 import { NextRequest } from 'next/server'
-import { PUBLIC_ROUTES, SIGN_IN_ROUTE } from './constants/routes'
-
-const API_URL = process.env.API_URL ? `http://${process.env.API_URL}` : null
+import { PUBLIC_ROUTES, SIGN_IN_ROUTE } from './lib/constants/routes'
+import { API_URL } from './types'
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl

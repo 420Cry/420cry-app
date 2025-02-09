@@ -12,7 +12,8 @@
       "allfieldsAreRequired": "All fields are required!",
       "signUpSuccessful": "Sign Up Successful!",
       "signInSuccessful": "Sign In Successful!",
-      "somethingWentWrong": "Something went wrong. Please try again later!"
+      "somethingWentWrong": "Something went wrong. Please try again later!",
+      "duplicatedUserNameOrEmail": "Email or username already exists!"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",

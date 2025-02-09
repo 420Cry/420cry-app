@@ -7,13 +7,16 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import React from 'react'
-import { renderFormTextField } from '@/src/lib'
-import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants/routes'
+import {
+  signIn,
+  renderFormTextField,
+  RESET_PASSWORD_ROUTE,
+  SIGN_UP_ROUTE,
+} from '@/src/lib'
 import { useTranslations } from 'next-intl'
 import { toast } from 'react-hot-toast'
-import { signIn } from '@/src/actions/auth'
 
-const LoginForm: React.FC = () => {
+const LogInForm: React.FC = () => {
   const t = useTranslations()
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -34,7 +37,11 @@ const LoginForm: React.FC = () => {
         </h1>
         <form onSubmit={handleSubmit}>
           {renderFormTextField(t('app.fields.username'), 'userName')}
-          {renderFormTextField(t('app.fields.password'), 'password')}
+          {renderFormTextField(
+            t('app.fields.password'),
+            'password',
+            'password',
+          )}
           <div className="flex justify-between w-full">
             <div className="text-left">
               <CryCheckBox
@@ -68,8 +75,8 @@ const LoginForm: React.FC = () => {
 
         <div className="flex flex-wrap justify-center my-6 gap-4">
           {[
-            { icon: DiscordIcon, label: 'Discord' },
             { icon: GoogleIcon, label: 'Google' },
+            { icon: DiscordIcon, label: 'Discord' },
           ].map(({ icon: Icon, label }) => (
             <CryButton key={label} className="bg-transparent w-12" circle>
               <div className="flex items-center justify-center">
@@ -91,4 +98,4 @@ const LoginForm: React.FC = () => {
   )
 }
 
-export default LoginForm
+export default LogInForm

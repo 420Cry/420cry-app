@@ -1,7 +1,7 @@
 import { AuthHeader } from '@/src/components'
 import React from 'react'
 
-const ResetPage: React.FC = () => {
+const SignUpConfirmationPage: React.FC = () => {
   return (
     <div
       className="items-center min-h-screen"
@@ -12,4 +12,4 @@ const ResetPage: React.FC = () => {
   )
 }
 
-export default ResetPage
+export default SignUpConfirmationPage

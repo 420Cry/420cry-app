@@ -4,8 +4,7 @@ import React from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
 import { toast } from 'react-hot-toast'
-import { signUp } from '@/src/actions/auth'
-import { renderFormTextField } from '@/src/lib'
+import { renderFormTextField, signUp } from '@/src/lib'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()
@@ -36,10 +35,15 @@ const SignupForm: React.FC = () => {
             </div>
           </div>
           {renderFormTextField(t('app.fields.username'), 'userName')}
-          {renderFormTextField(t('app.fields.password'), 'password')}
+          {renderFormTextField(
+            t('app.fields.password'),
+            'password',
+            'password',
+          )}
           {renderFormTextField(
             t('app.fields.repeatedPassword'),
             'repeatedPassword',
+            'password',
           )}
           <div className="flex justify-center mt-6">
             <CryButton

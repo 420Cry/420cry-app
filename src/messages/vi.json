@@ -12,7 +12,8 @@
       "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
       "signUpSuccessful": "Đăng ký thành công!",
       "signInSuccessful": "Đăng nhập thành công!",
-      "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!"
+      "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
+      "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",

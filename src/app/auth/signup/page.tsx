@@ -1,4 +1,4 @@
-import { LoginHeader, SignupForm } from '@/src/components'
+import { AuthHeader, SignUpForm } from '@/src/components'
 import React from 'react'
 
 const SignupPage: React.FC = () => {
@@ -7,8 +7,8 @@ const SignupPage: React.FC = () => {
       className="items-center min-h-screen"
       style={{ background: 'linear-gradient(to right, #F9FAFA, #02AAB0)' }}
     >
-      <LoginHeader />
-      <SignupForm />
+      <AuthHeader />
+      <SignUpForm />
     </div>
   )
 }

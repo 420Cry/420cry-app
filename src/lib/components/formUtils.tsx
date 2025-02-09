@@ -4,9 +4,9 @@ import { JSX } from 'react'
 export const renderFormTextField = <T,>(
   label: string,
   name: keyof T,
+  type: 'text' | 'password' = 'text',
   value?: string,
   onChange?: (value: string) => void,
-  type: 'text' | 'password' = 'text',
   shape: 'circle' | 'square' | 'rounded' = 'circle',
   toggleSlotContent?: (isVisible: boolean) => JSX.Element,
 ): JSX.Element => (

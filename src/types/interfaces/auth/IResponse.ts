@@ -1,4 +1,4 @@
-export interface IAuthResponse {
+export interface IResponse {
   success: boolean
   message: string
 }
