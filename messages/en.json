@@ -10,10 +10,19 @@
     },
     "alertTitle": {
       "allfieldsAreRequired": "All fields are required!",
-      "invalidEmailAddress": "Invalid email address!",
-      "passwordsDoNotMatch": "Passwords do not match!",
       "signUpSuccessful": "Sign Up Successful!",
-      "signInSuccessful": "Sign In Successful!"
+      "signInSuccessful": "Sign In Successful!",
+      "somethingWentWrong": "Something went wrong. Please try again later!"
+    },
+    "rules": {
+      "fullName": "Full Name must be at least 2 characters long!",
+      "userName": "User Name must be at least 2 characters long!",
+      "email": "Invalid email address!",
+      "passwordLength": "Password must be at least 8 characters long!",
+      "passwordLetterContain": "Password must contain at least one letter!",
+      "passwordNumberContain": "Password must contain at least one number!",
+      "passwordSpecialContain": "Password must contain at least one special character!",
+      "repeatedPassword": "Passwords don't match!"
     }
   },
   "header": {

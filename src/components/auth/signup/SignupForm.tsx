@@ -1,57 +1,23 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
-import { ISignUp, TranslateFunction } from '@/src/types'
-import {
-  renderFormTextField,
-  validateAllFieldsFilled,
-  validateEmail,
-  validatePasswordMatch,
-} from '@/src/utils'
 import { toast } from 'react-hot-toast'
-import { signUpAction } from '@/src/actions/auth'
-
-const initialFormValue: ISignUp = {
-  fullname: '',
-  email: '',
-  username: '',
-  password: '',
-  repeatedPassword: '',
-}
+import { signUp } from '@/src/actions/auth'
+import { renderFormTextField } from '@/src/lib'
 
 const SignupForm: React.FC = () => {
-  const [formValue, setFormValue] = useState<ISignUp>(initialFormValue)
   const t = useTranslations()
-
-  const updateFormState = (key: keyof ISignUp) => (value: string) =>
-    setFormValue((prev) => ({ ...prev, [key]: value }))
-
-  const validations = [
-    (data: ISignUp, t: TranslateFunction) =>
-      validateAllFieldsFilled(
-        data,
-        ['fullname', 'email', 'username', 'password', 'repeatedPassword'],
-        t,
-      ),
-    (data: ISignUp, t: TranslateFunction) => validateEmail(data, t),
-    (data: ISignUp, t: TranslateFunction) => validatePasswordMatch(data, t),
-  ]
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    for (const validation of validations) {
-      if (!validation(formValue, t)) {
-        return
-      }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.target as HTMLFormElement)
+    if ([...formData.values()].some((value) => !value)) {
+      toast.error(t('app.alertTitle.allfieldsAreRequired'))
+      return
     }
-    const result = await signUpAction(formValue)
-    if (result.success) {
-      toast.success(t(result.message))
-    } else {
-      toast.error(t(result.message))
-    }
+    const response = await signUp(formData)
+    toast[response.success ? 'success' : 'error'](t(response.message))
   }
 
   return (
@@ -63,41 +29,17 @@ const SignupForm: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
             <div className="w-full sm:w-1/2 sm:pr-4">
-              {renderFormTextField(
-                t('app.fields.fullname'),
-                'fullname',
-                formValue.fullname,
-                updateFormState('fullname'),
-              )}
+              {renderFormTextField(t('app.fields.fullname'), 'fullName')}
             </div>
             <div className="w-full sm:w-1/2">
-              {renderFormTextField(
-                t('app.fields.email'),
-                'email',
-                formValue.email,
-                updateFormState('email'),
-              )}
+              {renderFormTextField(t('app.fields.email'), 'email')}
             </div>
           </div>
-          {renderFormTextField(
-            t('app.fields.username'),
-            'username',
-            formValue.username,
-            updateFormState('username'),
-          )}
-          {renderFormTextField(
-            t('app.fields.password'),
-            'password',
-            formValue.password,
-            updateFormState('password'),
-            'password',
-          )}
+          {renderFormTextField(t('app.fields.username'), 'userName')}
+          {renderFormTextField(t('app.fields.password'), 'password')}
           {renderFormTextField(
             t('app.fields.repeatedPassword'),
             'repeatedPassword',
-            formValue.repeatedPassword,
-            updateFormState('repeatedPassword'),
-            'password',
           )}
           <div className="flex justify-center mt-6">
             <CryButton

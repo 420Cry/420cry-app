@@ -1,5 +1,3 @@
-export type { ISignUp } from './interfaces/auth/ISignUp'
-export type { ISignIn } from './interfaces/auth/ISignIn'
 export type { IAuthResponse } from './interfaces/auth/IAuthResponse'
 export type { IUser } from './interfaces/user/IUser'
 export type { ILocaleData } from './interfaces/locale/ILocaleData'

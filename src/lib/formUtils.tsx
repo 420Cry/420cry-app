@@ -1,14 +1,11 @@
-import { ISignIn, ISignUp } from '@/src/types'
 import { CryTextField } from '@420cry/420cry-lib'
 import { JSX } from 'react'
 
-export const renderFormTextField = <
-  T extends { [key: string]: ISignIn | ISignUp },
->(
+export const renderFormTextField = <T,>(
   label: string,
   name: keyof T,
-  value: string,
-  onChange: (value: string) => void,
+  value?: string,
+  onChange?: (value: string) => void,
   type: 'text' | 'password' = 'text',
   shape: 'circle' | 'square' | 'rounded' = 'circle',
   toggleSlotContent?: (isVisible: boolean) => JSX.Element,
@@ -19,7 +16,7 @@ export const renderFormTextField = <
     </label>
     <CryTextField
       type={type}
-      modelValue={value}
+      modelValue={value || ''}
       name={name as string}
       onChange={onChange}
       shape={shape}
