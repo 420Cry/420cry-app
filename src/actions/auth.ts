@@ -15,6 +15,6 @@ export const signInAction = async (data: ISignIn): Promise<IAuthResponse> => {
   console.log(data)
   return {
     success: true,
-    message: 'app.alertTitle.signUpSuccessful',
+    message: 'app.alertTitle.signInSuccessful',
   }
 }

@@ -30,13 +30,11 @@ const SignupForm: React.FC = () => {
 
   const validations = [
     (data: ISignUp, t: TranslateFunction) =>
-      validateAllFieldsFilled(data, [
-        'fullname',
-        'email',
-        'username',
-        'password',
-        'repeatedPassword',
-      ], t),
+      validateAllFieldsFilled(
+        data,
+        ['fullname', 'email', 'username', 'password', 'repeatedPassword'],
+        t,
+      ),
     (data: ISignUp, t: TranslateFunction) => validateEmail(data, t),
     (data: ISignUp, t: TranslateFunction) => validatePasswordMatch(data, t),
   ]
