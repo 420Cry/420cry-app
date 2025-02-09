@@ -9,7 +9,7 @@ export default getRequestConfig(async () => {
   const baseLocale = ['en', 'vi'].includes(userLocale.split('-')[0])
     ? userLocale.split('-')[0]
     : 'en'
-  const messages = (await import(`../../messages/vi.json`)).default
+  const messages = (await import(`../../messages/${baseLocale}.json`)).default
 
   return {
     locale: baseLocale,
