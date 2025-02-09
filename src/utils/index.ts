@@ -1,3 +1,3 @@
-export * from './components/formUtils'
-export * from './components/showAlert'
+export * from './formUtils'
 export * from './emailRegix'
+export * from './authValidate'

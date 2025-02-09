@@ -1,4 +1,5 @@
 'use client'
+
 import {
   CryButton,
   CryCheckBox,
@@ -6,11 +7,12 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import React, { useState } from 'react'
-import { useAlert } from '@/src/context/AlertContext'
-import { formValidate, showAlert, renderFormTextField } from '@/src/utils'
+import { renderFormTextField, validateAllFieldsFilled } from '@/src/utils'
 import { ISignIn } from '@/src/types'
 import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants/routes'
 import { useTranslations } from 'next-intl'
+import { toast } from 'react-hot-toast'
+import { signInAction } from '@/src/actions/auth'
 
 const initialFormValue: ISignIn = {
   username: '',
@@ -20,36 +22,24 @@ const initialFormValue: ISignIn = {
 
 const LoginForm: React.FC = () => {
   const [formValue, setFormValue] = useState<ISignIn>(initialFormValue)
-  const { setAlert } = useAlert()
   const t = useTranslations()
 
   const updateFormState = (key: keyof ISignIn) => (value: string | boolean) =>
     setFormValue((prev) => ({ ...prev, [key]: value }))
 
-  const formValidateHandler = (): boolean => {
-    const validations: Array<(data: ISignIn) => boolean> = [
-      (data) => {
-        if (!data.username || !data.password) {
-          showAlert(
-            'danger',
-            t('app.alertTitle.allfieldsAreRequired'),
-            setAlert,
-          )
-          return false
-        }
-        return true
-      },
-    ]
-
-    return formValidate(formValue, validations, setAlert)
+  const formValidate = (): boolean => {
+    return validateAllFieldsFilled(formValue, ['username', 'password'], t)
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log(formValue)
-    if (formValidateHandler()) {
-      // TODO: Login action
-      showAlert('success', t('app.alertTitle.signInSuccessful'), setAlert)
+    if (formValidate()) {
+      const result = await signInAction(formValue)
+      if (result.success) {
+        toast.success(t(result.message))
+      } else {
+        toast.error(t(result.message))
+      }
     }
   }
 

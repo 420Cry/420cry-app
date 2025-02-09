@@ -13,7 +13,7 @@
       "invalidEmailAddress": "Invalid email address!",
       "passwordsDoNotMatch": "Passwords do not match!",
       "signUpSuccessful": "Sign Up Successful!",
-      "signIpSuccessful": "Sign In Successful!"
+      "signInSuccessful": "Sign In Successful!"
     }
   },
   "header": {

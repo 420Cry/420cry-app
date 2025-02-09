@@ -1,7 +1,6 @@
-import { IAlert, ISignIn, ISignUp } from '@/src/types'
+import { ISignIn, ISignUp } from '@/src/types'
 import { CryTextField } from '@420cry/420cry-lib'
 import { JSX } from 'react'
-import { showAlert } from './showAlert'
 
 export const renderFormTextField = <
   T extends { [key: string]: ISignIn | ISignUp },
@@ -11,7 +10,7 @@ export const renderFormTextField = <
   value: string,
   onChange: (value: string) => void,
   type: 'text' | 'password' = 'text',
-  shape: 'circle' | 'square' | 'rounded' | undefined,
+  shape: 'circle' | 'square' | 'rounded' = 'circle',
   toggleSlotContent?: (isVisible: boolean) => JSX.Element,
 ): JSX.Element => (
   <div className="mb-6">
@@ -39,17 +38,3 @@ export const renderFormTextField = <
     />
   </div>
 )
-
-export const formValidate = <T extends { [key: string]: string | boolean }>(
-  formData: T,
-  validations: Array<(data: T) => boolean>,
-  setAlert: (alert: IAlert) => void,
-): boolean => {
-  for (const validation of validations) {
-    if (!validation(formData)) {
-      return false
-    }
-  }
-  showAlert('info', '', setAlert)
-  return true
-}

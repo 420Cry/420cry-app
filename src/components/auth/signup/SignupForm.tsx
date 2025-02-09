@@ -1,15 +1,17 @@
 'use client'
-import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
+
 import React, { useState } from 'react'
-import { useAlert } from '@/src/context/AlertContext'
-import { ISignUp } from '@/src/types'
-import {
-  emailRegex,
-  formValidate,
-  renderFormTextField,
-  showAlert,
-} from '@/src/utils'
 import { useTranslations } from 'next-intl'
+import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
+import { ISignUp, TranslateFunction } from '@/src/types'
+import {
+  renderFormTextField,
+  validateAllFieldsFilled,
+  validateEmail,
+  validatePasswordMatch,
+} from '@/src/utils'
+import { toast } from 'react-hot-toast'
+import { signUpAction } from '@/src/actions/auth'
 
 const initialFormValue: ISignUp = {
   fullname: '',
@@ -21,55 +23,36 @@ const initialFormValue: ISignUp = {
 
 const SignupForm: React.FC = () => {
   const [formValue, setFormValue] = useState<ISignUp>(initialFormValue)
-  const { setAlert } = useAlert()
   const t = useTranslations()
 
   const updateFormState = (key: keyof ISignUp) => (value: string) =>
     setFormValue((prev) => ({ ...prev, [key]: value }))
 
-  const formValidateHandler = (): boolean => {
-    const validations = [
-      (data: ISignUp) => {
-        if (
-          !data.fullname ||
-          !data.email ||
-          !data.username ||
-          !data.password ||
-          !data.repeatedPassword
-        ) {
-          showAlert(
-            'danger',
-            t('app.alertTitle.allfieldsAreRequired'),
-            setAlert,
-          )
-          return false
-        }
-        return true
-      },
-      (data: ISignUp) => {
-        if (!emailRegex.test(data.email)) {
-          showAlert('danger', t('app.alertTitle.invalidEmailAddress'), setAlert)
-          return false
-        }
-        return true
-      },
-      (data: ISignUp) => {
-        if (data.password !== data.repeatedPassword) {
-          showAlert('danger', t('app.alertTitle.passwordsDoNotMatch'), setAlert)
-          return false
-        }
-        return true
-      },
-    ]
+  const validations = [
+    (data: ISignUp, t: TranslateFunction) =>
+      validateAllFieldsFilled(data, [
+        'fullname',
+        'email',
+        'username',
+        'password',
+        'repeatedPassword',
+      ], t),
+    (data: ISignUp, t: TranslateFunction) => validateEmail(data, t),
+    (data: ISignUp, t: TranslateFunction) => validatePasswordMatch(data, t),
+  ]
 
-    return formValidate(formValue, validations, setAlert)
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (formValidateHandler()) {
-      // TODO: Signup action
-      showAlert('success', t('app.alertTitle.signupSuccessful'), setAlert)
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    for (const validation of validations) {
+      if (!validation(formValue, t)) {
+        return
+      }
+    }
+    const result = await signUpAction(formValue)
+    if (result.success) {
+      toast.success(t(result.message))
+    } else {
+      toast.error(t(result.message))
     }
   }
 
@@ -87,8 +70,6 @@ const SignupForm: React.FC = () => {
                 'fullname',
                 formValue.fullname,
                 updateFormState('fullname'),
-                'text',
-                'circle',
               )}
             </div>
             <div className="w-full sm:w-1/2">
@@ -97,8 +78,6 @@ const SignupForm: React.FC = () => {
                 'email',
                 formValue.email,
                 updateFormState('email'),
-                'text',
-                'circle',
               )}
             </div>
           </div>
@@ -107,8 +86,6 @@ const SignupForm: React.FC = () => {
             'username',
             formValue.username,
             updateFormState('username'),
-            'text',
-            'circle',
           )}
           {renderFormTextField(
             t('app.fields.password'),
@@ -116,7 +93,6 @@ const SignupForm: React.FC = () => {
             formValue.password,
             updateFormState('password'),
             'password',
-            'circle',
           )}
           {renderFormTextField(
             t('app.fields.repeatedPassword'),
@@ -124,28 +100,24 @@ const SignupForm: React.FC = () => {
             formValue.repeatedPassword,
             updateFormState('repeatedPassword'),
             'password',
-            'circle',
           )}
+          <div className="flex justify-center mt-6">
+            <CryButton
+              circle
+              className="bg-green-600 w-52 sm:w-60 text-white"
+              type="submit"
+            >
+              {t('signup.title')}
+            </CryButton>
+          </div>
         </form>
-        <div className="flex justify-center">
-          <CryButton
-            circle
-            className="bg-green-600 w-52 sm:w-60 text-white"
-            onClick={handleSubmit}
-          >
-            {t('signup.title')}
-          </CryButton>
-        </div>
         <div className="text-center text-sm sm:text-base mt-6 sm:mt-10 text-yellow-600">
           {t('signup.orSignInUsing')}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-6">
-          {[
-            { icon: GoogleIcon, label: 'Google' },
-            { icon: DiscordIcon, label: 'Discord' },
-          ].map(({ icon: Icon, label }) => (
+          {[GoogleIcon, DiscordIcon].map((Icon, index) => (
             <CryButton
-              key={label}
+              key={index}
               size="lg"
               className="bg-transparent w-40"
               circle
@@ -153,7 +125,7 @@ const SignupForm: React.FC = () => {
             >
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />
-                <div>{label}</div>
+                <div>{Icon === GoogleIcon ? 'Google' : 'Discord'}</div>
               </div>
             </CryButton>
           ))}

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { AlertProvider } from '@/src/context/AlertContext'
 import { JSX } from 'react'
 import { getLocale, getMessages } from 'next-intl/server'
 import { ClientLayout } from '../components'
@@ -25,9 +24,7 @@ export default async function asyncRootLayout({
   return (
     <html lang={localeData.locale}>
       <body className="antialiased">
-        <AlertProvider>
-          <ClientLayout localeData={localeData}>{children}</ClientLayout>
-        </AlertProvider>
+        <ClientLayout localeData={localeData}>{children}</ClientLayout>
       </body>
     </html>
   )
