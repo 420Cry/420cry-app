@@ -7,7 +7,7 @@ export default getRequestConfig(async () => {
   const userLocale = (await cookies()).get('locale')?.value || localeFromHeaders
   console.log('Determined Locale:', userLocale)
 
-  const baseLocale = userLocale.split('-')[0]
+  let baseLocale = userLocale.split('-')[0]
   const messages = (await import(`../../messages/${baseLocale}.json`)).default
 
   return {

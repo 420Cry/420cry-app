@@ -23,7 +23,7 @@ export default async function asyncRootLayout({
     timeZone,
   }
   return (
-    <html lang={locale}>
+    <html lang={localeData.locale}>
       <body className="antialiased">
         <AlertProvider>
           <ClientLayout localeData={localeData}>{children}</ClientLayout>

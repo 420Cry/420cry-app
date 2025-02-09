@@ -1,6 +1,13 @@
 {
   "app": {
-    "appTitle": "420Crypto"
+    "appTitle": "420Crypto",
+    "fields": {
+      "fullname": "Full name",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "repeatedPassword": "Repeated Password"
+    }
   },
   "header": {
     "menu": "Menu",
@@ -12,5 +19,9 @@
     "forgotYourPassword": "forgot your password?",
     "rememberMe": "Remember me?",
     "doNotHaveAnAccount": "Do not have an account? Sign up here"
+  },
+  "signup": {
+    "signup": "Sign Up",
+    "orSignInUsing": "Or sign up using"
   }
 }

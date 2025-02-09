@@ -9,6 +9,7 @@ import {
   renderFormTextField,
   showAlert,
 } from '@/src/utils'
+import { useTranslations } from 'next-intl'
 
 const initialFormValue: ISignUp = {
   fullname: '',
@@ -21,6 +22,7 @@ const initialFormValue: ISignUp = {
 const SignupForm: React.FC = () => {
   const [formValue, setFormValue] = useState<ISignUp>(initialFormValue)
   const { setAlert } = useAlert()
+  const t = useTranslations()
 
   const updateFormState = (key: keyof ISignUp) => (value: string) =>
     setFormValue((prev) => ({ ...prev, [key]: value }))
@@ -71,13 +73,13 @@ const SignupForm: React.FC = () => {
     <div className="flex items-center justify-center mt-16 sm:mt-24 px-4">
       <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
         <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
-          Sign Up
+          {t('signup.signup')}
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
             <div className="w-full sm:w-1/2 sm:pr-4">
               {renderFormTextField(
-                'Full Name',
+                t('app.fields.fullname'),
                 'fullname',
                 formValue.fullname,
                 updateFormState('fullname'),
@@ -87,7 +89,7 @@ const SignupForm: React.FC = () => {
             </div>
             <div className="w-full sm:w-1/2">
               {renderFormTextField(
-                'Email',
+                t('app.fields.email'),
                 'email',
                 formValue.email,
                 updateFormState('email'),
@@ -97,7 +99,7 @@ const SignupForm: React.FC = () => {
             </div>
           </div>
           {renderFormTextField(
-            'Username',
+            t('app.fields.username'),
             'username',
             formValue.username,
             updateFormState('username'),
@@ -105,7 +107,7 @@ const SignupForm: React.FC = () => {
             'circle',
           )}
           {renderFormTextField(
-            'Password',
+            t('app.fields.password'),
             'password',
             formValue.password,
             updateFormState('password'),
@@ -113,7 +115,7 @@ const SignupForm: React.FC = () => {
             'circle',
           )}
           {renderFormTextField(
-            'Repeated Password',
+            t('app.fields.repeatedPassword'),
             'repeatedPassword',
             formValue.repeatedPassword,
             updateFormState('repeatedPassword'),
@@ -127,11 +129,11 @@ const SignupForm: React.FC = () => {
             className="bg-green-600 w-52 sm:w-60 text-white"
             onClick={handleSubmit}
           >
-            Sign Up
+            {t('signup.signup')}
           </CryButton>
         </div>
         <div className="text-center text-sm sm:text-base mt-6 sm:mt-10 text-yellow-600">
-          Or sign up using
+          {t('signup.orSignInUsing')}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-6">
           {[

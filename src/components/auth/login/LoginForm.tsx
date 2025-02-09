@@ -61,7 +61,7 @@ const LoginForm: React.FC = () => {
         </h1>
         <form onSubmit={handleSubmit}>
           {renderFormTextField(
-            'Username',
+            t('app.fields.username'),
             'username',
             formValue.username,
             updateFormState('username'),
@@ -69,7 +69,7 @@ const LoginForm: React.FC = () => {
             'circle',
           )}
           {renderFormTextField(
-            'Password',
+            t('app.fields.password'),
             'password',
             formValue.password,
             updateFormState('password'),

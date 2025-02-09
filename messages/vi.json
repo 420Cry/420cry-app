@@ -1,0 +1,27 @@
+{
+  "app": {
+    "appTitle": "420Crypto",
+    "fields": {
+      "fullname": "Họ và tên",
+      "email": "Email",
+      "username": "Tên tài khoản",
+      "password": "Mật khẩu",
+      "repeatedPassword": "Mật khẩu lặp lại"
+    }
+  },
+  "header": {
+    "menu": "Menu",
+    "signUp": "Đăng ký",
+    "alreadyHasAnAccount": "đã có tài khoản?"
+  },
+  "login": {
+    "login": "Đăng nhập",
+    "forgotYourPassword": "quên mật khẩu?",
+    "rememberMe": "Ghi nhớ đăng nhập?",
+    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
+  },
+  "signup": {
+    "signup": "Đăng ký",
+    "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới"
+  }
+}
