@@ -6,7 +6,14 @@
       "email": "Email",
       "username": "Tên tài khoản",
       "password": "Mật khẩu",
-      "repeatedPassword": "Mật khẩu lặp lại"
+      "repeatedPassword": "Lặp lại mật khẩu",
+      "alertTitle": {
+        "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
+        "invalidEmailAddress": "Địa chỉ email không đúng cú pháp!",
+        "passwordsDoNotMatch": "Mật khẩu không khớp!",
+        "signUpSuccessful": "Đăng ký thành công!",
+        "signInSuccessful": "Đăng nhập thành công!"
+      }
     }
   },
   "header": {
@@ -15,13 +22,13 @@
     "alreadyHasAnAccount": "đã có tài khoản?"
   },
   "login": {
-    "login": "Đăng nhập",
+    "title": "Đăng nhập",
     "forgotYourPassword": "quên mật khẩu?",
     "rememberMe": "Ghi nhớ đăng nhập?",
     "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
   },
   "signup": {
-    "signup": "Đăng ký",
+    "title": "Đăng ký",
     "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới"
   }
 }

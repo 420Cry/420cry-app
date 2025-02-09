@@ -37,21 +37,25 @@ const SignupForm: React.FC = () => {
           !data.password ||
           !data.repeatedPassword
         ) {
-          showAlert('danger', 'All fields are required.', setAlert)
+          showAlert(
+            'danger',
+            t('app.alertTitle.allfieldsAreRequired'),
+            setAlert,
+          )
           return false
         }
         return true
       },
       (data: ISignUp) => {
         if (!emailRegex.test(data.email)) {
-          showAlert('danger', 'Invalid email address.', setAlert)
+          showAlert('danger', t('app.alertTitle.invalidEmailAddress'), setAlert)
           return false
         }
         return true
       },
       (data: ISignUp) => {
         if (data.password !== data.repeatedPassword) {
-          showAlert('danger', 'Passwords do not match.', setAlert)
+          showAlert('danger', t('app.alertTitle.passwordsDoNotMatch'), setAlert)
           return false
         }
         return true
@@ -65,7 +69,7 @@ const SignupForm: React.FC = () => {
     e.preventDefault()
     if (formValidateHandler()) {
       // TODO: Signup action
-      showAlert('success', 'Signup successful!', setAlert)
+      showAlert('success', t('app.alertTitle.signupSuccessful'), setAlert)
     }
   }
 
@@ -73,7 +77,7 @@ const SignupForm: React.FC = () => {
     <div className="flex items-center justify-center mt-16 sm:mt-24 px-4">
       <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
         <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
-          {t('signup.signup')}
+          {t('signup.title')}
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
@@ -129,7 +133,7 @@ const SignupForm: React.FC = () => {
             className="bg-green-600 w-52 sm:w-60 text-white"
             onClick={handleSubmit}
           >
-            {t('signup.signup')}
+            {t('signup.title')}
           </CryButton>
         </div>
         <div className="text-center text-sm sm:text-base mt-6 sm:mt-10 text-yellow-600">

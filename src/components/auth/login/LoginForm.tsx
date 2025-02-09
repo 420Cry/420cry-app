@@ -32,7 +32,7 @@ const LoginForm: React.FC = () => {
         if (!data.username || !data.password) {
           showAlert(
             'danger',
-            'Both username and password are required.',
+            t('app.alertTitle.allfieldsAreRequired'),
             setAlert,
           )
           return false
@@ -49,7 +49,7 @@ const LoginForm: React.FC = () => {
     console.log(formValue)
     if (formValidateHandler()) {
       // TODO: Login action
-      showAlert('success', 'Login successful!', setAlert)
+      showAlert('success', t('app.alertTitle.signInSuccessful'), setAlert)
     }
   }
 
@@ -57,7 +57,7 @@ const LoginForm: React.FC = () => {
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
       <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
         <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
-          {t('login.login')}
+          {t('login.title')}
         </h1>
         <form onSubmit={handleSubmit}>
           {renderFormTextField(
@@ -114,7 +114,7 @@ const LoginForm: React.FC = () => {
             className="bg-green-600 w-52 sm:w-60 text-white"
             onClick={handleSubmit}
           >
-            {t('login.login')}
+            {t('login.title')}
           </CryButton>
         </div>
 

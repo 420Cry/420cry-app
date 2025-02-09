@@ -7,6 +7,13 @@
       "username": "Username",
       "password": "Password",
       "repeatedPassword": "Repeated Password"
+    },
+    "alertTitle": {
+      "allfieldsAreRequired": "All fields are required!",
+      "invalidEmailAddress": "Invalid email address!",
+      "passwordsDoNotMatch": "Passwords do not match!",
+      "signUpSuccessful": "Sign Up Successful!",
+      "signIpSuccessful": "Sign In Successful!"
     }
   },
   "header": {
@@ -15,13 +22,13 @@
     "alreadyHasAnAccount": "already has an account?"
   },
   "login": {
-    "login": "Login",
+    "title": "Login",
     "forgotYourPassword": "forgot your password?",
     "rememberMe": "Remember me?",
     "doNotHaveAnAccount": "Do not have an account? Sign up here"
   },
   "signup": {
-    "signup": "Sign Up",
+    "title": "Sign Up",
     "orSignInUsing": "Or sign up using"
   }
 }
