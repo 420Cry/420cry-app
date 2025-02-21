@@ -4,10 +4,16 @@ import React from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
 import { toast } from 'react-hot-toast'
-import { renderFormTextField, signUp } from '@/src/lib'
+import { renderFormTextField, showToast } from '@/src/lib'
+import { signUp } from '@/src/services'
+import { SIGN_IN_ROUTE } from '@/src/constants'
+import { useRouter } from 'next/navigation'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()
+  const hideLabel = t('signup.showPassword')
+  const showLabel = t('signup.hidePassword')
+  const router = useRouter()
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
@@ -15,8 +21,16 @@ const SignupForm: React.FC = () => {
       toast.error(t('app.alertTitle.allfieldsAreRequired'))
       return
     }
-    const response = await signUp(formData)
-    toast[response.success ? 'success' : 'error'](t(response.message))
+    try {
+      const response = await signUp(formData)
+      showToast(response.success, t(response.message))
+
+      // Navigate to the sign-in page
+      router.push(SIGN_IN_ROUTE)
+    } catch (error) {
+      console.log(error)
+      toast.error(t('app.alertTitle.somethingWentWrong'))
+    }
   }
 
   return (
@@ -28,23 +42,36 @@ const SignupForm: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
             <div className="w-full sm:w-1/2 sm:pr-4">
-              {renderFormTextField(t('app.fields.fullname'), 'fullName')}
+              {renderFormTextField({
+                label: t('app.fields.fullname'),
+                name: 'fullName',
+              })}
             </div>
             <div className="w-full sm:w-1/2">
-              {renderFormTextField(t('app.fields.email'), 'email')}
+              {renderFormTextField({
+                label: t('app.fields.email'),
+                name: 'email',
+              })}
             </div>
           </div>
-          {renderFormTextField(t('app.fields.username'), 'userName')}
-          {renderFormTextField(
-            t('app.fields.password'),
-            'password',
-            'password',
-          )}
-          {renderFormTextField(
-            t('app.fields.repeatedPassword'),
-            'repeatedPassword',
-            'password',
-          )}
+          {renderFormTextField({
+            label: t('app.fields.username'),
+            name: 'userName',
+          })}
+          {renderFormTextField({
+            label: t('app.fields.password'),
+            name: 'password',
+            type: 'password',
+            hideLabel: hideLabel,
+            showLabel: showLabel,
+          })}
+          {renderFormTextField({
+            label: t('app.fields.repeatedPassword'),
+            name: 'repeatedPassword',
+            type: 'password',
+            hideLabel: hideLabel,
+            showLabel: showLabel,
+          })}
           <div className="flex justify-center mt-6">
             <CryButton
               circle

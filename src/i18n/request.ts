@@ -1,3 +1,4 @@
+import 'server-only'
 import { getRequestConfig } from 'next-intl/server'
 import { cookies, headers } from 'next/headers'
 

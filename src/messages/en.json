@@ -10,7 +10,7 @@
     },
     "alertTitle": {
       "allfieldsAreRequired": "All fields are required!",
-      "signUpSuccessful": "Sign Up Successful!",
+      "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
       "signInSuccessful": "Sign In Successful!",
       "somethingWentWrong": "Something went wrong. Please try again later!",
       "duplicatedUserNameOrEmail": "Email or username already exists!"
@@ -35,10 +35,14 @@
     "title": "Login",
     "forgotYourPassword": "forgot your password?",
     "rememberMe": "Remember me?",
-    "doNotHaveAnAccount": "Do not have an account? Sign up here"
+    "doNotHaveAnAccount": "Do not have an account? Sign up here",
+    "showPassword": "Show",
+    "hidePassword": "Hide"
   },
   "signup": {
     "title": "Sign Up",
-    "orSignInUsing": "Or sign up using"
+    "orSignInUsing": "Or sign up using",
+    "showPassword": "Show",
+    "hidePassword": "Hide"
   }
 }

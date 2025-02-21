@@ -10,7 +10,7 @@
     },
     "alertTitle": {
       "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
-      "signUpSuccessful": "Đăng ký thành công!",
+      "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
       "signInSuccessful": "Đăng nhập thành công!",
       "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
       "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!"
@@ -35,10 +35,14 @@
     "title": "Đăng nhập",
     "forgotYourPassword": "quên mật khẩu?",
     "rememberMe": "Ghi nhớ đăng nhập?",
-    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
+    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay",
+    "showPassword": "Hiện",
+    "hidePassword": "Ẩn"
   },
   "signup": {
     "title": "Đăng ký",
-    "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới"
+    "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
+    "showPassword": "Hiện",
+    "hidePassword": "Ẩn"
   }
 }

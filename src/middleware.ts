@@ -1,27 +1,20 @@
+import 'server-only'
 import { NextResponse } from 'next/server'
 import axios from 'axios'
 import { NextRequest } from 'next/server'
-import { PUBLIC_ROUTES, SIGN_IN_ROUTE } from './lib/constants/routes'
 import { API_URL } from './types'
+import { PUBLIC_ROUTES, SIGN_IN_ROUTE } from './constants'
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl
-
-  console.log('Middleware executed for:', pathname)
-
-  // If the user is accessing a public route, no login check is required
   if (PUBLIC_ROUTES.includes(pathname)) {
     return NextResponse.next()
   }
-
   try {
-    const testUrl = `${API_URL}/users/test`
+    const testUrl = `${API_URL}/users/test` // TODO
     console.log(`Checking login status from ${testUrl}`)
-
     const response = await axios.get(testUrl)
-
     console.log('API response:', response)
-
     if (response.status === 200 && response.data.loggedIn) {
       console.log('User is logged in, allowing navigation.')
       return NextResponse.next()

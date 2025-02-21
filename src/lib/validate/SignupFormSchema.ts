@@ -26,7 +26,7 @@ export const SignupFormSchema = z
     path: ['repeatedPassword'],
   })
 
-export function getSignUpPayLoad(formData: FormData): ISignUp {
+export function createSignUpPayLoad(formData: FormData): ISignUp {
   return {
     fullname: formData.get('fullName')?.toString() || '',
     email: formData.get('email')?.toString() || '',

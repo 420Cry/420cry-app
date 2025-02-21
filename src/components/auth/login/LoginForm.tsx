@@ -7,17 +7,16 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import React from 'react'
-import {
-  signIn,
-  renderFormTextField,
-  RESET_PASSWORD_ROUTE,
-  SIGN_UP_ROUTE,
-} from '@/src/lib'
+import { renderFormTextField, showToast } from '@/src/lib'
 import { useTranslations } from 'next-intl'
 import { toast } from 'react-hot-toast'
+import { signIn } from '@/src/services'
+import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
 
 const LogInForm: React.FC = () => {
   const t = useTranslations()
+  const hideLabel = t('login.showPassword')
+  const showLabel = t('login.hidePassword')
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
@@ -25,8 +24,12 @@ const LogInForm: React.FC = () => {
       toast.error(t('app.alertTitle.allfieldsAreRequired'))
       return
     }
-    const response = await signIn(formData)
-    toast[response.success ? 'success' : 'error'](t(response.message))
+    try {
+      const response = await signIn(formData)
+      showToast(response.success, t(response.message))
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -36,12 +39,17 @@ const LogInForm: React.FC = () => {
           {t('login.title')}
         </h1>
         <form onSubmit={handleSubmit}>
-          {renderFormTextField(t('app.fields.username'), 'userName')}
-          {renderFormTextField(
-            t('app.fields.password'),
-            'password',
-            'password',
-          )}
+          {renderFormTextField({
+            label: t('app.fields.username'),
+            name: 'userName',
+          })}
+          {renderFormTextField({
+            label: t('app.fields.password'),
+            name: 'password',
+            type: 'password',
+            hideLabel: hideLabel,
+            showLabel: showLabel,
+          })}
           <div className="flex justify-between w-full">
             <div className="text-left">
               <CryCheckBox

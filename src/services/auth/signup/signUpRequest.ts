@@ -1,19 +1,17 @@
-import { ISignUp, ISignUpResponse } from '@/src/types'
-import axios, { AxiosResponse } from 'axios'
+import { IResponse, ISignUp } from '@/src/types'
+import axios from 'axios'
 
-export async function signUpRequest<T>(
+export async function signUpRequest(
   url: string,
   body: ISignUp,
-): Promise<ISignUpResponse> {
+): Promise<IResponse> {
   try {
-    const response: AxiosResponse<T> = await axios.post(url, body, {
+    await axios.post(url, body, {
       headers: { 'Content-Type': 'application/json' },
     })
-    const token = (response.data as { token: string }).token
     return {
       success: true,
       message: 'app.alertTitle.signUpSuccessful',
-      token: token,
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {

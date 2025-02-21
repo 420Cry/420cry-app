@@ -1,7 +1,7 @@
 'use server'
 import { IResponse } from '@/src/types'
 import { z } from 'zod'
-import { SignInFormSchema } from '../../validate/SignInFormSchema'
+import { SignInFormSchema } from '../../../lib/validate/SignInFormSchema'
 
 export async function signIn(formData: FormData): Promise<IResponse> {
   const formValues = {
