@@ -24,9 +24,9 @@ const SignupForm: React.FC = () => {
     try {
       const response = await signUp(formData)
       showToast(response.success, t(response.message))
-
-      // Navigate to the sign-in page
-      router.push(SIGN_IN_ROUTE)
+      if (response.success) {
+        router.push(SIGN_IN_ROUTE)
+      }
     } catch (error) {
       console.log(error)
       toast.error(t('app.alertTitle.somethingWentWrong'))
