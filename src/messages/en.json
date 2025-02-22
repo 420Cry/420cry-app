@@ -1,0 +1,48 @@
+{
+  "app": {
+    "appTitle": "420Crypto",
+    "fields": {
+      "fullname": "Full name",
+      "email": "Email",
+      "username": "Username",
+      "password": "Password",
+      "repeatedPassword": "Repeated Password"
+    },
+    "alertTitle": {
+      "allfieldsAreRequired": "All fields are required!",
+      "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
+      "signInSuccessful": "Sign In Successful!",
+      "somethingWentWrong": "Something went wrong. Please try again later!",
+      "duplicatedUserNameOrEmail": "Email or username already exists!"
+    },
+    "rules": {
+      "fullName": "Full Name must be at least 2 characters long!",
+      "userName": "User Name must be at least 2 characters long!",
+      "email": "Invalid email address!",
+      "passwordLength": "Password must be at least 8 characters long!",
+      "passwordLetterContain": "Password must contain at least one letter!",
+      "passwordNumberContain": "Password must contain at least one number!",
+      "passwordSpecialContain": "Password must contain at least one special character!",
+      "repeatedPassword": "Passwords don't match!"
+    }
+  },
+  "header": {
+    "menu": "Menu",
+    "signUp": "Sign Up",
+    "alreadyHasAnAccount": "already has an account?"
+  },
+  "login": {
+    "title": "Login",
+    "forgotYourPassword": "forgot your password?",
+    "rememberMe": "Remember me?",
+    "doNotHaveAnAccount": "Do not have an account? Sign up here",
+    "showPassword": "Show",
+    "hidePassword": "Hide"
+  },
+  "signup": {
+    "title": "Sign Up",
+    "orSignInUsing": "Or sign up using",
+    "showPassword": "Show",
+    "hidePassword": "Hide"
+  }
+}

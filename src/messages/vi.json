@@ -1,0 +1,48 @@
+{
+  "app": {
+    "appTitle": "420Crypto",
+    "fields": {
+      "fullname": "Họ và tên",
+      "email": "Email",
+      "username": "Tên tài khoản",
+      "password": "Mật khẩu",
+      "repeatedPassword": "Lặp lại mật khẩu"
+    },
+    "alertTitle": {
+      "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
+      "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
+      "signInSuccessful": "Đăng nhập thành công!",
+      "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
+      "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!"
+    },
+    "rules": {
+      "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
+      "userName": "Tên tài khoản phải có ít nhất 2 kí tự",
+      "email": "Địa chỉ email không đúng cú pháp!",
+      "passwordLength": "Mật khẩu phải có ít nhất 8 kí tự!",
+      "passwordLetterContain": "Mật khẩu phải có ít nhất 1 chữ cái!",
+      "passwordNumberContain": "Mật khẩu phải có ít nhất 1 số!",
+      "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 kí tự dặc biệt!",
+      "repeatedPassword": "Mật khẩu không khớp!"
+    }
+  },
+  "header": {
+    "menu": "Menu",
+    "signUp": "Đăng ký",
+    "alreadyHasAnAccount": "Đã có tài khoản?"
+  },
+  "login": {
+    "title": "Đăng nhập",
+    "forgotYourPassword": "quên mật khẩu?",
+    "rememberMe": "Ghi nhớ đăng nhập?",
+    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay",
+    "showPassword": "Hiện",
+    "hidePassword": "Ẩn"
+  },
+  "signup": {
+    "title": "Đăng ký",
+    "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
+    "showPassword": "Hiện",
+    "hidePassword": "Ẩn"
+  }
+}
