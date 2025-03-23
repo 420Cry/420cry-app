@@ -22,7 +22,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies with npm
-        run: npm install
+        run: npm ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
