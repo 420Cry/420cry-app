@@ -10,12 +10,13 @@ RUN chown -R appuser:appuser /app
 # Copy the application code
 COPY . /app
 
-# Use Docker secrets to handle the GitHub token
+# Accept the GitHub token as a build argument
+ARG GITHUB_TOKEN
+
+# Configure npm to use the GitHub token
 RUN echo registry=https://registry.npmjs.org/ >> ~/.npmrc
 RUN echo @420cry:registry=https://npm.pkg.github.com/ >> ~/.npmrc
-RUN --mount=type=secret,id=github_token \
-    /bin/sh -c 'GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
-    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc'
+RUN echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc
 
 # Install project dependencies
 RUN npm install

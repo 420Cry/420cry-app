@@ -39,7 +39,7 @@ export GITHUB_TOKEN=$(gh auth token)
 ❕If you do not wish to use the GitHub CLI, you can authenticate using creating a PAT [here](https://github.com/settings/tokens) and add the token by using the following command (ensure the PAT token has the scope `read:packages`):
 
 ```bash
-export GITHUB_TOKEN=<your token>
+export GITHUB_TOKEN='your token'
 ```
 
 After authenticating you can install the dependencies using:

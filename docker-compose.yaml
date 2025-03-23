@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: ./infrastructure/docker/Dockerfile
-      secrets:
-        - github_token
+      args:
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
     restart: on-failure
     networks:
       - internal
