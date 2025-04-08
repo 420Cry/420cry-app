@@ -12,6 +12,10 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        neutralDark: '#080B1A',
+      },
+      backgroundImage: {
+        backgroundImg: "url('/backgroundImg.jpg')",
       },
     },
   },
