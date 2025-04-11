@@ -1,12 +1,9 @@
 name: Docker CI Workflow
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+permissions:
+  contents: read   # Required for accessing repository contents (read-only)
+  pull-requests: write  # Required for write access to pull requests (if applicable)
+  secrets: read    # Required for accessing secrets like GH_TOKEN
 
 permissions:
   contents: read   # Required for accessing repository contents (read-only)
