@@ -12,11 +12,6 @@ permissions:
   contents: read   # Required for accessing repository contents (read-only)
   pull-requests: write  # Required for write access to pull requests (if applicable)
 
-
-permissions:
-  contents: read   # Required for accessing repository contents (read-only)
-  pull-requests: write  # Required for write access to pull requests (if applicable)
-
 jobs:
   build:
     runs-on: ubuntu-latest
