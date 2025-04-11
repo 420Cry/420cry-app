@@ -1,16 +1,12 @@
-name: CI/CD
+name: CI Workflow
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+permissions:
+  contents: read   # Required for accessing repository contents (read-only)
+  pull-requests: write  # Required for write access to pull requests (if applicable)
 
 jobs:
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
