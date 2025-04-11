@@ -12,7 +12,13 @@ import { useTranslations } from 'next-intl'
 import { signIn } from '@/src/services'
 import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
 
-const SocialButton = ({ Icon, label }: { Icon: React.ComponentType<{ className?: string }>, label: string }) => (
+const SocialButton = ({
+  Icon,
+  label,
+}: {
+  Icon: React.ComponentType<{ className?: string }>
+  label: string
+}) => (
   <CryButton key={label} className="bg-transparent w-12" circle>
     <div className="flex items-center justify-center">
       <Icon className="h-8 w-8" />
