@@ -9,9 +9,9 @@ on:
       - main
 
 permissions:
-  contents: read   # Required for accessing repository contents (read-only)
-  pull-requests: write  # Required for write access to pull requests (if applicable)
-  secrets: read    # Required for accessing secrets like GH_TOKEN
+  contents: read
+  pull-requests: write
+  secrets: read
 
 jobs:
   build:
@@ -26,11 +26,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      # Enable BuildKit for Docker
+      # Enable Docker BuildKit
       - name: Enable Docker BuildKit
         run: echo "DOCKER_BUILDKIT=1" >> $GITHUB_ENV
 
-      # Save the secret token to /tmp/github_token.txt
+      # Authenticate Docker to GitHub Container Registry
+      - name: Authenticate Docker to GitHub Container Registry
+        run: echo "${{ secrets.GH_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      # Save GitHub Token to file
       - name: Save GitHub Token to file
         run: echo "${{ secrets.GH_TOKEN }}" > /tmp/github_token.txt
 
