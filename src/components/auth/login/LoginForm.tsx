@@ -7,21 +7,29 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import React from 'react'
-import { renderFormTextField, showToast } from '@/src/lib'
+import { FormTextField, showToast } from '@/src/lib'
 import { useTranslations } from 'next-intl'
-import { toast } from 'react-hot-toast'
 import { signIn } from '@/src/services'
 import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
+
+const SocialButton = ({ Icon, label }: { Icon: React.ComponentType<{ className?: string }>, label: string }) => (
+  <CryButton key={label} className="bg-transparent w-12" circle>
+    <div className="flex items-center justify-center">
+      <Icon className="h-8 w-8" />
+    </div>
+  </CryButton>
+)
 
 const LogInForm: React.FC = () => {
   const t = useTranslations()
   const hideLabel = t('login.showPassword')
   const showLabel = t('login.hidePassword')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     if ([...formData.values()].some((value) => !value)) {
-      toast.error(t('app.alertTitle.allfieldsAreRequired'))
+      showToast(false, t('app.alertTitle.allfieldsAreRequired'))
       return
     }
     try {
@@ -29,6 +37,7 @@ const LogInForm: React.FC = () => {
       showToast(response.success, t(response.message))
     } catch (error) {
       console.log(error)
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
 
@@ -39,17 +48,14 @@ const LogInForm: React.FC = () => {
           {t('login.title')}
         </h1>
         <form onSubmit={handleSubmit}>
-          {renderFormTextField({
-            label: t('app.fields.username'),
-            name: 'userName',
-          })}
-          {renderFormTextField({
-            label: t('app.fields.password'),
-            name: 'password',
-            type: 'password',
-            hideLabel: hideLabel,
-            showLabel: showLabel,
-          })}
+          <FormTextField label={t('app.fields.username')} name="userName" />
+          <FormTextField
+            label={t('app.fields.password')}
+            name="password"
+            type="password"
+            hideLabel={hideLabel}
+            showLabel={showLabel}
+          />
           <div className="flex justify-between w-full">
             <div className="text-left">
               <CryCheckBox
@@ -85,12 +91,8 @@ const LogInForm: React.FC = () => {
           {[
             { icon: GoogleIcon, label: 'Google' },
             { icon: DiscordIcon, label: 'Discord' },
-          ].map(({ icon: Icon, label }) => (
-            <CryButton key={label} className="bg-transparent w-12" circle>
-              <div className="flex items-center justify-center">
-                <Icon className="h-8 w-8" />
-              </div>
-            </CryButton>
+          ].map(({ icon, label }) => (
+            <SocialButton key={label} Icon={icon} label={label} />
           ))}
         </div>
         <div className="text-center sm:text-base sm:mt-4">
