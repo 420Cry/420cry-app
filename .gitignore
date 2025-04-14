@@ -22,3 +22,4 @@
 
 # snyk
 .dccache
+snyk-code.sarif

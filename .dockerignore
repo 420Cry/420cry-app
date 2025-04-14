@@ -8,3 +8,4 @@ out/
 .gitignore
 .npmrc
 .dccache
+snyk-code.sarif
