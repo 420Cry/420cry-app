@@ -29,7 +29,7 @@ jobs:
 
       - name: Snyk Code test (SARIF output)
         run: |
-          snyk code test --sarif > snyk-code.sarif || echo '{"version": "2.1.0", "runs": [{"tool": {"driver": {"name": "SnykCode", "version": "1.0.0"}}}]}'> snyk-code.sarif
+          snyk code test --sarif > snyk-code.sarif || echo '{"version": "2.1.0", "runs": [{"tool": {"driver": {"name": "SnykCode", "version": "1.0.0"}}, "results": []}]}' > snyk-code.sarif
           file snyk-code.sarif
           cat snyk-code.sarif
 
