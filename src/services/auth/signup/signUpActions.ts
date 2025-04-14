@@ -6,7 +6,6 @@ import {
   SignupFormSchema,
 } from '../../../lib/validate/SignupFormSchema'
 import { z } from 'zod'
-import { createResponse } from '@/src/lib'
 
 export async function signUp(formData: FormData): Promise<IResponse> {
   const formValues = extractSignUpFormValues(formData)
@@ -34,7 +33,13 @@ function extractSignUpFormValues(formData: FormData) {
 function handleSignUpError(error: unknown): IResponse {
   if (error instanceof z.ZodError) {
     const errorMessages = error.errors.map((e) => e.message)
-    return createResponse(false, errorMessages[0].toString())
+    return {
+      success: false,
+      message: errorMessages[0].toString(),
+    }
   }
-  return createResponse(false, 'app.alertTitle.somethingWentWrong')
+  return {
+    success: false,
+    message: 'app.alertTitle.somethingWentWrong',
+  }
 }
