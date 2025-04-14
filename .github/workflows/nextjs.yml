@@ -13,6 +13,7 @@ permissions:
   pull-requests: write 
   packages: read
   security-events: write
+  pages: write
 
 concurrency:
   group: "pages"
