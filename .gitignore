@@ -19,3 +19,7 @@
 
 # env files
 .env
+
+# snyk
+.dccache
+snyk-code.sarif
