@@ -9,15 +9,11 @@ on:
       - main
 
 permissions:
-  contents: read 
-  pull-requests: write 
+  contents: read
+  pull-requests: write
   packages: read
   security-events: write
   pages: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -31,12 +27,6 @@ jobs:
         with:
           node-version: "20"
           cache: npm
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        with:
-          static_site_generator: next
-          enablement: true
 
       - name: Restore cache
         uses: actions/cache@v4
