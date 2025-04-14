@@ -1,0 +1,58 @@
+name: Snyk Security
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  snyk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+      actions: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Set up Snyk CLI
+        uses: snyk/actions/setup@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # 📄 Snyk Code (SAST)
+      - name: Snyk Code test
+        run: snyk code test --sarif > snyk-code.sarif
+
+      # 📦 Snyk Open Source (SCA)
+      - name: Snyk Open Source monitor
+        run: snyk monitor --all-projects
+
+      # ⚙️ Snyk Infrastructure as Code (IaC)
+      - name: Snyk IaC test and report
+        run: snyk iac test --report
+
+      # 🐳 Build the Docker image
+      - name: Build Docker image for Snyk testing
+        run: docker build -t next_app -f infrastructure/docker/Dockerfile .
+
+      # 🔐 Snyk Container (image and base OS vulnerabilities)
+      - name: Snyk Container monitor
+        run: snyk container monitor next_app --file=infrastructure/docker/Dockerfile
+
+      # 🛡 Upload SARIF to GitHub Security tab
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk-code.sarif
