@@ -20,5 +20,11 @@
 # env files
 .env
 
+
 # history
 .history
+
+# snyk
+.dccache
+snyk-code.sarif
+

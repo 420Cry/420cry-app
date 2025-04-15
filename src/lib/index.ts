@@ -1,5 +1,4 @@
-export * from './components/auth/formUtils'
-export * from './components/toast/toastUtils'
-export * from './auth/authResponse'
+export * from './componentUtils/form/formUtils'
+export * from './componentUtils/notifications/toastUtils'
 export * from './validate/SignInFormSchema'
 export * from './validate/SignupFormSchema'

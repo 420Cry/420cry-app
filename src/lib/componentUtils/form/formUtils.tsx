@@ -1,7 +1,7 @@
 import { CryTextField } from '@420cry/420cry-lib'
 import { JSX } from 'react'
 
-export const renderFormTextField = <T,>({
+export const FormTextField = <T,>({
   label,
   name,
   type = 'text',
