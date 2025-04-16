@@ -23,9 +23,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          npm install
+        run: npm install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Snyk CLI
         run: npm install -g snyk
