@@ -9,8 +9,8 @@ on:
       - main
 
 permissions:
-  contents: read 
-  pull-requests: write 
+  contents: read
+  pull-requests: write
   packages: read
   security-events: write
 
@@ -52,7 +52,7 @@ jobs:
           sarif_file: snyk-code.sarif
 
       - name: Snyk Open Source (SCA)
-        run: snyk monitor --all-projects || true
+        run: snyk monitor --all-projects || echo "Snyk SCA scan failed, but continuing."
 
       - name: Snyk Infrastructure as Code (IaC)
-        run: snyk iac test --report || true
+        run: snyk iac test --report || echo "Snyk IaC test failed, but continuing."
