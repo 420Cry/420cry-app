@@ -9,8 +9,8 @@ import {
 import React from 'react'
 import { FormTextField, showToast } from '@/src/lib'
 import { useTranslations } from 'next-intl'
-import { signIn } from '@/src/services'
 import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
+import { SignInService } from '@/src/services/auth/signin/SignInService'
 
 const SocialButton = ({
   Icon,
@@ -39,7 +39,7 @@ const LogInForm: React.FC = () => {
       return
     }
     try {
-      const response = await signIn(formData)
+      const response = await SignInService.signInAction(formData)
       showToast(response.success, t(response.message))
     } catch (error) {
       console.log(error)

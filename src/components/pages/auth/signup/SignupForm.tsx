@@ -4,9 +4,9 @@ import React from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
 import { FormTextField, showToast } from '@/src/lib'
-import { signUp } from '@/src/services'
 import { SIGN_IN_ROUTE } from '@/src/constants'
 import { useRouter } from 'next/navigation'
+import { SignUpService } from '@/src/services/auth/signup/SignUpService'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()
@@ -26,7 +26,7 @@ const SignupForm: React.FC = () => {
       return
     }
     try {
-      const response = await signUp(formData)
+      const response = await SignUpService.signUpAction(formData)
       showToast(response.success, t(response.message))
       if (response.success) {
         router.push(SIGN_IN_ROUTE)
