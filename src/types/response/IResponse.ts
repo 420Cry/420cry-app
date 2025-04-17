@@ -1,4 +1,4 @@
 export interface IResponse {
-  success: boolean
+  isSuccess: boolean
   message: string
 }

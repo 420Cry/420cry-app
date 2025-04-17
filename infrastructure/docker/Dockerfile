@@ -1,14 +1,16 @@
-FROM node:20.13.1-alpine3.18
+FROM node:20.13.1-slim
 
 # Set the working directory
 WORKDIR /app
 
 # Create a non-root user and set ownership for the app directory
-RUN adduser -D appuser
-RUN chown -R appuser:appuser /app
+RUN adduser --disabled-password --gecos '' appuser && chown -R appuser:appuser /app
 
 # Copy the application code
 COPY . /app
+
+# Install build tools (optional but helps with native builds)
+RUN apt-get update && apt-get install -y build-essential python3 && rm -rf /var/lib/apt/lists/*
 
 # Use Docker secrets to handle the GitHub token
 RUN echo registry=https://registry.npmjs.org/ >> ~/.npmrc
@@ -30,4 +32,4 @@ EXPOSE 3000
 USER appuser
 
 # Start the Next.js application
-CMD ["sh", "-c", "npm run build && npm run start"]
+CMD ["npm", "start"]

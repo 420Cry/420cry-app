@@ -10,19 +10,22 @@ export const metadata: Metadata = {
   description: '420Cry-app',
 }
 
-export default async function asyncRootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>): Promise<JSX.Element> {
-  const locale = await getLocale()
-  const messages = await getMessages()
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+}: {
+  readonly children: React.ReactNode
+}): Promise<JSX.Element> {
+  const [locale, messages] = await Promise.all([getLocale(), getMessages()])
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions()
+
   const localeData: ILocaleData = {
     locale,
     messages,
     timeZone,
   }
+
   return (
-    <html lang={localeData.locale}>
+    <html lang={locale}>
       <body className="antialiased">
         <ClientLayout localeData={localeData}>{children}</ClientLayout>
       </body>

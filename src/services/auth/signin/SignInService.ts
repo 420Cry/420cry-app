@@ -13,20 +13,20 @@ export const SignInService = {
     try {
       SignInFormSchema.parse(formValues)
       return {
-        success: true,
+        isSuccess: true,
         message: 'app.alertTitle.signInSuccessful',
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessages = error.errors.map((e) => e.message)
         return {
-          success: false,
+          isSuccess: false,
           message: errorMessages[0].toString(),
         }
       }
 
       return {
-        success: false,
+        isSuccess: false,
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
