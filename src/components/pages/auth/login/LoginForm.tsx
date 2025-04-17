@@ -10,7 +10,7 @@ import {
 import React from 'react'
 import { showToast } from '@/src/lib'
 import { useTranslations } from 'next-intl'
-import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
+import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/lib/constants/routes'
 import { SignInService } from '@/src/services/auth/signin/SignInService'
 
 const SocialButton = ({

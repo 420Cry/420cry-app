@@ -2,9 +2,10 @@ import 'server-only'
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
 import { MiddlewareService } from '@/src/services/middleware/MiddlewareService'
-import { PUBLIC_ROUTES } from './constants'
+import { PUBLIC_ROUTES } from './lib'
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
+  // TODO
   const { pathname } = req.nextUrl
 
   // Skip public routes

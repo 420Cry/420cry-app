@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export class RequestService {
-  static async post<T>(
+  public static async post<T>(
     url: string,
     data?: T,
     config?: AxiosRequestConfig,
@@ -9,14 +9,14 @@ export class RequestService {
     return axios.post<T>(url, data, config)
   }
 
-  static async get<T>(
+  public static async get<T>(
     url: string,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
     return axios.get<T>(url, config)
   }
 
-  static async put<T>(
+  public static async put<T>(
     url: string,
     data?: T,
     config?: AxiosRequestConfig,
@@ -24,7 +24,7 @@ export class RequestService {
     return axios.put<T>(url, data, config)
   }
 
-  static async delete<T>(
+  public static async delete<T>(
     url: string,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {

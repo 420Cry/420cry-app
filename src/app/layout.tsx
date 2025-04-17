@@ -1,9 +1,9 @@
-import type { Metadata } from 'next'
 import './globals.css'
+import type { Metadata } from 'next'
 import { JSX } from 'react'
 import { getLocale, getMessages } from 'next-intl/server'
 import { ClientLayout } from '../components'
-import { ILocaleData } from '../types'
+import { ILocale } from '../types'
 
 export const metadata: Metadata = {
   title: '420Crypto',
@@ -18,7 +18,7 @@ export default async function RootLayout({
   const [locale, messages] = await Promise.all([getLocale(), getMessages()])
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions()
 
-  const localeData: ILocaleData = {
+  const localeData: ILocale = {
     locale,
     messages,
     timeZone,
@@ -26,7 +26,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="antialiased">
+      <body>
         <ClientLayout localeData={localeData}>{children}</ClientLayout>
       </body>
     </html>

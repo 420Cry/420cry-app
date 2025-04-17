@@ -1,7 +1,6 @@
-import { ISignUp } from '@/src/types'
 import { z } from 'zod'
 
-export const SignupFormSchema = z
+export const SignUpFormSchema = z
   .object({
     fullName: z.string().trim().min(2, { message: 'app.rules.fullName' }),
 
@@ -25,12 +24,3 @@ export const SignupFormSchema = z
     message: 'app.rules.repeatedPassword',
     path: ['repeatedPassword'],
   })
-
-export function createSignUpPayLoad(formData: FormData): ISignUp {
-  return {
-    fullname: formData.get('fullName')?.toString() || '',
-    email: formData.get('email')?.toString() || '',
-    username: formData.get('userName')?.toString() || '',
-    password: formData.get('password')?.toString() || '',
-  }
-}
