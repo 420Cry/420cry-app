@@ -1,5 +1,4 @@
 import { z } from 'zod'
-
 export const SignUpFormSchema = z
   .object({
     fullName: z.string().trim().min(2, { message: 'app.rules.fullName' }),
