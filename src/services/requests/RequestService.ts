@@ -1,3 +1,4 @@
+'server-only'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export class RequestService {

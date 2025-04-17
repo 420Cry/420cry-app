@@ -1,3 +1,4 @@
+'server-only'
 import { IResponse } from '@/src/types'
 import { z } from 'zod'
 import { SignInFormSchema } from '../../../lib/validation/SignInFormSchema'

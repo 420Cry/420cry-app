@@ -1,5 +1,5 @@
 export const API_URL = process.env.API_URL
-  ? `http://${process.env.API_URL}`
+  ? `https://${process.env.API_URL}`
   : null
 
 export const SIGN_IN_ROUTE = '/auth/login'
