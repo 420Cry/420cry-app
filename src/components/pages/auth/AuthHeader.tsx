@@ -1,13 +1,13 @@
-import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
+import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/src/lib/constants/routes'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import React from 'react'
 
 interface AuthHeaderProps {
-  signUp?: boolean
+  isSignUpButton?: boolean
 }
 
-const AuthHeader: React.FC<AuthHeaderProps> = ({ signUp = false }) => {
+const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
   const t = useTranslations()
 
   return (
@@ -22,7 +22,7 @@ const AuthHeader: React.FC<AuthHeaderProps> = ({ signUp = false }) => {
         >
           {t('header.menu')}
         </CryButton>
-        {signUp ? (
+        {isSignUpButton ? (
           <CryButton
             to={SIGN_UP_ROUTE}
             circle

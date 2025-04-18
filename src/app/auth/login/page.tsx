@@ -7,7 +7,7 @@ const LoginPage: React.FC = () => {
       className="items-center min-h-screen"
       style={{ background: 'linear-gradient(to right, #F9FAFA, #02AAB0)' }}
     >
-      <AuthHeader signUp />
+      <AuthHeader isSignUpButton />
       <LogInForm />
     </div>
   )

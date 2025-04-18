@@ -3,14 +3,15 @@
 import {
   CryButton,
   CryCheckBox,
+  CryFormTextField,
   DiscordIcon,
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import React from 'react'
-import { FormTextField, showToast } from '@/src/lib'
+import { showToast } from '@/src/lib'
 import { useTranslations } from 'next-intl'
-import { signIn } from '@/src/services'
-import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/constants'
+import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/lib/constants/routes'
+import { SignInService } from '@/src/services/auth/signin/SignInService'
 
 const SocialButton = ({
   Icon,
@@ -39,8 +40,8 @@ const LogInForm: React.FC = () => {
       return
     }
     try {
-      const response = await signIn(formData)
-      showToast(response.success, t(response.message))
+      const response = SignInService.signInAction(formData)
+      showToast(response.isSuccess, t(response.message))
     } catch (error) {
       console.log(error)
       showToast(false, t('app.alertTitle.somethingWentWrong'))
@@ -54,8 +55,8 @@ const LogInForm: React.FC = () => {
           {t('login.title')}
         </h1>
         <form onSubmit={handleSubmit}>
-          <FormTextField label={t('app.fields.username')} name="userName" />
-          <FormTextField
+          <CryFormTextField label={t('app.fields.username')} name="userName" />
+          <CryFormTextField
             label={t('app.fields.password')}
             name="password"
             type="password"
