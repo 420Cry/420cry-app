@@ -7,5 +7,3 @@ node_modules/
 out/
 .gitignore
 .npmrc
-.dccache
-snyk-code.sarif

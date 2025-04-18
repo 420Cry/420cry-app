@@ -10,8 +10,6 @@ services:
     networks:
       - internal
       - 420cry.test
-    volumes:
-      - .:/app
     ports:
       - "3000:3000"
 
@@ -24,8 +22,6 @@ services:
     networks:
       - internal
       - 420cry.test
-    volumes:
-      - .:/app
 
 networks:
   internal:
