@@ -49,10 +49,11 @@ const LogInForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
-      <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
+      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 ">
         <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
           {t('login.title')}
         </h1>
+
         <form onSubmit={handleSubmit}>
           <FormTextField label={t('app.fields.username')} name="userName" />
           <FormTextField
@@ -62,6 +63,7 @@ const LogInForm: React.FC = () => {
             hideLabel={hideLabel}
             showLabel={showLabel}
           />
+
           <div className="flex justify-between w-full">
             <div className="text-left">
               <CryCheckBox

@@ -3,7 +3,7 @@ import React from 'react'
 
 const LoginPage: React.FC = () => {
   return (
-    <div className="items-center min-h-screen ">
+    <div className="relative items-center min-h-screen ">
       <AuthHeader signUp />
       <LogInForm />
     </div>
