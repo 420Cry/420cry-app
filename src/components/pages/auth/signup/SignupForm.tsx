@@ -2,11 +2,16 @@
 
 import React from 'react'
 import { useTranslations } from 'next-intl'
-import { CryButton, GoogleIcon, DiscordIcon } from '@420cry/420cry-lib'
-import { FormTextField, showToast } from '@/src/lib'
-import { signUp } from '@/src/services'
-import { SIGN_IN_ROUTE } from '@/src/constants'
+import {
+  CryButton,
+  GoogleIcon,
+  DiscordIcon,
+  CryFormTextField,
+} from '@420cry/420cry-lib'
+import { showToast } from '@/src/lib'
+import { SIGN_IN_ROUTE } from '@/src/lib/constants/routes'
 import { useRouter } from 'next/navigation'
+import { SignUpService } from '@/src/services/auth/signup/SignUpService'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()
@@ -26,9 +31,10 @@ const SignupForm: React.FC = () => {
       return
     }
     try {
-      const response = await signUp(formData)
-      showToast(response.success, t(response.message))
-      if (response.success) {
+      const response = await SignUpService.signUpAction(formData)
+      console.log(response)
+      showToast(response.isSuccess, t(response.message))
+      if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
     } catch (error) {
@@ -46,21 +52,24 @@ const SignupForm: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
             <div className="w-full sm:w-1/2 sm:pr-4">
-              <FormTextField label={t('app.fields.fullname')} name="fullName" />
+              <CryFormTextField
+                label={t('app.fields.fullname')}
+                name="fullName"
+              />
             </div>
             <div className="w-full sm:w-1/2">
-              <FormTextField label={t('app.fields.email')} name="email" />
+              <CryFormTextField label={t('app.fields.email')} name="email" />
             </div>
           </div>
-          <FormTextField label={t('app.fields.username')} name="userName" />
-          <FormTextField
+          <CryFormTextField label={t('app.fields.username')} name="userName" />
+          <CryFormTextField
             label={t('app.fields.password')}
             name="password"
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
           />
-          <FormTextField
+          <CryFormTextField
             label={t('app.fields.repeatedPassword')}
             name="repeatedPassword"
             type="password"

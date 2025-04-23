@@ -1,33 +1,35 @@
 FROM node:20.13.1-alpine3.18
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Create a non-root user and set ownership for the app directory
+# Create a non-root user
 RUN adduser -D appuser
-RUN chown -R appuser:appuser /app
 
-# Copy the application code
-COPY . /app
+# Copy everything and set ownership
+COPY --chown=appuser:appuser . .
 
-# Use Docker secrets to handle the GitHub token
-RUN echo registry=https://registry.npmjs.org/ >> ~/.npmrc
-RUN echo @420cry:registry=https://npm.pkg.github.com/ >> ~/.npmrc
+# Set registry config for GitHub/npm
+RUN echo registry=https://registry.npmjs.org/ >> /root/.npmrc && \
+    echo @420cry:registry=https://npm.pkg.github.com/ >> /root/.npmrc
+
+# Read GitHub token from Docker secret
 RUN --mount=type=secret,id=github_token \
-    /bin/sh -c 'GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
-    echo //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN} >> ~/.npmrc'
+    sh -c 'GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
+    echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> /root/.npmrc'
 
-# Install project dependencies
-RUN npm install
+# Install and build as root
+RUN npm install && npm run build
 
-# Build the Next.js app 
-RUN npm run build
+# Fix permissions so non-root user can access everything
+RUN chown -R appuser:appuser /app && \
+    chown -R appuser:appuser .next
 
-# Expose the application's port
+# Expose port
 EXPOSE 3000
 
-# Switch to the non-root user
+# Run as non-root
 USER appuser
 
-# Start the Next.js application
-CMD ["sh", "-c", "npm run build && npm run start"]
+# Start the app (no re-build)
+CMD ["npm", "run", "start"]

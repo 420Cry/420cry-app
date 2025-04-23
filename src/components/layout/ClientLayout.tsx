@@ -1,12 +1,12 @@
 'use client'
-import { ILocaleData } from '@/src/types'
+import { ILocale } from '@/src/types'
 import { IntlProvider } from 'next-intl'
 import { JSX, ReactNode } from 'react'
 import { Toaster } from 'react-hot-toast'
 
 interface ClientLayoutProps {
   children: ReactNode
-  localeData: ILocaleData
+  localeData: ILocale
 }
 
 const ClientLayout = ({

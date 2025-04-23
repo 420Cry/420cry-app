@@ -1,11 +1,11 @@
 import { toast } from 'react-hot-toast'
 
 export function showToast(
-  success: boolean,
+  isSuccess: boolean,
   message: string,
-  duration: number = 5000,
+  duration = 5000,
 ): void {
-  toast[success ? 'success' : 'error'](message, {
+  toast[isSuccess ? 'success' : 'error'](message, {
     duration,
   })
 }
