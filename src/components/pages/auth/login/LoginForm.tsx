@@ -50,8 +50,8 @@ const LogInForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
-      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 ">
-        <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
+      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl  backdrop-blur-md border border-white/10 ">
+        <h1 className="text-center text-white text-subheader sm:text-header-sm mb-6 sm:mb-10 font-bold">
           {t('login.title')}
         </h1>
 

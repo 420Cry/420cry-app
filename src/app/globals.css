@@ -1,2 +1,6 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @config "../../tailwind.config.ts";
+
+* {
+  line-height: 24px;
+}
