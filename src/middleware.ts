@@ -1,8 +1,8 @@
 import 'server-only'
 import { NextResponse } from 'next/server'
 import { NextRequest } from 'next/server'
-import { MiddlewareService } from '@/services/middleware/MiddlewareService'
-import { PUBLIC_ROUTES } from './lib'
+import { MiddlewareService } from '@/services'
+import { PUBLIC_ROUTES } from '@/lib'
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   // TODO

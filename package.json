@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "start-dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 next start",
     "lint": "next lint",
     "lint:fix": "npx prettier --write '**/*.{js,ts,jsx,tsx,json,md}'"
   },

@@ -9,9 +9,9 @@ import {
   CryFormTextField,
 } from '@420cry/420cry-lib'
 import { showToast } from '@/lib'
-import { SIGN_IN_ROUTE } from '@/lib/constants/routes'
+import { SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { SignUpService } from '@/services/auth/signup/SignUpService'
+import { SignUpService } from '@/services'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()

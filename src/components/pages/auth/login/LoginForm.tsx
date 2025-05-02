@@ -11,7 +11,7 @@ import React from 'react'
 
 import { useTranslations } from 'next-intl'
 import { RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
-import { SignInService } from '@/services/auth/signin/SignInService'
+import { SignInService } from '@/services'
 
 const SocialButton = ({
   Icon,
