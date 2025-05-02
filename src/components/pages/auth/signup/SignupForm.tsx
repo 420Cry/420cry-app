@@ -8,10 +8,10 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast } from '@/src/lib'
-import { SIGN_IN_ROUTE } from '@/src/lib/constants/routes'
+import { showToast } from '@/lib'
+import { SIGN_IN_ROUTE } from '@/lib/constants/routes'
 import { useRouter } from 'next/navigation'
-import { SignUpService } from '@/src/services/auth/signup/SignUpService'
+import { SignUpService } from '@/services/auth/signup/SignUpService'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()

@@ -1,9 +1,9 @@
-import { IResponse, ISignUp } from '@/src/types'
+import { IResponse, ISignUp } from '@/types'
 import { z } from 'zod'
 import { AxiosError } from 'axios'
 import { RequestService } from '../../requests/RequestService'
-import { API_URL } from '@/src/lib/constants/routes'
-import { SignUpFormSchema } from '@/src/lib'
+import { API_URL } from '@/lib/constants/routes'
+import { SignUpFormSchema } from '@/lib'
 
 export const SignUpService = {
   signUpAction: async (formData: FormData): Promise<IResponse> => {

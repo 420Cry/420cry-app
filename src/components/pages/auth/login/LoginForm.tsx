@@ -8,10 +8,10 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import React from 'react'
-import { showToast } from '@/src/lib'
+
 import { useTranslations } from 'next-intl'
-import { RESET_PASSWORD_ROUTE, SIGN_UP_ROUTE } from '@/src/lib/constants/routes'
-import { SignInService } from '@/src/services/auth/signin/SignInService'
+import { RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
+import { SignInService } from '@/services/auth/signin/SignInService'
 
 const SocialButton = ({
   Icon,

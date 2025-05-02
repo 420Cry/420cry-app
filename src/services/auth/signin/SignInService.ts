@@ -1,7 +1,7 @@
 'server-only'
-import { IResponse } from '@/src/types'
 import { z } from 'zod'
 import { SignInFormSchema } from '../../../lib/validation/SignInFormSchema'
+import { IResponse } from '@/types'
 
 export const SignInService = {
   signInAction(formData: FormData): IResponse {

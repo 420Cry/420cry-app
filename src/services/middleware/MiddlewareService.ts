@@ -1,6 +1,6 @@
 'server-only'
 import { NextRequest } from 'next/server'
-import { API_URL, SIGN_IN_ROUTE } from '@/src/lib/constants/routes'
+import { API_URL, SIGN_IN_ROUTE } from '@/lib/constants/routes'
 import { NextResponse } from 'next/server'
 
 export class MiddlewareService {
