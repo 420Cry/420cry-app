@@ -18,6 +18,7 @@ export const SignUpService = {
       SignUpFormSchema.parse(formValues)
       const payload = SignUpService._createSignUpPayLoad(formData)
       const signUpUrl = `${API_URL}/users/signup`
+
       return await SignUpService._sendRequest(signUpUrl, payload)
     } catch (error) {
       return SignUpService._handleError(error)
