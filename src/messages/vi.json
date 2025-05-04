@@ -43,6 +43,15 @@
     "title": "Đăng ký",
     "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
     "showPassword": "Hiện",
-    "hidePassword": "Ẩn"
+    "hidePassword": "Ẩn",
+    "verifyEmail": {
+      "title": "Xác nhận email của bạn",
+      "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)",
+      "confirm": "Xác nhận"
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Trang bạn đang tìm kiếm không tồn tại."
   }
 }

@@ -43,6 +43,15 @@
     "title": "Sign Up",
     "orSignInUsing": "Or sign up using",
     "showPassword": "Show",
-    "hidePassword": "Hide"
+    "hidePassword": "Hide",
+    "verifyEmail": {
+      "title": "Verify your email",
+      "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)",
+      "confirm": "Confirm"
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "message": "The page you are looking for does not exist."
   }
 }
