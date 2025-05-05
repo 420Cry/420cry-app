@@ -32,7 +32,6 @@ const SignupForm: React.FC = () => {
     }
     try {
       const response = await SignUpService.signUpAction(formData)
-      console.log(response)
       showToast(response.isSuccess, t(response.message))
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)

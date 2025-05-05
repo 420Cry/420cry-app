@@ -1,5 +1,6 @@
 export * from './auth/signin/SignInService'
 export * from './auth/signup/SignUpService'
+export * from './auth/signup/VerifyAccountTokenService'
 export * from './auth/signup/VerifyEmailTokenService'
 export * from './middleware/MiddlewareService'
 export * from './requests/RequestService'

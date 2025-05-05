@@ -13,7 +13,12 @@
       "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
       "signInSuccessful": "Sign In Successful!",
       "somethingWentWrong": "Something went wrong. Please try again later!",
-      "duplicatedUserNameOrEmail": "Email or username already exists!"
+      "duplicatedUserNameOrEmail": "Email or username already exists!",
+      "invalidOrExpiredToken": "Invalid or expired token",
+      "validToken": "Valid token",
+      "invalidToken": "Invalid token",
+      "emailVerifiedSuccessfully": "Email verified successfully",
+      "emailVerificationFailed": "Email verification failed"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -49,9 +54,5 @@
       "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)",
       "confirm": "Confirm"
     }
-  },
-  "notFound": {
-    "title": "404",
-    "message": "The page you are looking for does not exist."
   }
 }

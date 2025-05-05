@@ -3,9 +3,9 @@ import { AxiosError } from 'axios'
 import { API_URL } from '@/lib'
 import { RequestService } from '@/services'
 
-export const VerifyEmailTokenService = {
+export const VerifyAccountTokenService = {
   verifyToken: async (token: string): Promise<IResponse> => {
-    const verifyUrl = `${API_URL}/users/verify-email-token`
+    const verifyUrl = `${API_URL}/users/verify-account-token`
     try {
       const response = await RequestService.post(
         verifyUrl,
@@ -16,13 +16,13 @@ export const VerifyEmailTokenService = {
       if (response.status === 200) {
         return {
           isSuccess: true,
-          message: 'app.alertTitle.emailVerifiedSuccessfully',
+          message: 'app.alertTitle.validToken',
         }
       }
 
       return {
         isSuccess: false,
-        message: 'app.alertTitle.emailVerificationFailed',
+        message: 'app.alertTitle.invalidToken',
       }
     } catch (e) {
       if (e instanceof AxiosError) {

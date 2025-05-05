@@ -4,9 +4,13 @@ import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
 import { IVerificationCode } from '@/types'
+import { VerifyEmailTokenService } from '@/services'
+import { showToast, SIGN_IN_ROUTE } from '@/lib'
+import { useRouter } from 'next/navigation'
 
 const VerifyEmailForm: React.FC = () => {
   const t = useTranslations()
+  const router = useRouter()
 
   const [code, setCode] = useState<IVerificationCode>({
     firstCode: '',
@@ -17,14 +21,7 @@ const VerifyEmailForm: React.FC = () => {
     sixthCode: '',
   })
 
-  const handleChange = (key: keyof IVerificationCode, value: string) => {
-    const char = value.slice(0, 1)
-
-    setCode((prev) => ({
-      ...prev,
-      [key]: char,
-    }))
-  }
+  const [loading, setLoading] = useState(false)
 
   const codeKeys: (keyof IVerificationCode)[] = [
     'firstCode',
@@ -34,6 +31,49 @@ const VerifyEmailForm: React.FC = () => {
     'fifthCode',
     'sixthCode',
   ]
+
+  const handleChange = (key: keyof IVerificationCode, value: string) => {
+    const char = value.trim().slice(0, 1)
+
+    setCode((prev) => ({
+      ...prev,
+      [key]: char,
+    }))
+  }
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const paste = e.clipboardData.getData('text').slice(0, 6).replace(/\s/g, '')
+
+    const newCode: Partial<IVerificationCode> = {}
+    paste.split('').forEach((char, idx) => {
+      const key = codeKeys[idx]
+      if (key) {
+        newCode[key] = char
+      }
+    })
+
+    setCode((prev) => ({
+      ...prev,
+      ...newCode,
+    }))
+  }
+
+  const handleConfirm = async () => {
+    setLoading(true)
+    const token = Object.values(code).join('')
+    try {
+      const response = await VerifyEmailTokenService.verifyToken(token)
+      showToast(response.isSuccess, t(response.message))
+      if (response.isSuccess) {
+        router.push(SIGN_IN_ROUTE)
+      }
+    } catch (error) {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-24 px-4">
@@ -55,13 +95,20 @@ const VerifyEmailForm: React.FC = () => {
               key={key}
               value={code[key]}
               onChange={(e) => handleChange(key, e.target.value)}
-              borderColor="default"
+              onPaste={handlePaste}
+              borderColor={code[key] ? 'success' : 'default'}
             />
           ))}
         </div>
 
         <div className="flex justify-center mt-6">
-          <CryButton color="success" className="w-1/3" circle>
+          <CryButton
+            color="success"
+            className="w-1/3"
+            circle
+            onClick={handleConfirm}
+            disabled={loading}
+          >
             {t('signup.verifyEmail.confirm')}
           </CryButton>
         </div>

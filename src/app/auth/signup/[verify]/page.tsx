@@ -1,38 +1,46 @@
 'use client'
 
-import { AuthHeader, NotFound, VerifyEmailForm } from '@/components'
+import { AuthHeader, VerifyEmailForm } from '@/components'
 import { useSearchParams, notFound } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { VerifyEmailTokenService } from '@/services'
+import { VerifyAccountTokenService } from '@/services'
+import { useTranslations } from 'next-intl'
 
 const SignUpConfirmationPage: React.FC = () => {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
-
-  const [isVerified, setIsVerified] = useState<boolean | null>(null)
+  const t = useTranslations()
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
 
   useEffect(() => {
     if (!token) {
-      notFound()
+      setStatus('error')
+      return
     }
 
     const verifyToken = async () => {
-      console.log('Verifying token:', token)
-      const response = await VerifyEmailTokenService.verifyToken(token)
-      console.log('Token verification response:', response)
-
+      const response = await VerifyAccountTokenService.verifyToken(token)
       if (response.isSuccess) {
-        setIsVerified(true)
+        setStatus('success')
       } else {
-        notFound()
+        setStatus('error')
       }
     }
 
     verifyToken()
   }, [token])
 
-  if (isVerified === null) {
-    return <NotFound />
+  // If error (invalid token or no token), show 404 page
+  if (status === 'error') {
+    notFound()
+  }
+
+  if (status === 'loading') {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-gray-700">{t('signup.verifyEmail.title')}</p>
+      </div>
+    )
   }
 
   return (
