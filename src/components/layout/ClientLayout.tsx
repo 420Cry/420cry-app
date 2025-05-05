@@ -1,5 +1,5 @@
 'use client'
-import { ILocale } from '@/src/types'
+import { ILocale } from '@/types'
 import { IntlProvider } from 'next-intl'
 import { JSX, ReactNode } from 'react'
 import { Toaster } from 'react-hot-toast'

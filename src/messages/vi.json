@@ -13,7 +13,12 @@
       "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
       "signInSuccessful": "Đăng nhập thành công!",
       "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
-      "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!"
+      "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!",
+      "invalidOrExpiredToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
+      "validToken": "Mã xác nhận hợp lệ",
+      "invalidToken": "Mã xác nhận không hợp lệ",
+      "emailVerifiedSuccessfully": "Xác nhận email thành công",
+      "emailVerificationFailed": "Xác nhận email thất bại"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
@@ -43,6 +48,11 @@
     "title": "Đăng ký",
     "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
     "showPassword": "Hiện",
-    "hidePassword": "Ẩn"
+    "hidePassword": "Ẩn",
+    "verifyEmail": {
+      "title": "Xác nhận email của bạn",
+      "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)",
+      "confirm": "Xác nhận"
+    }
   }
 }

@@ -8,10 +8,10 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast } from '@/src/lib'
-import { SIGN_IN_ROUTE } from '@/src/lib/constants/routes'
+import { showToast } from '@/lib'
+import { SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { SignUpService } from '@/src/services/auth/signup/SignUpService'
+import { SignUpService } from '@/services'
 
 const SignupForm: React.FC = () => {
   const t = useTranslations()
@@ -32,7 +32,6 @@ const SignupForm: React.FC = () => {
     }
     try {
       const response = await SignUpService.signUpAction(formData)
-      console.log(response)
       showToast(response.isSuccess, t(response.message))
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
