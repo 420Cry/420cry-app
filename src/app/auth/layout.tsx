@@ -1,5 +1,5 @@
-import { AuthBackground } from '@/src/components'
-import { bgSelection } from '@/src/components'
+import { AuthBackground } from '@/components'
+import { bgSelection } from '@/components'
 
 const AuthLayout = ({
   children,

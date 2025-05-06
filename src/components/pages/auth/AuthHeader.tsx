@@ -1,5 +1,5 @@
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
-import darkModeLogo from '@/public/logo/CryLogo-Dark.png'
+import darkModeLogo from '@/../public/logo/CryLogo-Dark.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import React from 'react'
