@@ -1,12 +1,12 @@
 import { FlatCompat } from '@eslint/eslintrc'
 
 const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname
+  baseDirectory: import.meta.dirname,
 })
 
 const eslintConfig = [
   ...compat.config({
-    extends: ['next/core-web-vitals', 'next/typescript', 'next', 'prettier']
+    extends: ['next/core-web-vitals', 'next/typescript', 'next'],
   }),
   {
     files: ['**/*.ts', '**/*.tsx'],
@@ -22,7 +22,7 @@ const eslintConfig = [
       // TypeScript-specific rules
       '@typescript-eslint/explicit-member-accessibility': [
         'warn',
-        { accessibility: 'explicit' }
+        { accessibility: 'explicit' },
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
@@ -31,7 +31,7 @@ const eslintConfig = [
       '@typescript-eslint/no-empty-interface': 'warn',
       '@typescript-eslint/no-use-before-define': [
         'warn',
-        { functions: false, classes: true, variables: true }
+        { functions: false, classes: true, variables: true },
       ],
       '@typescript-eslint/member-ordering': [
         'warn',
@@ -47,9 +47,9 @@ const eslintConfig = [
             'constructor',
             'public-method',
             'protected-method',
-            'private-method'
-          ]
-        }
+            'private-method',
+          ],
+        },
       ],
 
       // React-specific rules
@@ -62,9 +62,9 @@ const eslintConfig = [
 
       // Miscellaneous rules
       'prefer-const': 'error',
-      'eqeqeq': 'error',
+      eqeqeq: 'error',
       'no-duplicate-imports': 'error',
-      'camelcase': 'warn',
+      camelcase: 'warn',
       'consistent-return': 'warn',
 
       // Prevent unintentional re-renders
@@ -73,10 +73,10 @@ const eslintConfig = [
       'react-hooks/exhaustive-deps': 'warn',
 
       // Code style
-      'quotes': ['warn', 'single'],
-      'semi': ['warn', 'never'],
-    }
-  }
+      quotes: ['warn', 'single'],
+      semi: ['warn', 'never'],
+    },
+  },
 ]
 
 export default eslintConfig

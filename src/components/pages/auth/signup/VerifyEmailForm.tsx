@@ -102,7 +102,7 @@ const VerifyEmailForm: React.FC = () => {
               onChange={(e) => handleChange(key, e.target.value)}
               onPaste={handlePaste}
               borderColor={
-                verificationSuccess === false && !code[key]
+                verificationSuccess === false || !code[key]
                   ? 'error'
                   : code[key]
                     ? 'success'

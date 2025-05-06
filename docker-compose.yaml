@@ -11,7 +11,7 @@ services:
       - internal
       - 420cry.test
     ports:
-      - "3000:3000"
+      - '3000:3000'
 
   nginx:
     container_name: app_web
