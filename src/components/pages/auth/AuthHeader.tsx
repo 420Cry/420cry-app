@@ -1,9 +1,10 @@
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/src/lib/constants/routes'
-import darkModeLogo from '@/public/logo/darkModeLogo.png'
+import darkModeLogo from '@/public/logo/CryLogo-Dark.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import React from 'react'
 import Image from 'next/image'
+import TextComponent from '../../text/TextComponent'
 
 interface AuthHeaderProps {
   isSignUpButton?: boolean
@@ -21,13 +22,13 @@ const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
           circle
           className="bg-transparent mb-4 sm:mb-0 text-white sm:mr-2 w-52 h-12"
         >
-          {t('header.menu')}
+          <TextComponent type="body">{t('header.menu')}</TextComponent>
         </CryButton>
         {isSignUpButton ? (
           <CryButton
             to={SIGN_UP_ROUTE}
             circle
-            className="w-52 h-12 text-green-800 sm:mr-2"
+            className="w-52 h-12 text-transparent bg-clip-text bg-gradient-to-r from-radial-left to-radial-right sm:mr-2"
             color="success"
             outlined
           >

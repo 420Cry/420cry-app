@@ -50,15 +50,20 @@ const LogInForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
-      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl  backdrop-blur-md border border-white/10 ">
+      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
         <h1 className="text-center text-white text-subheader sm:text-header-sm mb-6 sm:mb-10 font-bold">
           {t('login.title')}
         </h1>
 
         <form onSubmit={handleSubmit}>
-          <CryFormTextField label={t('app.fields.username')} name="userName" />
+          <CryFormTextField
+            label={t('app.fields.username')}
+            labelClassName="text-neutral-gray-3"
+            name="userName"
+          />
           <CryFormTextField
             label={t('app.fields.password')}
+            labelClassName="text-neutral-gray-3"
             name="password"
             type="password"
             hideLabel={hideLabel}
@@ -66,11 +71,11 @@ const LogInForm: React.FC = () => {
           />
 
           <div className="flex justify-between w-full">
-            <div className="text-left">
+            <div className="inline-flex items-center text-left">
               <CryCheckBox
                 text={t('login.rememberMe')}
                 size="sm"
-                className="!text-black"
+                className="!text-sm"
                 modelValue={false}
                 name="rememberMe"
               />

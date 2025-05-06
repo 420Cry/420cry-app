@@ -15,8 +15,8 @@ export default {
         radialLeft: '#02AAB0',
         radialRight: '#00CDAC',
         neutralDark: '#080B1A',
-        bw_3: '#CFD0D3',
-        bw_5: '#797980',
+        'neutralGray-3': '#CFD0D3',
+        'neutralGray-5': '#797980',
       },
       fontSize: {
         'header-sm': '40px',

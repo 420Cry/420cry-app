@@ -44,9 +44,9 @@ const SignupForm: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-24 px-4">
-      <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
-        <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
+    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10">
+        <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
           {t('signup.title')}
         </h1>
         <form onSubmit={handleSubmit}>
@@ -94,13 +94,15 @@ const SignupForm: React.FC = () => {
             <CryButton
               key={index}
               size="lg"
-              className="bg-transparent w-40"
+              className="bg-transparent border-green-600 w-40"
               circle
               outlined
             >
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />
-                <div>{Icon === GoogleIcon ? 'Google' : 'Discord'}</div>
+                <span className="text-white">
+                  {Icon === GoogleIcon ? 'Google' : 'Discord'}
+                </span>
               </div>
             </CryButton>
           ))}

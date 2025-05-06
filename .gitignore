@@ -24,7 +24,4 @@
 # history
 .history
 
-# snyk
-.dccache
-snyk-code.sarif
 
