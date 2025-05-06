@@ -1,34 +1,63 @@
-'server-only'
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { IApiResponse } from '@/types'
 
-export class RequestService {
-  public static async post<T>(
+export class RequestService {  
+  public static post<TResponseData, TRequestData>(
     url: string,
-    data?: T,
+    data?: TRequestData,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.post<T>(url, data, config)
+  ): Promise<IApiResponse<TResponseData>> {
+    return this.makeRequest<TResponseData, TRequestData>('post', url, data, config)
   }
 
-  public static async get<T>(
+  public static get<TResponseData>(
     url: string,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.get<T>(url, config)
+  ): Promise<IApiResponse<TResponseData>> {
+    return this.makeRequest<TResponseData>('get', url, undefined, config)
   }
 
-  public static async put<T>(
+  public static put<TResponseData, TRequestData>(
     url: string,
-    data?: T,
+    data?: TRequestData,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.put<T>(url, data, config)
+  ): Promise<IApiResponse<TResponseData>> {
+    return this.makeRequest<TResponseData, TRequestData>('put', url, data, config)
   }
 
-  public static async delete<T>(
+  public static delete<TResponseData>(
     url: string,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.delete<T>(url, config)
+  ): Promise<IApiResponse<TResponseData>> {
+    return this.makeRequest<TResponseData>('delete', url, undefined, config)
+  }
+  private static async makeRequest<TResponseData = unknown, TRequestData = unknown>(
+    method: 'post' | 'get' | 'put' | 'delete',
+    url: string,
+    data?: TRequestData,
+    config?: AxiosRequestConfig,
+  ): Promise<IApiResponse<TResponseData>> {
+    try {
+      let response: AxiosResponse<TResponseData>
+  
+      if (method === 'get' || method === 'delete') {
+        response = await axios[method]<TResponseData>(url, config)
+      } else {
+        response = await axios[method]<TResponseData>(url, data, config)
+      }
+  
+      return {
+        isSuccess: response.status === 200,
+        message: response.status === 200
+          ? 'app.alertTitle.successful'
+          : 'app.alertTitle.somethingWentWrong',
+        data: response.data,
+      }
+    } catch {
+      return {
+        isSuccess: false,
+        message: 'app.alertTitle.somethingWentWrong',
+      }
+    }
   }
 }

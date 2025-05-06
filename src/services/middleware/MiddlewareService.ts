@@ -7,7 +7,7 @@ export class MiddlewareService {
     try {
       const testUrl = `${MIDDLE_WARE_URL}/users/test`
       const response = await RequestService.get<{ loggedIn: boolean }>(testUrl)
-      return response.data.loggedIn === true
+      return response.data?.loggedIn === true
     } catch {
       return false
     }

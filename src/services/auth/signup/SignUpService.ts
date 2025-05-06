@@ -1,8 +1,7 @@
 import { IResponse, ISignUp } from '@/types'
 import { z } from 'zod'
-import { AxiosError } from 'axios'
-import { SignUpFormSchema, API_URL } from '@/lib'
-import { RequestService } from '@/services'
+import { SignUpFormSchema, SIGN_UP_URL } from '@/lib'
+import { RequestService, ErrorHandlerService } from '@/services'
 
 export const SignUpService = {
   signUpAction: async (formData: FormData): Promise<IResponse> => {
@@ -17,9 +16,7 @@ export const SignUpService = {
     try {
       SignUpFormSchema.parse(formValues)
       const payload = SignUpService._createSignUpPayLoad(formData)
-      const signUpUrl = `${API_URL}/users/signup`
-
-      return await SignUpService._sendRequest(signUpUrl, payload)
+      return await SignUpService._sendRequest(SIGN_UP_URL, payload)
     } catch (error) {
       return SignUpService._handleError(error)
     }
@@ -36,26 +33,16 @@ export const SignUpService = {
 
   _sendRequest: async (url: string, body: ISignUp): Promise<IResponse> => {
     try {
-      await RequestService.post(url, body, {
-        headers: { 'Content-Type': 'application/json' },
-      })
-      return {
-        isSuccess: true,
-        message: 'app.alertTitle.signUpSuccessful',
-      }
+      return await ErrorHandlerService.safeRequest(
+        () => RequestService.post(url, body),
+        {
+          409: 'app.alertTitle.duplicatedUserNameOrEmail',
+          
+        },
+        'app.alertTitle.signUpSuccessful'
+      )
     } catch (e) {
-      if (e instanceof AxiosError) {
-        if (e.response?.status === 409) {
-          return {
-            isSuccess: false,
-            message: 'app.alertTitle.duplicatedUserNameOrEmail',
-          }
-        }
-      }
-      return {
-        isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
-      }
+      throw e // Re-throw the error to be handled by ErrorHandlerService
     }
   },
 
