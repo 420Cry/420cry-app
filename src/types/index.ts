@@ -1,6 +1,7 @@
 export type { IResponse } from './response/IResponse'
 export type { ISignIn } from './auth/signin/ISignIn'
 export type { ISignUp } from './auth/signup/ISignUp'
+export type { IVerificationCode } from './auth/signup/IVerificationCode'
 export type { IUser } from './user/IUser'
 export type { ILocale } from './locale/ILocale'
 export type { IBackground } from './background/IBackground'

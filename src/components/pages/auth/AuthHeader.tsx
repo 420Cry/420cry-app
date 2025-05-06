@@ -1,4 +1,4 @@
-import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/src/lib/constants/routes'
+import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
 import darkModeLogo from '@/public/logo/CryLogo-Dark.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'

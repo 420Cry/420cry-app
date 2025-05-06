@@ -1,27 +1,15 @@
-'server-only'
 import { NextRequest } from 'next/server'
-import { API_URL, SIGN_IN_ROUTE } from '@/src/lib/constants/routes'
+import { MIDDLE_WARE_URL, SIGN_IN_ROUTE } from '@/lib'
 import { NextResponse } from 'next/server'
+import { RequestService } from '@/services'
 
 export class MiddlewareService {
-  // TODO AccessControl
   public static async checkLoginStatus(): Promise<boolean> {
     try {
-      const testUrl = `${API_URL}/users/test`
-      const response = await fetch(testUrl)
-
-      if (!response.ok) {
-        console.error('Failed to check login status:', response.statusText)
-        return false
-      }
-
-      const data = await response.json()
-      if (data.loggedIn) {
-        return true
-      }
-      return false
+      const testUrl = `${MIDDLE_WARE_URL}/users/test`
+      const response = await RequestService.get<{ loggedIn: boolean }>(testUrl)
+      return response.data.loggedIn === true
     } catch (error: unknown) {
-      console.error('An unexpected error occurred:', error)
       return false
     }
   }

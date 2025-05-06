@@ -1,4 +1,4 @@
-import { AuthHeader } from '@/src/components'
+import { AuthHeader } from '@/components'
 import React from 'react'
 
 const ResetPage: React.FC = () => {

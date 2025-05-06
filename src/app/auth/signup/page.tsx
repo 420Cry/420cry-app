@@ -1,4 +1,4 @@
-import { AuthHeader, SignUpForm } from '@/src/components'
+import { AuthHeader, SignUpForm } from '@/components'
 import React from 'react'
 
 const SignupPage: React.FC = () => {

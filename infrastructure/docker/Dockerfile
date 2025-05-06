@@ -32,4 +32,4 @@ EXPOSE 3000
 USER appuser
 
 # Start the app (no re-build)
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start-dev"]

@@ -1,4 +1,4 @@
-import { LogInForm, AuthHeader } from '@/src/components'
+import { AuthHeader, LogInForm } from '@/components'
 import React from 'react'
 
 const LoginPage: React.FC = () => {

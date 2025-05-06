@@ -2,8 +2,8 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { JSX } from 'react'
 import { getLocale, getMessages } from 'next-intl/server'
-import { ClientLayout } from '../components'
-import { ILocale } from '../types'
+import { ClientLayout } from '@/components'
+import { ILocale } from '@/types'
 import { Work_Sans } from 'next/font/google'
 
 export const metadata: Metadata = {
