@@ -1,16 +1,17 @@
-import { VERIFY_ACCOUNT_URL } from '@/lib'
 import { RequestService, ErrorHandlerService } from '@/services'
-import { IApiResponse } from '@/types'
+import { IResponse } from '@/types'
+import { API_URL } from '@/lib'
 
 export const VerifyAccountTokenService = {
-  verifyToken: (token: string): Promise<IApiResponse> => {
+  verifyToken: (token: string): Promise<IResponse> => {
+    const verifyUrl = `${API_URL}/users/verify-account-token`
     return ErrorHandlerService.safeRequest(
-      () => RequestService.post(VERIFY_ACCOUNT_URL, { token }),
+      () => RequestService.post(verifyUrl, { token }),
       {
         400: 'app.alertTitle.invalidOrExpiredToken',
-        401: 'app.alertTitle.unauthorizedAccountVerification',
+        404: 'app.alertTitle.accountTokenNotFound',
       },
-      'app.alertTitle.validToken'
+      'app.alertTitle.validToken',
     )
   },
 }

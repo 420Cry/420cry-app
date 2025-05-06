@@ -29,7 +29,10 @@ const eslintConfig = [
       '@typescript-eslint/no-namespace': 'warn',
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-empty-interface': 'warn',
-      '@typescript-eslint/no-use-before-define': 'warn',
+      '@typescript-eslint/no-use-before-define': [
+        'warn',
+        { functions: false, classes: true, variables: true }
+      ],
       '@typescript-eslint/member-ordering': [
         'warn',
         {
@@ -49,7 +52,7 @@ const eslintConfig = [
         }
       ],
 
-      // React specific rules
+      // React-specific rules
       'react/jsx-no-target-blank': 'warn',
       'react/no-unescaped-entities': 'warn',
 
@@ -71,7 +74,7 @@ const eslintConfig = [
 
       // Code style
       'quotes': ['warn', 'single'],
-      'semi': ['warn', 'never']
+      'semi': ['warn', 'never'],
     }
   }
 ]

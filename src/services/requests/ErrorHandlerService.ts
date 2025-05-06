@@ -1,31 +1,36 @@
-import { AxiosError } from 'axios'
-import { IApiResponse } from '@/types'
+import { AxiosError, AxiosResponse } from 'axios'
+import { IResponse } from '@/types'
 
 type FallbackMessages = Record<number, string>
 
 export class ErrorHandlerService {
   public static async safeRequest<T>(
-    request: () => Promise<IApiResponse<T>>,
+    request: () => Promise<AxiosResponse<T>>,
     fallbackMessages: FallbackMessages = {},
     successMessage = 'app.alertTitle.successful',
     defaultErrorMessage = 'app.alertTitle.somethingWentWrong',
-  ): Promise<IApiResponse<T>> {
+  ): Promise<IResponse> {
     try {
       const response = await request()
-
-      // On success → overwrite message to custom successMessage
-      if (response.isSuccess) {
+      if (response.status === 200 || response.status === 201) {
         return {
-          ...response,
+          isSuccess: true,
           message: successMessage,
         }
       }
-
-      return response
+      if (fallbackMessages[response.status]) {
+        return {
+          isSuccess: false,
+          message: fallbackMessages[response.status],
+        }
+      }
+      return {
+        isSuccess: false,
+        message: defaultErrorMessage,
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         const status = e.response?.status
-
         if (status && fallbackMessages[status]) {
           return {
             isSuccess: false,
