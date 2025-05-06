@@ -24,7 +24,7 @@ const VerifyEmailForm: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [verificationSuccess, setVerificationSuccess] = useState<
     boolean | null
-  >(null) // New state to track success
+  >(null)
 
   const codeKeys: (keyof IVerificationDigit)[] = [
     'firstDigit',
