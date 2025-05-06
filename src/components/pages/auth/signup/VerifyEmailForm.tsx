@@ -68,7 +68,7 @@ const VerifyEmailForm: React.FC = () => {
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
-    } catch (error) {
+    } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     } finally {
       setLoading(false)

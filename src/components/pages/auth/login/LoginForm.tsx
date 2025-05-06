@@ -42,8 +42,7 @@ const LogInForm: React.FC = () => {
     try {
       const response = SignInService.signInAction(formData)
       showToast(response.isSuccess, t(response.message))
-    } catch (error) {
-      console.log(error)
+    } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
