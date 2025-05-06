@@ -1,4 +1,4 @@
-import { IBackground } from '@/src/types'
+import { IBackground } from '@/types'
 // TODO: Enum replacing string in the future
 export const backgroundSelection: Record<string, IBackground> = {
   blackHoneyComb: {

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import { IBackground } from '@/src/types'
+import { IBackground } from '@/types'
 
 const AuthBackground = ({
   children,
