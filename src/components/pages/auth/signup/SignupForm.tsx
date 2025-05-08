@@ -8,8 +8,7 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast } from '@/lib'
-import { SIGN_IN_ROUTE } from '@/lib'
+import { showToast, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { SignUpService } from '@/services'
 
@@ -36,8 +35,7 @@ const SignupForm: React.FC = () => {
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
-    } catch (error) {
-      console.log(error)
+    } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }

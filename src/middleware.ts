@@ -1,15 +1,14 @@
 import 'server-only'
-import { NextResponse } from 'next/server'
-import { NextRequest } from 'next/server'
+import { NextResponse, NextRequest } from 'next/server'
 import { MiddlewareService } from '@/services'
-import { PUBLIC_ROUTES } from '@/lib'
+import { UN_AUTH_ROUTES } from '@/lib'
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   // TODO
   const { pathname } = req.nextUrl
 
-  // Skip public routes
-  if (PUBLIC_ROUTES.includes(pathname)) {
+  // Skip public routes (for un-authenticated users)
+  if (UN_AUTH_ROUTES.includes(pathname)) {
     return NextResponse.next()
   }
 
@@ -17,10 +16,8 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   const isLoggedIn = await MiddlewareService.checkLoginStatus()
 
   if (isLoggedIn) {
-    console.log('User is logged in, allowing navigation.')
     return NextResponse.next()
   } else {
-    console.log('User is not logged in, redirecting to /login.')
     return MiddlewareService.redirectToLogin(req)
   }
 }

@@ -1,8 +1,7 @@
 import { IResponse, ISignUp } from '@/types'
-import { z } from 'zod'
-import { AxiosError } from 'axios'
+import { RequestService, ErrorHandlerService } from '@/services'
 import { SignUpFormSchema, API_URL } from '@/lib'
-import { RequestService } from '@/services'
+import { z } from 'zod'
 
 export const SignUpService = {
   signUpAction: async (formData: FormData): Promise<IResponse> => {
@@ -13,13 +12,17 @@ export const SignUpService = {
       password: formData.get('password')?.toString() || '',
       repeatedPassword: formData.get('repeatedPassword')?.toString() || '',
     }
-
     try {
       SignUpFormSchema.parse(formValues)
       const payload = SignUpService._createSignUpPayLoad(formData)
       const signUpUrl = `${API_URL}/users/signup`
-
-      return await SignUpService._sendRequest(signUpUrl, payload)
+      return await ErrorHandlerService.safeRequest(
+        () => RequestService.post(signUpUrl, payload),
+        {
+          409: 'app.alertTitle.duplicatedUserNameOrEmail',
+        },
+        'app.alertTitle.signUpSuccessful',
+      )
     } catch (error) {
       return SignUpService._handleError(error)
     }
@@ -31,31 +34,6 @@ export const SignUpService = {
       email: formData.get('email')?.toString() || '',
       username: formData.get('userName')?.toString() || '',
       password: formData.get('password')?.toString() || '',
-    }
-  },
-
-  _sendRequest: async (url: string, body: ISignUp): Promise<IResponse> => {
-    try {
-      await RequestService.post(url, body, {
-        headers: { 'Content-Type': 'application/json' },
-      })
-      return {
-        isSuccess: true,
-        message: 'app.alertTitle.signUpSuccessful',
-      }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        if (e.response?.status === 409) {
-          return {
-            isSuccess: false,
-            message: 'app.alertTitle.duplicatedUserNameOrEmail',
-          }
-        }
-      }
-      return {
-        isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
-      }
     }
   },
 

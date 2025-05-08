@@ -9,6 +9,7 @@
       "repeatedPassword": "Repeated Password"
     },
     "alertTitle": {
+      "Successful": "Successful",
       "allfieldsAreRequired": "All fields are required!",
       "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
       "signInSuccessful": "Sign In Successful!",

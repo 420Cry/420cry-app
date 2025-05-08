@@ -9,6 +9,7 @@
       "repeatedPassword": "Lặp lại mật khẩu"
     },
     "alertTitle": {
+      "Successful": "Thành công",
       "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
       "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
       "signInSuccessful": "Đăng nhập thành công!",
