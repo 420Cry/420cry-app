@@ -10,7 +10,9 @@ const SignUpConfirmationPage: React.FC = () => {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
   const t = useTranslations()
-  const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
+    'loading',
+  )
 
   useEffect(() => {
     if (!token) {

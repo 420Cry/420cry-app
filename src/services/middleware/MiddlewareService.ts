@@ -1,6 +1,5 @@
-import { NextRequest } from 'next/server'
 import { MIDDLE_WARE_URL, SIGN_IN_ROUTE } from '@/lib'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { RequestService } from '@/services'
 
 export class MiddlewareService {
@@ -8,8 +7,8 @@ export class MiddlewareService {
     try {
       const testUrl = `${MIDDLE_WARE_URL}/users/test`
       const response = await RequestService.get<{ loggedIn: boolean }>(testUrl)
-      return response.data.loggedIn === true
-    } catch (error: unknown) {
+      return response.data?.loggedIn === true
+    } catch {
       return false
     }
   }
