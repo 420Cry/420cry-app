@@ -17,15 +17,7 @@ export default {
         neutralDark: '#080B1A',
         'neutralGray-3': '#CFD0D3',
         'neutralGray-5': '#797980',
-      },
-      fontSize: {
-        'header-sm': '40px',
-        'header-md': '56px',
-        'header-lg': '80px',
-        'subheader': '32px',
-        'body-sm': '14px',
-        'body-md': '20px',
-      },
+      }
     },
   },
   plugins: [],
