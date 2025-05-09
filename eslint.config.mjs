@@ -64,7 +64,7 @@ const eslintConfig = [
       'prefer-const': 'error',
       eqeqeq: 'error',
       'no-duplicate-imports': 'error',
-      camelcase: 'warn',
+      camelcase: ['warn', { allow: ['aa_bb'] }],
       'consistent-return': 'warn',
 
       // Prevent unintentional re-renders

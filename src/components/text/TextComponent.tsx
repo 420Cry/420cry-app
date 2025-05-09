@@ -14,24 +14,23 @@ const TextComponent = ({
   size = 'sm',
   className,
 }: textProps): JSX.Element => {
-
   const textClassName = classnames({
-    'text-[40px]': type == 'header' && size == 'sm',
-    'text-[56px]': type == 'header' && size == 'md',
-    'text-[80px]': type == 'header' && size == 'lg',
-    'text-[32px]': type == 'subheader',
-    'text-[14px]': type == 'body' && size == 'sm',
-    'text-[20px]': type == 'body' && size == 'md',
+    'text-[40px]': type === 'header' && size === 'sm',
+    'text-[56px]': type === 'header' && size === 'md',
+    'text-[80px]': type === 'header' && size === 'lg',
+    'text-[32px]': type === 'subheader',
+    'text-[14px]': type === 'body' && size === 'sm',
+    'text-[20px]': type === 'body' && size === 'md',
     [className ?? '']: className,
   })
 
   return (
     <>
-      {type == 'header' && <h1 className={`${textClassName}`}>{children}</h1>}
-      {type == 'subheader' && (
+      {type === 'header' && <h1 className={`${textClassName}`}>{children}</h1>}
+      {type === 'subheader' && (
         <h2 className={`${textClassName}`}>{children}</h2>
       )}
-      {type == 'body' && <p className={`${textClassName}`}>{children}</p>}
+      {type === 'body' && <p className={`${textClassName}`}>{children}</p>}
     </>
   )
 }
