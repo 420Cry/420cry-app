@@ -4,6 +4,7 @@ import { JSX } from 'react'
 import { getLocale, getMessages } from 'next-intl/server'
 import { ClientLayout } from '@/components'
 import { ILocale } from '@/types'
+// eslint-disable-next-line camelcase
 import { Work_Sans } from 'next/font/google'
 
 export const metadata: Metadata = {

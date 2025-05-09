@@ -4,4 +4,3 @@ export interface IBackground {
   backgroundName: string
   altName: string
 }
-

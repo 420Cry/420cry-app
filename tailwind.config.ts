@@ -17,7 +17,7 @@ export default {
         neutralDark: '#080B1A',
         'neutralGray-3': '#CFD0D3',
         'neutralGray-5': '#797980',
-      }
+      },
     },
   },
   plugins: [],
