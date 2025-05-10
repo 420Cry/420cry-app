@@ -49,25 +49,35 @@ const LogInForm: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
-      <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
-        <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
+      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
+        <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
           {t('login.title')}
         </h1>
+
         <form onSubmit={handleSubmit}>
-          <CryFormTextField label={t('app.fields.username')} name="userName" />
+          <CryFormTextField
+            label={t('app.fields.username')}
+            labelClassName="text-neutral-gray-3"
+            name="userName"
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+          />
           <CryFormTextField
             label={t('app.fields.password')}
+            labelClassName="text-neutral-gray-3"
             name="password"
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
+            slotClassName="text-white"
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
           />
+
           <div className="flex justify-between w-full">
-            <div className="text-left">
+            <div className="inline-flex items-center text-left">
               <CryCheckBox
                 text={t('login.rememberMe')}
                 size="sm"
-                className="!text-black"
+                className="!text-sm"
                 modelValue={false}
                 name="rememberMe"
               />

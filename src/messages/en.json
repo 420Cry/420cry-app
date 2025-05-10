@@ -39,7 +39,7 @@
   },
   "login": {
     "title": "Login",
-    "forgotYourPassword": "forgot your password?",
+    "forgotYourPassword": "Forgot your password?",
     "rememberMe": "Remember me?",
     "doNotHaveAnAccount": "Do not have an account? Sign up here",
     "showPassword": "Show",
