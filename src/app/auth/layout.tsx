@@ -1,15 +1,11 @@
-import { AuthBackground, bgSelection } from '@/components'
+import { HoneyCombBackground } from '@/components'
 
 const AuthLayout = ({
   children,
 }: {
   children: React.ReactNode
 }): React.ReactElement => {
-  const blackHoneyComb = bgSelection.blackHoneyComb
-
-  return (
-    <AuthBackground bgSelection={blackHoneyComb}>{children}</AuthBackground>
-  )
+  return <HoneyCombBackground>{children}</HoneyCombBackground>
 }
 
 export default AuthLayout

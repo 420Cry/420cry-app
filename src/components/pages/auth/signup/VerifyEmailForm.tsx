@@ -81,20 +81,20 @@ const VerifyEmailForm: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-24 px-4">
-      <div className="bg-transparent p-8 sm:p-16 w-full sm:w-5/12 rounded-2xl shadow-lg">
+    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10">
         <div className="flex justify-center mb-6">
           <VerifyAccountIcon color="white" className="h-1/4 w-1/4" />
         </div>
 
-        <h1 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
+        <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
           {t('signup.verifyEmail.title')}
         </h1>
         <p className="text-center text-base sm:text-lg text-gray-600 mb-6">
           {t('signup.verifyEmail.message')}
         </p>
 
-        <div className="flex justify-center mt-4 gap-4">
+        <div className="flex justify-center gap-4">
           {codeKeys.map((key) => (
             <CryTextBox
               key={key}
@@ -108,6 +108,7 @@ const VerifyEmailForm: React.FC = () => {
                     ? 'success'
                     : 'default'
               }
+              className="text-white"
             />
           ))}
         </div>
@@ -115,8 +116,8 @@ const VerifyEmailForm: React.FC = () => {
         <div className="flex justify-center mt-6">
           <CryButton
             color="success"
-            className="w-1/3"
-            circle
+            className="w-52 sm:w-60 text-white"
+            type="button"
             onClick={handleConfirm}
             disabled={loading}
           >

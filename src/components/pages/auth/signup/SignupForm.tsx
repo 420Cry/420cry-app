@@ -41,9 +41,9 @@ const SignupForm: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
-      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10">
-        <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
+    <div className="flex items-center justify-center px-4 py-8 mt-12">
+      <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
+        <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
           {t('signup.title')}
         </h1>
         <form onSubmit={handleSubmit}>
@@ -52,19 +52,30 @@ const SignupForm: React.FC = () => {
               <CryFormTextField
                 label={t('app.fields.fullname')}
                 name="fullName"
+                inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
               />
             </div>
             <div className="w-full sm:w-1/2">
-              <CryFormTextField label={t('app.fields.email')} name="email" />
+              <CryFormTextField
+                label={t('app.fields.email')}
+                name="email"
+                inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+              />
             </div>
           </div>
-          <CryFormTextField label={t('app.fields.username')} name="userName" />
+          <CryFormTextField
+            label={t('app.fields.username')}
+            name="userName"
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+          />
           <CryFormTextField
             label={t('app.fields.password')}
             name="password"
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            slotClassName="text-white"
           />
           <CryFormTextField
             label={t('app.fields.repeatedPassword')}
@@ -72,26 +83,29 @@ const SignupForm: React.FC = () => {
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            slotClassName="text-white"
           />
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center mt-4">
             <CryButton
               circle
-              className="bg-green-600 w-52 sm:w-60 text-white"
+              className="bg-green-600 w-44 sm:w-52 text-white"
               type="submit"
             >
               {t('signup.title')}
             </CryButton>
           </div>
         </form>
-        <div className="text-center text-sm sm:text-base mt-6 sm:mt-10 text-yellow-600">
+
+        <div className="text-center text-sm sm:text-base mt-6 text-yellow-600">
           {t('signup.orSignInUsing')}
         </div>
-        <div className="flex flex-wrap justify-center gap-4 mt-6">
+        <div className="flex flex-wrap justify-center gap-4 mt-4">
           {[GoogleIcon, DiscordIcon].map((Icon, index) => (
             <CryButton
               key={index}
               size="lg"
-              className="bg-transparent border-green-600 w-40"
+              className="bg-transparent border-green-600 w-36 sm:w-40"
               circle
               outlined
             >

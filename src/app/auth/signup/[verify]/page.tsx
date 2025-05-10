@@ -46,10 +46,7 @@ const SignUpConfirmationPage: React.FC = () => {
   }
 
   return (
-    <div
-      className="items-center min-h-screen"
-      style={{ background: 'linear-gradient(to right, #F9FAFA, #02AAB0)' }}
-    >
+    <div className="relative min-h-screen">
       <AuthHeader />
       <VerifyEmailForm />
     </div>

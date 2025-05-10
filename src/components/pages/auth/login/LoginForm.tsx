@@ -50,7 +50,7 @@ const LogInForm: React.FC = () => {
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
       <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
-        <h1 className="text-center text-white text-subheader sm:text-header-sm mb-6 sm:mb-10 font-bold">
+        <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
           {t('login.title')}
         </h1>
 
@@ -59,6 +59,7 @@ const LogInForm: React.FC = () => {
             label={t('app.fields.username')}
             labelClassName="text-neutral-gray-3"
             name="userName"
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
           />
           <CryFormTextField
             label={t('app.fields.password')}
@@ -67,6 +68,8 @@ const LogInForm: React.FC = () => {
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
+            slotClassName="text-white"
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
           />
 
           <div className="flex justify-between w-full">
