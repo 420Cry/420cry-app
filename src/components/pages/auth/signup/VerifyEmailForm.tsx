@@ -117,7 +117,7 @@ const VerifyEmailForm: React.FC = () => {
           <CryButton
             color="success"
             className="w-52 sm:w-60 text-white"
-            type="button"
+            circle
             onClick={handleConfirm}
             disabled={loading}
           >
