@@ -5,7 +5,7 @@ const ResetPage: React.FC = () => {
   return (
     <div className="relative items-center min-h-screen">
       <AuthHeader />
-      <ResetReqForm/>
+      <ResetReqForm />
     </div>
   )
 }
