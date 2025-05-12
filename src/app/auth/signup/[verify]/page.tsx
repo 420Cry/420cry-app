@@ -22,17 +22,12 @@ const SignUpConfirmationPage: React.FC = () => {
 
     const verifyToken = async () => {
       const response = await VerifyAccountTokenService.verifyToken(token)
-      if (response.isSuccess) {
-        setStatus('success')
-      } else {
-        setStatus('error')
-      }
+      setStatus(response.isSuccess ? 'success' : 'error')
     }
 
     verifyToken()
   }, [token])
 
-  // If error (invalid token or no token), show 404 page
   if (status === 'error') {
     notFound()
   }
@@ -48,7 +43,7 @@ const SignUpConfirmationPage: React.FC = () => {
   return (
     <div className="relative min-h-screen">
       <AuthHeader />
-      <VerifyEmailForm />
+      <VerifyEmailForm userToken={token!} />
     </div>
   )
 }
