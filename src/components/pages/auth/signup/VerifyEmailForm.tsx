@@ -3,70 +3,77 @@
 import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
-import { IVerificationDigit } from '@/types'
 import { VerifyEmailTokenService } from '@/services'
 import { showToast, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
 
-const VerifyEmailForm: React.FC = () => {
+export interface ISignUpVerificationToken {
+  userToken: string
+  verifyToken: string
+}
+
+const codeKeys = [
+  'firstDigit',
+  'secondDigit',
+  'thirdDigit',
+  'fourthDigit',
+  'fifthDigit',
+  'sixthDigit',
+] as const
+type CodeKeys = (typeof codeKeys)[number]
+const initialCode = codeKeys.reduce(
+  (acc, key) => ({ ...acc, [key]: '' }),
+  {} as Record<CodeKeys, string>,
+)
+
+interface VerifyEmailFormProps {
+  userToken: string
+}
+
+const VerifyEmailForm: React.FC<VerifyEmailFormProps> = ({ userToken }) => {
   const t = useTranslations()
   const router = useRouter()
 
-  const [code, setCode] = useState<IVerificationDigit>({
-    firstDigit: '',
-    secondDigit: '',
-    thirdDigit: '',
-    fourthDigit: '',
-    fifthDigit: '',
-    sixthDigit: '',
-  })
-
+  const [code, setCode] = useState(initialCode)
   const [loading, setLoading] = useState(false)
   const [verificationSuccess, setVerificationSuccess] = useState<
     boolean | null
   >(null)
 
-  const codeKeys: (keyof IVerificationDigit)[] = [
-    'firstDigit',
-    'secondDigit',
-    'thirdDigit',
-    'fourthDigit',
-    'fifthDigit',
-    'sixthDigit',
-  ]
-
-  const handleChange = (key: keyof IVerificationDigit, value: string) => {
-    const char = value.trim().slice(0, 1)
-
+  const updateCode = (key: CodeKeys, value: string) => {
     setCode((prev) => ({
       ...prev,
-      [key]: char,
+      [key]: value.trim().slice(0, 1),
     }))
   }
 
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault()
-    const paste = e.clipboardData.getData('text').slice(0, 6).replace(/\s/g, '')
+    const pasted = e.clipboardData
+      .getData('text')
+      .slice(0, 6)
+      .replace(/\s/g, '')
 
-    const newCode: Partial<IVerificationDigit> = {}
-    paste.split('').forEach((char, idx) => {
+    const newCode = { ...code }
+    pasted.split('').forEach((char, idx) => {
       const key = codeKeys[idx]
       if (key) {
         newCode[key] = char
       }
     })
 
-    setCode((prev) => ({
-      ...prev,
-      ...newCode,
-    }))
+    setCode(newCode)
   }
 
   const handleConfirm = async () => {
     setLoading(true)
-    const token = Object.values(code).join('')
+    const payload: ISignUpVerificationToken = {
+      userToken,
+      verifyToken: Object.values(code).join(''),
+    }
+
     try {
-      const response = await VerifyEmailTokenService.verifyToken(token)
+      const response = await VerifyEmailTokenService.verifyToken(payload)
       setVerificationSuccess(response.isSuccess)
       showToast(response.isSuccess, t(response.message))
       if (response.isSuccess) {
@@ -78,6 +85,12 @@ const VerifyEmailForm: React.FC = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const getBorderColor = (key: CodeKeys) => {
+    if (verificationSuccess === false || !code[key]) return 'error'
+    if (code[key]) return 'success'
+    return 'default'
   }
 
   return (
@@ -99,15 +112,9 @@ const VerifyEmailForm: React.FC = () => {
             <CryTextBox
               key={key}
               value={code[key]}
-              onChange={(e) => handleChange(key, e.target.value)}
+              onChange={(e) => updateCode(key, e.target.value)}
               onPaste={handlePaste}
-              borderColor={
-                verificationSuccess === false || !code[key]
-                  ? 'error'
-                  : code[key]
-                    ? 'success'
-                    : 'default'
-              }
+              borderColor={getBorderColor(key)}
               className="text-white"
             />
           ))}
