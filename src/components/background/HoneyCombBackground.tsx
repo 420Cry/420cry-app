@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import React, { JSX } from 'react'
+import { JSX, ReactNode } from 'react'
 
 const HoneyCombBackground = ({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }): JSX.Element => {
   return (
     <div className="relative overflow-hidden">

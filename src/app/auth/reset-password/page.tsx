@@ -1,7 +1,7 @@
 import { AuthHeader } from '@/components'
-import React from 'react'
+import { JSX } from 'react'
 
-const ResetPage: React.FC = () => {
+const ResetPage = (): JSX.Element => {
   return (
     <div
       className="items-center min-h-screen"

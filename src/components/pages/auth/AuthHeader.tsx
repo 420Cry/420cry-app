@@ -2,14 +2,16 @@ import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
 import cryApplicationLogo from '@/../public/logo/CryApplicationLogo.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import { JSX } from 'react'
 import Image from 'next/image'
 
 interface AuthHeaderProps {
   isSignUpButton?: boolean
 }
 
-const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
+const AuthHeader = ({
+  isSignUpButton = false,
+}: AuthHeaderProps): JSX.Element => {
   const t = useTranslations()
 
   return (
