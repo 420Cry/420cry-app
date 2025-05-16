@@ -1,7 +1,7 @@
 import { AuthHeader, SignUpForm } from '@/components'
-import React from 'react'
+import { JSX } from 'react'
 
-const SignupPage: React.FC = () => {
+const SignupPage = (): JSX.Element => {
   return (
     <div className="relative items-center min-h-screen ">
       <AuthHeader />
