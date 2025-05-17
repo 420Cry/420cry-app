@@ -8,9 +8,24 @@ import {
 import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
+import { fieldsRequired, showToast } from '@/lib'
+import { ResetReqService } from '@/services/auth/forgot-password/ResetReqService'
 
 const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const formData = new FormData(e.target as HTMLFormElement)
+    if (!fieldsRequired(formData, t)) return
+
+    try {
+      const response = ResetReqService.resetReqAction(formData)
+      showToast(response.isSuccess, t(response.message))
+    } catch {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+    }
+  }
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
@@ -33,7 +48,7 @@ const ResetReqForm = (): JSX.Element => {
           </div>
         </div>
 
-        <form className="w-full max-w-[500px] m-auto">
+        <form onSubmit={handleSubmit} className="w-full max-w-[500px] m-auto">
           <CryFormTextField
             label={t('app.fields.email')}
             labelClassName="text-neutral-gray-3"

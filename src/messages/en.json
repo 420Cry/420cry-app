@@ -19,7 +19,8 @@
       "validToken": "Valid token",
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
-      "emailVerificationFailed": "Email verification failed"
+      "emailVerificationFailed": "Email verification failed",
+      "resetRequest": "Please check your email and click on the link (The link is valid for 1 hour)"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -59,8 +60,7 @@
   "resetYourPassword": {
     "resetReq": {
       "title": "Forgot Your Password",
-      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!",
-      "message": "Please check your email and click on the link (The link is valid for 1 hour)"
+      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
     },
     "resetPasswordForm": {
       "title": "Reset Your Password",
