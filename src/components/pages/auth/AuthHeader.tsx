@@ -41,7 +41,7 @@ const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
           <CryButton
             to={SIGN_IN_ROUTE}
             circle
-            className="w-60 h-12 sm:mr-2 text-green-800"
+            className="w-60 h-12 sm:mr-2 bg-clip-text text-transparent bg-gradient-to-r from-radial-left to-radial-right"
             color="success"
             outlined
           >
