@@ -2,11 +2,11 @@
 
 import { AuthHeader, VerifyEmailForm } from '@/components'
 import { useSearchParams, notFound } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { VerifyAccountTokenService } from '@/services'
 import { useTranslations } from 'next-intl'
 
-const SignUpConfirmationPage: React.FC = () => {
+const SignUpConfirmationPage = (): JSX.Element => {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
   const t = useTranslations()

@@ -1,7 +1,7 @@
 import { AuthHeader, LogInForm } from '@/components'
-import React from 'react'
+import { JSX } from 'react'
 
-const LoginPage: React.FC = () => {
+const LoginPage = (): JSX.Element => {
   return (
     <div className="relative items-center min-h-screen ">
       <AuthHeader isSignUpButton />

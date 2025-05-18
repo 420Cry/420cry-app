@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import { JSX } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   CryButton,
@@ -12,7 +12,7 @@ import { showToast, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { SignUpService } from '@/services'
 
-const SignupForm: React.FC = () => {
+const SignupForm = (): JSX.Element => {
   const t = useTranslations()
   const hideLabel = t('signup.showPassword')
   const showLabel = t('signup.hidePassword')

@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { JSX } from 'react'
+import { JSX, ReactNode } from 'react'
 import { getLocale, getMessages } from 'next-intl/server'
 import { ClientLayout } from '@/components'
 import { ILocale } from '@/types'
@@ -19,7 +19,7 @@ const workSans = Work_Sans({
 export default async function RootLayout({
   children,
 }: {
-  readonly children: React.ReactNode
+  readonly children: ReactNode
 }): Promise<JSX.Element> {
   const [locale, messages] = await Promise.all([getLocale(), getMessages()])
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions()

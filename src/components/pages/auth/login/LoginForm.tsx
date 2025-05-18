@@ -7,7 +7,7 @@ import {
   DiscordIcon,
   GoogleIcon,
 } from '@420cry/420cry-lib'
-import React from 'react'
+import { JSX, ComponentType } from 'react'
 
 import { useTranslations } from 'next-intl'
 import { RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
@@ -17,9 +17,9 @@ const SocialButton = ({
   Icon,
   label,
 }: {
-  Icon: React.ComponentType<{ className?: string }>
+  Icon: ComponentType<{ className?: string }>
   label: string
-}) => (
+}): JSX.Element => (
   <CryButton key={label} className="bg-transparent w-12" circle>
     <div className="flex items-center justify-center">
       <Icon className="h-8 w-8" />
@@ -27,7 +27,7 @@ const SocialButton = ({
   </CryButton>
 )
 
-const LogInForm: React.FC = () => {
+const LogInForm = (): JSX.Element => {
   const t = useTranslations()
   const hideLabel = t('login.showPassword')
   const showLabel = t('login.hidePassword')
