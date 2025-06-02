@@ -89,8 +89,9 @@ const SignupForm = (): JSX.Element => {
           <div className="flex justify-center mt-4">
             <CryButton
               circle
-              className="bg-green-600 w-44 sm:w-52 text-white"
+              className=" w-44 sm:w-52 text-white"
               type="submit"
+              color='primary'
             >
               {t('signup.title')}
             </CryButton>
@@ -105,9 +106,10 @@ const SignupForm = (): JSX.Element => {
             <CryButton
               key={index}
               size="lg"
-              className="bg-transparent border-green-600 w-36 sm:w-40"
+              className="bg-transparen w-36 sm:w-40"
               circle
               outlined
+              color='primary'
             >
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />

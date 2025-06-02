@@ -82,7 +82,7 @@ const LogInForm = (): JSX.Element => {
                 name="rememberMe"
               />
             </div>
-            <div className="text-right">
+            <div className="text-right mb-1">
               <a
                 href={RESET_PASSWORD_ROUTE}
                 className="text-sm font-bold text-white hover:underline"
