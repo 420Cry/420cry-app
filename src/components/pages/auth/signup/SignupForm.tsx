@@ -91,7 +91,7 @@ const SignupForm = (): JSX.Element => {
               circle
               className=" w-44 sm:w-52 text-white"
               type="submit"
-              color='primary'
+              color="primary"
             >
               {t('signup.title')}
             </CryButton>
@@ -109,7 +109,7 @@ const SignupForm = (): JSX.Element => {
               className="bg-transparen w-36 sm:w-40"
               circle
               outlined
-              color='primary'
+              color="primary"
             >
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />
