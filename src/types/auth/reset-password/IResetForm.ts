@@ -1,4 +1,4 @@
 export interface IResetForm {
-  password: string,
+  password: string
   repeatedPassword: string
 }

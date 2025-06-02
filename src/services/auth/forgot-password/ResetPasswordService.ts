@@ -5,8 +5,8 @@ import { z } from 'zod'
 export const ResetPasswordService = {
   resetPassword: (formData: FormData): IResponse => {
     const resetPasswordPayload: IResetForm = {
-        password: formData.get('password')?.toString() || '',
-        repeatedPassword: formData.get('repeatedPassword')?.toString() || '',
+      password: formData.get('password')?.toString() || '',
+      repeatedPassword: formData.get('repeatedPassword')?.toString() || '',
     }
 
     try {
