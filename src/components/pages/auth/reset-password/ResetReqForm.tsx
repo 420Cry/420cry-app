@@ -9,22 +9,20 @@ import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
 import { fieldsRequired, showToast } from '@/lib'
-import { ResetReqService } from '@/services/auth/forgot-password/ResetReqService'
+import { ResetReqService } from '@/services'
+import { useRouter } from 'next/navigation'
 
 const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
+  const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    try {
-      const response = ResetReqService.resetReqAction(formData)
-      showToast(response.isSuccess, t(response.message))
-    } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
-    }
+    const response = ResetReqService.resetReqAction(formData)
+    showToast(response.isSuccess, t(response.message))
   }
 
   return (

@@ -20,7 +20,8 @@
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
       "emailVerificationFailed": "Email verification failed",
-      "resetRequest": "Please check your email and click on the link (The link is valid for 1 hour)"
+      "resetRequest": "Please check your email and click on the link (The link is valid for 1 hour)",
+      "resetSuccess": "You have successfully resetted your password. Please login again!"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -66,7 +67,8 @@
       "title": "Reset Your Password",
       "subtitle": "Enter the new password below so we can reset your password",
       "newPassword": "New Password",
-      "confirmNewPassword": "Confirm New Password"
+      "showPassword": "Show",
+      "hidePassword": "Hide"
     },
     "confirm": "Confirm"
   }

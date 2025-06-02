@@ -1,3 +1,3 @@
 export interface IResetReq {
-  emailAddress: string
+  email: string
 }

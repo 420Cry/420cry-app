@@ -1,15 +1,15 @@
 import { ResetReqFormSchema } from '@/lib'
-import { IResponse } from '@/types'
+import { IResetReq, IResponse } from '@/types'
 import { z } from 'zod'
 
 export const ResetReqService = {
   resetReqAction: (formData: FormData): IResponse => {
-    const formValues = {
+    const resetReqPayload: IResetReq = {
       email: formData.get('emailAddress')?.toString() || '',
     }
 
     try {
-      ResetReqFormSchema.parse(formValues)
+      ResetReqFormSchema.parse(resetReqPayload)
       return {
         isSuccess: true,
         message: 'app.alertTitle.resetRequest',

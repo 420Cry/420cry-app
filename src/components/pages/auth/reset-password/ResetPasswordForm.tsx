@@ -5,12 +5,30 @@ import {
   CryFormTextField,
   ResetPasswordIcon,
 } from '@420cry/420cry-lib'
-import React, { JSX } from 'react'
+import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
+import { fieldsRequired, showToast } from '@/lib'
+import { ResetPasswordService } from '@/services'
+import { useRouter } from 'next/navigation'
 
 const ResetPasswordForm = (): JSX.Element => {
   const t = useTranslations()
+  const router = useRouter()
+  const showLabel = t('resetYourPassword.resetPasswordForm.showPassword')
+  const hideLabel = t('resetYourPassword.resetPasswordForm.hidePassword')
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const formData = new FormData(e.target as HTMLFormElement)
+    if (!fieldsRequired(formData, t)) return
+
+    const response = ResetPasswordService.resetPassword(formData)
+    showToast(response.isSuccess, t(response.message))
+    if (response.isSuccess === true) {
+      setTimeout(() => router.push('/auth/login'), 1500)
+    }
+  }
 
   return (
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
@@ -20,29 +38,35 @@ const ResetPasswordForm = (): JSX.Element => {
 
           <div className="mb-8 w-full m-auto">
             <h1 className="text-center text-white text-3xl sm:text-5xl mb-4 sm:mb-6 font-bold">
-              {t('resetYourPassword.title')}
+              {t('resetYourPassword.resetPasswordForm.title')}
             </h1>
 
             <h2 className="text-white m-auto text-center max-w-[400px] w-full font-bold text-md sm:text-lg">
-              {t('resetYourPassword.subtitle')}
+              {t('resetYourPassword.resetPasswordForm.subtitle')}
             </h2>
           </div>
         </div>
 
-        <form className="w-full max-w-[500px] m-auto">
+        <form onSubmit={handleSubmit} className="w-full max-w-[500px] m-auto">
           <CryFormTextField
             label={t('app.fields.password')}
             labelClassName="text-neutral-gray-3"
             name="password"
             type="password"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500! "
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500 "
+            showLabel={showLabel}
+            hideLabel={hideLabel}
           />
           <CryFormTextField
             label={t('app.fields.repeatedPassword')}
             labelClassName="text-neutral-gray-3"
+            type="password"
             name="repeatedPassword"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px]"
+            slotClassName="text-white"
+            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500"
+            showLabel={showLabel}
+            hideLabel={hideLabel}
           />
 
           <div className="flex justify-center mt-10">
