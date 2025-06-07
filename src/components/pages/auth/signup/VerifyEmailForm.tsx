@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
 import { VerifyEmailTokenService } from '@/services'
@@ -30,7 +30,7 @@ interface VerifyEmailFormProps {
   userToken: string
 }
 
-const VerifyEmailForm: React.FC<VerifyEmailFormProps> = ({ userToken }) => {
+const VerifyEmailForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
 
