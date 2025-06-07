@@ -2,14 +2,16 @@ import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
 import cryApplicationLogo from '@/../public/logo/CryApplicationLogo.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import { JSX } from 'react'
 import Image from 'next/image'
 
 interface AuthHeaderProps {
   isSignUpButton?: boolean
 }
 
-const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
+const AuthHeader = ({
+  isSignUpButton = false,
+}: AuthHeaderProps): JSX.Element => {
   const t = useTranslations()
 
   return (
@@ -31,8 +33,8 @@ const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
           <CryButton
             to={SIGN_UP_ROUTE}
             circle
-            className="w-52 h-12 text-transparent bg-clip-text bg-gradient-to-r from-radial-left to-radial-right sm:mr-2"
-            color="success"
+            className="w-52 h-12"
+            color="primary"
             outlined
           >
             {t('header.signUp')}
@@ -41,8 +43,8 @@ const AuthHeader: React.FC<AuthHeaderProps> = ({ isSignUpButton = false }) => {
           <CryButton
             to={SIGN_IN_ROUTE}
             circle
-            className="w-60 h-12 sm:mr-2 text-green-800"
-            color="success"
+            className="w-60 h-12 sm:mr-2"
+            color="primary"
             outlined
           >
             {t('header.alreadyHasAnAccount')}
