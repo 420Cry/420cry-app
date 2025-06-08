@@ -6,11 +6,7 @@ import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
 import { VerifyEmailTokenService } from '@/services'
 import { showToast, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
-
-export interface ISignUpVerificationToken {
-  userToken: string
-  verifyToken: string
-}
+import { ISignUpVerificationToken } from '@/types'
 
 const codeKeys = [
   'firstDigit',
@@ -30,7 +26,7 @@ interface VerifyEmailFormProps {
   userToken: string
 }
 
-const VerifyEmailForm = (): JSX.Element => {
+const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
 
