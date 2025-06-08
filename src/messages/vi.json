@@ -56,5 +56,24 @@
       "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)",
       "confirm": "Xác nhận"
     }
+  },
+  "2fa": {
+    "setup": {
+      "title": "Bảo vệ tài khoản của bạn bằng xác thực hai yếu tố",
+      "description": "Mỗi lần bạn đăng nhập, bạn sẽ cần nhập mã. Chọn cách bạn muốn nhận mã xác minh",
+      "useYourPhone": "Sử dụng điện thoại",
+      "receiveViaSMS": "Nhận mã qua tin nhắn SMS",
+      "useAnApp": "Sử dụng một ứng dụng",
+      "ScanAQR": "Quét mã QR bằng ứng dụng xác thực"
+    },
+    "QR": {
+      "title": "Cài đặt xác thực hai yếu tố",
+      "scanQRCodeWithApp": "Quét mã QR bên dưới bằng trình xác thực 2FA của bạn.",
+      "scanQR": "Quét mã QR",
+      "or": "Hoặc là",
+      "enterSixDigits": "Nhập 6 mã trong app của bạn",
+      "cancel": "Huỷ",
+      "verify": "Xác nhận"
+    }
   }
 }

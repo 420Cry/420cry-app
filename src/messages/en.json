@@ -56,5 +56,24 @@
       "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)",
       "confirm": "Confirm"
     }
+  },
+  "2fa": {
+    "setup": {
+      "title": "Protect your account with 2-step verification",
+      "description": "Each time you sign in, you will need to enter a code. Choose how you want to receive your verification code.",
+      "useYourPhone": "Use your phone",
+      "receiveViaSMS": "Receive a code via SMS",
+      "useAnApp": "Use an app",
+      "ScanAQR": "Scan a QR code with an authenticator app"
+    },
+    "QR": {
+      "title": "2FA setup",
+      "scanQRCodeWithApp": "Scan the QR code below with your 2FA authenticator.",
+      "scanQR": "Scan QR code",
+      "or": "OR",
+      "enterSixDigits": "Enter 6-digit code from your app",
+      "cancel": "Cancel",
+      "verify": "Verify"
+    }
   }
 }
