@@ -21,15 +21,11 @@ RUN --mount=type=secret,id=github_token \
 # Install and build as root
 RUN npm install && npm run build
 
-# Fix permissions so non-root user can access everything
-RUN chown -R appuser:appuser /app && \
-    chown -R appuser:appuser .next
-
 # Expose port
 EXPOSE 3000
 
 # Run as non-root
 USER appuser
 
-# Start the app (no re-build)
+# Start the app
 CMD ["npm", "run", "start-dev"]
