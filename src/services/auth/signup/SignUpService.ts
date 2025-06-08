@@ -1,7 +1,6 @@
 import { IResponse, ISignUp } from '@/types'
 import { RequestService, ErrorHandlerService } from '@/services'
-import { SignUpFormSchema, API_URL } from '@/lib'
-import { z } from 'zod'
+import { API_URL, SignUpFormSchema, validateFormData } from '@/lib'
 
 export const SignUpService = {
   signUpAction: async (formData: FormData): Promise<IResponse> => {
@@ -12,10 +11,25 @@ export const SignUpService = {
       password: formData.get('password')?.toString() || '',
       repeatedPassword: formData.get('repeatedPassword')?.toString() || '',
     }
+
+    const validation = validateFormData(SignUpFormSchema, formValues)
+    if (!validation.success) {
+      return {
+        isSuccess: false,
+        message: validation.message,
+      }
+    }
+
+    const payload: ISignUp = {
+      fullname: validation.data.fullName,
+      email: validation.data.email,
+      username: validation.data.userName,
+      password: validation.data.password,
+    }
+
+    const signUpUrl = `${API_URL}/users/signup`
+
     try {
-      SignUpFormSchema.parse(formValues)
-      const payload = SignUpService._createSignUpPayLoad(formData)
-      const signUpUrl = `${API_URL}/users/signup`
       return await ErrorHandlerService.safeRequest(
         () => RequestService.post(signUpUrl, payload),
         {
@@ -23,31 +37,11 @@ export const SignUpService = {
         },
         'app.alertTitle.signUpSuccessful',
       )
-    } catch (error) {
-      return SignUpService._handleError(error)
-    }
-  },
-
-  _createSignUpPayLoad(formData: FormData): ISignUp {
-    return {
-      fullname: formData.get('fullName')?.toString() || '',
-      email: formData.get('email')?.toString() || '',
-      username: formData.get('userName')?.toString() || '',
-      password: formData.get('password')?.toString() || '',
-    }
-  },
-
-  _handleError: (error: unknown): IResponse => {
-    if (error instanceof z.ZodError) {
-      const errorMessages = error.errors.map((e) => e.message)
+    } catch {
       return {
         isSuccess: false,
-        message: errorMessages[0],
+        message: 'app.alertTitle.somethingWentWrong',
       }
-    }
-    return {
-      isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
     }
   },
 }

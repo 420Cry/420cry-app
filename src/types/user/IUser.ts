@@ -1,8 +1,7 @@
 export interface IUser {
-  id: number
+  jwt: string
   uuid: string
   fullname: string
   email: string
   username: string
-  password: string
 }

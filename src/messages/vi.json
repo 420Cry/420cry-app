@@ -12,7 +12,7 @@
       "Successful": "Thành công",
       "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
       "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
-      "signInSuccessful": "Đăng nhập thành công!",
+      "signInSuccessful": "Chào mừng trở lại với 420Cry, {username}!",
       "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
       "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!",
       "invalidOrExpiredToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",

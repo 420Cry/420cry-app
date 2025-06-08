@@ -1,12 +1,13 @@
-import { MIDDLE_WARE_URL, SIGN_IN_ROUTE } from '@/lib'
+import { API_URL, SIGN_IN_ROUTE } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { RequestService } from '@/services'
 
 export class MiddlewareService {
   public static async checkLoginStatus(): Promise<boolean> {
     try {
-      const testUrl = `${MIDDLE_WARE_URL}/users/test`
-      const response = await RequestService.get<{ loggedIn: boolean }>(testUrl)
+      const testUrl = `${API_URL}/users/test`
+      const response = await RequestService.get<undefined, { loggedIn: boolean }>(testUrl, undefined)
+
       return response.data?.loggedIn === true
     } catch {
       return false

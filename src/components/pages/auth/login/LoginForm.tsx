@@ -8,10 +8,10 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import { JSX, ComponentType } from 'react'
-
 import { useTranslations } from 'next-intl'
-import { RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
+import { HOME_ROUTE, RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
 import { SignInService } from '@/services'
+import router from 'next/router'
 
 const SocialButton = ({
   Icon,
@@ -40,8 +40,13 @@ const LogInForm = (): JSX.Element => {
       return
     }
     try {
-      const response = SignInService.signInAction(formData)
-      showToast(response.isSuccess, t(response.message))
+      const { response, user } = await SignInService.signInAction(formData)
+      if (response.isSuccess && user) {
+        showToast(true, t(response.message, { username: user.username }))
+        router.push(HOME_ROUTE)
+      } else {
+        showToast(response.isSuccess, t(response.message))
+      }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }

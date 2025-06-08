@@ -45,4 +45,17 @@ export class ErrorHandlerService {
       }
     }
   }
+  public static extractMessage(
+    error: unknown,
+    fallbackMessages: Record<number, string>,
+    defaultMessage = 'app.alertTitle.somethingWentWrong',
+  ): string {
+    if (error instanceof AxiosError) {
+      const status = error.response?.status
+      if (status && fallbackMessages[status]) {
+        return fallbackMessages[status]
+      }
+    }
+    return defaultMessage
+  }
 }
