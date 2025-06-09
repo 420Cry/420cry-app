@@ -9,9 +9,14 @@ import {
 } from '@420cry/420cry-lib'
 import { JSX, ComponentType } from 'react'
 import { useTranslations } from 'next-intl'
-import { HOME_ROUTE, RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
-import { SignInService } from '@/services'
-import router from 'next/router'
+import {
+  DASHBOARD_ROUTE,
+  RESET_PASSWORD_ROUTE,
+  showToast,
+  SIGN_UP_ROUTE,
+} from '@/lib'
+import { CookieService, SignInService } from '@/services'
+import { useRouter } from 'next/navigation'
 
 const SocialButton = ({
   Icon,
@@ -28,6 +33,7 @@ const SocialButton = ({
 )
 
 const LogInForm = (): JSX.Element => {
+  const router = useRouter()
   const t = useTranslations()
   const hideLabel = t('login.showPassword')
   const showLabel = t('login.hidePassword')
@@ -35,15 +41,22 @@ const LogInForm = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
+
     if ([...formData.values()].some((value) => !value)) {
       showToast(false, t('app.alertTitle.allfieldsAreRequired'))
       return
     }
+
     try {
-      const { response, user } = await SignInService.signInAction(formData)
-      if (response.isSuccess && user) {
-        showToast(true, t(response.message, { username: user.username }))
-        router.push(HOME_ROUTE)
+      const { response, user, jwt } = await SignInService.signInAction(formData)
+      if (response.isSuccess && user && jwt) {
+        const fullname = user.fullname || ''
+        CookieService.setJwt(jwt)
+        router.push(DASHBOARD_ROUTE)
+        showToast(
+          response.isSuccess,
+          t(response.message, { fullname: fullname }),
+        )
       } else {
         showToast(response.isSuccess, t(response.message))
       }

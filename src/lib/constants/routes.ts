@@ -2,14 +2,24 @@ export const API_URL = process.env.API_URL
   ? `https://${process.env.API_URL}`
   : null
 
+export const APP_URL = process.env.APP_URL
+  ? `https://${process.env.APP_URL}`
+  : null
+
+export const LOGOUT_API = '/api/auth/logout'
+
 export const SIGN_IN_ROUTE = '/auth/login'
 export const SIGN_UP_ROUTE = '/auth/signup'
 export const RESET_PASSWORD_ROUTE = '/auth/reset-password'
 
 export const HOME_ROUTE = '/'
+export const DASHBOARD_ROUTE = '/dashboard'
 
 export const UN_AUTH_ROUTES = [
   SIGN_IN_ROUTE,
   SIGN_UP_ROUTE,
   RESET_PASSWORD_ROUTE,
+  LOGOUT_API,
 ]
+
+export const AUTH_ROUTES = [HOME_ROUTE, DASHBOARD_ROUTE]

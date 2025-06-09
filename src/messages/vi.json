@@ -12,14 +12,15 @@
       "Successful": "Thành công",
       "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
       "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
-      "signInSuccessful": "Chào mừng trở lại với 420Cry, {username}!",
+      "signInSuccessful": "Chào mừng trở lại với 420Cry, {fullName}!",
       "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
       "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!",
       "invalidOrExpiredToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
       "validToken": "Mã xác nhận hợp lệ",
       "invalidToken": "Mã xác nhận không hợp lệ",
       "emailVerifiedSuccessfully": "Xác nhận email thành công",
-      "emailVerificationFailed": "Xác nhận email thất bại"
+      "emailVerificationFailed": "Xác nhận email thất bại",
+      "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng."
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",

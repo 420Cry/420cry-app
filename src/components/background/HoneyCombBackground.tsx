@@ -1,9 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, type ReactNode } from 'react'
+import { JSX, useState, type ReactNode } from 'react'
 
-const HoneyCombBackground = ({ children }: { children: ReactNode }) => {
+const HoneyCombBackground = ({
+  children,
+}: {
+  children: ReactNode
+}): JSX.Element => {
   const [isLoaded, setIsLoaded] = useState(false)
 
   return (

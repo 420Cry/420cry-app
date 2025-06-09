@@ -12,12 +12,12 @@ export class RequestService {
 
   public static async get<TParams, TResponse>(
     url: string,
-    params?: TParams,             
+    params?: TParams,
     config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<TResponse>> {
     return axios.get<TResponse>(url, {
       ...config,
-      params,                    
+      params,
     })
   }
 }

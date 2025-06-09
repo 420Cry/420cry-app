@@ -1,4 +1,4 @@
-import { IResponse, ISignUp } from '@/types'
+import { IResponse } from '@/types'
 import { RequestService, ErrorHandlerService } from '@/services'
 import { API_URL, SignUpFormSchema, validateFormData } from '@/lib'
 
@@ -20,7 +20,7 @@ export const SignUpService = {
       }
     }
 
-    const payload: ISignUp = {
+    const payload = {
       fullname: validation.data.fullName,
       email: validation.data.email,
       username: validation.data.userName,

@@ -12,14 +12,15 @@
       "Successful": "Successful",
       "allfieldsAreRequired": "All fields are required!",
       "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
-      "signInSuccessful": "Welcome back to 420Cry app, {username}!",
+      "signInSuccessful": "Welcome back to 420Cry app, {fullname}!",
       "somethingWentWrong": "Something went wrong. Please try again later!",
       "duplicatedUserNameOrEmail": "Email or username already exists!",
       "invalidOrExpiredToken": "Invalid or expired token",
       "validToken": "Valid token",
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
-      "emailVerificationFailed": "Email verification failed"
+      "emailVerificationFailed": "Email verification failed",
+      "invalidCredentials": "Invalid username or password."
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
