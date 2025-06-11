@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
 import { IVerificationDigit } from '@/types'
@@ -8,7 +8,7 @@ import { VerifyEmailTokenService } from '@/services'
 import { showToast, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
 
-const VerifyEmailForm: React.FC = () => {
+const VerifyEmailForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
 

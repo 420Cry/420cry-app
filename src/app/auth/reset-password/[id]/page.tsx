@@ -1,7 +1,7 @@
 import { AuthHeader, ResetPasswordForm } from '@/components'
-import React from 'react'
+import { JSX } from 'react'
 
-const ResetPasswordPage: React.FC = () => {
+const ResetPasswordPage = (): JSX.Element => {
   return (
     <div className="relative items-center min-h-screen">
       <AuthHeader />
