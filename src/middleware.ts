@@ -1,37 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
+import 'server-only'
+import { NextResponse, NextRequest } from 'next/server'
+import { UN_AUTH_ROUTES } from '@/lib'
 
-import {
-  AUTH_ROUTES,
-  DASHBOARD_ROUTE,
-  parseAuthCookie,
-  SIGN_IN_ROUTE,
-  UN_AUTH_ROUTES,
-  verifyJwtToken,
-} from './lib'
+export async function middleware(req: NextRequest): Promise<NextResponse> {
+  // TODO
+  const { pathname } = req.nextUrl
 
-export default async function middleware(
-  req: NextRequest,
-): Promise<NextResponse> {
-  const path = req.nextUrl.pathname
-  const cookieHeader = req.headers.get('cookie')
-
-  const token = await parseAuthCookie(cookieHeader)
-
-  let payload = null
-  if (token) {
-    payload = await verifyJwtToken(token)
+  // Skip public routes (for un-authenticated users)
+  if (UN_AUTH_ROUTES.includes(pathname)) {
+    return NextResponse.next()
   }
 
-  const isProtectedRoute = AUTH_ROUTES.some((route) => path.startsWith(route))
-  const isPublicRoute = UN_AUTH_ROUTES.includes(path)
-
-  if (isProtectedRoute && !payload) {
-    return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.nextUrl))
-  }
-
-  if (isPublicRoute && payload) {
-    return NextResponse.redirect(new URL(DASHBOARD_ROUTE, req.nextUrl))
-  }
-
+  // Default response if not matched above
   return NextResponse.next()
+}
+
+// Routes Middleware should not run on
+export const config = {
+  matcher: ['((?!api|_next/static|_next/image|.*\\.png$).*)'],
 }

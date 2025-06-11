@@ -19,7 +19,8 @@ RUN --mount=type=secret,id=github_token \
     echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> /root/.npmrc'
 
 # Install and build as root
-RUN npm install && npm run build
+RUN npm install && npm run build && \
+    chown -R appuser:appuser /app/.next
 
 # Expose port
 EXPOSE 3000

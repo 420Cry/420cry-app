@@ -1,6 +1,6 @@
+import { SIGN_UP_API, SignUpFormSchema, validateFormData } from '@/lib'
+import { RequestService } from '@/services'
 import { IResponse } from '@/types'
-import { RequestService, ErrorHandlerService } from '@/services'
-import { API_URL, SignUpFormSchema, validateFormData } from '@/lib'
 
 export const SignUpService = {
   signUpAction: async (formData: FormData): Promise<IResponse> => {
@@ -27,16 +27,29 @@ export const SignUpService = {
       password: validation.data.password,
     }
 
-    const signUpUrl = `${API_URL}/users/signup`
-
     try {
-      return await ErrorHandlerService.safeRequest(
-        () => RequestService.post(signUpUrl, payload),
-        {
-          409: 'app.alertTitle.duplicatedUserNameOrEmail',
-        },
-        'app.alertTitle.signUpSuccessful',
+      const response = await RequestService.nativeFetchPost(
+        SIGN_UP_API,
+        payload,
       )
+      const data = await response.json()
+      if (!response.ok) {
+        if (response.status === 409) {
+          return {
+            isSuccess: false,
+            message: 'app.alertTitle.duplicatedUserNameOrEmail',
+          }
+        }
+        return {
+          isSuccess: false,
+          message: data.message || 'Something went wrong',
+        }
+      }
+
+      return {
+        isSuccess: true,
+        message: 'app.alertTitle.signUpSuccessful',
+      }
     } catch {
       return {
         isSuccess: false,

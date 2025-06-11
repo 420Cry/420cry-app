@@ -1,6 +1,6 @@
 'use server'
 
-import jwt, { JwtPayload, SignOptions, Secret } from 'jsonwebtoken'
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
 
 const JWT_SECRET: Secret = process.env.JWT_SECRET!
 if (!JWT_SECRET) {
@@ -36,22 +36,4 @@ export async function verifyJwtToken(
   } catch {
     return null
   }
-}
-
-export async function generateJwtToken(
-  payload: { uuid: string; email: string },
-  expiresIn: string | number = '24h',
-): Promise<string> {
-  const options: SignOptions = {
-    expiresIn: expiresIn as SignOptions['expiresIn'],
-  }
-  return jwt.sign(
-    {
-      uuid: payload.uuid,
-      email: payload.email,
-      sub: payload.uuid,
-    },
-    JWT_SECRET,
-    options,
-  )
 }
