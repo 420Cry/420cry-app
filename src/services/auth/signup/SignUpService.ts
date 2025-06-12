@@ -11,7 +11,6 @@ export const SignUpService = {
       password: formData.get('password')?.toString() || '',
       repeatedPassword: formData.get('repeatedPassword')?.toString() || '',
     }
-
     const validation = validateFormData(SignUpFormSchema, formValues)
     if (!validation.success) {
       return {

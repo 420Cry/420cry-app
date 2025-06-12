@@ -18,12 +18,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         message: 'app.alertTitle.Successful',
       } satisfies IResponse)
     }
-    return NextResponse.json(
-      {
-        message: 'app.alertTitle.unexpectedResponse',
-      },
-      { status: response.status },
-    )
+    return NextResponse.json({
+      isSuccess: true,
+      message: 'app.alertTitle.somethingWentWrong',
+    } satisfies IResponse)
   } catch (error) {
     return handleApiError(error)
   }
