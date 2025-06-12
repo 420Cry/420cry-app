@@ -11,6 +11,7 @@ export class RequestService {
   ): Promise<AxiosResponse<TResponse>> {
     return axios.post<TResponse>(url, payload, config)
   }
+
   // Axios GET
   public static async axiosGet<TParams, TResponse>(
     url: string,
@@ -24,20 +25,22 @@ export class RequestService {
   }
 
   // Native POST
-  public static async nativeFetchPost(
+  public static async nativeFetchPost<TResponse>(
     url: string,
     body: Record<string, unknown>,
-  ): Promise<Response> {
-    return fetch(url, {
+  ): Promise<TResponse> {
+    const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body),
     })
+    return response.json() as Promise<TResponse>
   }
+
   // Native GET
-  public static async nativeFetchGet(
+  public static async nativeFetchGet<TResponse>(
     url: string,
     params?: Record<string, unknown>,
-  ): Promise<Response> {
+  ): Promise<TResponse> {
     const query = params
       ? `?${new URLSearchParams(
           Object.entries(params).reduce(
@@ -50,6 +53,9 @@ export class RequestService {
         ).toString()}`
       : ''
 
-    return fetch(`${url}${query}`, { method: 'GET' })
+    const response = await fetch(`${url}${query}`, {
+      method: 'GET',
+    })
+    return response.json() as Promise<TResponse>
   }
 }

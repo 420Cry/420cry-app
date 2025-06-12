@@ -7,24 +7,10 @@ export const VerifyEmailTokenService = {
     payload: ISignUpVerificationToken,
   ): Promise<IResponse> => {
     try {
-      const response = await RequestService.nativeFetchPost(
+      return await RequestService.nativeFetchPost<IResponse>(
         VERIFY_EMAIL_TOKEN_API,
         { ...payload },
       )
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        return {
-          isSuccess: false,
-          message: data.message || 'app.alertTitle.somethingWentWrong',
-        }
-      }
-
-      return {
-        isSuccess: true,
-        message: 'app.alertTitle.emailVerifiedSuccessfully',
-      }
     } catch {
       return {
         isSuccess: false,

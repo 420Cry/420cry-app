@@ -19,37 +19,17 @@ export const SignUpService = {
         message: validation.message,
       }
     }
-
-    const payload = {
-      fullname: validation.data.fullName,
-      email: validation.data.email,
-      username: validation.data.userName,
-      password: validation.data.password,
-    }
-
     try {
-      const response = await RequestService.nativeFetchPost(
+      const payload = {
+        fullname: validation.data.fullName,
+        email: validation.data.email,
+        username: validation.data.userName,
+        password: validation.data.password,
+      }
+      return await RequestService.nativeFetchPost<IResponse>(
         SIGN_UP_API,
         payload,
       )
-      const data = await response.json()
-      if (!response.ok) {
-        if (response.status === 409) {
-          return {
-            isSuccess: false,
-            message: 'app.alertTitle.duplicatedUserNameOrEmail',
-          }
-        }
-        return {
-          isSuccess: false,
-          message: data.message || 'Something went wrong',
-        }
-      }
-
-      return {
-        isSuccess: true,
-        message: 'app.alertTitle.signUpSuccessful',
-      }
     } catch {
       return {
         isSuccess: false,
