@@ -15,7 +15,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (response.status === 200 || response.status === 201) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.signInSuccessful',
+        message: 'app.alertTitle.Successful',
       } satisfies IResponse)
     }
     return NextResponse.json(
