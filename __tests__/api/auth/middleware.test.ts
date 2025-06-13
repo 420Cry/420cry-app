@@ -17,10 +17,19 @@ const UN_AUTH_ROUTES = [
   '/auth/signup/verify',
 ]
 
+const HOME_ROUTE = '/'
+const BLOCKED_ROUTES_FOR_AUTH_USERS = [
+  '/auth/login',
+  '/auth/signup',
+  '/auth/reset-password',
+]
+
 vi.mock('./lib', async () => ({
   AUTH_ROUTES,
   UN_AUTH_ROUTES,
   SIGN_IN_ROUTE,
+  HOME_ROUTE,
+  BLOCKED_ROUTES_FOR_AUTH_USERS,
 }))
 
 function mockRequest(pathname: string, jwt?: string) {
@@ -90,6 +99,14 @@ describe('middleware', () => {
     const req = mockRequest('/dashboard/settings', 'valid.jwt.token')
     const res = await middleware(req)
 
+    expect(res).toEqual(NextResponse.next())
+  })
+
+  it('allows unauthenticated users to access blocked routes (like login)', async () => {
+    const req = mockRequest('/auth/login', '')
+    const res = await middleware(req)
+
+    expect(jwtVerify).not.toHaveBeenCalled()
     expect(res).toEqual(NextResponse.next())
   })
 })
