@@ -5,6 +5,7 @@ import { useSearchParams, notFound } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
 import { VerifyAccountTokenService } from '@/services'
 import { useTranslations } from 'next-intl'
+import { IVerifyAccountToken } from '@/types'
 
 const SignUpConfirmationPage = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -21,7 +22,10 @@ const SignUpConfirmationPage = (): JSX.Element => {
     }
 
     const verifyToken = async () => {
-      const response = await VerifyAccountTokenService.verifyToken(token)
+      const payload: IVerifyAccountToken = {
+        token: token,
+      }
+      const response = await VerifyAccountTokenService.verifyToken(payload)
       setStatus(response.isSuccess ? 'success' : 'error')
     }
 
