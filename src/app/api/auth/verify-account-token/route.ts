@@ -8,7 +8,7 @@ import { IResponse } from '@/types'
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-    const response = await RequestService.axiosPost(
+    const response = await RequestService.axiosPost<string, IResponse>(
       `${API_URL}/users/verify-account-token`,
       body,
     )

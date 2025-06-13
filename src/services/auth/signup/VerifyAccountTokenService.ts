@@ -5,9 +5,9 @@ import { IResponse } from '@/types'
 export const VerifyAccountTokenService = {
   verifyToken: async (token: string): Promise<IResponse> => {
     try {
-      return await RequestService.nativeFetchPost<IResponse>(
+      return await RequestService.nativeFetchPost<string, IResponse>(
         VERIFY_ACCOUNT_TOKEN_API,
-        { token },
+        token,
       )
     } catch {
       return {

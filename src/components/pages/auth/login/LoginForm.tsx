@@ -10,12 +10,12 @@ import {
 import { JSX, ComponentType } from 'react'
 import { useTranslations } from 'next-intl'
 import {
-  DASHBOARD_ROUTE,
+  HOME_ROUTE,
   RESET_PASSWORD_ROUTE,
   showToast,
   SIGN_UP_ROUTE,
 } from '@/lib'
-import { CookieService, SignInService } from '@/services'
+import { SignInService } from '@/services'
 import { useRouter } from 'next/navigation'
 
 const SocialButton = ({
@@ -48,11 +48,10 @@ const LogInForm = (): JSX.Element => {
     }
 
     try {
-      const { response, user, jwt } = await SignInService.signInAction(formData)
-      if (response.isSuccess && user && jwt) {
+      const { response, user } = await SignInService.signInAction(formData)
+      if (response.isSuccess && user) {
         const fullname = user.fullname || ''
-        CookieService.setJwt(jwt)
-        router.push(DASHBOARD_ROUTE)
+        router.push(HOME_ROUTE)
         showToast(
           response.isSuccess,
           t(response.message, { fullname: fullname }),

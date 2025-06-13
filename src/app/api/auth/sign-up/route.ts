@@ -3,12 +3,12 @@
 import { API_URL, handleApiError } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { RequestService } from '@/services'
-import { IResponse } from '@/types'
+import { IResponse, ISignUp } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-    const response = await RequestService.axiosPost(
+    const response = await RequestService.axiosPost<ISignUp, IResponse>(
       `${API_URL}/users/signup`,
       body,
     )

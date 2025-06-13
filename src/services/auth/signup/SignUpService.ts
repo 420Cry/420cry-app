@@ -1,6 +1,6 @@
 import { SIGN_UP_API, SignUpFormSchema, validateFormData } from '@/lib'
 import { RequestService } from '@/services'
-import { IResponse } from '@/types'
+import { IResponse, ISignUp } from '@/types'
 
 export const SignUpService = {
   signUpAction: async (formData: FormData): Promise<IResponse> => {
@@ -25,7 +25,7 @@ export const SignUpService = {
         username: validation.data.userName,
         password: validation.data.password,
       }
-      return await RequestService.nativeFetchPost<IResponse>(
+      return await RequestService.nativeFetchPost<ISignUp, IResponse>(
         SIGN_UP_API,
         payload,
       )

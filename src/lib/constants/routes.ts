@@ -7,5 +7,6 @@ export const APP_URL = process.env.APP_URL
   : ''
 
 export const SIGN_UP_API = '/api/auth/sign-up'
+export const SIGN_IN_API = '/api/auth/sign-in'
 export const VERIFY_ACCOUNT_TOKEN_API = '/api/auth/verify-account-token'
 export const VERIFY_EMAIL_TOKEN_API = '/api/auth/verify-email-token'

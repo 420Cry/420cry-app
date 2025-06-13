@@ -1,6 +1,6 @@
 'use client'
 
-import { DASHBOARD_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
+import { HOME_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
 import cryApplicationLogo from '@/../public/logo/CryApplicationLogo.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
@@ -26,7 +26,8 @@ const AuthHeader = ({
         width={143}
         height={58}
         className="cursor-pointer"
-        onClick={() => router.push(DASHBOARD_ROUTE)}
+        onClick={() => router.push(HOME_ROUTE)}
+        priority
       />
       <div className="flex flex-col sm:flex-row sm:items-center mt-6 sm:mt-0">
         <CryButton

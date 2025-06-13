@@ -17,7 +17,7 @@ const HoneyCombBackground = ({
         fill
         alt="Honeycomb background"
         className="absolute z-0 object-cover brightness-75"
-        onLoadingComplete={() => setIsLoaded(true)}
+        onLoad={() => setIsLoaded(true)}
         priority
       />
       <div className="w-full h-full absolute bg-neutral-dark/30 z-0" />

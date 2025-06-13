@@ -3,4 +3,5 @@ export interface IUser {
   fullname: string
   email: string
   username: string
+  jwt: string | null
 }

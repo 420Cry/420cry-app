@@ -7,10 +7,10 @@ export const VerifyEmailTokenService = {
     payload: ISignUpVerificationToken,
   ): Promise<IResponse> => {
     try {
-      return await RequestService.nativeFetchPost<IResponse>(
-        VERIFY_EMAIL_TOKEN_API,
-        { ...payload },
-      )
+      return await RequestService.nativeFetchPost<
+        ISignUpVerificationToken,
+        IResponse
+      >(VERIFY_EMAIL_TOKEN_API, payload)
     } catch {
       return {
         isSuccess: false,
