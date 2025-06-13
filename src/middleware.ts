@@ -19,7 +19,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     try {
       await jwtVerify(jwtToken, JWT_SECRET)
       isAuthenticated = true
-    } catch (err) {
+    } catch {
       // Cleanup: if token is invalid, delete it
       const response = NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
       response.cookies.delete('jwt')
