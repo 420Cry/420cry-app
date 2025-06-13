@@ -6,6 +6,10 @@ export const APP_URL = process.env.APP_URL
   ? `https://${process.env.APP_URL}`
   : ''
 
+export const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `https://${process.env.NEXT_PUBLIC_API_URL}`
+  : ''
+
 export const SIGN_UP_API = '/api/auth/sign-up'
 export const SIGN_IN_API = '/api/auth/sign-in'
 export const VERIFY_ACCOUNT_TOKEN_API = '/api/auth/verify-account-token'
