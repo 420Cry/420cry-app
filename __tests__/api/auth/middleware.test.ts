@@ -32,7 +32,9 @@ function mockRequest(pathname: string, jwt?: string) {
     },
     url: `http://localhost${pathname}`,
     cookies: {
-      get: vi.fn((name: string) => (name === 'jwt' && jwt ? { value: jwt } : undefined)),
+      get: vi.fn((name: string) =>
+        name === 'jwt' && jwt ? { value: jwt } : undefined,
+      ),
       delete: vi.fn(),
     },
   } as any
