@@ -71,7 +71,7 @@ describe('POST /api/auth/sign-in', () => {
     expect(cookie?.path).toBe('/')
   })
 
-  it('returns a success response and does NOT set cookie when remember is false', async () => {
+  it('returns a success response and sets a session cookie when remember is false', async () => {
     const mockJwt = 'fake-jwt-token'
     const mockUser = { id: 123, email: 'test@example.com' }
 
@@ -93,7 +93,10 @@ describe('POST /api/auth/sign-in', () => {
     expect(data.response.isSuccess).toBe(true)
     expect(data.user).toEqual(mockUser)
 
-    expect(res.cookies.get('jwt')).toBeUndefined()
+    const cookie = res.cookies.get('jwt')
+    expect(cookie).toBeDefined()
+    expect(cookie?.value).toBe(mockJwt)
+    expect(cookie?.maxAge).toBeUndefined()
   })
 
   it('returns a 401 response when login fails with no data', async () => {
