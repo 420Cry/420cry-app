@@ -7,11 +7,11 @@ import { IResponse } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const body = await request.json()
-    const response = await RequestService.axiosPost<string, IResponse>(
-      `${API_URL}/users/verify-account-token`,
-      body,
-    )
+    const token = await request.json()
+    const response = await RequestService.axiosPost<
+      { token: string },
+      IResponse
+    >(`${API_URL}/users/verify-account-token`, { token: token })
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,

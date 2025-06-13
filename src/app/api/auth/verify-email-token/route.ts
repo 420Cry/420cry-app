@@ -3,16 +3,16 @@
 import { API_URL, handleApiError } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { RequestService } from '@/services'
-import { IResponse } from '@/types'
+import { IResponse, ISignUpVerificationToken } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
 
-    const response = await RequestService.axiosPost<string, IResponse>(
-      `${API_URL}/users/verify-email-token`,
-      body,
-    )
+    const response = await RequestService.axiosPost<
+      ISignUpVerificationToken,
+      IResponse
+    >(`${API_URL}/users/verify-email-token`, body)
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,

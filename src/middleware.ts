@@ -6,8 +6,6 @@ const JWT_SECRET = process.env.JWT_SECRET || ''
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const pathname = req.nextUrl.pathname
-  console.log('Pathname:', pathname)
-
   // Allow unauthenticated routes immediately
   if (UN_AUTH_ROUTES.includes(pathname)) {
     return NextResponse.next()
