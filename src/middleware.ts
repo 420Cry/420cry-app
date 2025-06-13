@@ -1,28 +1,29 @@
 import { NextResponse, NextRequest } from 'next/server'
-import jwt from 'jsonwebtoken'
+import { jwtVerify } from 'jose'
 import { AUTH_ROUTES, SIGN_IN_ROUTE, UN_AUTH_ROUTES } from './lib'
 
-const JWT_SECRET = process.env.JWT_SECRET || ''
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || '')
 
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const pathname = req.nextUrl.pathname
-  // Allow unauthenticated routes immediately
+
   if (UN_AUTH_ROUTES.includes(pathname)) {
     return NextResponse.next()
   }
 
-  // Check if path is a protected route
-  if (AUTH_ROUTES.some((route) => pathname.startsWith(route))) {
-    const token = req.cookies.get('token')?.value
-    console.log('Cookies:', req.cookies)
-    console.log('Token cookie:', token)
+  const isProtectedRoute = AUTH_ROUTES.some(
+    (route) => pathname === route || pathname.startsWith(route + '/'),
+  )
 
-    if (!token) {
+  if (isProtectedRoute) {
+    const jwtToken = req.cookies.get('jwt')?.value
+
+    if (!jwtToken) {
       return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
     }
 
     try {
-      jwt.verify(token, JWT_SECRET)
+      await jwtVerify(jwtToken, JWT_SECRET)
       return NextResponse.next()
     } catch (err) {
       console.warn('JWT verification failed:', err)
@@ -32,13 +33,5 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     }
   }
 
-  // For other routes, continue as usual
   return NextResponse.next()
-}
-
-export const config = {
-  matcher: [
-    '/', // homepage
-    '/auth/:path*', // auth routes
-  ],
 }

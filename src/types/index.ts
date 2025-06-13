@@ -5,3 +5,4 @@ export type { ISignUpVerificationToken } from './auth/signup/ISignUpVerification
 export type { IUser } from './user/IUser'
 export type { ILocale } from './locale/ILocale'
 export type { IVerifyAccountToken } from './auth/signup/IVerifyAccountToken'
+export type { IAuthResponse } from './auth/IAuthResponse'

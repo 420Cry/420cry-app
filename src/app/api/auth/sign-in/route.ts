@@ -3,21 +3,19 @@
 import { API_URL, handleApiError } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { RequestService } from '@/services'
-import { ISignIn, IUser, IResponse } from '@/types'
+import { ISignIn, IResponse, IAuthResponse } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
 
-    const response = await RequestService.axiosPost<ISignIn, IUser>(
+    const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
       `${API_URL}/users/signin`,
       body,
     )
 
     if (response.status === 200 && response.data) {
-      const user = response.data
-      const token = user.jwt ?? null
-      console.log('Set token cookie:', token)
+      const { user, jwt } = response.data
 
       const responseBody = {
         response: {
@@ -29,18 +27,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       const nextResponse = NextResponse.json(responseBody)
 
-      if (token) {
-        nextResponse.cookies.set('token', token, {
+      if (jwt) {
+        nextResponse.cookies.set('jwt', jwt, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production' ? true : false,
+          secure: process.env.NODE_ENV === 'production',
           path: '/',
           sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 7,
+          maxAge: 60 * 60 * 24 * 7, // 7 days
         })
-        const testTokenIsSet = nextResponse.cookies.get('token')?.value
-        console.log(testTokenIsSet)
       }
-
       return nextResponse
     }
 
@@ -54,7 +49,6 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       { status: 401 },
     )
   } catch (error) {
-    console.error('Error in POST /signin:', error)
     return handleApiError(error)
   }
 }

@@ -12,4 +12,4 @@ export const UN_AUTH_ROUTES = [
   '/auth/signup/verify',
 ]
 
-export const AUTH_ROUTES = [HOME_ROUTE]
+export const AUTH_ROUTES = ['/', '/dashboard', '/profile']
