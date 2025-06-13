@@ -43,7 +43,7 @@ describe('POST /api/auth/sign-in', () => {
     expect(json).toEqual({ isSuccess: false, message: 'JSON error handled' })
   })
 
-  it('returns a success response and sets cookie when login is successful', async () => {
+  it('returns a success response and sets cookie when remember is true', async () => {
     const mockJwt = 'fake-jwt-token'
     const mockUser = { id: 123, email: 'test@example.com' }
 
@@ -52,7 +52,11 @@ describe('POST /api/auth/sign-in', () => {
       data: { user: mockUser, jwt: mockJwt },
     })
 
-    const req = new MockNextRequest({ username: 'user', password: 'pass' })
+    const req = new MockNextRequest({
+      username: 'user',
+      password: 'pass',
+      remember: true,
+    })
     const res = await POST(req as any)
 
     expect(res).toBeInstanceOf(NextResponse)
@@ -67,13 +71,42 @@ describe('POST /api/auth/sign-in', () => {
     expect(cookie?.path).toBe('/')
   })
 
+  it('returns a success response and does NOT set cookie when remember is false', async () => {
+    const mockJwt = 'fake-jwt-token'
+    const mockUser = { id: 123, email: 'test@example.com' }
+
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: { user: mockUser, jwt: mockJwt },
+    })
+
+    const req = new MockNextRequest({
+      username: 'user',
+      password: 'pass',
+      remember: false,
+    })
+    const res = await POST(req as any)
+
+    expect(res).toBeInstanceOf(NextResponse)
+
+    const data = await res.json()
+    expect(data.response.isSuccess).toBe(true)
+    expect(data.user).toEqual(mockUser)
+
+    expect(res.cookies.get('jwt')).toBeUndefined()
+  })
+
   it('returns a 401 response when login fails with no data', async () => {
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 401,
       data: null,
     })
 
-    const req = new MockNextRequest({ username: 'fail', password: 'wrong' })
+    const req = new MockNextRequest({
+      username: 'fail',
+      password: 'wrong',
+      remember: false,
+    })
     const res = await POST(req as any)
 
     expect(res.status).toBe(401)
@@ -88,7 +121,11 @@ describe('POST /api/auth/sign-in', () => {
       data: { user: { id: 1, email: 'nojwt@example.com' }, jwt: null },
     })
 
-    const req = new MockNextRequest({ username: 'test', password: 'test' })
+    const req = new MockNextRequest({
+      username: 'test',
+      password: 'test',
+      remember: true,
+    })
     const res = await POST(req as any)
 
     expect(res.cookies.get('jwt')).toBeUndefined()
@@ -102,11 +139,74 @@ describe('POST /api/auth/sign-in', () => {
       NextResponse.json({ isSuccess: false, message: 'Handled error' }),
     )
 
-    const req = new MockNextRequest({ username: 'user', password: 'pass' })
+    const req = new MockNextRequest({
+      username: 'user',
+      password: 'pass',
+      remember: true,
+    })
     const res = await POST(req as any)
 
     expect(handleApiError).toHaveBeenCalledWith(error)
     const data = await res.json()
     expect(data.message).toBe('Handled error')
+  })
+})
+
+describe('POST /api/auth/sign-in - remember flag tests', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it('sets JWT cookie when remember is true', async () => {
+    const mockJwt = 'jwt-token-remember-true'
+    const mockUser = { id: 1, email: 'user1@example.com' }
+
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: { user: mockUser, jwt: mockJwt },
+    })
+
+    const req = new MockNextRequest({
+      username: 'user1',
+      password: 'pass',
+      remember: true,
+    })
+    const res = await POST(req as any)
+
+    expect(res.cookies.get('jwt')?.value).toBe(mockJwt)
+  })
+
+  it('does NOT set JWT cookie when remember is false', async () => {
+    const mockJwt = 'jwt-token-remember-false'
+    const mockUser = { id: 2, email: 'user2@example.com' }
+
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: { user: mockUser, jwt: mockJwt },
+    })
+
+    const req = new MockNextRequest({
+      username: 'user2',
+      password: 'pass',
+      remember: false,
+    })
+    const res = await POST(req as any)
+
+    expect(res.cookies.get('jwt')).toBeUndefined()
+  })
+
+  it('does NOT set JWT cookie when remember is undefined', async () => {
+    const mockJwt = 'jwt-token-remember-undefined'
+    const mockUser = { id: 3, email: 'user3@example.com' }
+
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: { user: mockUser, jwt: mockJwt },
+    })
+
+    const req = new MockNextRequest({ username: 'user3', password: 'pass' }) // no remember field
+    const res = await POST(req as any)
+
+    expect(res.cookies.get('jwt')).toBeUndefined()
   })
 })

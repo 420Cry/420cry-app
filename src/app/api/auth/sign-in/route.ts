@@ -7,7 +7,7 @@ import { ISignIn, IResponse, IAuthResponse } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const body = await request.json()
+    const body = (await request.json()) as ISignIn
 
     const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
       `${API_URL}/users/signin`,
@@ -27,7 +27,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       const nextResponse = NextResponse.json(responseBody)
 
-      if (jwt) {
+      // Only set the JWT cookie if remember is true
+      if (jwt && body.remember) {
         nextResponse.cookies.set('jwt', jwt, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
@@ -36,6 +37,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           maxAge: 60 * 60 * 24 * 7, // 7 days
         })
       }
+
       return nextResponse
     }
 
