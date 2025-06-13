@@ -152,15 +152,14 @@ describe('POST /api/auth/sign-in', () => {
   })
 })
 
-describe('POST /api/auth/sign-in - remember flag tests', () => {
+describe('POST /api/auth/sign-in - remember flag and cookie behavior', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it('sets JWT cookie when remember is true', async () => {
-    const mockJwt = 'jwt-token-remember-true'
+  it('sets a persistent JWT cookie when remember is true', async () => {
+    const mockJwt = 'jwt-persistent'
     const mockUser = { id: 1, email: 'user1@example.com' }
-
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
       data: { user: mockUser, jwt: mockJwt },
@@ -173,13 +172,15 @@ describe('POST /api/auth/sign-in - remember flag tests', () => {
     })
     const res = await POST(req as any)
 
-    expect(res.cookies.get('jwt')?.value).toBe(mockJwt)
+    const cookie = res.cookies.get('jwt')
+    expect(cookie).toBeDefined()
+    expect(cookie?.value).toBe(mockJwt)
+    expect(cookie?.maxAge).toBe(60 * 60 * 24 * 7) // 7 days
   })
 
-  it('does NOT set JWT cookie when remember is false', async () => {
-    const mockJwt = 'jwt-token-remember-false'
+  it('sets a session JWT cookie when remember is false', async () => {
+    const mockJwt = 'jwt-session'
     const mockUser = { id: 2, email: 'user2@example.com' }
-
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
       data: { user: mockUser, jwt: mockJwt },
@@ -192,21 +193,26 @@ describe('POST /api/auth/sign-in - remember flag tests', () => {
     })
     const res = await POST(req as any)
 
-    expect(res.cookies.get('jwt')).toBeUndefined()
+    const cookie = res.cookies.get('jwt')
+    expect(cookie).toBeDefined()
+    expect(cookie?.value).toBe(mockJwt)
+    expect(cookie?.maxAge).toBeUndefined() // session cookie: no maxAge
   })
 
-  it('does NOT set JWT cookie when remember is undefined', async () => {
-    const mockJwt = 'jwt-token-remember-undefined'
+  it('sets a session JWT cookie when remember is undefined', async () => {
+    const mockJwt = 'jwt-session-undefined'
     const mockUser = { id: 3, email: 'user3@example.com' }
-
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
       data: { user: mockUser, jwt: mockJwt },
     })
 
-    const req = new MockNextRequest({ username: 'user3', password: 'pass' }) // no remember field
+    const req = new MockNextRequest({ username: 'user3', password: 'pass' })
     const res = await POST(req as any)
 
-    expect(res.cookies.get('jwt')).toBeUndefined()
+    const cookie = res.cookies.get('jwt')
+    expect(cookie).toBeDefined()
+    expect(cookie?.value).toBe(mockJwt)
+    expect(cookie?.maxAge).toBeUndefined() // session cookie: no maxAge
   })
 })

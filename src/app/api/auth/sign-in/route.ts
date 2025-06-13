@@ -27,14 +27,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       const nextResponse = NextResponse.json(responseBody)
 
-      // Only set the JWT cookie if remember is true
-      if (jwt && body.remember) {
+      if (jwt) {
         nextResponse.cookies.set('jwt', jwt, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           path: '/',
           sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 7, // 7 days
+          ...(body.remember
+            ? { maxAge: 60 * 60 * 24 * 7 } // 7 days persistent cookie
+            : {}), // session cookie (no maxAge)
         })
       }
 
