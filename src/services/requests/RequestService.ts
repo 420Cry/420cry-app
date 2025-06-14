@@ -1,34 +1,67 @@
-'server-only'
+'use server-only'
+
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 export class RequestService {
-  public static async post<T>(
+  // Axios POST
+  public static async axiosPost<TPayload, TResponse>(
     url: string,
-    data?: T,
+    payload?: TPayload,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.post<T>(url, data, config)
+  ): Promise<AxiosResponse<TResponse>> {
+    return axios.post<TResponse>(url, payload, config)
   }
 
-  public static async get<T>(
+  // Axios GET
+  public static async axiosGet<TParams, TResponse>(
     url: string,
+    params?: TParams,
     config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.get<T>(url, config)
+  ): Promise<AxiosResponse<TResponse>> {
+    return axios.get<TResponse>(url, {
+      ...config,
+      params,
+    })
   }
 
-  public static async put<T>(
+  // Native POST
+  public static async nativeFetchPost<TPayload, TResponse>(
     url: string,
-    data?: T,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.put<T>(url, data, config)
+    body: TPayload,
+  ): Promise<TResponse> {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+    return response.json() as Promise<TResponse>
   }
 
-  public static async delete<T>(
-    url: string,
-    config?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<T>> {
-    return axios.delete<T>(url, config)
+  // Native GET
+  public static async nativeFetchGet<
+    TParams extends Record<string, unknown> | undefined,
+    TResponse,
+  >(url: string, params?: TParams): Promise<TResponse> {
+    const query = params
+      ? `?${new URLSearchParams(
+          Object.entries(params).reduce(
+            (acc, [key, value]) => {
+              acc[key] = String(value)
+              return acc
+            },
+            {} as Record<string, string>,
+          ),
+        ).toString()}`
+      : ''
+
+    const response = await fetch(`${url}${query}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+
+    return response.json() as Promise<TResponse>
   }
 }

@@ -1,33 +1,43 @@
-import { z } from 'zod'
-import { IResponse } from '@/types'
-import { SignInFormSchema } from '@/lib'
+import { SIGN_IN_API, SignInFormSchema, validateFormData } from '@/lib'
+import { RequestService } from '@/services'
+import { IUser, ISignIn, IResponse } from '@/types'
 
 export const SignInService = {
-  signInAction(formData: FormData): IResponse {
+  async signInAction(
+    formData: FormData,
+  ): Promise<{ response: IResponse; user?: IUser }> {
     const formValues = {
       userName: formData.get('userName')?.toString() || '',
       password: formData.get('password')?.toString() || '',
       rememberMe: formData.has('rememberMe'),
     }
 
-    try {
-      SignInFormSchema.parse(formValues)
+    const validation = validateFormData(SignInFormSchema, formValues)
+    if (!validation.success) {
       return {
-        isSuccess: true,
-        message: 'app.alertTitle.signInSuccessful',
-      }
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const errorMessages = error.errors.map((e) => e.message)
-        return {
+        response: {
           isSuccess: false,
-          message: errorMessages[0].toString(),
-        }
+          message: validation.message,
+        },
       }
+    }
 
+    try {
+      const payload: ISignIn = {
+        username: validation.data.userName,
+        password: validation.data.password,
+        remember: validation.data.rememberMe,
+      }
+      return await RequestService.nativeFetchPost<
+        ISignIn,
+        { response: IResponse; user?: IUser }
+      >(SIGN_IN_API, payload)
+    } catch {
       return {
-        isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        response: {
+          isSuccess: false,
+          message: 'app.alertTitle.somethingWentWrong',
+        },
       }
     }
   },

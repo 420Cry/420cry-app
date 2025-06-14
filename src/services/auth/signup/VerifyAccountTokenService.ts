@@ -1,17 +1,19 @@
-import { RequestService, ErrorHandlerService } from '@/services'
-import { IResponse } from '@/types'
-import { API_URL } from '@/lib'
+import { VERIFY_ACCOUNT_TOKEN_API } from '@/lib'
+import { RequestService } from '@/services'
+import { IResponse, IVerifyAccountToken } from '@/types'
 
 export const VerifyAccountTokenService = {
-  verifyToken: (token: string): Promise<IResponse> => {
-    const verifyUrl = `${API_URL}/users/verify-account-token`
-    return ErrorHandlerService.safeRequest(
-      () => RequestService.post(verifyUrl, { token }),
-      {
-        400: 'app.alertTitle.invalidOrExpiredToken',
-        404: 'app.alertTitle.accountTokenNotFound',
-      },
-      'app.alertTitle.validToken',
-    )
+  verifyToken: async (token: IVerifyAccountToken): Promise<IResponse> => {
+    try {
+      return await RequestService.nativeFetchPost<
+        IVerifyAccountToken,
+        IResponse
+      >(VERIFY_ACCOUNT_TOKEN_API, token)
+    } catch {
+      return {
+        isSuccess: false,
+        message: 'app.alertTitle.somethingWentWrong',
+      }
+    }
   },
 }
