@@ -1,5 +1,4 @@
-import { VERIFY_ACCOUNT_TOKEN_API } from '@/lib'
-import { RequestService } from '@/services'
+import { VERIFY_ACCOUNT_TOKEN_API, RequestService } from '@/lib'
 import { IResponse, IVerifyAccountToken } from '@/types'
 
 export const VerifyAccountTokenService = {

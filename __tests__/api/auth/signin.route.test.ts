@@ -1,15 +1,11 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/auth/sign-in/route'
-import { handleApiError } from '@/lib'
-import { RequestService } from '@/services'
+import { handleApiError, RequestService } from '@/lib'
 
 vi.mock('@/lib', () => ({
   handleApiError: vi.fn(),
   API_URL: 'http://fake-api',
-}))
-
-vi.mock('@/services', () => ({
   RequestService: {
     axiosPost: vi.fn(),
   },

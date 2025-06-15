@@ -1,5 +1,9 @@
-import { SIGN_IN_API, SignInFormSchema, validateFormData } from '@/lib'
-import { RequestService } from '@/services'
+import {
+  SIGN_IN_API,
+  SignInFormSchema,
+  validateFormData,
+  RequestService,
+} from '@/lib'
 import { IUser, ISignIn, IResponse } from '@/types'
 
 export const SignInService = {

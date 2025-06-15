@@ -3,7 +3,7 @@
 import { AuthHeader, VerifyEmailForm } from '@/components'
 import { useSearchParams, notFound } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
-import { VerifyAccountTokenService } from '@/services'
+import { VerifyAccountTokenService } from '@/lib'
 import { useTranslations } from 'next-intl'
 import { IVerifyAccountToken } from '@/types'
 

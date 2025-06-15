@@ -1,5 +1,4 @@
-import { VERIFY_EMAIL_TOKEN_API } from '@/lib'
-import { RequestService } from '@/services'
+import { VERIFY_EMAIL_TOKEN_API, RequestService } from '@/lib'
 import { IResponse, ISignUpVerificationToken } from '@/types'
 
 export const VerifyEmailTokenService = {

@@ -8,9 +8,8 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE } from '@/lib'
+import { showToast, SIGN_IN_ROUTE, SignUpService } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { SignUpService } from '@/services'
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()

@@ -1,8 +1,7 @@
 'use server-only'
 
-import { API_URL, handleApiError } from '@/lib'
+import { API_URL, handleApiError, RequestService } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
-import { RequestService } from '@/services'
 import { ISignIn, IResponse, IAuthResponse } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

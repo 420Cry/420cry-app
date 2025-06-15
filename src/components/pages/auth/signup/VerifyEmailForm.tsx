@@ -3,8 +3,7 @@
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
-import { VerifyEmailTokenService } from '@/services'
-import { showToast, SIGN_IN_ROUTE } from '@/lib'
+import { showToast, SIGN_IN_ROUTE, VerifyEmailTokenService } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
 

@@ -14,8 +14,9 @@ import {
   RESET_PASSWORD_ROUTE,
   showToast,
   SIGN_UP_ROUTE,
+  SignInService,
 } from '@/lib'
-import { SignInService } from '@/services'
+
 import { useRouter } from 'next/navigation'
 
 const SocialButton = ({
