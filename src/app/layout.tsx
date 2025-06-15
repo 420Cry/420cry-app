@@ -4,17 +4,11 @@ import { JSX, ReactNode } from 'react'
 import { getLocale, getMessages } from 'next-intl/server'
 import { ClientLayout } from '@/components'
 import { ILocale } from '@/types'
-// eslint-disable-next-line camelcase
-import { Work_Sans } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: '420Crypto',
   description: '420Cry-app',
 }
-
-const workSans = Work_Sans({
-  subsets: ['latin'],
-})
 
 export default async function RootLayout({
   children,
@@ -32,7 +26,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`antialiased ${workSans.className}`}>
+      <body className="antialiased font-sans">
         <ClientLayout localeData={localeData}>{children}</ClientLayout>
       </body>
     </html>
