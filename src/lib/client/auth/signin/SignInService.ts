@@ -30,7 +30,7 @@ export const SignInService = {
       const payload: ISignIn = {
         username: validation.data.userName,
         password: validation.data.password,
-        remember: validation.data.rememberMe,
+        remember: validation.data.rememberMe ?? false,
       }
       return await RequestService.nativeFetchPost<
         ISignIn,

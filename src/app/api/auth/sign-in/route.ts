@@ -1,6 +1,6 @@
 'use server-only'
 
-import { API_URL, handleApiError, RequestService } from '@/lib'
+import { API_URL, handleApiError, RequestService, setJwtCookie } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { ISignIn, IResponse, IAuthResponse } from '@/types'
 
@@ -26,17 +26,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       const nextResponse = NextResponse.json(responseBody)
 
-      if (jwt) {
-        nextResponse.cookies.set('jwt', jwt, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          path: '/',
-          sameSite: 'lax',
-          ...(body.remember
-            ? { maxAge: 60 * 60 * 24 * 7 } // 7 days persistent cookie
-            : {}), // session cookie (no maxAge)
-        })
-      }
+      setJwtCookie(nextResponse, jwt, body.remember ?? false)
 
       return nextResponse
     }
