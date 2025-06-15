@@ -2,27 +2,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import { middleware } from '@/middleware'
+import {
+  AUTH_ROUTES,
+  BLOCKED_ROUTES_FOR_AUTH_USERS,
+  HOME_ROUTE,
+  SIGN_IN_ROUTE,
+  UN_AUTH_ROUTES,
+} from '@/lib'
 
 vi.mock('jose', () => ({
   jwtVerify: vi.fn(),
 }))
-
-const SIGN_IN_ROUTE = '/auth/login'
-const AUTH_ROUTES = ['/', '/dashboard', '/profile']
-const UN_AUTH_ROUTES = [
-  SIGN_IN_ROUTE,
-  '/auth/signup',
-  '/auth/reset-password',
-  '/api/auth/logout',
-  '/auth/signup/verify',
-]
-
-const HOME_ROUTE = '/'
-const BLOCKED_ROUTES_FOR_AUTH_USERS = [
-  '/auth/login',
-  '/auth/signup',
-  '/auth/reset-password',
-]
 
 vi.mock('./lib', async () => ({
   AUTH_ROUTES,
