@@ -3,8 +3,9 @@
 import { AuthHeader, VerifyEmailForm } from '@/components'
 import { useSearchParams, notFound } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
-import { VerifyAccountTokenService } from '@/services'
+import { VerifyAccountTokenService } from '@/lib'
 import { useTranslations } from 'next-intl'
+import { IVerifyAccountToken } from '@/types'
 
 const SignUpConfirmationPage = (): JSX.Element => {
   const searchParams = useSearchParams()
@@ -21,18 +22,16 @@ const SignUpConfirmationPage = (): JSX.Element => {
     }
 
     const verifyToken = async () => {
-      const response = await VerifyAccountTokenService.verifyToken(token)
-      if (response.isSuccess) {
-        setStatus('success')
-      } else {
-        setStatus('error')
+      const payload: IVerifyAccountToken = {
+        token: token,
       }
+      const response = await VerifyAccountTokenService.verifyToken(payload)
+      setStatus(response.isSuccess ? 'success' : 'error')
     }
 
     verifyToken()
   }, [token])
 
-  // If error (invalid token or no token), show 404 page
   if (status === 'error') {
     notFound()
   }
@@ -48,7 +47,7 @@ const SignUpConfirmationPage = (): JSX.Element => {
   return (
     <div className="relative min-h-screen">
       <AuthHeader />
-      <VerifyEmailForm />
+      <VerifyEmailForm userToken={token!} />
     </div>
   )
 }

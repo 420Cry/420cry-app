@@ -1,4 +1,5 @@
 import { z } from 'zod'
+
 export const SignInFormSchema = z
   .object({
     userName: z.string().trim().min(2, { message: 'app.rules.userName' }),
