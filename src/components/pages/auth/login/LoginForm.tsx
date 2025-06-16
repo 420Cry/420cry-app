@@ -8,10 +8,16 @@ import {
   GoogleIcon,
 } from '@420cry/420cry-lib'
 import { JSX, ComponentType } from 'react'
-
 import { useTranslations } from 'next-intl'
-import { RESET_PASSWORD_ROUTE, showToast, SIGN_UP_ROUTE } from '@/lib'
-import { SignInService } from '@/services'
+import {
+  HOME_ROUTE,
+  RESET_PASSWORD_ROUTE,
+  showToast,
+  SIGN_UP_ROUTE,
+  SignInService,
+} from '@/lib'
+
+import { useRouter } from 'next/navigation'
 
 const SocialButton = ({
   Icon,
@@ -28,6 +34,7 @@ const SocialButton = ({
 )
 
 const LogInForm = (): JSX.Element => {
+  const router = useRouter()
   const t = useTranslations()
   const hideLabel = t('login.showPassword')
   const showLabel = t('login.hidePassword')
@@ -35,13 +42,24 @@ const LogInForm = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
+
     if ([...formData.values()].some((value) => !value)) {
       showToast(false, t('app.alertTitle.allfieldsAreRequired'))
       return
     }
+
     try {
-      const response = SignInService.signInAction(formData)
-      showToast(response.isSuccess, t(response.message))
+      const { response, user } = await SignInService.signInAction(formData)
+      if (response.isSuccess && user) {
+        const fullname = user.fullname || ''
+        router.push(HOME_ROUTE)
+        showToast(
+          response.isSuccess,
+          t(response.message, { fullname: fullname }),
+        )
+      } else {
+        showToast(response.isSuccess, t(response.message))
+      }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }

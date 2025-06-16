@@ -1,17 +1,16 @@
 export const API_URL = process.env.API_URL
-  ? `https://${process.env.API_URL}`
-  : null
+  ? `http://${process.env.API_URL}`
+  : ''
 
-export const MIDDLE_WARE_URL = process.env.MIDDLE_WARE_URL
-  ? `https://${process.env.MIDDLE_WARE_URL}`
-  : null
+export const APP_URL = process.env.APP_URL
+  ? `https://${process.env.APP_URL}`
+  : ''
 
-export const SIGN_IN_ROUTE = '/auth/login'
-export const SIGN_UP_ROUTE = '/auth/signup'
-export const RESET_PASSWORD_ROUTE = '/auth/reset-password'
+export const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `https://${process.env.NEXT_PUBLIC_API_URL}`
+  : ''
 
-export const UN_AUTH_ROUTES = [
-  SIGN_IN_ROUTE,
-  SIGN_UP_ROUTE,
-  RESET_PASSWORD_ROUTE,
-]
+export const SIGN_UP_API = '/api/auth/sign-up'
+export const SIGN_IN_API = '/api/auth/sign-in'
+export const VERIFY_ACCOUNT_TOKEN_API = '/api/auth/verify-account-token'
+export const VERIFY_EMAIL_TOKEN_API = '/api/auth/verify-email-token'
