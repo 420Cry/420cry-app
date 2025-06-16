@@ -92,7 +92,8 @@ describe('middleware', () => {
     expect(res).toEqual(NextResponse.next())
   })
 
-  it('allows unauthenticated users to access blocked routes (like login)', async () => {
+
+  it('allows unauthenticated users to access public routes like login', async () => {
     const req = mockRequest('/auth/login', '')
     const res = await middleware(req)
 

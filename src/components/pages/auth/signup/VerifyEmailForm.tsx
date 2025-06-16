@@ -7,19 +7,6 @@ import { showToast, SIGN_IN_ROUTE, VerifyEmailTokenService } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
 
-const codeKeys = [
-  'firstDigit',
-  'secondDigit',
-  'thirdDigit',
-  'fourthDigit',
-  'fifthDigit',
-  'sixthDigit',
-] as const
-type CodeKeys = (typeof codeKeys)[number]
-const initialCode = codeKeys.reduce(
-  (acc, key) => ({ ...acc, [key]: '' }),
-  {} as Record<CodeKeys, string>,
-)
 
 interface VerifyEmailFormProps {
   userToken: string
@@ -28,6 +15,19 @@ interface VerifyEmailFormProps {
 const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const codeKeys = [
+    'firstDigit',
+    'secondDigit',
+    'thirdDigit',
+    'fourthDigit',
+    'fifthDigit',
+    'sixthDigit',
+  ] as const
+  type CodeKeys = (typeof codeKeys)[number]
+  const initialCode = codeKeys.reduce(
+    (acc, key) => ({ ...acc, [key]: '' }),
+    {} as Record<CodeKeys, string>,
+  )
 
   const [code, setCode] = useState(initialCode)
   const [loading, setLoading] = useState(false)
