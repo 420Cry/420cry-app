@@ -69,7 +69,11 @@ describe('POST /api/auth/sign-in', () => {
 
   it('returns a success response and sets a session cookie when remember is false', async () => {
     const mockJwt = 'fake-jwt-token'
-    const mockUser = { id: 123, email: 'test@example.com' }
+    const mockUser = {
+      id: 123,
+      email: 'test@example.com',
+      twoFAEnabled: true,
+    }
 
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
@@ -151,67 +155,120 @@ describe('POST /api/auth/sign-in', () => {
   })
 })
 
-describe('POST /api/auth/sign-in - remember flag and cookie behavior', () => {
+describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
 
-  it('sets a persistent JWT cookie when remember is true', async () => {
-    const mockJwt = 'jwt-persistent'
-    const mockUser = { id: 1, email: 'user1@example.com' }
+  const userWith2FA = { id: 1, email: 'user@example.com', twoFAEnabled: true }
+  const userWithout2FA = {
+    id: 2,
+    email: 'user2@example.com',
+    twoFAEnabled: false,
+  }
+
+  it('sets 7-day maxAge cookie if remember=true and 2FA enabled', async () => {
+    const jwt = 'jwt-remember-2fa'
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
-      data: { user: mockUser, jwt: mockJwt },
+      data: { user: userWith2FA, jwt },
     })
 
     const req = new MockNextRequest({
-      username: 'user1',
+      username: 'user',
       password: 'pass',
       remember: true,
     })
-    const res = await POST(req as any)
 
+    const res = await POST(req as any)
     const cookie = res.cookies.get('jwt')
+
     expect(cookie).toBeDefined()
-    expect(cookie?.value).toBe(mockJwt)
-    expect(cookie?.maxAge).toBe(60 * 60 * 24 * 7) // 7 days
+    expect(cookie?.value).toBe(jwt)
+    expect(cookie?.maxAge).toBe(7 * 24 * 60 * 60) // 7 days in seconds
   })
 
-  it('sets a session JWT cookie when remember is false', async () => {
-    const mockJwt = 'jwt-session'
-    const mockUser = { id: 2, email: 'user2@example.com' }
+  it('sets session cookie if remember=false and 2FA enabled', async () => {
+    const jwt = 'jwt-session-2fa'
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
-      data: { user: mockUser, jwt: mockJwt },
+      data: { user: userWith2FA, jwt },
     })
 
     const req = new MockNextRequest({
-      username: 'user2',
+      username: 'user',
       password: 'pass',
       remember: false,
     })
-    const res = await POST(req as any)
 
+    const res = await POST(req as any)
     const cookie = res.cookies.get('jwt')
+
     expect(cookie).toBeDefined()
-    expect(cookie?.value).toBe(mockJwt)
-    expect(cookie?.maxAge).toBeUndefined() // session cookie: no maxAge
+    expect(cookie?.value).toBe(jwt)
+    expect(cookie?.maxAge).toBeUndefined() // session cookie has no maxAge
   })
 
-  it('sets a session JWT cookie when remember is undefined', async () => {
-    const mockJwt = 'jwt-session-undefined'
-    const mockUser = { id: 3, email: 'user3@example.com' }
+  it('sets 10-minute maxAge cookie if 2FA disabled, regardless of remember=true', async () => {
+    const jwt = 'jwt-10min-2fa-disabled'
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
-      data: { user: mockUser, jwt: mockJwt },
+      data: { user: userWithout2FA, jwt },
     })
 
-    const req = new MockNextRequest({ username: 'user3', password: 'pass' })
-    const res = await POST(req as any)
+    const req = new MockNextRequest({
+      username: 'user',
+      password: 'pass',
+      remember: true,
+    })
 
+    const res = await POST(req as any)
     const cookie = res.cookies.get('jwt')
+
     expect(cookie).toBeDefined()
-    expect(cookie?.value).toBe(mockJwt)
-    expect(cookie?.maxAge).toBeUndefined() // session cookie: no maxAge
+    expect(cookie?.value).toBe(jwt)
+    expect(cookie?.maxAge).toBe(600) // 10 minutes in seconds
+  })
+
+  it('sets 10-minute maxAge cookie if 2FA disabled, regardless of remember=false', async () => {
+    const jwt = 'jwt-10min-2fa-disabled-false'
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: { user: userWithout2FA, jwt },
+    })
+
+    const req = new MockNextRequest({
+      username: 'user',
+      password: 'pass',
+      remember: false,
+    })
+
+    const res = await POST(req as any)
+    const cookie = res.cookies.get('jwt')
+
+    expect(cookie).toBeDefined()
+    expect(cookie?.value).toBe(jwt)
+    expect(cookie?.maxAge).toBe(600) // still 10 minutes
+  })
+
+  it('sets 10-minute maxAge cookie if 2FA disabled and remember is undefined', async () => {
+    const jwt = 'jwt-10min-2fa-disabled-undefined'
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: { user: userWithout2FA, jwt },
+    })
+
+    const req = new MockNextRequest({
+      username: 'user',
+      password: 'pass',
+      // remember omitted here
+    })
+
+    const res = await POST(req as any)
+    const cookie = res.cookies.get('jwt')
+
+    expect(cookie).toBeDefined()
+    expect(cookie?.value).toBe(jwt)
+    expect(cookie?.maxAge).toBe(600)
   })
 })

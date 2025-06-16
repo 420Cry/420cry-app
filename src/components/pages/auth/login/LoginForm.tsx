@@ -52,8 +52,7 @@ const LogInForm = (): JSX.Element => {
     try {
       const { response, user } = await SignInService.signInAction(formData)
       if (response.isSuccess && user) {
-        console.log(user)
-        if (user.TwoFAEnabled) {
+        if (user.twoFAEnabled) {
           router.push(HOME_ROUTE)
         } else {
           router.push(TWO_FACTOR_SETUP_ROUTE)

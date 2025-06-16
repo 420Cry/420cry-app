@@ -27,20 +27,28 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       const nextResponse = NextResponse.json(responseBody)
 
       if (jwt) {
+        const rememberFlag = !!body.remember
+        let maxAge: number | undefined = undefined
+        if (!user.twoFAEnabled) {
+          maxAge = 600 // 10 minutes if 2FA not enabled
+        } else if (rememberFlag) {
+          maxAge = 60 * 60 * 24 * 7 // 7 days if remember is true
+        } else {
+          maxAge = undefined
+        }
         nextResponse.cookies.set('jwt', jwt, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           path: '/',
           sameSite: 'lax',
-          ...(body.remember
-            ? { maxAge: 60 * 60 * 24 * 7 } // 7 days persistent cookie
-            : {}), // session cookie (no maxAge)
+          ...(maxAge !== undefined ? { maxAge } : {}),
         })
       }
 
       return nextResponse
     }
 
+    // Fallback: failed auth
     return NextResponse.json(
       {
         response: {
