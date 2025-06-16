@@ -42,19 +42,14 @@
     "title": "Login",
     "forgotYourPassword": "Forgot your password?",
     "rememberMe": "Remember me?",
-    "doNotHaveAnAccount": "Do not have an account? Sign up here",
-    "showPassword": "Show",
-    "hidePassword": "Hide"
+    "doNotHaveAnAccount": "Do not have an account? Sign up here"
   },
   "signup": {
     "title": "Sign Up",
     "orSignInUsing": "Or sign up using",
-    "showPassword": "Show",
-    "hidePassword": "Hide",
     "verifyEmail": {
       "title": "Verify your email",
-      "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)",
-      "confirm": "Confirm"
+      "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
     }
   },
   "2fa": {
@@ -68,12 +63,19 @@
     },
     "QR": {
       "title": "2FA setup",
-      "scanQRCodeWithApp": "Scan the QR code below with your 2FA authenticator.",
+      "scanQRCodeWithApp": "Get the codes from an authenticator app",
+      "description": "Each time you sign in, in addition to your password, you will use an authenticator app to generate a one-time code.",
       "scanQR": "Scan QR code",
-      "or": "OR",
-      "enterSixDigits": "Enter 6-digit code from your app",
-      "cancel": "Cancel",
-      "verify": "Verify"
+      "stepOne": "Scan the QR code below or manually type the secret key into your authenticator app.",
+      "stepTwo": "Enter 6-digit code you see in your authenticator app"
     }
+  },
+  "common": {
+    "showPassword": "Show",
+    "hidePassword": "Hide",
+    "cancel": "Cancel",
+    "verify": "Verify",
+    "confirm": "Confirm",
+    "back": "Back"
   }
 }

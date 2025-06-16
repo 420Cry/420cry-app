@@ -1,5 +1,6 @@
 'use client'
 
+import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { JSX, useState } from 'react'
 
@@ -36,7 +37,7 @@ const TwoFactorSetupOption = ({
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <button
+          <CryButton
             onClick={() => {
               setSelectedMethod('phone')
               onSelect('phone')
@@ -54,9 +55,9 @@ const TwoFactorSetupOption = ({
                 </p>
               </div>
             </div>
-          </button>
+          </CryButton>
 
-          <button
+          <CryButton
             onClick={() => {
               setSelectedMethod('app')
               onSelect('app')
@@ -74,7 +75,7 @@ const TwoFactorSetupOption = ({
                 </p>
               </div>
             </div>
-          </button>
+          </CryButton>
         </div>
       </div>
     </div>

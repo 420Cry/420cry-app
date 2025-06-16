@@ -42,19 +42,14 @@
     "title": "Đăng nhập",
     "forgotYourPassword": "quên mật khẩu?",
     "rememberMe": "Ghi nhớ đăng nhập?",
-    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay",
-    "showPassword": "Hiện",
-    "hidePassword": "Ẩn"
+    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
   },
   "signup": {
     "title": "Đăng ký",
     "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
-    "showPassword": "Hiện",
-    "hidePassword": "Ẩn",
     "verifyEmail": {
       "title": "Xác nhận email của bạn",
-      "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)",
-      "confirm": "Xác nhận"
+      "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
     }
   },
   "2fa": {
@@ -68,12 +63,19 @@
     },
     "QR": {
       "title": "Cài đặt xác thực hai yếu tố",
-      "scanQRCodeWithApp": "Quét mã QR bên dưới bằng trình xác thực 2FA của bạn.",
+      "scanQRCodeWithApp": "Nhận mã từ ứng dụng xác thực",
+      "description": "Mỗi lần đăng nhập, ngoài mật khẩu, bạn sẽ sử dụng ứng dụng xác thực để tạo mã một lần.",
       "scanQR": "Quét mã QR",
-      "or": "Hoặc là",
-      "enterSixDigits": "Nhập 6 mã trong app của bạn",
-      "cancel": "Huỷ",
-      "verify": "Xác nhận"
+      "stepOne": "Quét mã QR bên dưới hoặc nhập thủ công mã khóa bí mật vào ứng dụng xác thực của bạn.",
+      "stepTwo": "Nhập mã 6 chữ số bạn thấy trong ứng dụng xác thực của mình"
     }
+  },
+  "common": {
+    "showPassword": "Hiện",
+    "hidePassword": "Ẩn",
+    "cancel": "Huỷ",
+    "verify": "Xác nhận",
+    "confirm": "Xác nhận",
+    "back": "Quay lại"
   }
 }
