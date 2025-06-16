@@ -53,6 +53,10 @@
     }
   },
   "2fa": {
+    "phone": {
+      "warn": "Not supported in DEV MODE",
+      "description": " Phone verification is currently disabled while in development mode."
+    },
     "setup": {
       "title": "Bảo vệ tài khoản của bạn bằng xác thực hai yếu tố",
       "description": "Mỗi lần bạn đăng nhập, bạn sẽ cần nhập mã. Chọn cách bạn muốn nhận mã xác minh",
@@ -76,6 +80,7 @@
     "cancel": "Huỷ",
     "verify": "Xác nhận",
     "confirm": "Xác nhận",
-    "back": "Quay lại"
+    "back": "Quay lại",
+    "ok": "Ok"
   }
 }

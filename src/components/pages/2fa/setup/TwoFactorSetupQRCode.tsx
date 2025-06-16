@@ -1,3 +1,5 @@
+'use client'
+
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { JSX } from 'react'

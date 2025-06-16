@@ -53,6 +53,10 @@
     }
   },
   "2fa": {
+    "phone": {
+      "warn": "Not supported in DEV MODE",
+      "description": " Phone verification is currently disabled while in development mode."
+    },
     "setup": {
       "title": "Protect your account with 2-step verification",
       "description": "Each time you sign in, you will need to enter a code. Choose how you want to receive your verification code.",
@@ -76,6 +80,7 @@
     "cancel": "Cancel",
     "verify": "Verify",
     "confirm": "Confirm",
-    "back": "Back"
+    "back": "Back",
+    "ok": "Ok"
   }
 }

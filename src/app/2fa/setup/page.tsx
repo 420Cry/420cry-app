@@ -1,6 +1,8 @@
 'use client'
 
 import { TwoFactorSetupQRCode, TwoFactorSetupOption } from '@/components'
+import { CryButton } from '@420cry/420cry-lib'
+import { useTranslations } from 'next-intl'
 import React, { JSX, useState } from 'react'
 
 const TwoFactorSetupPage = (): JSX.Element => {
@@ -8,7 +10,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
     null,
   )
   const [showPhoneModal, setShowPhoneModal] = useState(false)
-
+  const t = useTranslations()
   const handleSelect = (method: 'phone' | 'app') => {
     if (method === 'phone') {
       setShowPhoneModal(true)
@@ -36,18 +38,17 @@ const TwoFactorSetupPage = (): JSX.Element => {
             <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
               <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm text-center">
                 <h2 className="text-xl font-semibold mb-2">
-                  Not supported in DEV MODE
+                  {t('2fa.phone.warn')}
                 </h2>
                 <p className="text-sm text-gray-600 mb-6">
-                  Phone verification is currently disabled while in development
-                  mode.
+                  {t('2fa.phone.description')}
                 </p>
-                <button
+                <CryButton
                   onClick={handleCloseModal}
                   className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                 >
-                  OK
-                </button>
+                  {t('common.ok')}
+                </CryButton>
               </div>
             </div>
           )}

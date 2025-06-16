@@ -15,6 +15,7 @@ import {
   showToast,
   SIGN_UP_ROUTE,
   SignInService,
+  TWO_FACTOR_SETUP_ROUTE,
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
@@ -51,11 +52,15 @@ const LogInForm = (): JSX.Element => {
     try {
       const { response, user } = await SignInService.signInAction(formData)
       if (response.isSuccess && user) {
-        const fullname = user.fullname || ''
-        router.push(HOME_ROUTE)
+        console.log(user)
+        if (user.TwoFAEnabled) {
+          router.push(HOME_ROUTE)
+        } else {
+          router.push(TWO_FACTOR_SETUP_ROUTE)
+        }
         showToast(
           response.isSuccess,
-          t(response.message, { fullname: fullname }),
+          t(response.message, { fullname: user.fullname }),
         )
       } else {
         showToast(response.isSuccess, t(response.message))
