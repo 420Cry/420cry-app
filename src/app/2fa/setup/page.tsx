@@ -1,9 +1,9 @@
 'use client'
 
 import { TwoFactorSetupQRCode, TwoFactorSetupOption } from '@/components'
-import React, { useState } from 'react'
+import React, { JSX, useState } from 'react'
 
-const TwoFactorSetupPage = () => {
+const TwoFactorSetupPage = (): JSX.Element => {
   const [selectedMethod, setSelectedMethod] = useState<null | 'phone' | 'app'>(
     null,
   )

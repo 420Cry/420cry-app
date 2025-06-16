@@ -1,13 +1,14 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { JSX, useState } from 'react'
 
 const TwoFactorSetupOption = ({
   onSelect,
 }: {
+  // eslint-disable-next-line no-unused-vars
   onSelect: (method: 'phone' | 'app') => void
-}) => {
+}): JSX.Element => {
   const [selectedMethod, setSelectedMethod] = useState<null | 'phone' | 'app'>(
     null,
   )
