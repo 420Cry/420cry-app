@@ -6,7 +6,6 @@ export * from './constants/routes'
 export * from './server/validation/auth/SignInFormSchema'
 export * from './server/validation/auth/SignUpFormSchema'
 export * from './server/validation/validateFormData'
-export * from './server/auth/authCookies'
 export * from './server/api/handleApiError'
 
 // Client
