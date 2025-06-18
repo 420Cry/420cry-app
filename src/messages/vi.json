@@ -30,7 +30,8 @@
       "passwordLetterContain": "Mật khẩu phải có ít nhất 1 chữ cái!",
       "passwordNumberContain": "Mật khẩu phải có ít nhất 1 số!",
       "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 kí tự dặc biệt!",
-      "repeatedPassword": "Mật khẩu không khớp!"
+      "repeatedPassword": "Mật khẩu không khớp!",
+      "emailOrUserNameAlreadyExist": "Email hoặc tên tài khoản đã tồi tại"
     }
   },
   "header": {
@@ -54,8 +55,8 @@
   },
   "2fa": {
     "phone": {
-      "warn": "Not supported in DEV MODE",
-      "description": " Phone verification is currently disabled while in development mode."
+      "warn": "Không hỗ trợ trong CHẾ ĐỘ PHÁT TRIỂN",
+      "description": "Xác minh điện thoại hiện không được hỗ trợ khi đang ở chế độ phát triển."
     },
     "setup": {
       "title": "Bảo vệ tài khoản của bạn bằng xác thực hai yếu tố",
@@ -63,7 +64,9 @@
       "useYourPhone": "Sử dụng điện thoại",
       "receiveViaSMS": "Nhận mã qua tin nhắn SMS",
       "useAnApp": "Sử dụng một ứng dụng",
-      "ScanAQR": "Quét mã QR bằng ứng dụng xác thực"
+      "scanQR": "Quét mã QR bằng ứng dụng xác thực",
+      "qrCodeError": "Lỗi mã QR",
+      "secretNA": "KHÔNG CÓ MÃ BÍ MẬT"
     },
     "QR": {
       "title": "Cài đặt xác thực hai yếu tố",
@@ -71,7 +74,8 @@
       "description": "Mỗi lần đăng nhập, ngoài mật khẩu, bạn sẽ sử dụng ứng dụng xác thực để tạo mã một lần.",
       "scanQR": "Quét mã QR",
       "stepOne": "Quét mã QR bên dưới hoặc nhập thủ công mã khóa bí mật vào ứng dụng xác thực của bạn.",
-      "stepTwo": "Nhập mã 6 chữ số bạn thấy trong ứng dụng xác thực của mình"
+      "stepTwo": "Nhập mã 6 chữ số bạn thấy trong ứng dụng xác thực của mình",
+      "invalidToken": "Mã xác nhận không hợp lệ"
     }
   },
   "common": {
@@ -81,6 +85,7 @@
     "verify": "Xác nhận",
     "confirm": "Xác nhận",
     "back": "Quay lại",
-    "ok": "Ok"
+    "ok": "Ok",
+    "loading": "Đang tải ..."
   }
 }

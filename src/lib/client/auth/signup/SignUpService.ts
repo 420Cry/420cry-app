@@ -29,11 +29,18 @@ export const SignUpService = {
         username: validation.data.userName,
         password: validation.data.password,
       }
-      return await RequestService.nativeFetchPost<ISignUp, IResponse>(
+      const response = await RequestService.nativeFetchPost<ISignUp, IResponse>(
         SIGN_UP_API,
         payload,
       )
-    } catch {
+      return response
+    } catch (error: any) {
+      if (error.status === 409) {
+        return {
+          isSuccess: false,
+          message: 'app.alertTitle.emailOrUserNameAlreadyExist',
+        }
+      }
       return {
         isSuccess: false,
         message: 'app.alertTitle.somethingWentWrong',

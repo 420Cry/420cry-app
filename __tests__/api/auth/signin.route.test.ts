@@ -248,7 +248,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(3600) 
+    expect(cookie?.maxAge).toBe(3600)
   })
 
   it('sets 10-minute maxAge cookie if 2FA disabled and remember is undefined', async () => {

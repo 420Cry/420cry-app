@@ -1,28 +1,57 @@
 'use client'
 
-import { useAuthStore } from '@/store'
-import { CryButton } from '@420cry/420cry-lib'
+import { JSX, useEffect, useState } from 'react'
+import { TwoFactorSetUpService } from '@/lib/client/2fa/setup/TwoFactorSetUpService'
+import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { JSX } from 'react'
+import { showToast } from '@/lib'
 
 const TwoFactorSetupQRCode = ({
+  userUuid,
   onCancel,
 }: {
+  userUuid: string
   onCancel: () => void
 }): JSX.Element => {
   const t = useTranslations()
-  const user = useAuthStore((state) => state.user)
-  console.log(user)
+
+  const [secret, setSecret] = useState('')
+  const [qrCode, setQrCode] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [token, setToken] = useState('')
+
+  useEffect(() => {
+    const fetchQRCodeAndSecret = async () => {
+      setLoading(true)
+
+      try {
+        const data = await TwoFactorSetUpService.getQRCodeAndSecret({
+          uuid: userUuid,
+        })
+        setSecret(data.secret)
+        setQrCode(data.qrCode)
+      } catch (error) {
+        showToast(false, error instanceof Error ? error.message : String(error))
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchQRCodeAndSecret()
+  }, [userUuid])
+
+  if (loading) {
+    return <p className="text-center py-10">{t('common.loading')}</p>
+  }
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 relative">
-      {/* Back button top-left */}
       <div className="absolute top-6 left-6">
         <CryButton
           onClick={onCancel}
           className="bg-gray-600 text-white px-5 py-2 text-base rounded hover:bg-gray-800 transition"
           rounded
         >
-          ← {t('common.back') || 'Back'}
+          ← {t('common.back')}
         </CryButton>
       </div>
 
@@ -45,14 +74,30 @@ const TwoFactorSetupQRCode = ({
           </p>
 
           <div className="flex flex-col items-center mb-8">
-            <div className="w-56 h-56 bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 select-none mb-4">
-              <p className="font-semibold text-lg">QR CODE</p>
+            <div className="w-56 h-56 bg-white rounded-lg flex items-center justify-center text-gray-400 select-none mb-4">
+              {qrCode ? (
+                <img
+                  src={qrCode}
+                  alt="2FA QR Code"
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <p className="font-semibold text-lg">
+                  {t('2fa.setup.qrCodeError')}
+                </p>
+              )}
             </div>
 
-            {/* Secret key placeholder - bold and centered */}
-            <p className="font-bold text-center text-lg text-gray-800 select-all">
-              SECRET-KEY-1234567890
-            </p>
+            {/* Secret key - bold and selectable */}
+            {secret ? (
+              <p className="font-bold text-center text-lg text-gray-800 select-all">
+                {secret}
+              </p>
+            ) : (
+              <p className="text-sm text-gray-500 italic">
+                {t('common.loading')}
+              </p>
+            )}
           </div>
 
           <div className="my-6 border-t border-gray-300" />
@@ -62,15 +107,14 @@ const TwoFactorSetupQRCode = ({
             <span className="font-bold mr-2">2.</span> {t('2fa.QR.stepTwo')}
           </p>
 
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
             <div className="flex justify-center">
-              <input
-                id="token"
+              <CryTextField
+                modelValue={token}
                 name="token"
-                type="text"
-                inputMode="numeric"
-                maxLength={6}
-                className="w-44 text-center border border-gray-300 rounded py-3 px-4 text-xl tracking-widest font-mono focus:outline-none focus:ring-2 focus:ring-blue-400"
+                shape="rounded"
+                className="max-w"
+                onChange={setToken}
                 placeholder="123456"
               />
             </div>
@@ -88,6 +132,12 @@ const TwoFactorSetupQRCode = ({
           <CryButton
             className="bg-blue-600 text-white px-6 py-2 text-base rounded hover:bg-blue-800 transition"
             rounded
+            onClick={() => {
+              if (!token || token.length !== 6) {
+                showToast(false, t('2fa.QR.invalidToken'))
+                return
+              }
+            }}
           >
             {t('common.verify')}
           </CryButton>

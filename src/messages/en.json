@@ -20,7 +20,8 @@
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
       "emailVerificationFailed": "Email verification failed",
-      "invalidCredentials": "Invalid username or password."
+      "invalidCredentials": "Invalid username or password.",
+      "emailOrUserNameAlreadyExist": "Username or email already exists"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -63,7 +64,9 @@
       "useYourPhone": "Use your phone",
       "receiveViaSMS": "Receive a code via SMS",
       "useAnApp": "Use an app",
-      "ScanAQR": "Scan a QR code with an authenticator app"
+      "scanQR": "Scan a QR code with an authenticator app",
+      "qrCodeError": "QRcode Error",
+      "secretNA": "SECRET-KEY-N/A"
     },
     "QR": {
       "title": "2FA setup",
@@ -71,7 +74,8 @@
       "description": "Each time you sign in, in addition to your password, you will use an authenticator app to generate a one-time code.",
       "scanQR": "Scan QR code",
       "stepOne": "Scan the QR code below or manually type the secret key into your authenticator app.",
-      "stepTwo": "Enter 6-digit code you see in your authenticator app"
+      "stepTwo": "Enter 6-digit code you see in your authenticator app",
+      "invalidToken": "Invalid Token"
     }
   },
   "common": {
@@ -81,6 +85,7 @@
     "verify": "Verify",
     "confirm": "Confirm",
     "back": "Back",
-    "ok": "Ok"
+    "ok": "Ok",
+    "loading": "Loading"
   }
 }

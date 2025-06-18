@@ -12,6 +12,9 @@ services:
       - 420cry.test
     ports:
       - '3000:3000'
+    volumes:
+      - .:/app                # Mount project into container
+      - /app/node_modules     # Prevent host overwriting container's node_modules
 
   nginx:
     container_name: app_web

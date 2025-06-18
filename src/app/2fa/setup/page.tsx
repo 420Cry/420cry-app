@@ -1,36 +1,38 @@
 'use client'
 
+import { useRouter, useSearchParams } from 'next/navigation'
 import { TwoFactorSetupQRCode, TwoFactorSetupOption } from '@/components'
+import { useAuthStore } from '@/store'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import React, { JSX, useState } from 'react'
+import React, { JSX } from 'react'
 
 const TwoFactorSetupPage = (): JSX.Element => {
-  const [selectedMethod, setSelectedMethod] = useState<null | 'phone' | 'app'>(
-    null,
-  )
-  const [showPhoneModal, setShowPhoneModal] = useState(false)
+  const user = useAuthStore((state) => state.user)
+  const searchParams = useSearchParams()
   const t = useTranslations()
-  const handleSelect = (method: 'phone' | 'app') => {
-    if (method === 'phone') {
-      setShowPhoneModal(true)
-    } else {
-      setSelectedMethod(method)
-    }
+  const router = useRouter()
+
+  // Read 'method' query param from URL: 'phone' | 'app' | null
+  const method = searchParams.get('method') as 'phone' | 'app' | null
+  const showPhoneModal = method === 'phone'
+
+  const handleSelect = (selectedMethod: 'phone' | 'app') => {
+    router.replace(`/2fa/setup?method=${selectedMethod}`, { scroll: false })
   }
 
   const handleCloseModal = () => {
-    setShowPhoneModal(false)
+    router.replace('/2fa/setup', { scroll: false })
   }
 
   const handleBack = () => {
-    setSelectedMethod(null)
+    router.replace('/2fa/setup', { scroll: false })
   }
 
   return (
     <>
-      {selectedMethod === 'app' ? (
-        <TwoFactorSetupQRCode onCancel={handleBack} />
+      {method === 'app' && user?.uuid ? (
+        <TwoFactorSetupQRCode userUuid={user.uuid} onCancel={handleBack} />
       ) : (
         <>
           <TwoFactorSetupOption onSelect={handleSelect} />

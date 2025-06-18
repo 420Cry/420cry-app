@@ -32,11 +32,18 @@ export class RequestService {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     })
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}))
+      const error = new Error('API Error')
+      ;(error as any).status = response.status
+      ;(error as any).data = errorBody
+      throw error
+    }
+
     return response.json() as Promise<TResponse>
   }
 
@@ -61,6 +68,14 @@ export class RequestService {
       method: 'GET',
       credentials: 'include',
     })
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}))
+      const error = new Error('API Error')
+      ;(error as any).status = response.status
+      ;(error as any).data = errorBody
+      throw error
+    }
 
     return response.json() as Promise<TResponse>
   }

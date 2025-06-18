@@ -1,3 +1,3 @@
 export interface ITwoFactorSetUpRequest {
-  userUUID: string
+  uuid: string
 }

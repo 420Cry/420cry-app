@@ -70,9 +70,7 @@ const TwoFactorSetupOption = ({
                 <h2 className="text-lg font-semibold text-gray-800">
                   {t('2fa.setup.useAnApp')}
                 </h2>
-                <p className="text-sm text-gray-500">
-                  {t('2fa.setup.ScanAQR')}
-                </p>
+                <p className="text-sm text-gray-500">{t('2fa.setup.scanQR')}</p>
               </div>
             </div>
           </CryButton>
