@@ -1,5 +1,6 @@
 'use client'
 
+import { useAuthStore } from '@/store'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { JSX } from 'react'
@@ -10,7 +11,8 @@ const TwoFactorSetupQRCode = ({
   onCancel: () => void
 }): JSX.Element => {
   const t = useTranslations()
-
+  const user = useAuthStore((state) => state.user)
+  console.log(user)
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 relative">
       {/* Back button top-left */}

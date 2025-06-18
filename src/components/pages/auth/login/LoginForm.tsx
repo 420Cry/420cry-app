@@ -19,6 +19,7 @@ import {
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/store'
 
 const SocialButton = ({
   Icon,
@@ -57,6 +58,7 @@ const LogInForm = (): JSX.Element => {
         : t(response.message)
 
       if (success && user) {
+        useAuthStore.getState().setUser(user)
         const targetRoute = user.twoFAEnabled
           ? HOME_ROUTE
           : TWO_FACTOR_SETUP_ROUTE
