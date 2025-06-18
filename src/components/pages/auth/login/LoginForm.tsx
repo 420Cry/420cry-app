@@ -48,22 +48,22 @@ const LogInForm = (): JSX.Element => {
       showToast(false, t('app.alertTitle.allfieldsAreRequired'))
       return
     }
-
     try {
       const { response, user } = await SignInService.signInAction(formData)
-      if (response.isSuccess && user) {
-        if (user.twoFAEnabled) {
-          router.push(HOME_ROUTE)
-        } else {
-          router.push(TWO_FACTOR_SETUP_ROUTE)
-        }
-        showToast(
-          response.isSuccess,
-          t(response.message, { fullname: user.fullname }),
-        )
-      } else {
-        showToast(response.isSuccess, t(response.message))
+
+      const success = response.isSuccess
+      const message = user
+        ? t(response.message, { fullname: user.fullname })
+        : t(response.message)
+
+      if (success && user) {
+        const targetRoute = user.twoFAEnabled
+          ? HOME_ROUTE
+          : TWO_FACTOR_SETUP_ROUTE
+        router.push(targetRoute)
       }
+
+      showToast(success, message)
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }

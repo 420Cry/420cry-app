@@ -29,13 +29,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       if (jwt) {
         const rememberFlag = !!body.remember
         let maxAge: number | undefined = undefined
-        if (!user.twoFAEnabled) {
-          maxAge = 600 // 10 minutes if 2FA not enabled
-        } else if (rememberFlag) {
-          maxAge = 60 * 60 * 24 * 7 // 7 days if remember is true
-        } else {
-          maxAge = undefined
-        }
+        maxAge = !user.twoFAEnabled
+          ? 60 * 60 // 1 hour
+          : rememberFlag
+            ? 60 * 60 * 24 * 30 // 30 days
+            : undefined
         nextResponse.cookies.set('jwt', jwt, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
