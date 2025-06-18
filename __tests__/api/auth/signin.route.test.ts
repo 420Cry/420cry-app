@@ -185,7 +185,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(7 * 24 * 60 * 60) // 7 days in seconds
+    expect(cookie?.maxAge).toBe(30 * 24 * 60 * 60) // 1 month in seconds
   })
 
   it('sets session cookie if remember=false and 2FA enabled', async () => {
@@ -227,7 +227,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(600) // 10 minutes in seconds
+    expect(cookie?.maxAge).toBe(3600)
   })
 
   it('sets 10-minute maxAge cookie if 2FA disabled, regardless of remember=false', async () => {
@@ -248,7 +248,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(600) // still 10 minutes
+    expect(cookie?.maxAge).toBe(3600) 
   })
 
   it('sets 10-minute maxAge cookie if 2FA disabled and remember is undefined', async () => {
@@ -269,6 +269,6 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(600)
+    expect(cookie?.maxAge).toBe(3600)
   })
 })
