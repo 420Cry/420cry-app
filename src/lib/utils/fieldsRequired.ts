@@ -1,4 +1,4 @@
-import { showToast } from '../notifications/showToast'
+import { showToast } from '@/lib'
 import { useTranslations } from 'next-intl'
 
 type TFunction = ReturnType<typeof useTranslations>

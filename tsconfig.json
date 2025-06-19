@@ -23,6 +23,7 @@
       "@/*": ["src/*"]
     }
   },
+  "types": ["vitest/globals"],
   "include": [
     "**/*.ts",
     "**/*.tsx",

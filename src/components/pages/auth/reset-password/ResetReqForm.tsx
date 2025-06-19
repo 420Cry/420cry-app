@@ -8,18 +8,17 @@ import {
 import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast } from '@/lib'
-import { ResetReqService } from '@/services'
+import { fieldsRequired, showToast, ResetRequestService } from '@/lib'
 
 const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response = ResetReqService.resetReqAction(formData)
+    const response = await ResetRequestService.resetRequestAction(formData)
     showToast(response.isSuccess, t(response.message))
   }
 
@@ -48,7 +47,7 @@ const ResetReqForm = (): JSX.Element => {
           <CryFormTextField
             label={t('app.fields.email')}
             labelClassName="text-neutral-gray-3"
-            name="emailAddress"
+            name="email"
             type="text"
             slotClassName="text-white"
             inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500! "
@@ -57,8 +56,9 @@ const ResetReqForm = (): JSX.Element => {
           <div className="flex justify-center mt-14">
             <CryButton
               circle
-              className="bg-gradient-to-b from-radial-left to-radial-right text-white w-52 h-12 sm:w-48"
               type="submit"
+              color="primary"
+              className="max-w-52 h-12 w-full"
             >
               {t('resetYourPassword.confirm')}
             </CryButton>

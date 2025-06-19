@@ -9,24 +9,32 @@ import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
 import { fieldsRequired, showToast } from '@/lib'
-import { ResetPasswordService } from '@/services'
 import { useRouter } from 'next/navigation'
+import { verifyResetPasswordTokenService } from '@/lib/client/auth/reset_password/VerifyResetPasswordTokenService'
 
-const ResetPasswordForm = (): JSX.Element => {
+const ResetPasswordForm = ({ slug }: { slug: string }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const showLabel = t('resetYourPassword.resetPasswordForm.showPassword')
   const hideLabel = t('resetYourPassword.resetPasswordForm.hidePassword')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const resetPasswordToken = slug
+
+  // Placeholder service
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response = ResetPasswordService.resetPassword(formData)
+    const response =
+      await verifyResetPasswordTokenService.verifyResetPasswordAction(
+        formData,
+        resetPasswordToken,
+      )
+
     showToast(response.isSuccess, t(response.message))
     if (response.isSuccess === true) {
-      setTimeout(() => router.push('/auth/login'), 1500)
+      router.push('/auth/login')
     }
   }
 
@@ -51,7 +59,7 @@ const ResetPasswordForm = (): JSX.Element => {
           <CryFormTextField
             label={t('app.fields.password')}
             labelClassName="text-neutral-gray-3"
-            name="password"
+            name="newPassword"
             type="password"
             slotClassName="text-white"
             inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500 "
@@ -72,8 +80,9 @@ const ResetPasswordForm = (): JSX.Element => {
           <div className="flex justify-center mt-10">
             <CryButton
               circle
-              className="bg-gradient-to-b from-radial-left to-radial-right text-white w-52 h-12 sm:w-48"
               type="submit"
+              color="primary"
+              className="max-w-52 h-12 w-full"
             >
               {t('resetYourPassword.confirm')}
             </CryButton>
