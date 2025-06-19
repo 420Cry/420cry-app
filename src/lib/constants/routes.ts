@@ -17,3 +17,4 @@ export const VERIFY_EMAIL_TOKEN_API = '/api/auth/verify-email-token'
 
 // 2fa
 export const SET_UP_2FA_API = '/api/2fa/set-up'
+export const VERIFY_2FA_OTP_API = '/api/2fa/verify-otp'

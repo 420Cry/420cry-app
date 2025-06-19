@@ -41,6 +41,26 @@ const TwoFactorSetupQRCode = ({
     fetchQRCodeAndSecret()
   }, [userUuid])
 
+  const handleSubmit = async (
+    e?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e?.preventDefault()
+    if (!token || token.length !== 6) {
+      showToast(false, t('2fa.QR.invalidToken'))
+      return
+    }
+    try {
+      const payload = {
+        uuid: userUuid,
+        otp: token,
+      }
+      const response = await TwoFactorSetUpService.verifyToken(payload)
+      showToast(response.isSuccess, t(response.message))
+    } catch {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+    }
+  }
+
   if (loading) {
     return <p className="text-center py-10">{t('common.loading')}</p>
   }
@@ -110,7 +130,7 @@ const TwoFactorSetupQRCode = ({
             <span className="font-bold mr-2">2.</span> {t('2fa.QR.stepTwo')}
           </p>
 
-          <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="flex justify-center">
               <CryTextField
                 modelValue={token}
@@ -135,12 +155,7 @@ const TwoFactorSetupQRCode = ({
           <CryButton
             className="bg-blue-600 text-white px-6 py-2 text-base rounded hover:bg-blue-800 transition"
             rounded
-            onClick={() => {
-              if (!token || token.length !== 6) {
-                showToast(false, t('2fa.QR.invalidToken'))
-                return
-              }
-            }}
+            onClick={handleSubmit}
           >
             {t('common.verify')}
           </CryButton>

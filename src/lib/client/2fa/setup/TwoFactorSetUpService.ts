@@ -1,5 +1,9 @@
-import { SET_UP_2FA_API, RequestService } from '@/lib'
-import { ITwoFactorSetUpRequest, ITwoFactorSetUpResponse } from '@/types'
+import { SET_UP_2FA_API, RequestService, VERIFY_2FA_OTP_API } from '@/lib'
+import {
+  IResponse,
+  ITwoFactorSetUpRequest,
+  ITwoFactorSetUpResponse,
+} from '@/types'
 
 export const TwoFactorSetUpService = {
   getQRCodeAndSecret: async (
@@ -14,6 +18,19 @@ export const TwoFactorSetUpService = {
       return {
         secret: '',
         qrCode: '',
+      }
+    }
+  },
+  verifyToken: async (payload: ITwoFactorSetUpRequest): Promise<IResponse> => {
+    try {
+      return await RequestService.nativeFetchPost<
+        ITwoFactorSetUpRequest,
+        IResponse
+      >(VERIFY_2FA_OTP_API, payload)
+    } catch {
+      return {
+        isSuccess: false,
+        message: 'app.alertTitle.somethingWentWrong',
       }
     }
   },
