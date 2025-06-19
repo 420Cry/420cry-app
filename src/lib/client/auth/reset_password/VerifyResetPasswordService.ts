@@ -2,9 +2,9 @@ import { VERIFY_RESET_PASSWORD_API } from '@/lib/constants/routes'
 import { RequestService } from '@/lib/requests/RequestService'
 import { ResetPasswordSchema } from '@/lib/server/validation/auth/ResetPasswordSchema'
 import { validateFormData } from '@/lib/server/validation/validateFormData'
-import { IResponse } from '@/types'
+import { IResponse, IVerifyResetPassword } from '@/types'
 
-export const verifyResetPasswordTokenService = {
+export const VerifyResetPasswordService = {
   verifyResetPasswordAction: async (
     formData: FormData,
     resetPasswordToken?: string,
@@ -31,7 +31,7 @@ export const verifyResetPasswordTokenService = {
         resetPasswordToken: validation.data.resetPasswordToken,
       }
 
-      return await RequestService.nativeFetchPost(
+      return await RequestService.nativeFetchPost<IVerifyResetPassword, IResponse>(
         VERIFY_RESET_PASSWORD_API,
         payload,
       )

@@ -10,7 +10,7 @@ import { JSX } from 'react'
 import { useTranslations } from 'next-intl'
 import { fieldsRequired, showToast } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { verifyResetPasswordTokenService } from '@/lib/client/auth/reset_password/VerifyResetPasswordTokenService'
+import { VerifyResetPasswordService } from '@/lib/client/auth/reset_password/verifyResetPasswordService'
 
 const ResetPasswordForm = ({ slug }: { slug: string }): JSX.Element => {
   const t = useTranslations()
@@ -26,11 +26,10 @@ const ResetPasswordForm = ({ slug }: { slug: string }): JSX.Element => {
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response =
-      await verifyResetPasswordTokenService.verifyResetPasswordAction(
-        formData,
-        resetPasswordToken,
-      )
+    const response = await VerifyResetPasswordService.verifyResetPasswordAction(
+      formData,
+      resetPasswordToken,
+    )
 
     showToast(response.isSuccess, t(response.message))
     if (response.isSuccess === true) {

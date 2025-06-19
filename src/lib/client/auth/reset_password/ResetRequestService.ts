@@ -2,7 +2,7 @@ import { RESET_REQUEST_API } from '@/lib/constants/routes'
 import { RequestService } from '@/lib/requests/RequestService'
 import { ResetRequestSchema } from '@/lib/server/validation/auth/ResetRequestSchema'
 import { validateFormData } from '@/lib/server/validation/validateFormData'
-import { IResetReq, IResponse } from '@/types'
+import { IResetPasswordRequest, IResponse } from '@/types'
 
 export const ResetRequestService = {
   resetRequestAction: async (formData: FormData): Promise<IResponse> => {
@@ -24,7 +24,7 @@ export const ResetRequestService = {
         email: validation.data.email,
       }
 
-      return await RequestService.nativeFetchPost<IResetReq, IResponse>(
+      return await RequestService.nativeFetchPost<IResetPasswordRequest, IResponse>(
         RESET_REQUEST_API,
         payload,
       )
