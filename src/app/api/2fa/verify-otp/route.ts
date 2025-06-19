@@ -2,27 +2,52 @@
 
 import { API_URL, handleApiError, RequestService } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
-import { IResponse, ITwoFactorSetUpRequest } from '@/types'
+import { IAuthResponse, IResponse, ITwoFactorSetUpRequest } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const { uuid, otp } = await request.json()
+    const body = await request.json()
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
-      IResponse
-    >(`${API_URL}/2fa/verify-otp`, { uuid, otp })
+      IAuthResponse
+    >(`${API_URL}/2fa/verify-otp`, body)
 
-    if (response.status === 200) {
-      return NextResponse.json({
-        isSuccess: true,
-        message: 'app.alertTitle.Successful',
-      } satisfies IResponse)
+    if (response.status === 200 && response.data) {
+      const { user, jwt } = response.data
+
+      const responseBody = {
+        response: {
+          isSuccess: true,
+          message: 'app.alertTitle.Successful',
+        } as IResponse,
+        user,
+      }
+
+      const nextResponse = NextResponse.json(responseBody)
+
+      if (jwt) {
+        nextResponse.cookies.set('jwt', jwt, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax',
+          maxAge: 60 * 60 * 24 * 30, // 30 days in seconds
+        })
+      }
+
+      return nextResponse
     }
 
-    return NextResponse.json({
-      isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
-    } satisfies IResponse)
+    // Fallback: failed auth
+    return NextResponse.json(
+      {
+        response: {
+          isSuccess: false,
+          message: 'app.alertTitle.somethingWentWrong',
+        } as IResponse,
+      },
+      { status: 401 },
+    )
   } catch (error) {
     return handleApiError(error)
   }

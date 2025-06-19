@@ -6,7 +6,7 @@ import { ISignIn, IResponse, IAuthResponse } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const body = (await request.json()) as ISignIn
+    const body = await request.json()
 
     const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
       `${API_URL}/users/signin`,

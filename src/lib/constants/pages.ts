@@ -13,7 +13,7 @@ export const UN_AUTH_ROUTES = [
   '/auth/signup/verify',
 ]
 
-export const BLOCKED_ROUTES_FOR_AUTH_USERS = [SIGN_IN_ROUTE]
+export const BLOCKED_ROUTES_FOR_AUTH_USERS = [SIGN_IN_ROUTE, SIGN_UP_ROUTE]
 
 export const AUTH_ROUTES = [
   '/',

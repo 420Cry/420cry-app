@@ -3,6 +3,7 @@ import {
   IResponse,
   ITwoFactorSetUpRequest,
   ITwoFactorSetUpResponse,
+  IUser,
 } from '@/types'
 
 export const TwoFactorSetUpService = {
@@ -21,16 +22,21 @@ export const TwoFactorSetUpService = {
       }
     }
   },
-  verifyToken: async (payload: ITwoFactorSetUpRequest): Promise<IResponse> => {
+
+  verifyToken: async (
+    payload: ITwoFactorSetUpRequest,
+  ): Promise<{ response: IResponse; user?: IUser }> => {
     try {
       return await RequestService.nativeFetchPost<
         ITwoFactorSetUpRequest,
-        IResponse
+        { response: IResponse; user?: IUser }
       >(VERIFY_2FA_OTP_API, payload)
     } catch {
       return {
-        isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        response: {
+          isSuccess: false,
+          message: 'app.alertTitle.somethingWentWrong',
+        },
       }
     }
   },

@@ -86,6 +86,7 @@
     "confirm": "Confirm",
     "back": "Back",
     "ok": "Ok",
-    "loading": "Loading"
+    "loading": "Loading",
+    "step": "Step"
   }
 }

@@ -86,6 +86,7 @@
     "confirm": "Xác nhận",
     "back": "Quay lại",
     "ok": "Ok",
-    "loading": "Đang tải ..."
+    "loading": "Đang tải ...",
+    "step": "Bước"
   }
 }

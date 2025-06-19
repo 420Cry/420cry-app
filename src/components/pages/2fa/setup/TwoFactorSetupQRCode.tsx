@@ -4,8 +4,10 @@ import { JSX, useEffect, useState } from 'react'
 import { TwoFactorSetUpService } from '@/lib/client/2fa/setup/TwoFactorSetUpService'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { showToast } from '@/lib'
+import { HOME_ROUTE, showToast } from '@/lib'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/store'
 
 const TwoFactorSetupQRCode = ({
   userUuid,
@@ -15,7 +17,7 @@ const TwoFactorSetupQRCode = ({
   onCancel: () => void
 }): JSX.Element => {
   const t = useTranslations()
-
+  const router = useRouter()
   const [secret, setSecret] = useState('')
   const [qrCode, setQrCode] = useState('')
   const [loading, setLoading] = useState(true)
@@ -53,9 +55,16 @@ const TwoFactorSetupQRCode = ({
       const payload = {
         uuid: userUuid,
         otp: token,
+        secret: secret
       }
-      const response = await TwoFactorSetUpService.verifyToken(payload)
-      showToast(response.isSuccess, t(response.message))
+      const { response, user } =
+        await TwoFactorSetUpService.verifyToken(payload)
+
+      const success = response.isSuccess
+      if (success && user) {
+        useAuthStore.getState().setUser(user)
+        router.push(HOME_ROUTE)
+      }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
@@ -91,7 +100,8 @@ const TwoFactorSetupQRCode = ({
 
           {/* Step 1 */}
           <p className="mb-4 text-center text-gray-700 text-lg max-w-md mx-auto">
-            <span className="font-bold mr-2">1.</span> {t('2fa.QR.stepOne')}
+            <span className="font-bold mr-2">{t('common.step')}1: </span>{' '}
+            {t('2fa.QR.stepOne')}
           </p>
 
           <div className="flex flex-col items-center mb-8">
@@ -126,8 +136,9 @@ const TwoFactorSetupQRCode = ({
           <div className="my-6 border-t border-gray-300" />
 
           {/* Step 2 */}
-          <p className="mb-4 text-center text-sm text-gray-600 max-w-md mx-auto">
-            <span className="font-bold mr-2">2.</span> {t('2fa.QR.stepTwo')}
+          <p className="mb-4 text-center text-gray-700 text-lg max-w-md mx-auto">
+            <span className="font-bold mr-2">{t('common.step')}2: </span>{' '}
+            {t('2fa.QR.stepTwo')}
           </p>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
