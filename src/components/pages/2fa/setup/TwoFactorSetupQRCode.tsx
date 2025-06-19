@@ -5,6 +5,7 @@ import { TwoFactorSetUpService } from '@/lib/client/2fa/setup/TwoFactorSetUpServ
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { showToast } from '@/lib'
+import Image from 'next/image'
 
 const TwoFactorSetupQRCode = ({
   userUuid,
@@ -76,9 +77,11 @@ const TwoFactorSetupQRCode = ({
           <div className="flex flex-col items-center mb-8">
             <div className="w-56 h-56 bg-white rounded-lg flex items-center justify-center text-gray-400 select-none mb-4">
               {qrCode ? (
-                <img
+                <Image
                   src={qrCode}
                   alt="2FA QR Code"
+                  width={224} // 56 * 4 (since div is w-56)
+                  height={224}
                   className="w-full h-full object-contain"
                 />
               ) : (

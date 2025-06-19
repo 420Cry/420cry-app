@@ -34,8 +34,13 @@ export const SignUpService = {
         payload,
       )
       return response
-    } catch (error: any) {
-      if (error.status === 409) {
+    } catch (error: unknown) {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'status' in error &&
+        (error as { status?: number }).status === 409
+      ) {
         return {
           isSuccess: false,
           message: 'app.alertTitle.emailOrUserNameAlreadyExist',
