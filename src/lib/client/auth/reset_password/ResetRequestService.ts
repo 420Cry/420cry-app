@@ -24,10 +24,10 @@ export const ResetRequestService = {
         email: validation.data.email,
       }
 
-      return await RequestService.nativeFetchPost<IResetPasswordRequest, IResponse>(
-        RESET_REQUEST_API,
-        payload,
-      )
+      return await RequestService.nativeFetchPost<
+        IResetPasswordRequest,
+        IResponse
+      >(RESET_REQUEST_API, payload)
     } catch {
       return {
         isSuccess: false,

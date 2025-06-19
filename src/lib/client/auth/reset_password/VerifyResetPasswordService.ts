@@ -31,10 +31,10 @@ export const VerifyResetPasswordService = {
         resetPasswordToken: validation.data.resetPasswordToken,
       }
 
-      return await RequestService.nativeFetchPost<IVerifyResetPassword, IResponse>(
-        VERIFY_RESET_PASSWORD_API,
-        payload,
-      )
+      return await RequestService.nativeFetchPost<
+        IVerifyResetPassword,
+        IResponse
+      >(VERIFY_RESET_PASSWORD_API, payload)
     } catch {
       return {
         isSuccess: false,
