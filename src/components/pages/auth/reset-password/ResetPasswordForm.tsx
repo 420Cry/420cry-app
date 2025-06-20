@@ -8,19 +8,22 @@ import {
 import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast } from '@/lib'
+import { AUTH_ROUTES, fieldsRequired, showToast } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { VerifyResetPasswordService } from '@/lib/client/auth/reset_password/verifyResetPasswordService'
+import { VerifyResetPasswordService } from '@/lib/client/auth/reset_password/VerifyResetPasswordService'
 
-const ResetPasswordForm = ({ slug }: { slug: string }): JSX.Element => {
+const ResetPasswordForm = ({
+  resetPasswordID,
+}: {
+  resetPasswordID: string
+}): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const showLabel = t('resetYourPassword.resetPasswordForm.showPassword')
   const hideLabel = t('resetYourPassword.resetPasswordForm.hidePassword')
 
-  const resetPasswordToken = slug
+  const resetPasswordToken = resetPasswordID
 
-  // Placeholder service
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
@@ -32,8 +35,8 @@ const ResetPasswordForm = ({ slug }: { slug: string }): JSX.Element => {
     )
 
     showToast(response.isSuccess, t(response.message))
-    if (response.isSuccess === true) {
-      router.push('/auth/login')
+    if (response.isSuccess) {
+      router.push(AUTH_ROUTES[0])
     }
   }
 
