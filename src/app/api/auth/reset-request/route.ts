@@ -1,16 +1,16 @@
 'use server-only'
 
 import { API_URL, handleApiError, RequestService } from '@/lib'
-import { IResetReq, IResponse } from '@/types'
+import { IResetPasswordRequest, IResponse } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-    const response = await RequestService.axiosPost<IResetReq, IResponse>(
-      `${API_URL}/users/reset-password`,
-      body,
-    )
+    const response = await RequestService.axiosPost<
+      IResetPasswordRequest,
+      IResponse
+    >(`${API_URL}/users/reset-password`, body)
 
     if (response.status === 200) {
       return NextResponse.json({

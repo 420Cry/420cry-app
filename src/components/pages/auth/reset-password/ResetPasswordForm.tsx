@@ -8,7 +8,7 @@ import {
 import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { AUTH_ROUTES, fieldsRequired, showToast } from '@/lib'
+import { fieldsRequired, showToast, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { VerifyResetPasswordService } from '@/lib/client/auth/reset_password/VerifyResetPasswordService'
 
@@ -36,7 +36,7 @@ const ResetPasswordForm = ({
 
     showToast(response.isSuccess, t(response.message))
     if (response.isSuccess) {
-      router.push(AUTH_ROUTES[0])
+      router.push(SIGN_IN_ROUTE)
     }
   }
 
