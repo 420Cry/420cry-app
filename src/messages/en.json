@@ -3,7 +3,7 @@
     "appTitle": "420Crypto",
     "fields": {
       "fullname": "Full name",
-      "email": "Email",
+      "email": "Email Address",
       "username": "Username",
       "password": "Password",
       "repeatedPassword": "Repeated Password"
@@ -20,6 +20,8 @@
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
       "emailVerificationFailed": "Email verification failed",
+      "resetRequest": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
+      "resetSuccess": "You have successfully resetted your password. Please login again!",
       "invalidCredentials": "Invalid username or password."
     },
     "rules": {
@@ -36,7 +38,7 @@
   "header": {
     "menu": "Menu",
     "signUp": "Sign Up",
-    "alreadyHasAnAccount": "already has an account?"
+    "alreadyHasAnAccount": "Already has an account?"
   },
   "login": {
     "title": "Login",
@@ -56,5 +58,19 @@
       "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)",
       "confirm": "Confirm"
     }
+  },
+  "resetYourPassword": {
+    "resetReq": {
+      "title": "Forgot Your Password",
+      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
+    },
+    "resetPasswordForm": {
+      "title": "Reset Your Password",
+      "subtitle": "Enter the new password below so we can reset your password",
+      "newPassword": "New Password",
+      "showPassword": "Show",
+      "hidePassword": "Hide"
+    },
+    "confirm": "Confirm"
   }
 }

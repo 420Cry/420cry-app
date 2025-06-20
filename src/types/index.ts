@@ -1,6 +1,8 @@
 export type { IResponse } from './response/IResponse'
 export type { ISignIn } from './auth/signin/ISignIn'
 export type { ISignUp } from './auth/signup/ISignUp'
+export type { IResetPasswordRequest } from './auth/reset-password/IResetPasswordRequest'
+export type { IVerifyResetPassword } from './auth/reset-password/IVerifyResetPassword'
 export type { ISignUpVerificationToken } from './auth/signup/ISignUpVerificationToken'
 export type { IUser } from './user/IUser'
 export type { ILocale } from './locale/ILocale'

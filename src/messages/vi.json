@@ -20,6 +20,8 @@
       "invalidToken": "Mã xác nhận không hợp lệ",
       "emailVerifiedSuccessfully": "Xác nhận email thành công",
       "emailVerificationFailed": "Xác nhận email thất bại",
+      "resetRequest": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+      "resetSucecess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
       "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng."
     },
     "rules": {
@@ -55,6 +57,19 @@
       "title": "Xác nhận email của bạn",
       "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)",
       "confirm": "Xác nhận"
+    }
+  },
+  "resetYourPassword": {
+    "resetReq": {
+      "title": "Quên mật khẩu",
+      "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
+    },
+    "resetPasswordForm": {
+      "title": "Đổi mật khẩu",
+      "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
+      "newPassword": "Mật khẩu mới",
+      "showPassword": "Hiện",
+      "hidePassword": "Ẩn"
     }
   }
 }
