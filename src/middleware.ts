@@ -28,7 +28,11 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   }
 
   // 1. Auth user trying to access blocked route (e.g., /login, /signup)
-  if (BLOCKED_ROUTES_FOR_AUTH_USERS.includes(pathname)) {
+  if (
+    BLOCKED_ROUTES_FOR_AUTH_USERS.some((route) => {
+      pathname.startsWith(route)
+    })
+  ) {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
     }
