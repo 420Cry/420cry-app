@@ -20,8 +20,7 @@
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
       "emailVerificationFailed": "Email verification failed",
-      "invalidCredentials": "Invalid username or password.",
-      "emailOrUserNameAlreadyExist": "Username or email already exists"
+      "emailOrUserNameAlreadyExist": "Username or email already exists",
       "resetRequest": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
       "resetSuccess": "You have successfully resetted your password. Please login again!",
       "invalidCredentials": "Invalid username or password."
@@ -91,6 +90,7 @@
     "ok": "Ok",
     "loading": "Loading",
     "step": "Step"
+  },
   "resetYourPassword": {
     "resetReq": {
       "title": "Forgot Your Password",

@@ -13,16 +13,16 @@ import { useRouter } from 'next/navigation'
 import { VerifyResetPasswordService } from '@/lib/client/auth/reset_password/VerifyResetPasswordService'
 
 const ResetPasswordForm = ({
-  resetPasswordID,
+  id,
 }: {
-  resetPasswordID: string
+  id: string
 }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const showLabel = t('resetYourPassword.resetPasswordForm.showPassword')
   const hideLabel = t('resetYourPassword.resetPasswordForm.hidePassword')
 
-  const resetPasswordToken = resetPasswordID
+  const resetPasswordToken = id
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

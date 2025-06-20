@@ -55,7 +55,7 @@ const TwoFactorSetupQRCode = ({
       const payload = {
         uuid: userUuid,
         otp: token,
-        secret: secret
+        secret: secret,
       }
       const { response, user } =
         await TwoFactorSetUpService.verifyToken(payload)
