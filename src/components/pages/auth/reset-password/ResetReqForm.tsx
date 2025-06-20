@@ -8,10 +8,17 @@ import {
 import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast, ResetRequestService } from '@/lib'
+import {
+  fieldsRequired,
+  showToast,
+  ResetRequestService,
+  SIGN_IN_ROUTE,
+} from '@/lib'
+import { useRouter } from 'next/navigation'
 
 const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,6 +27,10 @@ const ResetReqForm = (): JSX.Element => {
 
     const response = await ResetRequestService.resetRequestAction(formData)
     showToast(response.isSuccess, t(response.message))
+
+    if (response.isSuccess) {
+      router.push(SIGN_IN_ROUTE)
+    }
   }
 
   return (

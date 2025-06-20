@@ -13,8 +13,8 @@ import { useRouter } from 'next/navigation'
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()
-  const hideLabel = t('common.showPassword')
-  const showLabel = t('common.hidePassword')
+  const hideLabel = t('app.common.showPassword')
+  const showLabel = t('app.common.hidePassword')
   const router = useRouter()
 
   const validateFormData = (formData: FormData): boolean => {

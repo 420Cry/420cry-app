@@ -121,7 +121,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
             onClick={handleConfirm}
             disabled={loading}
           >
-            {t('common.confirm')}
+            {t('app.common.confirm')}
           </CryButton>
         </div>
       </div>

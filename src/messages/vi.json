@@ -34,6 +34,17 @@
       "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 kí tự dặc biệt!",
       "repeatedPassword": "Mật khẩu không khớp!",
       "emailOrUserNameAlreadyExist": "Email hoặc tên tài khoản đã tồi tại"
+    },
+    "common": {
+      "showPassword": "Hiện",
+      "hidePassword": "Ẩn",
+      "cancel": "Huỷ",
+      "verify": "Xác nhận",
+      "confirm": "Xác nhận",
+      "back": "Quay lại",
+      "ok": "Ok",
+      "loading": "Đang tải ...",
+      "step": "Bước"
     }
   },
   "header": {
@@ -53,6 +64,19 @@
     "verifyEmail": {
       "title": "Xác nhận email của bạn",
       "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
+    }
+  },
+  "resetYourPassword": {
+    "resetReq": {
+      "title": "Quên mật khẩu",
+      "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
+    },
+    "resetPasswordForm": {
+      "title": "Đổi mật khẩu",
+      "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
+      "newPassword": "Mật khẩu mới",
+      "showPassword": "Hiện",
+      "hidePassword": "Ẩn"
     }
   },
   "2fa": {
@@ -78,30 +102,12 @@
       "stepOne": "Quét mã QR bên dưới hoặc nhập thủ công mã khóa bí mật vào ứng dụng xác thực của bạn.",
       "stepTwo": "Nhập mã 6 chữ số bạn thấy trong ứng dụng xác thực của mình",
       "invalidToken": "Mã xác nhận không hợp lệ"
-    }
-  },
-  "common": {
-    "showPassword": "Hiện",
-    "hidePassword": "Ẩn",
-    "cancel": "Huỷ",
-    "verify": "Xác nhận",
-    "confirm": "Xác nhận",
-    "back": "Quay lại",
-    "ok": "Ok",
-    "loading": "Đang tải ...",
-    "step": "Bước"
-  },
-  "resetYourPassword": {
-    "resetReq": {
-      "title": "Quên mật khẩu",
-      "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
     },
-    "resetPasswordForm": {
-      "title": "Đổi mật khẩu",
-      "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
-      "newPassword": "Mật khẩu mới",
-      "showPassword": "Hiện",
-      "hidePassword": "Ẩn"
+    "Verify": {
+      "title": "Two-Factor Authentication",
+      "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
+      "verifyCode": "Verify Code",
+      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
     }
   }
 }

@@ -38,8 +38,8 @@ const SocialButton = ({
 const LogInForm = (): JSX.Element => {
   const router = useRouter()
   const t = useTranslations()
-  const hideLabel = t('common.showPassword')
-  const showLabel = t('common.hidePassword')
+  const hideLabel = t('app.common.showPassword')
+  const showLabel = t('app.common.hidePassword')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

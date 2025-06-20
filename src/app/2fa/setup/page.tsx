@@ -49,7 +49,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
                   onClick={handleCloseModal}
                   className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                 >
-                  {t('common.ok')}
+                  {t('app.common.ok')}
                 </CryButton>
               </div>
             </div>

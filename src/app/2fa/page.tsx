@@ -1,4 +1,4 @@
-import { AuthHeader, LogInForm, TwpFactorVerifyForm } from '@/components'
+import { TwpFactorVerifyForm } from '@/components'
 import { JSX } from 'react'
 
 const TwoFAPage = (): JSX.Element => {

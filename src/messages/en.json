@@ -34,6 +34,17 @@
       "passwordNumberContain": "Password must contain at least one number!",
       "passwordSpecialContain": "Password must contain at least one special character!",
       "repeatedPassword": "Passwords don't match!"
+    },
+    "common": {
+      "showPassword": "Show",
+      "hidePassword": "Hide",
+      "cancel": "Cancel",
+      "verify": "Verify",
+      "confirm": "Confirm",
+      "back": "Back",
+      "ok": "Ok",
+      "loading": "Loading",
+      "step": "Step"
     }
   },
   "header": {
@@ -53,6 +64,19 @@
     "verifyEmail": {
       "title": "Verify your email",
       "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
+    }
+  },
+  "resetYourPassword": {
+    "resetReq": {
+      "title": "Forgot Your Password",
+      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
+    },
+    "resetPasswordForm": {
+      "title": "Reset Your Password",
+      "subtitle": "Enter the new password below so we can reset your password",
+      "newPassword": "New Password",
+      "showPassword": "Show",
+      "hidePassword": "Hide"
     }
   },
   "2fa": {
@@ -78,31 +102,12 @@
       "stepOne": "Scan the QR code below or manually type the secret key into your authenticator app.",
       "stepTwo": "Enter 6-digit code you see in your authenticator app",
       "invalidToken": "Invalid Token"
+    },
+    "Verify": {
+      "title": "Two-Factor Authentication",
+      "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
+      "verifyCode": "Verify Code",
+      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
     }
-  },
-  "common": {
-    "showPassword": "Show",
-    "hidePassword": "Hide",
-    "cancel": "Cancel",
-    "verify": "Verify",
-    "confirm": "Confirm",
-    "back": "Back",
-    "ok": "Ok",
-    "loading": "Loading",
-    "step": "Step"
-  },
-  "resetYourPassword": {
-    "resetReq": {
-      "title": "Forgot Your Password",
-      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
-    },
-    "resetPasswordForm": {
-      "title": "Reset Your Password",
-      "subtitle": "Enter the new password below so we can reset your password",
-      "newPassword": "New Password",
-      "showPassword": "Show",
-      "hidePassword": "Hide"
-    },
-    "confirm": "Confirm"
   }
 }

@@ -71,7 +71,7 @@ const TwoFactorSetupQRCode = ({
   }
 
   if (loading) {
-    return <p className="text-center py-10">{t('common.loading')}</p>
+    return <p className="text-center py-10">{t('app.common.loading')}</p>
   }
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 relative">
@@ -81,7 +81,7 @@ const TwoFactorSetupQRCode = ({
           className="bg-gray-600 text-white px-5 py-2 text-base rounded hover:bg-gray-800 transition"
           rounded
         >
-          ← {t('common.back')}
+          ← {t('app.common.back')}
         </CryButton>
       </div>
 
@@ -128,7 +128,7 @@ const TwoFactorSetupQRCode = ({
               </p>
             ) : (
               <p className="text-sm text-gray-500 italic">
-                {t('common.loading')}
+                {t('app.common.loading')}
               </p>
             )}
           </div>
@@ -161,14 +161,14 @@ const TwoFactorSetupQRCode = ({
             className="bg-gray-600 text-white px-6 py-2 text-base rounded hover:bg-gray-800 transition"
             rounded
           >
-            {t('common.cancel')}
+            {t('app.common.cancel')}
           </CryButton>
           <CryButton
             className="bg-blue-600 text-white px-6 py-2 text-base rounded hover:bg-blue-800 transition"
             rounded
             onClick={handleSubmit}
           >
-            {t('common.verify')}
+            {t('app.common.verify')}
           </CryButton>
         </div>
       </div>
