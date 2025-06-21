@@ -52,31 +52,31 @@
     "signUp": "Đăng ký",
     "alreadyHasAnAccount": "Đã có tài khoản?"
   },
-  "login": {
-    "title": "Đăng nhập",
-    "forgotYourPassword": "quên mật khẩu?",
-    "rememberMe": "Ghi nhớ đăng nhập?",
-    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
-  },
-  "signup": {
-    "title": "Đăng ký",
-    "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
-    "verifyEmail": {
-      "title": "Xác nhận email của bạn",
-      "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
-    }
-  },
-  "resetYourPassword": {
-    "resetReq": {
-      "title": "Quên mật khẩu",
-      "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "forgotYourPassword": "quên mật khẩu?",
+      "rememberMe": "Ghi nhớ đăng nhập?",
+      "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
     },
-    "resetPasswordForm": {
-      "title": "Đổi mật khẩu",
-      "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
-      "newPassword": "Mật khẩu mới",
-      "showPassword": "Hiện",
-      "hidePassword": "Ẩn"
+    "signup": {
+      "title": "Đăng ký",
+      "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
+      "verifyEmail": {
+        "title": "Xác nhận email của bạn",
+        "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
+      }
+    },
+    "resetYourPassword": {
+      "resetReq": {
+        "title": "Quên mật khẩu",
+        "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
+      },
+      "resetPasswordForm": {
+        "title": "Đổi mật khẩu",
+        "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
+        "newPassword": "Mật khẩu mới"
+      }
     }
   },
   "2fa": {

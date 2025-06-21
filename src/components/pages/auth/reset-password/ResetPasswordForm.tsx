@@ -19,8 +19,8 @@ const ResetPasswordForm = ({
 }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
-  const showLabel = t('resetYourPassword.resetPasswordForm.showPassword')
-  const hideLabel = t('resetYourPassword.resetPasswordForm.hidePassword')
+  const showLabel = t('app.common.show')
+  const hideLabel = t('app.common.hide')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -46,11 +46,11 @@ const ResetPasswordForm = ({
 
           <div className="mb-8 w-full m-auto">
             <h1 className="text-center text-white text-3xl sm:text-5xl mb-4 sm:mb-6 font-bold">
-              {t('resetYourPassword.resetPasswordForm.title')}
+              {t('auth.resetYourPassword.resetPasswordForm.title')}
             </h1>
 
             <h2 className="text-white m-auto text-center max-w-[400px] w-full font-bold text-md sm:text-lg">
-              {t('resetYourPassword.resetPasswordForm.subtitle')}
+              {t('auth.resetYourPassword.resetPasswordForm.subtitle')}
             </h2>
           </div>
         </div>

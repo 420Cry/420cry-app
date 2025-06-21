@@ -43,7 +43,7 @@ const SignupForm = (): JSX.Element => {
     <div className="flex items-center justify-center px-4 py-8 mt-12">
       <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
         <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
-          {t('signup.title')}
+          {t('auth.signup.title')}
         </h1>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap mb-4">
@@ -92,13 +92,13 @@ const SignupForm = (): JSX.Element => {
               type="submit"
               color="primary"
             >
-              {t('signup.title')}
+              {t('auth.signup.title')}
             </CryButton>
           </div>
         </form>
 
         <div className="text-center text-sm sm:text-base mt-6 text-yellow-600">
-          {t('signup.orSignInUsing')}
+          {t('auth.signup.orSignInUsing')}
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-4">
           {[GoogleIcon, DiscordIcon].map((Icon, index) => (

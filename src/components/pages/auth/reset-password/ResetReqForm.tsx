@@ -42,14 +42,14 @@ const ResetReqForm = (): JSX.Element => {
 
           <div className="mb-8 w-full m-auto">
             <h1 className="text-center text-white text-3xl sm:text-5xl mb-4 sm:mb-6 font-bold">
-              {t('resetYourPassword.resetReq.title')}
+              {t('auth.resetYourPassword.resetReq.title')}
             </h1>
 
             <h2
               className="text-white m-auto text-center whitespace-pre-line
               max-w-[500px] w-full font-bold text-md sm:text-lg"
             >
-              {t('resetYourPassword.resetReq.subtitle')}
+              {t('auth.resetYourPassword.resetReq.subtitle')}
             </h2>
           </div>
         </div>

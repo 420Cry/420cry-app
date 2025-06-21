@@ -10,8 +10,10 @@ export const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL
   ? `https://${process.env.NEXT_PUBLIC_API_URL}`
   : ''
 
+// auth
 export const SIGN_UP_API = '/api/auth/sign-up'
 export const SIGN_IN_API = '/api/auth/sign-in'
+export const SIGN_OUT_API = '/api/auth/sign-out'
 export const VERIFY_ACCOUNT_TOKEN_API = '/api/auth/verify-account-token'
 export const VERIFY_EMAIL_TOKEN_API = '/api/auth/verify-email-token'
 export const RESET_REQUEST_API = '/api/auth/reset-request'

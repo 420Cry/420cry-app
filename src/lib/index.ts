@@ -15,6 +15,9 @@ export * from './client/auth/signup/SignUpService'
 export * from './client/auth/signup/VerifyAccountTokenService'
 export * from './client/auth/signup/VerifyEmailTokenService'
 export * from './client/auth/reset_password/ResetRequestService'
+export * from './client/auth/signout/SignOutRequestService'
+
+// HTTP Request
 export * from './requests/RequestService'
 
 // Utils

@@ -52,31 +52,31 @@
     "signUp": "Sign Up",
     "alreadyHasAnAccount": "Already has an account?"
   },
-  "login": {
-    "title": "Login",
-    "forgotYourPassword": "Forgot your password?",
-    "rememberMe": "Remember me?",
-    "doNotHaveAnAccount": "Do not have an account? Sign up here"
-  },
-  "signup": {
-    "title": "Sign Up",
-    "orSignInUsing": "Or sign up using",
-    "verifyEmail": {
-      "title": "Verify your email",
-      "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
-    }
-  },
-  "resetYourPassword": {
-    "resetReq": {
-      "title": "Forgot Your Password",
-      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
+  "auth": {
+    "login": {
+      "title": "Login",
+      "forgotYourPassword": "Forgot your password?",
+      "rememberMe": "Remember me?",
+      "doNotHaveAnAccount": "Do not have an account? Sign up here"
     },
-    "resetPasswordForm": {
-      "title": "Reset Your Password",
-      "subtitle": "Enter the new password below so we can reset your password",
-      "newPassword": "New Password",
-      "showPassword": "Show",
-      "hidePassword": "Hide"
+    "signup": {
+      "title": "Sign Up",
+      "orSignInUsing": "Or sign up using",
+      "verifyEmail": {
+        "title": "Verify your email",
+        "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
+      }
+    },
+    "resetYourPassword": {
+      "resetReq": {
+        "title": "Forgot Your Password",
+        "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
+      },
+      "resetPasswordForm": {
+        "title": "Reset Your Password",
+        "subtitle": "Enter the new password below so we can reset your password",
+        "newPassword": "New Password"
+      }
     }
   },
   "2fa": {
