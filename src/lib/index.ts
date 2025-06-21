@@ -17,6 +17,9 @@ export * from './client/auth/signup/VerifyEmailTokenService'
 export * from './client/auth/reset_password/ResetRequestService'
 export * from './client/auth/signout/SignOutRequestService'
 
+// 2FA
+export * from './client/2fa/setup/TwoFactorSetUpService'
+
 // HTTP Request
 export * from './requests/RequestService'
 

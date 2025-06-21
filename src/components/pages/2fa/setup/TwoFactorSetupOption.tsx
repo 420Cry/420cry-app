@@ -1,7 +1,9 @@
 'use client'
 
+import { showToast, TwoFactorSetUpService } from '@/lib'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
+import router from 'next/router'
 import { JSX, useState } from 'react'
 
 const TwoFactorSetupOption = ({
@@ -26,6 +28,16 @@ const TwoFactorSetupOption = ({
     }`
   }
 
+  const skipForNow = async () => {
+    try {
+      const skip = await TwoFactorSetUpService.skipForNow()
+      if (skip.isSuccess) {
+        router.push('/')
+      }
+    } catch {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+    }
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-12">
       <div className="w-full max-w-2xl bg-white border border-gray-200 rounded-xl shadow-xl p-10">
@@ -74,6 +86,14 @@ const TwoFactorSetupOption = ({
               </div>
             </div>
           </CryButton>
+        </div>
+        <div className="mt-8 text-center">
+          <a
+            onClick={skipForNow}
+            className="underline text-blue-500 hover:text-blue-800 cursor-pointer focus:outline-none"
+          >
+            {t('2fa.setup.skipForNow') || 'Skip for now'}
+          </a>
         </div>
       </div>
     </div>

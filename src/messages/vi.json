@@ -78,8 +78,8 @@
         "newPassword": "Mật khẩu mới"
       }
     },
-    "signout" : {
-      "title" : "Đăng xuất tài khoản"
+    "signout": {
+      "title": "Đăng xuất tài khoản"
     }
   },
   "2fa": {
@@ -95,7 +95,8 @@
       "useAnApp": "Sử dụng một ứng dụng",
       "scanQR": "Quét mã QR bằng ứng dụng xác thực",
       "qrCodeError": "Lỗi mã QR",
-      "secretNA": "KHÔNG CÓ MÃ BÍ MẬT"
+      "secretNA": "KHÔNG CÓ MÃ BÍ MẬT",
+      "skipForNow": "Bỏ qua bây giờ — nhưng chúng tôi sẽ nhắc lại vào lần sau!"
     },
     "QR": {
       "title": "Cài đặt xác thực hai yếu tố",

@@ -13,6 +13,8 @@ const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || '')
 export async function middleware(req: NextRequest): Promise<NextResponse> {
   const pathname = req.nextUrl.pathname
   const jwtToken = req.cookies.get('jwt')?.value
+  const twoFASetUpSkippedForNow =
+    req.cookies.get('twoFASetUpSkippedForNow')?.value === 'true'
 
   let isAuthenticated = false
   let twoFAEnabled = false
@@ -64,6 +66,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   if (
     isAuthenticated &&
     !twoFAEnabled &&
+    !twoFASetUpSkippedForNow &&
     pathname !== TWO_FACTOR_SETUP_ROUTE &&
     !BLOCKED_ROUTES_FOR_AUTH_USERS.includes(pathname)
   ) {

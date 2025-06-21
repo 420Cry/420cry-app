@@ -78,8 +78,8 @@
         "newPassword": "New Password"
       }
     },
-    "signout" : {
-      "title" : "Sign out"
+    "signout": {
+      "title": "Sign out"
     }
   },
   "2fa": {
@@ -95,7 +95,8 @@
       "useAnApp": "Use an app",
       "scanQR": "Scan a QR code with an authenticator app",
       "qrCodeError": "QRcode Error",
-      "secretNA": "SECRET-KEY-N/A"
+      "secretNA": "SECRET-KEY-N/A",
+      "skipForNow": "Skip for now — but we will remind you again next time!"
     },
     "QR": {
       "title": "2FA setup",

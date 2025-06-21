@@ -22,3 +22,4 @@ export const VERIFY_RESET_PASSWORD_API = '/api/auth/verify-reset-password-token'
 // 2fa
 export const SET_UP_2FA_API = '/api/2fa/set-up'
 export const VERIFY_2FA_OTP_API = '/api/2fa/verify-otp'
+export const SKIP_SETUP_FOR_NOW_API = '/api/2fa/skip-setup-for-now'

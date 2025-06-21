@@ -1,10 +1,9 @@
 'use client'
 
 import { JSX, useEffect, useState } from 'react'
-import { TwoFactorSetUpService } from '@/lib/client/2fa/setup/TwoFactorSetUpService'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { HOME_ROUTE, showToast } from '@/lib'
+import { HOME_ROUTE, showToast, TwoFactorSetUpService } from '@/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
@@ -100,7 +99,7 @@ const TwoFactorSetupQRCode = ({
 
           {/* Step 1 */}
           <p className="mb-4 text-center text-gray-700 text-lg max-w-md mx-auto">
-            <span className="font-bold mr-2">{t('common.step')}1: </span>{' '}
+            <span className="font-bold mr-2">{t('app.common.step')}1: </span>{' '}
             {t('2fa.QR.stepOne')}
           </p>
 
@@ -121,7 +120,7 @@ const TwoFactorSetupQRCode = ({
               )}
             </div>
 
-            {/* Secret key - bold and selectable */}
+            {/* Secret key */}
             {secret ? (
               <p className="font-bold text-center text-lg text-gray-800 select-all">
                 {secret}
@@ -137,7 +136,7 @@ const TwoFactorSetupQRCode = ({
 
           {/* Step 2 */}
           <p className="mb-4 text-center text-gray-700 text-lg max-w-md mx-auto">
-            <span className="font-bold mr-2">{t('common.step')}2: </span>{' '}
+            <span className="font-bold mr-2">{t('app.common.step')}2: </span>{' '}
             {t('2fa.QR.stepTwo')}
           </p>
 

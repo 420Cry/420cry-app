@@ -1,4 +1,9 @@
-import { SET_UP_2FA_API, RequestService, VERIFY_2FA_OTP_API } from '@/lib'
+import {
+  SET_UP_2FA_API,
+  RequestService,
+  VERIFY_2FA_OTP_API,
+  SKIP_SETUP_FOR_NOW_API,
+} from '@/lib'
 import {
   IResponse,
   ITwoFactorSetUpRequest,
@@ -37,6 +42,20 @@ export const TwoFactorSetUpService = {
           isSuccess: false,
           message: 'app.alertTitle.somethingWentWrong',
         },
+      }
+    }
+  },
+
+  skipForNow: async (): Promise<IResponse> => {
+    try {
+      return await RequestService.nativeFetchPost<null, IResponse>(
+        SKIP_SETUP_FOR_NOW_API,
+        null,
+      )
+    } catch {
+      return {
+        isSuccess: false,
+        message: 'app.alertTitle.somethingWentWrong',
       }
     }
   },
