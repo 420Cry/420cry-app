@@ -1,7 +1,11 @@
+import { IResponse } from '@/types'
 import { NextResponse } from 'next/server'
 
 export async function POST() {
-  const response = NextResponse.json({ message: '2FA setup skipped for now' })
+  const response = NextResponse.json({
+    isSuccess: true,
+    message: '2fa.setup.skipForNow',
+  } satisfies IResponse)
 
   // Set the skip cookie, expires in 1 hour
   response.cookies.set('twoFASetUpSkippedForNow', 'true', {

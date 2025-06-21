@@ -19,8 +19,8 @@ const ResetPasswordForm = ({
 }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
-  const showLabel = t('app.common.show')
-  const hideLabel = t('app.common.hide')
+  const showLabel = t('app.common.showPassword')
+  const hideLabel = t('app.common.hidePassword')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

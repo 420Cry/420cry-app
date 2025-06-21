@@ -3,7 +3,7 @@
 import { showToast, TwoFactorSetUpService } from '@/lib'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import { JSX, useState } from 'react'
 
 const TwoFactorSetupOption = ({
@@ -16,6 +16,7 @@ const TwoFactorSetupOption = ({
     null,
   )
   const t = useTranslations()
+  const router = useRouter()
 
   const baseCardClasses =
     'group border rounded-xl p-6 hover:shadow-lg active:scale-95 transition bg-white flex flex-col justify-between text-left w-full cursor-pointer focus:outline-none'
@@ -28,7 +29,9 @@ const TwoFactorSetupOption = ({
     }`
   }
 
-  const skipForNow = async () => {
+  const skipForNow = async (e: React.MouseEvent) => {
+    e.preventDefault()
+
     try {
       const skip = await TwoFactorSetUpService.skipForNow()
       if (skip.isSuccess) {
@@ -38,6 +41,7 @@ const TwoFactorSetupOption = ({
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-12">
       <div className="w-full max-w-2xl bg-white border border-gray-200 rounded-xl shadow-xl p-10">
@@ -92,7 +96,7 @@ const TwoFactorSetupOption = ({
             onClick={skipForNow}
             className="underline text-blue-500 hover:text-blue-800 cursor-pointer focus:outline-none"
           >
-            {t('2fa.setup.skipForNow') || 'Skip for now'}
+            {t('2fa.setup.skipForNow')}
           </a>
         </div>
       </div>

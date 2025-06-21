@@ -51,7 +51,6 @@ const LogInForm = (): JSX.Element => {
     }
     try {
       const { response, user } = await SignInService.signInAction(formData)
-
       const success = response.isSuccess
       const message = user
         ? t(response.message, { fullname: user.fullname })

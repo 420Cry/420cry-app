@@ -2,15 +2,15 @@
 
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-class ApiError extends Error {
+export class ApiError extends Error {
   public status: number
   public data: unknown
 
-  public constructor(message: string, status: number, data: unknown) {
+  constructor(message: string, status: number, data: unknown) {
     super(message)
     this.status = status
     this.data = data
-    Object.setPrototypeOf(this, ApiError.prototype) // for instanceof to work
+    Object.setPrototypeOf(this, ApiError.prototype)
   }
 }
 

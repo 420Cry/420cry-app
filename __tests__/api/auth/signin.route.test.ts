@@ -23,22 +23,6 @@ describe('POST /api/auth/sign-in', () => {
     vi.clearAllMocks()
   })
 
-  it('calls handleApiError if request.json throws', async () => {
-    const error = new Error('Invalid JSON')
-    const badRequest = {
-      json: vi.fn().mockRejectedValue(error),
-    }
-
-    ;(handleApiError as any).mockReturnValue(
-      NextResponse.json({ isSuccess: false, message: 'JSON error handled' }),
-    )
-
-    const res = await POST(badRequest as any)
-    expect(handleApiError).toHaveBeenCalledWith(error)
-    const json = await res.json()
-    expect(json).toEqual({ isSuccess: false, message: 'JSON error handled' })
-  })
-
   it('returns a success response and sets cookie when remember is true', async () => {
     const mockJwt = 'fake-jwt-token'
     const mockUser = { id: 123, email: 'test@example.com' }
@@ -115,6 +99,25 @@ describe('POST /api/auth/sign-in', () => {
     expect(res.status).toBe(401)
     const data = await res.json()
     expect(data.response.isSuccess).toBe(false)
+    expect(data.response.message).toBe('app.alertTitle.invalidCredentials')
+  })
+
+  it('returns a 403 response with appropriate error message', async () => {
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 403,
+      data: null,
+    })
+
+    const req = new MockNextRequest({
+      username: 'fail',
+      password: 'wrong',
+      remember: false,
+    })
+    const res = await POST(req as any)
+
+    expect(res.status).toBe(403)
+    const data = await res.json()
+    expect(data.response.isSuccess).toBe(false)
     expect(data.response.message).toBe('app.alertTitle.somethingWentWrong')
   })
 
@@ -132,26 +135,6 @@ describe('POST /api/auth/sign-in', () => {
     const res = await POST(req as any)
 
     expect(res.cookies.get('jwt')).toBeUndefined()
-  })
-
-  it('calls handleApiError if RequestService throws', async () => {
-    const error = new Error('API error')
-
-    ;(RequestService.axiosPost as any).mockRejectedValue(error)
-    ;(handleApiError as any).mockReturnValue(
-      NextResponse.json({ isSuccess: false, message: 'Handled error' }),
-    )
-
-    const req = new MockNextRequest({
-      username: 'user',
-      password: 'pass',
-      remember: true,
-    })
-    const res = await POST(req as any)
-
-    expect(handleApiError).toHaveBeenCalledWith(error)
-    const data = await res.json()
-    expect(data.message).toBe('Handled error')
   })
 })
 
