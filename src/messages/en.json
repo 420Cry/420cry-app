@@ -77,6 +77,9 @@
         "subtitle": "Enter the new password below so we can reset your password",
         "newPassword": "New Password"
       }
+    },
+    "signout" : {
+      "title" : "Sign out"
     }
   },
   "2fa": {

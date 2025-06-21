@@ -77,6 +77,9 @@
         "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
         "newPassword": "Mật khẩu mới"
       }
+    },
+    "signout" : {
+      "title" : "Đăng xuất tài khoản"
     }
   },
   "2fa": {

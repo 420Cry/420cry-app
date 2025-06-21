@@ -10,7 +10,6 @@ export default function Home(): ReactElement {
     try {
       await SignOutRequestService.signOut()
     } catch (error) {
-      console.error('Logout failed:', error)
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
@@ -21,7 +20,7 @@ export default function Home(): ReactElement {
         Logged in 420CRY-APP
       </h1>
       <CryButton onClick={logout}>
-        {t('app.buttons.logout') || 'Logout'}
+        {t('auth.signout.title')}
       </CryButton>
     </>
   )
