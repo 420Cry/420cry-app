@@ -38,7 +38,7 @@ export const SignInService = {
         { response: IResponse; user?: IUser }
       >(SIGN_IN_API, payload)
       return response
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof ApiError) {
         const status = error.status
         const message =
@@ -55,7 +55,6 @@ export const SignInService = {
           },
         }
       }
-
       return {
         response: {
           isSuccess: false,

@@ -18,7 +18,6 @@ export const ResetRequestService = {
         message: validation.message,
       }
     }
-
     try {
       const payload: IResetPasswordRequest = {
         email: validation.data.email,
@@ -28,7 +27,7 @@ export const ResetRequestService = {
         IResetPasswordRequest,
         IResponse
       >(RESET_REQUEST_API, payload)
-    } catch (error: any) {
+    } catch (error: unknown) {
       if (error instanceof ApiError) {
         const status = error.status
         const message =

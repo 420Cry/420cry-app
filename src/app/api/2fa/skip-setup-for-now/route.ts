@@ -1,7 +1,7 @@
 import { IResponse } from '@/types'
 import { NextResponse } from 'next/server'
 
-export async function POST() {
+export async function POST(): Promise<NextResponse> {
   const response = NextResponse.json({
     isSuccess: true,
     message: '2fa.setup.skipForNow',

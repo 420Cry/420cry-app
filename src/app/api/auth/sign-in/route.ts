@@ -81,8 +81,22 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           { status: response.status },
         )
     }
-  } catch (error: any) {
-    const status = error?.response?.status ?? 500
+  } catch (error: unknown) {
+    type ErrorWithResponse = {
+      response?: {
+        status?: number
+      }
+    }
+
+    const err = error as ErrorWithResponse
+
+    const status =
+      typeof err === 'object' &&
+      err !== null &&
+      'response' in err &&
+      typeof err.response?.status === 'number'
+        ? err.response.status
+        : 500
 
     const message = (() => {
       switch (status) {

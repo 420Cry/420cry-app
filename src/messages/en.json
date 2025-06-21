@@ -25,7 +25,7 @@
       "resetSuccess": "You have successfully resetted your password. Please login again!",
       "invalidCredentials": "Invalid username or password.",
       "userNotFound": "User not found",
-      "logOutSuccessful": "Logged out" 
+      "logOutSuccessful": "Logged out"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",

@@ -4,10 +4,10 @@ import { IResponse } from '@/types'
 import { NextResponse } from 'next/server'
 
 export async function POST(): Promise<NextResponse> {
-    const response =  NextResponse.json({
-      isSuccess: true,
-      message: 'app.alertTitle.logOutSuccessful',
-    } satisfies IResponse)
+  const response = NextResponse.json({
+    isSuccess: true,
+    message: 'app.alertTitle.logOutSuccessful',
+  } satisfies IResponse)
 
   // Clear the 'jwt' cookie by setting it to empty and expiring it immediately
   response.cookies.set('jwt', '', {
