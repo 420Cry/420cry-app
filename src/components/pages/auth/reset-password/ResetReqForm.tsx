@@ -8,10 +8,17 @@ import {
 import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast, ResetRequestService } from '@/lib'
+import {
+  fieldsRequired,
+  showToast,
+  ResetRequestService,
+  SIGN_IN_ROUTE,
+} from '@/lib'
+import { useRouter } from 'next/navigation'
 
 const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -20,6 +27,10 @@ const ResetReqForm = (): JSX.Element => {
 
     const response = await ResetRequestService.resetRequestAction(formData)
     showToast(response.isSuccess, t(response.message))
+
+    if (response.isSuccess) {
+      router.push(SIGN_IN_ROUTE)
+    }
   }
 
   return (
@@ -31,14 +42,14 @@ const ResetReqForm = (): JSX.Element => {
 
           <div className="mb-8 w-full m-auto">
             <h1 className="text-center text-white text-3xl sm:text-5xl mb-4 sm:mb-6 font-bold">
-              {t('resetYourPassword.resetReq.title')}
+              {t('auth.resetYourPassword.resetReq.title')}
             </h1>
 
             <h2
               className="text-white m-auto text-center whitespace-pre-line
               max-w-[500px] w-full font-bold text-md sm:text-lg"
             >
-              {t('resetYourPassword.resetReq.subtitle')}
+              {t('auth.resetYourPassword.resetReq.subtitle')}
             </h2>
           </div>
         </div>
@@ -60,7 +71,7 @@ const ResetReqForm = (): JSX.Element => {
               color="primary"
               className="max-w-52 h-12 w-full"
             >
-              {t('resetYourPassword.confirm')}
+              {t('app.common.confirm')}
             </CryButton>
           </div>
         </form>

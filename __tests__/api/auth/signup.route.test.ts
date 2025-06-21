@@ -49,7 +49,7 @@ describe('POST route handler', () => {
     })
   })
 
-  it('returns failure JSON when status is other than 200 or 201', async () => {
+  it('returns failure JSON when status is not 200 or 201', async () => {
     ;(RequestService.axiosPost as any).mockResolvedValue({ status: 400 })
 
     const req = new MockNextRequest({ some: 'data' })
@@ -57,7 +57,7 @@ describe('POST route handler', () => {
 
     const json = await res.json()
     expect(json).toEqual({
-      isSuccess: true,
+      isSuccess: false,
       message: 'app.alertTitle.somethingWentWrong',
     })
   })
@@ -98,10 +98,11 @@ describe('POST route handler', () => {
 
     const json = await res.json()
     expect(json).toEqual({
-      isSuccess: true,
+      isSuccess: false,
       message: 'app.alertTitle.somethingWentWrong',
     })
   })
+
   it('calls handleApiError if request.json throws', async () => {
     const error = new Error('Invalid JSON')
     const badRequest = {
@@ -125,5 +126,31 @@ describe('POST route handler', () => {
     const res = await POST(req as any)
 
     expect(res).toBeInstanceOf(NextResponse)
+  })
+})
+
+it('returns failure JSON when status is 400', async () => {
+  ;(RequestService.axiosPost as any).mockResolvedValue({ status: 400 })
+
+  const req = new MockNextRequest({ some: 'data' })
+  const res = await POST(req as any)
+
+  const json = await res.json()
+  expect(json).toEqual({
+    isSuccess: false,
+    message: 'app.alertTitle.somethingWentWrong',
+  })
+})
+
+it('returns failure JSON when status is 409 (Conflict)', async () => {
+  ;(RequestService.axiosPost as any).mockResolvedValue({ status: 409 })
+
+  const req = new MockNextRequest({ some: 'data' })
+  const res = await POST(req as any)
+
+  const json = await res.json()
+  expect(json).toEqual({
+    isSuccess: false,
+    message: 'app.alertTitle.somethingWentWrong',
   })
 })

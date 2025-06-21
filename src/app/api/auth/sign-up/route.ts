@@ -7,20 +7,24 @@ import { IResponse, ISignUp } from '@/types'
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
+
     const response = await RequestService.axiosPost<ISignUp, IResponse>(
       `${API_URL}/users/signup`,
       body,
     )
-    if (response.status === 200 || response.status === 201) {
-      return NextResponse.json({
-        isSuccess: true,
-        message: 'app.alertTitle.Successful',
-      } satisfies IResponse)
+    switch (response.status) {
+      case 200:
+      case 201:
+        return NextResponse.json({
+          isSuccess: true,
+          message: 'app.alertTitle.Successful',
+        } satisfies IResponse)
+      default:
+        return NextResponse.json({
+          isSuccess: false,
+          message: 'app.alertTitle.somethingWentWrong',
+        } satisfies IResponse)
     }
-    return NextResponse.json({
-      isSuccess: true,
-      message: 'app.alertTitle.somethingWentWrong',
-    } satisfies IResponse)
   } catch (error) {
     return handleApiError(error)
   }

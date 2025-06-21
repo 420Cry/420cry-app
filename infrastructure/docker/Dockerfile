@@ -4,20 +4,18 @@ WORKDIR /app
 
 RUN adduser -D appuser
 
-COPY --chown=appuser:appuser . .
+# Install dependencies only; source code will be mounted at runtime
+COPY package*.json ./
+COPY --chown=appuser:appuser .npmrc* ./
 
-RUN echo registry=https://registry.npmjs.org/ >> /root/.npmrc && \
-    echo @420cry:registry=https://npm.pkg.github.com/ >> /root/.npmrc
-
+# Setup private registry with GitHub token
 RUN --mount=type=secret,id=github_token \
     sh -c 'GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
-    echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> /root/.npmrc'
-
-RUN npm install && npm run build && \
-    chown -R appuser:appuser /app/.next
+    echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> /root/.npmrc && \
+    npm install'
 
 EXPOSE 3000
 
 USER appuser
 
-CMD ["npm", "run", "start-dev"]
+CMD ["npm", "run", "dev"]

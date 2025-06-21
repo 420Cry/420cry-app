@@ -94,10 +94,10 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
         </div>
 
         <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
-          {t('signup.verifyEmail.title')}
+          {t('auth.signup.verifyEmail.title')}
         </h1>
         <p className="text-center text-base sm:text-lg text-gray-600 mb-6">
-          {t('signup.verifyEmail.message')}
+          {t('auth.signup.verifyEmail.message')}
         </p>
 
         <div className="flex justify-center gap-4">
@@ -121,7 +121,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
             onClick={handleConfirm}
             disabled={loading}
           >
-            {t('signup.verifyEmail.confirm')}
+            {t('app.common.confirm')}
           </CryButton>
         </div>
       </div>

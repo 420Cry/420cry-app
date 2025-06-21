@@ -27,7 +27,6 @@ export const VerifyResetPasswordService = {
 
       const payload = {
         newPassword: validation.data.newPassword,
-        repeatedPassword: validation.data.repeatedPassword,
         resetPasswordToken: validation.data.resetPasswordToken,
       }
 
