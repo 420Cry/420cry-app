@@ -71,7 +71,7 @@ const ResetReqForm = (): JSX.Element => {
               color="primary"
               className="max-w-52 h-12 w-full"
             >
-              {t('resetYourPassword.confirm')}
+              {t('app.common.confirm')}
             </CryButton>
           </div>
         </form>
