@@ -24,7 +24,8 @@
       "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
       "resetSuccess": "You have successfully resetted your password. Please login again!",
       "invalidCredentials": "Invalid username or password.",
-      "userNotFound": "user Not Found"
+      "userNotFound": "User not found",
+      "logOutSuccessful": "Logged out" 
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",

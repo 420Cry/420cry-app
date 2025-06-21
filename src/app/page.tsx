@@ -4,21 +4,18 @@ import React, { ReactElement } from 'react'
 import { useTranslations } from 'next-intl'
 import { showToast, SIGN_IN_ROUTE, SignOutRequestService } from '@/lib'
 import { CryButton } from '@420cry/420cry-lib'
+import { useRouter } from 'next/navigation'
 
 export default function Home(): ReactElement {
   const t = useTranslations()
+  const router = useRouter()
   const logout = async () => {
     try {
-      const response = await SignOutRequestService.signOut()
-      console.log('Sign out response:', response)
-      if (response.isSuccess) {
-        console.log('Redirecting to sign in')
-        window.location.href = SIGN_IN_ROUTE
-      } else {
-        console.log('Sign out unsuccessful')
+      const resposne = await SignOutRequestService.signOut()
+      if (resposne.isSuccess) {
+        router.push(SIGN_IN_ROUTE)
       }
     } catch (error) {
-      console.error(error)
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }

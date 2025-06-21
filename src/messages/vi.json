@@ -23,7 +23,8 @@
       "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
       "resetSucecess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
       "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
-      "userNotFound": "người dùng không tồn tại"
+      "userNotFound": "người dùng không tồn tại",
+      "logOutSuccessful": "Đăng xuất thành công" 
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
