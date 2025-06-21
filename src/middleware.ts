@@ -62,7 +62,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
   }
 
-  // If user is authenticated but hasn not finished 2FA
+  // If user is authenticated but hasn't finished 2FA
   if (
     isAuthenticated &&
     !twoFAEnabled &&
@@ -71,6 +71,11 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     !BLOCKED_ROUTES_FOR_AUTH_USERS.includes(pathname)
   ) {
     return NextResponse.redirect(new URL(TWO_FACTOR_SETUP_ROUTE, req.url))
+  }
+
+  // **NEW: Block access to /2fa/setup for users who completed 2FA**
+  if (isAuthenticated && twoFAEnabled && pathname === TWO_FACTOR_SETUP_ROUTE) {
+    return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
   }
 
   return NextResponse.next()

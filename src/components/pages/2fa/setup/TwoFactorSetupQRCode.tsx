@@ -62,6 +62,7 @@ const TwoFactorSetupQRCode = ({
       const success = response.isSuccess
       if (success && user) {
         useAuthStore.getState().setUser(user)
+        showToast(true, t('app.alertTitle.2FASetUpSuccessful'))
         router.push(HOME_ROUTE)
       }
     } catch {
@@ -74,16 +75,6 @@ const TwoFactorSetupQRCode = ({
   }
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 relative">
-      <div className="absolute top-6 left-6">
-        <CryButton
-          onClick={onCancel}
-          className="bg-gray-600 text-white px-5 py-2 text-base rounded hover:bg-gray-800 transition"
-          rounded
-        >
-          ← {t('app.common.back')}
-        </CryButton>
-      </div>
-
       <div className="max-w-lg w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
         <div className="bg-gray-100 px-8 py-6">
           <p className="text-xl font-semibold text-left">{t('2fa.QR.title')}</p>
