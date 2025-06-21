@@ -1,3 +1,5 @@
+'use server-only'
+
 import { NextResponse } from 'next/server'
 
 export async function POST(): Promise<NextResponse> {

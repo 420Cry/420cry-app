@@ -1,3 +1,5 @@
+'use server-only'
+
 import { API_URL, handleApiError, RequestService } from '@/lib'
 import { IResponse } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'

@@ -10,10 +10,15 @@ export default function Home(): ReactElement {
   const logout = async () => {
     try {
       const response = await SignOutRequestService.signOut()
+      console.log('Sign out response:', response)
       if (response.isSuccess) {
+        console.log('Redirecting to sign in')
         window.location.href = SIGN_IN_ROUTE
+      } else {
+        console.log('Sign out unsuccessful')
       }
     } catch (error) {
+      console.error(error)
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
