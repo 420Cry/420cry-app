@@ -97,10 +97,16 @@ describe('middleware', () => {
 
   it('redirects to 2FA verify page if 2FA enabled but not verified', async () => {
     ;(jwtVerify as any).mockResolvedValue({
-      payload: { sub: 'user123', twoFAEnabled: true },
+      payload: {
+        sub: 'user123',
+        twoFAEnabled: true,
+        exp: Math.floor(Date.now() / 1000) + 3600,
+      },
     })
 
-    const req = mockRequest('/dashboard', 'valid.jwt.token')
+    const req = mockRequest('/dashboard', 'valid.jwt.token', {
+      twoFAVerified: 'false',
+    })
 
     const res = await middleware(req)
 

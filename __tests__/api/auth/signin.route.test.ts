@@ -112,7 +112,7 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const req = new MockNextRequest({
       username: '2fauser',
       password: 'test',
-      remember: true, // Shouldn't persist cookies since 2FA is enabled
+      remember: true,
     })
 
     const res = await POST(req as any)
@@ -127,6 +127,7 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
       expect.any(NextResponse),
       'false',
       false,
+      expect.any(Object),
     )
   })
 
@@ -188,5 +189,31 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
       false,
     )
     expect(CookieService.setTwoFAVerifiedCookie).not.toHaveBeenCalled()
+  })
+
+  it('returns user with rememberMe flag set to true', async () => {
+    ;(RequestService.axiosPost as any).mockResolvedValue({
+      status: 200,
+      data: {
+        user: {
+          id: 4,
+          email: 'remember@example.com',
+          twoFAEnabled: false,
+        },
+        jwt: 'jwt-token',
+      },
+    })
+
+    const req = new MockNextRequest({
+      username: 'rememberuser',
+      password: 'test',
+      remember: true,
+    })
+
+    const res = await POST(req as any)
+
+    const data = await res.json()
+    expect(res.status).toBe(200)
+    expect(data.user.rememberMe).toBe(true)
   })
 })

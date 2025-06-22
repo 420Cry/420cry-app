@@ -43,8 +43,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           // 2FA enabled — set session jwt cookie (no maxAge)
           CookieService.setJwtCookie(nextResponse, jwt, false)
 
-          // twoFAVerified cookie with 'false', session cookie (no maxAge)
-          CookieService.setTwoFAVerifiedCookie(nextResponse, 'false', false)
+          // twoFAVerified cookie with 'false', session cookie (5 mins)
+          CookieService.setTwoFAVerifiedCookie(nextResponse, 'false', false, {
+            maxAge: 60 * 5,
+          })
         } else {
           // 2FA disabled — set persistent jwt cookie with rememberMe option
           CookieService.setJwtCookie(nextResponse, jwt, rememberFlag)
