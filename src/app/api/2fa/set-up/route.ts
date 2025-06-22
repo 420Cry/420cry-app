@@ -1,35 +1,80 @@
 'use server-only'
 
-import { API_URL, handleApiError, RequestService } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
-import { ITwoFactorSetUpRequest, ITwoFactorSetUpResponse } from '@/types'
+import {
+  IResponse,
+  ITwoFactorSetUpRequest,
+  ITwoFactorVerifyResponse,
+} from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
-    const body = (await request.json()) as ITwoFactorSetUpRequest
+    const body = await request.json()
+    const rememberFlag = !!body.remember
 
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
-      ITwoFactorSetUpResponse
-    >(`${API_URL}/2fa/setup`, body)
+      ITwoFactorVerifyResponse
+    >(`${API_URL}/2fa/auth/verify-otp`, body)
 
     if (response.status === 200 && response.data) {
-      const { secret, qrCode } = response.data
+      const { jwt } = response.data
 
-      return NextResponse.json({
-        secret,
-        qrCode,
-      } satisfies ITwoFactorSetUpResponse)
+      const responseBody = {
+        response: {
+          isSuccess: true,
+          message: 'app.alertTitle.2FAVerifySuccessful',
+        } as IResponse,
+      }
+
+      const nextResponse = NextResponse.json(responseBody)
+
+      if (jwt) {
+        const commonJwtOptions = {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax' as const,
+        }
+
+        const jwtCookieOptions = rememberFlag
+          ? { ...commonJwtOptions, maxAge: 60 * 60 * 24 * 30 } // 30 days
+          : commonJwtOptions
+
+        nextResponse.cookies.set('jwt', jwt, jwtCookieOptions)
+
+        const commonTwoFAOptions = {
+          httpOnly: false,
+          secure: process.env.NODE_ENV === 'production',
+          path: '/',
+          sameSite: 'lax' as const,
+        }
+
+        const twoFACookieOptions = rememberFlag
+          ? { ...commonTwoFAOptions, maxAge: 60 * 60 * 24 * 30 }
+          : commonTwoFAOptions
+
+        nextResponse.cookies.set('twoFAVerified', 'true', twoFACookieOptions)
+      }
+
+      return nextResponse
     }
 
-    return NextResponse.json(
-      {
-        secret: '',
-        qrCode: '',
-      } satisfies ITwoFactorSetUpResponse,
-      { status: 401 },
-    )
-  } catch (error) {
-    return handleApiError(error)
+    if (response.status === 401) {
+      return createErrorResponse('app.alertTitle.invalidOTP', 401)
+    }
+
+    return createErrorResponse('app.alertTitle.somethingWentWrong', response.status)
+  } catch (error: unknown) {
+    const err = error as { response?: { status?: number } }
+    const status = err?.response?.status ?? 500
+
+    const message =
+      status === 401
+        ? 'app.alertTitle.invalidOTP'
+        : 'app.alertTitle.somethingWentWrong'
+
+    return createErrorResponse(message, status)
   }
 }

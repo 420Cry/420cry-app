@@ -29,6 +29,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
       const response = await TwoFactorVerifyService.verifyToken({
         userUUID: user.uuid,
         otp,
+        rememberMe: user.rememberMe
       })
 
       if (response.isSuccess) {
@@ -41,7 +42,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8 border border-gray-200">

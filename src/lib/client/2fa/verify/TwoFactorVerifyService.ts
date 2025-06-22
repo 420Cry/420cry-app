@@ -1,5 +1,5 @@
 import { VERIFY_2FA_OTP_API, RequestService, ApiError } from '@/lib'
-import { IResponse, ITwoFactorVerifyRequest, IUser } from '@/types'
+import { IResponse, ITwoFactorVerifyRequest } from '@/types'
 
 export const TwoFactorVerifyService = {
   async verifyToken(payload: ITwoFactorVerifyRequest): Promise<IResponse> {
@@ -8,8 +8,6 @@ export const TwoFactorVerifyService = {
         ITwoFactorVerifyRequest,
         { response: IResponse }
       >(VERIFY_2FA_OTP_API, payload)
-
-      // unwrap the inner response property here
       return result.response
     } catch (error: unknown) {
       if (error instanceof ApiError) {

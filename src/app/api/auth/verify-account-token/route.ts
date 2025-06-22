@@ -1,6 +1,6 @@
 'use server-only'
 
-import { API_URL, handleApiError, RequestService } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { IResponse, IVerifyAccountToken } from '@/types'
 
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       isSuccess: false,
       message: 'app.alertTitle.somethingWentWrong',
     } satisfies IResponse)
-  } catch (error) {
-    return handleApiError(error)
+  } catch {
+    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
   }
 }

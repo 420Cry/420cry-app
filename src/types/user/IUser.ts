@@ -4,4 +4,5 @@ export interface IUser {
   email: string
   username: string
   twoFAEnabled?: boolean
+  rememberMe?: boolean
 }

@@ -1,120 +1,84 @@
 'use server-only'
 
-import { API_URL, RequestService } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { ISignIn, IAuthResponse, IResponse } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-
+    const rememberFlag = !!body.remember
     const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
       `${API_URL}/users/signin`,
       body,
     )
 
-    switch (response.status) {
-      case 200:
-        if (response.data) {
-          const { user, jwt } = response.data
+    if (response.status === 200 && response.data) {
+      const { user, jwt } = response.data
 
-          const responseBody = {
-            response: {
-              isSuccess: true,
-              message: 'app.alertTitle.Successful',
-            } as IResponse,
-            user,
-          }
-
-          const nextResponse = NextResponse.json(responseBody)
-
-          if (jwt) {
-            const rememberFlag = !!body.remember
-            const maxAge = !user.twoFAEnabled
-              ? 60 * 60 // 1 hour
-              : rememberFlag
-                ? 60 * 60 * 24 * 30 // 30 days
-                : undefined
-
-            nextResponse.cookies.set('jwt', jwt, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production',
-              path: '/',
-              sameSite: 'lax',
-              ...(maxAge !== undefined ? { maxAge } : {}),
-            })
-          }
-
-          return nextResponse
-        }
-
-        // Fallthrough: status 200 but missing data
-        return NextResponse.json(
-          {
-            response: {
-              isSuccess: false,
-              message: 'app.alertTitle.somethingWentWrong',
-            } as IResponse,
-          },
-          { status: 500 },
-        )
-
-      case 401:
-        return NextResponse.json(
-          {
-            response: {
-              isSuccess: false,
-              message: 'app.alertTitle.invalidCredentials',
-            } as IResponse,
-          },
-          { status: 401 },
-        )
-
-      default:
-        return NextResponse.json(
-          {
-            response: {
-              isSuccess: false,
-              message: 'app.alertTitle.somethingWentWrong',
-            } as IResponse,
-          },
-          { status: response.status },
-        )
-    }
-  } catch (error: unknown) {
-    type ErrorWithResponse = {
-      response?: {
-        status?: number
+      // Add rememberFlag to user object before sending it back
+      const userWithRemember = {
+        ...user,
+        rememberMe: rememberFlag,
       }
-    }
 
-    const err = error as ErrorWithResponse
-
-    const status =
-      typeof err === 'object' &&
-      err !== null &&
-      'response' in err &&
-      typeof err.response?.status === 'number'
-        ? err.response.status
-        : 500
-
-    const message = (() => {
-      switch (status) {
-        case 401:
-          return 'app.alertTitle.invalidCredentials'
-        default:
-          return 'app.alertTitle.somethingWentWrong'
-      }
-    })()
-
-    return NextResponse.json(
-      {
+      const responseBody = {
         response: {
-          isSuccess: false,
-          message,
+          isSuccess: true,
+          message: 'app.alertTitle.Successful',
         } as IResponse,
-      },
-      { status },
+        user: userWithRemember,
+      }
+
+      const nextResponse = NextResponse.json(responseBody)
+
+      if (jwt) {
+        if (user.twoFAEnabled) {
+          // 2FA enabled — do NOT set persistent jwt cookie yet
+          nextResponse.cookies.set('jwt', jwt, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            path: '/',
+            sameSite: 'lax',
+          })
+
+          nextResponse.cookies.set('twoFAVerified', 'false', {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            path: '/',
+            sameSite: 'lax',
+          })
+        } else {
+          nextResponse.cookies.set('jwt', jwt, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            path: '/',
+            sameSite: 'lax',
+          })
+        }
+      }
+
+      return nextResponse
+    }
+
+
+    if (response.status === 401) {
+      return createErrorResponse('app.alertTitle.invalidCredentials', 401)
+    }
+
+    return createErrorResponse(
+      'app.alertTitle.somethingWentWrong',
+      response.status,
     )
+  } catch (error: unknown) {
+    const err = error as { response?: { status?: number } }
+    const status = err?.response?.status ?? 500
+
+    const message =
+      status === 401
+        ? 'app.alertTitle.invalidCredentials'
+        : 'app.alertTitle.somethingWentWrong'
+
+    return createErrorResponse(message, status)
   }
 }

@@ -1,14 +1,27 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/auth/sign-in/route'
-import { handleApiError, RequestService } from '@/lib'
+import { RequestService } from '@/lib'
 
 vi.mock('@/lib', () => ({
-  handleApiError: vi.fn(),
   API_URL: 'http://fake-api',
   RequestService: {
     axiosPost: vi.fn(),
   },
+  createErrorResponse: vi.fn((message: string, status: number) => {
+    return {
+      status,
+      json: async () => ({
+        response: {
+          isSuccess: false,
+          message,
+        },
+      }),
+      cookies: {
+        get: () => undefined,
+      },
+    }
+  }),
 }))
 
 class MockNextRequest {
@@ -150,7 +163,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
     twoFAEnabled: false,
   }
 
-  it('sets 7-day maxAge cookie if remember=true and 2FA enabled', async () => {
+  it('sets session cookie (no maxAge) if remember=true and 2FA enabled', async () => {
     const jwt = 'jwt-remember-2fa'
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
@@ -168,7 +181,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(30 * 24 * 60 * 60) // 1 month in seconds
+    expect(cookie?.maxAge).toBeUndefined() // session cookie expected here
   })
 
   it('sets session cookie if remember=false and 2FA enabled', async () => {
@@ -192,8 +205,8 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
     expect(cookie?.maxAge).toBeUndefined() // session cookie has no maxAge
   })
 
-  it('sets 10-minute maxAge cookie if 2FA disabled, regardless of remember=true', async () => {
-    const jwt = 'jwt-10min-2fa-disabled'
+  it('sets 30-day maxAge cookie if 2FA disabled and remember=true', async () => {
+    const jwt = 'jwt-30day-2fa-disabled'
     ;(RequestService.axiosPost as any).mockResolvedValue({
       status: 200,
       data: { user: userWithout2FA, jwt },
@@ -210,7 +223,7 @@ describe('POST /api/auth/sign-in: remember me and 2FA cookie behavior', () => {
 
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe(jwt)
-    expect(cookie?.maxAge).toBe(3600)
+    expect(cookie?.maxAge).toBe(60 * 60 * 24 * 30) // 30 days in seconds
   })
 
   it('sets 10-minute maxAge cookie if 2FA disabled, regardless of remember=false', async () => {

@@ -1,12 +1,13 @@
 'use server-only'
 
-import { API_URL, handleApiError, RequestService } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { IAuthResponse, IResponse, ITwoFactorSetUpRequest } from '@/types'
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
+
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
       IAuthResponse
@@ -31,24 +32,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           secure: process.env.NODE_ENV === 'production',
           path: '/',
           sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 30, // 30 days in seconds
+          maxAge: 60 * 60 * 24 * 30, // 30 days
         })
       }
 
       return nextResponse
     }
 
-    // Fallback: failed auth
-    return NextResponse.json(
-      {
-        response: {
-          isSuccess: false,
-          message: 'app.alertTitle.somethingWentWrong',
-        } as IResponse,
-      },
-      { status: 401 },
-    )
-  } catch (error) {
-    return handleApiError(error)
+    return createErrorResponse('app.alertTitle.somethingWentWrong', 401)
+  } catch {
+    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
   }
 }

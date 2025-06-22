@@ -9,13 +9,22 @@ export async function POST(): Promise<NextResponse> {
     message: 'app.alertTitle.logOutSuccessful',
   } satisfies IResponse)
 
-  // Clear the 'jwt' cookie by setting it to empty and expiring it immediately
+  // Clear the 'jwt' cookie by expiring it immediately
   response.cookies.set('jwt', '', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     path: '/',
     sameSite: 'lax',
-    maxAge: 0, // expire immediately
+    maxAge: 0,
+  })
+
+  // Clear the 2FA verification flag cookie as well
+  response.cookies.set('twoFAVerified', '', {
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production',
+    path: '/',
+    sameSite: 'lax',
+    maxAge: 0,
   })
 
   return response
