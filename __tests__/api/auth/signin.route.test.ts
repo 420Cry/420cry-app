@@ -118,8 +118,16 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const res = await POST(req as any)
 
     expect(res.status).toBe(200)
-    expect(CookieService.setJwtCookie).toHaveBeenCalledWith(expect.any(NextResponse), 'fake-jwt-token', false)
-    expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(expect.any(NextResponse), 'false', false)
+    expect(CookieService.setJwtCookie).toHaveBeenCalledWith(
+      expect.any(NextResponse),
+      'fake-jwt-token',
+      false,
+    )
+    expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(
+      expect.any(NextResponse),
+      'false',
+      false,
+    )
   })
 
   it('sets persistent jwt cookie when 2FA is disabled and rememberMe is true', async () => {
@@ -144,7 +152,11 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const res = await POST(req as any)
 
     expect(res.status).toBe(200)
-    expect(CookieService.setJwtCookie).toHaveBeenCalledWith(expect.any(NextResponse), 'jwt-no-2fa', true)
+    expect(CookieService.setJwtCookie).toHaveBeenCalledWith(
+      expect.any(NextResponse),
+      'jwt-no-2fa',
+      true,
+    )
     expect(CookieService.setTwoFAVerifiedCookie).not.toHaveBeenCalled()
   })
 
@@ -170,7 +182,11 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const res = await POST(req as any)
 
     expect(res.status).toBe(200)
-    expect(CookieService.setJwtCookie).toHaveBeenCalledWith(expect.any(NextResponse), 'jwt-session', false)
+    expect(CookieService.setJwtCookie).toHaveBeenCalledWith(
+      expect.any(NextResponse),
+      'jwt-session',
+      false,
+    )
     expect(CookieService.setTwoFAVerifiedCookie).not.toHaveBeenCalled()
   })
 })
