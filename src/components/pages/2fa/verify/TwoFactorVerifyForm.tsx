@@ -12,7 +12,6 @@ const TwoFactorVerifyForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const user = useAuthStore((state) => state.user)
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
@@ -25,7 +24,6 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
         return
       }
-
       const response = await TwoFactorVerifyService.verifyToken({
         userUUID: user.uuid,
         otp,

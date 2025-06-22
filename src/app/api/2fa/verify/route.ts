@@ -9,7 +9,7 @@ import {
 import { NextRequest, NextResponse } from 'next/server'
 import { ITwoFactorSetUpRequest, ITwoFactorVerifyResponse } from '@/types'
 
-function createSuccessResponse(jwt?: string, rememberMe = false) {
+function createSuccessResponse(jwt?: string, rememberMe = true) {
   const responseBody = {
     response: {
       isSuccess: true,
@@ -24,6 +24,7 @@ function createSuccessResponse(jwt?: string, rememberMe = false) {
     CookieService.setTwoFAVerifiedCookie(
       nextResponse,
       rememberMe ? 'true' : 'false',
+      rememberMe,
     )
   }
 
@@ -33,7 +34,7 @@ function createSuccessResponse(jwt?: string, rememberMe = false) {
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-    const rememberFlag = !!body.remember
+    const rememberFlag = !!body.rememberMe
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
       ITwoFactorVerifyResponse

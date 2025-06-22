@@ -45,7 +45,7 @@ export const CookieService = {
       secure: isProd,
       path: '/',
       sameSite: 'lax',
-      maxAge: 60 * 60, // 1 hour
+      maxAge: 60 * 60,
     })
   },
 

@@ -56,8 +56,14 @@ const LogInForm = (): JSX.Element => {
         ? t(response.message, { fullname: user.fullname })
         : t(response.message)
 
-      if (success && user) {
+      const rememberMe = formData.get('rememberMe') === 'on'
+
+      if (user) {
+        user.rememberMe = rememberMe
         useAuthStore.getState().setUser(user)
+      }
+
+      if (success && user) {
         const targetRoute = user.twoFAEnabled
           ? HOME_ROUTE
           : TWO_FACTOR_SETUP_ROUTE

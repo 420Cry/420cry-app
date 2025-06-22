@@ -48,19 +48,52 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return response
   }
 
-  // --- Prevent access to unauth routes during 2FA verification ---
+  // --- Redirect to 2FA verify page if required ---
   if (
     isAuthenticated &&
     twoFAEnabled &&
     !twoFAVerified &&
-    UN_AUTH_ROUTES.includes(pathname) &&
-    pathname !== TWO_FACTOR_VERIFY_ROUTE
+    pathname !== TWO_FACTOR_VERIFY_ROUTE &&
+    !UN_AUTH_ROUTES.includes(pathname)
   ) {
     return NextResponse.redirect(new URL(TWO_FACTOR_VERIFY_ROUTE, req.url))
   }
 
-  // --- Block authenticated users from unauth pages like login ---
-  if (BLOCKED_ROUTES_FOR_AUTH_USERS.includes(pathname)) {
+  // --- Logout user if 2FA cookie is missing ---
+  if (
+    isAuthenticated &&
+    twoFAEnabled &&
+    !twoFAVerified &&
+    req.cookies.get('twoFAVerified')?.value === undefined
+  ) {
+    const response = NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
+    response.cookies.delete('jwt')
+    response.cookies.delete('twoFAVerified')
+    response.cookies.delete('twoFASetUpSkippedForNow')
+    return response
+  }
+
+  // --- User completed 2FA and is on verify page => redirect to home ---
+  if (
+    isAuthenticated &&
+    twoFAEnabled &&
+    twoFAVerified &&
+    pathname === TWO_FACTOR_VERIFY_ROUTE
+  ) {
+    return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
+  }
+
+  // --- Extend blocked routes dynamically if 2FA is verified ---
+  const extendedBlockedRoutesForAuthUsers = [...BLOCKED_ROUTES_FOR_AUTH_USERS]
+  if (twoFAVerified) {
+    extendedBlockedRoutesForAuthUsers.push(
+      TWO_FACTOR_SETUP_ROUTE,
+      TWO_FACTOR_VERIFY_ROUTE,
+    )
+  }
+
+  // --- Prevent access to unauth routes once logged in ---
+  if (extendedBlockedRoutesForAuthUsers.includes(pathname)) {
     if (isAuthenticated) {
       const redirectTo = twoFAEnabled ? HOME_ROUTE : TWO_FACTOR_SETUP_ROUTE
       return NextResponse.redirect(new URL(redirectTo, req.url))
@@ -68,7 +101,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.next()
   }
 
-  // --- If auth route but user not authenticated ---
+  // --- Protected route but not authenticated ---
   const isProtectedRoute = AUTH_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(route + '/'),
   )
@@ -76,43 +109,20 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
   }
 
-  // --- User must complete 2FA setup ---
+  // --- Must complete 2FA setup ---
   if (
     isAuthenticated &&
     !twoFAEnabled &&
     !twoFASetUpSkippedForNow &&
     pathname !== TWO_FACTOR_SETUP_ROUTE &&
-    !BLOCKED_ROUTES_FOR_AUTH_USERS.includes(pathname)
+    !extendedBlockedRoutesForAuthUsers.includes(pathname)
   ) {
     return NextResponse.redirect(new URL(TWO_FACTOR_SETUP_ROUTE, req.url))
   }
 
-  // --- Block access to 2FA setup if already enabled ---
+  // --- Block access to 2FA setup page if already enabled ---
   if (isAuthenticated && twoFAEnabled && pathname === TWO_FACTOR_SETUP_ROUTE) {
     return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
-  }
-
-  // --- Force OTP verification if not yet verified ---
-  if (isAuthenticated && twoFAEnabled && !twoFAVerified) {
-    const twoFACookieExists =
-      req.cookies.get('twoFAVerified')?.value !== undefined
-
-    if (!twoFACookieExists) {
-      // If cookie is missing, logout user
-      const response = NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
-      response.cookies.delete('jwt')
-      response.cookies.delete('twoFAVerified')
-      response.cookies.delete('twoFASetUpSkippedForNow')
-      return response
-    }
-
-    // If user is not on the 2FA verify route, redirect them there
-    if (pathname !== TWO_FACTOR_VERIFY_ROUTE) {
-      return NextResponse.redirect(new URL(TWO_FACTOR_VERIFY_ROUTE, req.url))
-    }
-
-    // Allow access to /2fa/verify
-    return NextResponse.next()
   }
 
   return NextResponse.next()

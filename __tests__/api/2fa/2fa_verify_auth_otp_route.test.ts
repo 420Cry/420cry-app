@@ -45,7 +45,7 @@ describe('POST /api/2fa/auth/verify-otp', () => {
       },
     })
 
-    const req = new MockNextRequest({ otp: '123456', remember: true })
+    const req = new MockNextRequest({ otp: '123456', rememberMe: true })
     const res = await POST(req as any)
     const body = await res.json()
 
@@ -61,6 +61,7 @@ describe('POST /api/2fa/auth/verify-otp', () => {
     expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
       'true',
+      true,
     )
   })
 
@@ -72,7 +73,7 @@ describe('POST /api/2fa/auth/verify-otp', () => {
       },
     })
 
-    const req = new MockNextRequest({ otp: '123456', remember: false })
+    const req = new MockNextRequest({ otp: '123456', rememberMe: false })
     const res = await POST(req as any)
     const body = await res.json()
 
@@ -87,6 +88,7 @@ describe('POST /api/2fa/auth/verify-otp', () => {
     expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
       'false',
+      false,
     )
   })
 

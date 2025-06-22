@@ -1,3 +1,5 @@
+// sign-in handler
+
 'use server-only'
 
 import {
@@ -12,7 +14,7 @@ import { ISignIn, IAuthResponse, IResponse } from '@/types'
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-    const rememberFlag = !!body.remember
+    const rememberFlag = !!body.rememberMe
 
     const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
       `${API_URL}/users/signin`,
@@ -43,7 +45,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           // 2FA enabled — set session jwt cookie (no maxAge)
           CookieService.setJwtCookie(nextResponse, jwt, false)
 
-          // twoFAVerified cookie with 'false', session cookie (5 mins)
+          // twoFAVerified cookie always 'false' (session, 5 mins)
           CookieService.setTwoFAVerifiedCookie(nextResponse, 'false', false, {
             maxAge: 60 * 5,
           })

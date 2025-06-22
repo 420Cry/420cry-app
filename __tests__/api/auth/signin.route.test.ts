@@ -147,7 +147,7 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const req = new MockNextRequest({
       username: 'remember',
       password: 'test',
-      remember: true,
+      rememberMe: true,
     })
 
     const res = await POST(req as any)
@@ -177,7 +177,7 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const req = new MockNextRequest({
       username: 'session',
       password: 'test',
-      remember: false,
+      rememberMe: false,
     })
 
     const res = await POST(req as any)
@@ -207,7 +207,7 @@ describe('POST /api/auth/sign-in: 2FA and remember me cookie behavior', () => {
     const req = new MockNextRequest({
       username: 'rememberuser',
       password: 'test',
-      remember: true,
+      rememberMe: true,
     })
 
     const res = await POST(req as any)

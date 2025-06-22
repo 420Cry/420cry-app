@@ -11,7 +11,7 @@ import {
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
-    const rememberFlag = !!body.remember
+    const rememberFlag = !!body.rememberMe
 
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
