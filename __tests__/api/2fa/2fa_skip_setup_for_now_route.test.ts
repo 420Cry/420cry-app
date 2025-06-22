@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { POST } from 'src/app/api/2fa/set-up/skip-setup-for-now/route'
+import { POST } from '@/app/api/2fa/setup/skip-setup-for-now/route'
 import { NextResponse } from 'next/server'
 import { CookieService } from '@/lib'
 

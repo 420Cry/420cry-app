@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
-import { POST } from 'src/app/api/2fa/set-up/verify-otp/route'
+import { POST } from '@/app/api/2fa/setup/verify-otp/route'
 import { CookieService, RequestService } from '@/lib'
 
 vi.mock('@/lib', () => ({
