@@ -48,10 +48,11 @@ export const TwoFactorSetUpService = {
 
   skipForNow: async (): Promise<IResponse> => {
     try {
-      return await RequestService.nativeFetchPost<null, IResponse>(
+      const res = await RequestService.nativeFetchPost<null, IResponse>(
         SKIP_SETUP_FOR_NOW_API,
         null,
       )
+      return res
     } catch {
       return {
         isSuccess: false,

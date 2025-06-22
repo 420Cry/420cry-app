@@ -41,7 +41,7 @@ export const CookieService = {
 
   setTwoFASetUpSkippedCookie(response: NextResponse): void {
     response.cookies.set('twoFASetUpSkippedForNow', 'true', {
-      httpOnly: true,
+      httpOnly: false,
       secure: isProd,
       path: '/',
       sameSite: 'lax',
