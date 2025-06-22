@@ -21,7 +21,11 @@ vi.mock('./lib', async () => ({
   HOME_ROUTE,
 }))
 
-function mockRequest(pathname: string, jwt?: string) {
+function mockRequest(
+  pathname: string,
+  jwt?: string,
+  cookiesObj?: Record<string, string>,
+) {
   return {
     nextUrl: {
       pathname,
@@ -30,9 +34,11 @@ function mockRequest(pathname: string, jwt?: string) {
     },
     url: `http://localhost${pathname}`,
     cookies: {
-      get: vi.fn((name: string) =>
-        name === 'jwt' && jwt ? { value: jwt } : undefined,
-      ),
+      get: vi.fn((name: string) => {
+        if (name === 'jwt' && jwt) return { value: jwt }
+        if (cookiesObj && cookiesObj[name]) return { value: cookiesObj[name] }
+        return undefined
+      }),
       delete: vi.fn(),
     },
   } as any
@@ -57,16 +63,20 @@ describe('middleware', () => {
     expect(res.headers.get('location')).toBe('http://localhost/auth/login')
   })
 
-  it('allows request if JWT is valid on protected route', async () => {
+  it('allows request to 2fa verify page if JWT is valid and 2FA verified on protected route', async () => {
     ;(jwtVerify as any).mockResolvedValue({
       payload: { sub: 'user123', twoFAEnabled: true },
     })
 
-    const req = mockRequest('/dashboard', 'valid.jwt.token')
+    // Mock request with cookies including twoFAVerified = 'true'
+    const req = mockRequest('/dashboard', 'valid.jwt.token', {
+      twoFAVerified: 'true',
+    })
+
     const res = await middleware(req)
 
     expect(jwtVerify).toHaveBeenCalled()
-    expect(res.status).toBeLessThan(300) // no redirect => success
+    expect(res.status).toBeLessThan(300)
   })
 
   it('redirects and deletes cookie if JWT is invalid', async () => {
@@ -85,15 +95,16 @@ describe('middleware', () => {
     expect(res.status).toBeLessThan(300)
   })
 
-  it('matches exact protected route and sub-paths', async () => {
+  it('redirects to 2FA verify page if 2FA enabled but not verified', async () => {
     ;(jwtVerify as any).mockResolvedValue({
       payload: { sub: 'user123', twoFAEnabled: true },
     })
 
-    const req = mockRequest('/dashboard/settings', 'valid.jwt.token')
+    const req = mockRequest('/dashboard', 'valid.jwt.token')
+
     const res = await middleware(req)
 
-    expect(res.status).toBeLessThan(300)
+    expect(res.headers.get('location')).toBe('http://localhost/2fa/verify')
   })
 
   it('allows unauthenticated users to access public routes like login', async () => {
@@ -128,10 +139,14 @@ describe('middleware 2FA redirect tests', () => {
       payload: { sub: 'user123', twoFAEnabled: true },
     })
 
-    const req = mockRequest('/dashboard', 'valid.jwt.token')
+    const req = mockRequest('/dashboard', 'valid.jwt.token', {
+      twoFAVerified: 'true',
+    })
+
     const res = await middleware(req)
 
     expect(res.status).toBeLessThan(300)
+    expect(res.headers.get('location')).toBeNull()
   })
 
   it('redirects authenticated user without 2FA enabled accessing blocked auth route (like /login) to 2FA setup', async () => {
