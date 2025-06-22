@@ -7,6 +7,7 @@ import {
   BLOCKED_ROUTES_FOR_AUTH_USERS,
   TWO_FACTOR_SETUP_ROUTE,
   TWO_FACTOR_VERIFY_ROUTE,
+  UN_AUTH_ROUTES,
 } from './lib'
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || '')
@@ -45,6 +46,17 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return response
   }
 
+  // **NEW: Prevent going back to login/signup/etc during 2FA verify**
+  if (
+    isAuthenticated &&
+    twoFAEnabled &&
+    !twoFAVerified &&
+    UN_AUTH_ROUTES.includes(pathname) &&
+    pathname !== TWO_FACTOR_VERIFY_ROUTE
+  ) {
+    return NextResponse.redirect(new URL(TWO_FACTOR_VERIFY_ROUTE, req.url))
+  }
+
   // Block authenticated users from accessing unauth routes
   if (BLOCKED_ROUTES_FOR_AUTH_USERS.includes(pathname)) {
     if (isAuthenticated) {
@@ -80,7 +92,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
   }
 
-  // **Force OTP verification if 2FA enabled but not verified this session**
+  // Force OTP verification if 2FA enabled but not verified this session
   if (
     isAuthenticated &&
     twoFAEnabled &&

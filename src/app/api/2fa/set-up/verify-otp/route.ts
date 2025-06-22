@@ -1,6 +1,11 @@
 'use server-only'
 
-import { API_URL, createErrorResponse, RequestService } from '@/lib'
+import {
+  API_URL,
+  createErrorResponse,
+  RequestService,
+  CookieService,
+} from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { IAuthResponse, IResponse, ITwoFactorSetUpRequest } from '@/types'
 
@@ -27,13 +32,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       const nextResponse = NextResponse.json(responseBody)
 
       if (jwt) {
-        nextResponse.cookies.set('jwt', jwt, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          path: '/',
-          sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 30, // 30 days
-        })
+        CookieService.setJwtCookie(nextResponse, jwt, true)
       }
 
       return nextResponse

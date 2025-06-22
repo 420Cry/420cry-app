@@ -55,7 +55,7 @@ const LogInForm = (): JSX.Element => {
       const message = user
         ? t(response.message, { fullname: user.fullname })
         : t(response.message)
-      console.log(user?.rememberMe)
+
       if (success && user) {
         useAuthStore.getState().setUser(user)
         const targetRoute = user.twoFAEnabled

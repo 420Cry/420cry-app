@@ -65,7 +65,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return createErrorResponse('app.alertTitle.invalidOTP', 401)
     }
 
-    return createErrorResponse('app.alertTitle.somethingWentWrong', response.status)
+    return createErrorResponse(
+      'app.alertTitle.somethingWentWrong',
+      response.status,
+    )
   } catch (error: unknown) {
     const err = error as { response?: { status?: number } }
     const status = err?.response?.status ?? 500
