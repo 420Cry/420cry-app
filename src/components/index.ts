@@ -7,7 +7,7 @@ export { default as ResetPasswordForm } from './pages/auth/reset-password/ResetP
 export { default as ResetReqForm } from './pages/auth/reset-password/ResetReqForm'
 export { default as TwoFactorSetupQRCode } from './pages/2fa/setup/TwoFactorSetupQRCode'
 export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetupOption'
-export { default as TwpFactorVerifyForm } from './pages/2fa/auth/TwoFactorVerifyForm'
+export { default as TwpFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'

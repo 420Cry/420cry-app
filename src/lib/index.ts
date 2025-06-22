@@ -19,7 +19,7 @@ export * from './client/auth/signout/SignOutRequestService'
 
 // 2FA
 export * from './client/2fa/setup/TwoFactorSetUpService'
-
+export * from './client/2fa/verify/TwoFactorVerifyService'
 // HTTP Request
 export * from './requests/RequestService'
 

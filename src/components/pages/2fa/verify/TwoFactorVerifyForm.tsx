@@ -3,12 +3,43 @@
 import { JSX, useState } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
+import { useAuthStore } from '@/store'
+import { HOME_ROUTE, showToast, TwoFactorVerifyService } from '@/lib'
+import { useRouter } from 'next/navigation'
 
 const TwoFactorVerifyForm = (): JSX.Element => {
   const [otp, setOtp] = useState('')
   const t = useTranslations()
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter()
+  const user = useAuthStore((state) => state.user)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    try {
+      if (!user?.uuid) {
+        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        return
+      }
+
+      if (!otp.trim()) {
+        showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+        return
+      }
+
+      const response = await TwoFactorVerifyService.verifyToken({
+        userUUID: user.uuid,
+        otp,
+      })
+
+      if (response.isSuccess) {
+        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        router.push(HOME_ROUTE)
+      } else {
+        showToast(false, t(response.message))
+      }
+    } catch {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+    }
   }
 
   return (
@@ -26,9 +57,8 @@ const TwoFactorVerifyForm = (): JSX.Element => {
             modelValue={otp}
             onChange={setOtp}
             placeholder="Enter 6-digit code"
-            className="w-full"
             shape="rounded"
-            name={''}
+            name="otp"
           />
 
           <CryButton

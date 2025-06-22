@@ -25,7 +25,10 @@
       "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
       "userNotFound": "người dùng không tồn tại",
       "logOutSuccessful": "Đăng xuất thành công",
-      "2FASetUpSuccessful": "Thiết lập xác thực hai yếu tố thành công."
+      "2FASetUpSuccessful": "Thiết lập xác thực hai yếu tố thành công.",
+      "2FAVerifySuccessful": "Xác thực hai yếu tố đã được xác minh thành công.",
+      "invalidOTP": "OTP không hợp lệ",
+      "otpCannotBeEmpty": "OTP cannot be empty"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",

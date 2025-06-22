@@ -1,7 +1,7 @@
 import {
   SET_UP_2FA_API,
   RequestService,
-  VERIFY_2FA_OTP_API,
+  VERIFY_2FA_SET_UP_OTP_API,
   SKIP_SETUP_FOR_NOW_API,
 } from '@/lib'
 import {
@@ -35,7 +35,7 @@ export const TwoFactorSetUpService = {
       return await RequestService.nativeFetchPost<
         ITwoFactorSetUpRequest,
         { response: IResponse; user?: IUser }
-      >(VERIFY_2FA_OTP_API, payload)
+      >(VERIFY_2FA_SET_UP_OTP_API, payload)
     } catch {
       return {
         response: {

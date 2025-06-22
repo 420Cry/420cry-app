@@ -4,6 +4,7 @@ export const SIGN_UP_ROUTE = '/auth/signup'
 export const RESET_PASSWORD_ROUTE = '/auth/reset-password'
 export const HOME_ROUTE = '/'
 export const TWO_FACTOR_SETUP_ROUTE = '/2fa/setup'
+export const TWO_FACTOR_VERIFY_ROUTE = '/2fa/verify'
 
 export const UN_AUTH_ROUTES = [
   SIGN_IN_ROUTE,

@@ -26,7 +26,10 @@
       "invalidCredentials": "Invalid username or password.",
       "userNotFound": "User is not found",
       "logOutSuccessful": "Logged out",
-      "2FASetUpSuccessful": "Two-factor authentication setup was successful"
+      "2FASetUpSuccessful": "Two-factor authentication setup was successful",
+      "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
+      "invalidOTP": "Invalid OTP",
+      "otpCannotBeEmpty": "OTP cannot be empty"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -110,7 +113,7 @@
       "stepTwo": "Enter 6-digit code you see in your authenticator app",
       "invalidToken": "Invalid Token"
     },
-    "Verify": {
+    "verify": {
       "title": "Two-Factor Authentication",
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",

@@ -6,6 +6,7 @@ import {
   HOME_ROUTE,
   BLOCKED_ROUTES_FOR_AUTH_USERS,
   TWO_FACTOR_SETUP_ROUTE,
+  TWO_FACTOR_VERIFY_ROUTE,
 } from './lib'
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || '')
@@ -15,6 +16,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
   const jwtToken = req.cookies.get('jwt')?.value
   const twoFASetUpSkippedForNow =
     req.cookies.get('twoFASetUpSkippedForNow')?.value === 'true'
+  const twoFAVerified = req.cookies.get('twoFAVerified')?.value === 'true'
 
   let isAuthenticated = false
   let twoFAEnabled = false
@@ -62,7 +64,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
   }
 
-  // If user is authenticated but hasn't finished 2FA
+  // If user is authenticated but hasn't finished 2FA setup
   if (
     isAuthenticated &&
     !twoFAEnabled &&
@@ -73,9 +75,19 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.redirect(new URL(TWO_FACTOR_SETUP_ROUTE, req.url))
   }
 
-  // **NEW: Block access to /2fa/setup for users who completed 2FA**
+  // Block access to 2FA setup page if 2FA already enabled
   if (isAuthenticated && twoFAEnabled && pathname === TWO_FACTOR_SETUP_ROUTE) {
     return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
+  }
+
+  // **Force OTP verification if 2FA enabled but not verified this session**
+  if (
+    isAuthenticated &&
+    twoFAEnabled &&
+    !twoFAVerified &&
+    pathname !== TWO_FACTOR_VERIFY_ROUTE
+  ) {
+    return NextResponse.redirect(new URL(TWO_FACTOR_VERIFY_ROUTE, req.url))
   }
 
   return NextResponse.next()
