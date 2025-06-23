@@ -20,9 +20,15 @@
       "invalidToken": "Mã xác nhận không hợp lệ",
       "emailVerifiedSuccessfully": "Xác nhận email thành công",
       "emailVerificationFailed": "Xác nhận email thất bại",
-      "resetRequest": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+      "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
       "resetSucecess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
-      "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng."
+      "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
+      "userNotFound": "người dùng không tồn tại",
+      "logOutSuccessful": "Đăng xuất thành công",
+      "2FASetUpSuccessful": "Thiết lập xác thực hai yếu tố thành công.",
+      "2FAVerifySuccessful": "Xác thực hai yếu tố đã được xác minh thành công.",
+      "invalidOTP": "OTP không hợp lệ",
+      "otpCannotBeEmpty": "OTP cannot be empty"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
@@ -32,7 +38,19 @@
       "passwordLetterContain": "Mật khẩu phải có ít nhất 1 chữ cái!",
       "passwordNumberContain": "Mật khẩu phải có ít nhất 1 số!",
       "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 kí tự dặc biệt!",
-      "repeatedPassword": "Mật khẩu không khớp!"
+      "repeatedPassword": "Mật khẩu không khớp!",
+      "emailOrUserNameAlreadyExist": "Email hoặc tên tài khoản đã tồi tại"
+    },
+    "common": {
+      "showPassword": "Hiện",
+      "hidePassword": "Ẩn",
+      "cancel": "Huỷ",
+      "verify": "Xác nhận",
+      "confirm": "Xác nhận",
+      "back": "Quay lại",
+      "ok": "Ok",
+      "loading": "Đang tải ...",
+      "step": "Bước"
     }
   },
   "header": {
@@ -40,36 +58,66 @@
     "signUp": "Đăng ký",
     "alreadyHasAnAccount": "Đã có tài khoản?"
   },
-  "login": {
-    "title": "Đăng nhập",
-    "forgotYourPassword": "quên mật khẩu?",
-    "rememberMe": "Ghi nhớ đăng nhập?",
-    "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay",
-    "showPassword": "Hiện",
-    "hidePassword": "Ẩn"
-  },
-  "signup": {
-    "title": "Đăng ký",
-    "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
-    "showPassword": "Hiện",
-    "hidePassword": "Ẩn",
-    "verifyEmail": {
-      "title": "Xác nhận email của bạn",
-      "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)",
-      "confirm": "Xác nhận"
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "forgotYourPassword": "quên mật khẩu?",
+      "rememberMe": "Ghi nhớ đăng nhập?",
+      "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
+    },
+    "signup": {
+      "title": "Đăng ký",
+      "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
+      "verifyEmail": {
+        "title": "Xác nhận email của bạn",
+        "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
+      }
+    },
+    "resetYourPassword": {
+      "resetReq": {
+        "title": "Quên mật khẩu",
+        "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
+      },
+      "resetPasswordForm": {
+        "title": "Đổi mật khẩu",
+        "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
+        "newPassword": "Mật khẩu mới"
+      }
+    },
+    "signout": {
+      "title": "Đăng xuất tài khoản"
     }
   },
-  "resetYourPassword": {
-    "resetReq": {
-      "title": "Quên mật khẩu",
-      "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
+  "2fa": {
+    "phone": {
+      "warn": "Không hỗ trợ trong CHẾ ĐỘ PHÁT TRIỂN",
+      "description": "Xác minh điện thoại hiện không được hỗ trợ khi đang ở chế độ phát triển."
     },
-    "resetPasswordForm": {
-      "title": "Đổi mật khẩu",
-      "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
-      "newPassword": "Mật khẩu mới",
-      "showPassword": "Hiện",
-      "hidePassword": "Ẩn"
+    "setup": {
+      "title": "Bảo vệ tài khoản của bạn bằng xác thực hai yếu tố",
+      "description": "Mỗi lần bạn đăng nhập, bạn sẽ cần nhập mã. Chọn cách bạn muốn nhận mã xác minh",
+      "useYourPhone": "Sử dụng điện thoại",
+      "receiveViaSMS": "Nhận mã qua tin nhắn SMS",
+      "useAnApp": "Sử dụng một ứng dụng",
+      "scanQR": "Quét mã QR bằng ứng dụng xác thực",
+      "qrCodeError": "Lỗi mã QR",
+      "secretNA": "KHÔNG CÓ MÃ BÍ MẬT",
+      "skipForNow": "Bỏ qua bây giờ — nhưng chúng tôi sẽ nhắc lại vào lần sau!"
+    },
+    "QR": {
+      "title": "Cài đặt xác thực hai yếu tố",
+      "scanQRCodeWithApp": "Nhận mã từ ứng dụng xác thực",
+      "description": "Mỗi lần đăng nhập, ngoài mật khẩu, bạn sẽ sử dụng ứng dụng xác thực để tạo mã một lần.",
+      "scanQR": "Quét mã QR",
+      "stepOne": "Quét mã QR bên dưới hoặc nhập thủ công mã khóa bí mật vào ứng dụng xác thực của bạn.",
+      "stepTwo": "Nhập mã 6 chữ số bạn thấy trong ứng dụng xác thực của mình",
+      "invalidToken": "Mã xác nhận không hợp lệ"
+    },
+    "Verify": {
+      "title": "Two-Factor Authentication",
+      "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
+      "verifyCode": "Verify Code",
+      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
     }
   }
 }

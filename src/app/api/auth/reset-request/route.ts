@@ -1,6 +1,6 @@
 'use server-only'
 
-import { API_URL, handleApiError, RequestService } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { IResetPasswordRequest, IResponse } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -15,15 +15,23 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.resetRequest',
-      })
+        message: 'app.alertTitle.resetRequestSuccess',
+      } satisfies IResponse)
     }
 
-    return NextResponse.json({
-      isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
-    } satisfies IResponse)
-  } catch (error) {
-    return handleApiError(error)
+    return createErrorResponse(
+      'app.alertTitle.somethingWentWrong',
+      response.status,
+    )
+  } catch (error: unknown) {
+    const err = error as { response?: { status?: number } }
+    const status = err?.response?.status ?? 500
+
+    const message =
+      status === 404
+        ? 'app.alertTitle.userNotFound'
+        : 'app.alertTitle.somethingWentWrong'
+
+    return createErrorResponse(message, status)
   }
 }

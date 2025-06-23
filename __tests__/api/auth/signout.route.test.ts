@@ -1,14 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { POST } from 'src/app/api/auth/sign-out/route'
+
 describe('POST /logout', () => {
   it('returns success message and clears jwt cookie', async () => {
     const response = await POST()
 
-    // Check JSON response body
     const json = await response.json()
-    expect(json).toEqual({ message: 'Logged out successfully' })
+    expect(json).toEqual({
+      isSuccess: true,
+      message: 'app.alertTitle.logOutSuccessful',
+    })
 
-    // Check cookie is cleared correctly
     const cookie = response.cookies.get('jwt')
     expect(cookie).toBeDefined()
     expect(cookie?.value).toBe('')
@@ -17,11 +19,34 @@ describe('POST /logout', () => {
     expect(cookie?.sameSite).toBe('lax')
     expect(cookie?.maxAge).toBe(0)
 
-    // Secure flag depends on NODE_ENV
     if (process.env.NODE_ENV === 'production') {
       expect(cookie?.secure).toBe(true)
     } else {
       expect(cookie?.secure).toBe(false)
     }
+  })
+
+  it('sets maxAge to 0 to expire cookie immediately', async () => {
+    const response = await POST()
+    const cookie = response.cookies.get('jwt')
+    expect(cookie?.maxAge).toBe(0)
+  })
+
+  it('sets httpOnly flag on the cookie', async () => {
+    const response = await POST()
+    const cookie = response.cookies.get('jwt')
+    expect(cookie?.httpOnly).toBe(true)
+  })
+
+  it('sets cookie path to root "/"', async () => {
+    const response = await POST()
+    const cookie = response.cookies.get('jwt')
+    expect(cookie?.path).toBe('/')
+  })
+
+  it('sets sameSite attribute to "lax"', async () => {
+    const response = await POST()
+    const cookie = response.cookies.get('jwt')
+    expect(cookie?.sameSite).toBe('lax')
   })
 })

@@ -3,6 +3,7 @@ import {
   SignInFormSchema,
   validateFormData,
   RequestService,
+  ApiError,
 } from '@/lib'
 import { IUser, ISignIn, IResponse } from '@/types'
 
@@ -32,11 +33,28 @@ export const SignInService = {
         password: validation.data.password,
         remember: validation.data.rememberMe ?? false,
       }
-      return await RequestService.nativeFetchPost<
+      const response = await RequestService.nativeFetchPost<
         ISignIn,
         { response: IResponse; user?: IUser }
       >(SIGN_IN_API, payload)
-    } catch {
+      return response
+    } catch (error: unknown) {
+      if (error instanceof ApiError) {
+        const status = error.status
+        const message =
+          status === 401
+            ? 'app.alertTitle.invalidCredentials'
+            : status === 403
+              ? 'app.alertTitle.userNotVerified'
+              : 'app.alertTitle.somethingWentWrong'
+
+        return {
+          response: {
+            isSuccess: false,
+            message,
+          },
+        }
+      }
       return {
         response: {
           isSuccess: false,

@@ -3,4 +3,6 @@ export interface IUser {
   fullname: string
   email: string
   username: string
+  twoFAEnabled?: boolean
+  rememberMe?: boolean
 }

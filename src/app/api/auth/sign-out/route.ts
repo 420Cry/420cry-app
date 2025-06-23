@@ -1,16 +1,14 @@
 import { NextResponse } from 'next/server'
+import { CookieService } from '@/lib'
 
 export async function POST(): Promise<NextResponse> {
-  const response = NextResponse.json({ message: 'Logged out successfully' })
-
-  // Clear the 'jwt' cookie by setting it to empty and expiring it immediately
-  response.cookies.set('jwt', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    path: '/',
-    sameSite: 'lax',
-    maxAge: 0, // expire immediately
+  const response = NextResponse.json({
+    isSuccess: true,
+    message: 'app.alertTitle.logOutSuccessful',
   })
+
+  CookieService.clearJwtCookie(response)
+  CookieService.clearTwoFAVerifiedCookie(response)
 
   return response
 }

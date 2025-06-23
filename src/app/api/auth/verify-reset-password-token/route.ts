@@ -1,4 +1,6 @@
-import { API_URL, handleApiError, RequestService } from '@/lib'
+'use server-only'
+
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { IResponse } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -21,7 +23,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       isSuccess: false,
       message: 'app.alertTitle.somethingWentWrong',
     } satisfies IResponse)
-  } catch (error) {
-    return handleApiError(error)
+  } catch {
+    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
   }
 }

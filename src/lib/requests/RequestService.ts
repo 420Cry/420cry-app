@@ -2,6 +2,18 @@
 
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
+export class ApiError extends Error {
+  public status: number
+  public data: unknown
+
+  public constructor(message: string, status: number, data: unknown) {
+    super(message)
+    this.status = status
+    this.data = data
+    Object.setPrototypeOf(this, ApiError.prototype)
+  }
+}
+
 export class RequestService {
   // Axios POST
   public static async axiosPost<TPayload, TResponse>(
@@ -32,11 +44,15 @@ export class RequestService {
     const response = await fetch(url, {
       method: 'POST',
       body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     })
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}))
+      throw new ApiError('API Error', response.status, errorBody)
+    }
+
     return response.json() as Promise<TResponse>
   }
 
@@ -61,6 +77,11 @@ export class RequestService {
       method: 'GET',
       credentials: 'include',
     })
+
+    if (!response.ok) {
+      const errorBody = await response.json().catch(() => ({}))
+      throw new ApiError('API Error', response.status, errorBody)
+    }
 
     return response.json() as Promise<TResponse>
   }

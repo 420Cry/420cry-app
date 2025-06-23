@@ -15,9 +15,11 @@ import {
   showToast,
   SIGN_UP_ROUTE,
   SignInService,
+  TWO_FACTOR_SETUP_ROUTE,
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/store'
 
 const SocialButton = ({
   Icon,
@@ -36,8 +38,8 @@ const SocialButton = ({
 const LogInForm = (): JSX.Element => {
   const router = useRouter()
   const t = useTranslations()
-  const hideLabel = t('login.showPassword')
-  const showLabel = t('login.hidePassword')
+  const hideLabel = t('app.common.showPassword')
+  const showLabel = t('app.common.hidePassword')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,19 +49,28 @@ const LogInForm = (): JSX.Element => {
       showToast(false, t('app.alertTitle.allfieldsAreRequired'))
       return
     }
-
     try {
       const { response, user } = await SignInService.signInAction(formData)
-      if (response.isSuccess && user) {
-        const fullname = user.fullname || ''
-        router.push(HOME_ROUTE)
-        showToast(
-          response.isSuccess,
-          t(response.message, { fullname: fullname }),
-        )
-      } else {
-        showToast(response.isSuccess, t(response.message))
+      const success = response.isSuccess
+      const message = user
+        ? t(response.message, { fullname: user.fullname })
+        : t(response.message)
+
+      const rememberMe = formData.get('rememberMe') === 'on'
+
+      if (user) {
+        user.rememberMe = rememberMe
+        useAuthStore.getState().setUser(user)
       }
+
+      if (success && user) {
+        const targetRoute = user.twoFAEnabled
+          ? HOME_ROUTE
+          : TWO_FACTOR_SETUP_ROUTE
+        router.push(targetRoute)
+      }
+
+      showToast(success, message)
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
@@ -69,7 +80,7 @@ const LogInForm = (): JSX.Element => {
     <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
       <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
         <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
-          {t('login.title')}
+          {t('auth.login.title')}
         </h1>
 
         <form onSubmit={handleSubmit}>
@@ -93,7 +104,7 @@ const LogInForm = (): JSX.Element => {
           <div className="flex justify-between w-full">
             <div className="inline-flex items-center text-left">
               <CryCheckBox
-                text={t('login.rememberMe')}
+                text={t('auth.login.rememberMe')}
                 size="sm"
                 className="!text-sm"
                 modelValue={false}
@@ -105,7 +116,7 @@ const LogInForm = (): JSX.Element => {
                 href={RESET_PASSWORD_ROUTE}
                 className="text-sm font-bold text-white hover:underline"
               >
-                {t('login.forgotYourPassword')}
+                {t('auth.login.forgotYourPassword')}
               </a>
             </div>
           </div>
@@ -116,7 +127,7 @@ const LogInForm = (): JSX.Element => {
               className="bg-green-600 w-52 sm:w-60 text-white"
               type="submit"
             >
-              {t('login.title')}
+              {t('auth.login.title')}
             </CryButton>
           </div>
         </form>
@@ -134,7 +145,7 @@ const LogInForm = (): JSX.Element => {
             href={SIGN_UP_ROUTE}
             className="text-sm text-yellow-600 hover:underline"
           >
-            {t('login.doNotHaveAnAccount')}
+            {t('auth.login.doNotHaveAnAccount')}
           </a>
         </div>
       </div>

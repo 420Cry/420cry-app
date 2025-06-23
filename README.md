@@ -43,9 +43,8 @@ export GITHUB_TOKEN=<your token>
 ```
 
 After authenticating you can install the dependencies using:
-`bash  
-    npm i
-    `
+` 
+npm i`
 
 ## Installation
 

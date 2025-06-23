@@ -20,9 +20,16 @@
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
       "emailVerificationFailed": "Email verification failed",
-      "resetRequest": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
+      "emailOrUserNameAlreadyExist": "Username or email already exists",
+      "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
       "resetSuccess": "You have successfully resetted your password. Please login again!",
-      "invalidCredentials": "Invalid username or password."
+      "invalidCredentials": "Invalid username or password.",
+      "userNotFound": "User is not found",
+      "logOutSuccessful": "Logged out",
+      "2FASetUpSuccessful": "Two-factor authentication setup was successful",
+      "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
+      "invalidOTP": "Invalid OTP",
+      "otpCannotBeEmpty": "OTP cannot be empty"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -33,6 +40,17 @@
       "passwordNumberContain": "Password must contain at least one number!",
       "passwordSpecialContain": "Password must contain at least one special character!",
       "repeatedPassword": "Passwords don't match!"
+    },
+    "common": {
+      "showPassword": "Show",
+      "hidePassword": "Hide",
+      "cancel": "Cancel",
+      "verify": "Verify",
+      "confirm": "Confirm",
+      "back": "Back",
+      "ok": "Ok",
+      "loading": "Loading",
+      "step": "Step"
     }
   },
   "header": {
@@ -40,37 +58,66 @@
     "signUp": "Sign Up",
     "alreadyHasAnAccount": "Already has an account?"
   },
-  "login": {
-    "title": "Login",
-    "forgotYourPassword": "Forgot your password?",
-    "rememberMe": "Remember me?",
-    "doNotHaveAnAccount": "Do not have an account? Sign up here",
-    "showPassword": "Show",
-    "hidePassword": "Hide"
-  },
-  "signup": {
-    "title": "Sign Up",
-    "orSignInUsing": "Or sign up using",
-    "showPassword": "Show",
-    "hidePassword": "Hide",
-    "verifyEmail": {
-      "title": "Verify your email",
-      "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)",
-      "confirm": "Confirm"
+  "auth": {
+    "login": {
+      "title": "Login",
+      "forgotYourPassword": "Forgot your password?",
+      "rememberMe": "Remember me?",
+      "doNotHaveAnAccount": "Do not have an account? Sign up here"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "orSignInUsing": "Or sign up using",
+      "verifyEmail": {
+        "title": "Verify your email",
+        "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
+      }
+    },
+    "resetYourPassword": {
+      "resetReq": {
+        "title": "Forgot Your Password",
+        "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
+      },
+      "resetPasswordForm": {
+        "title": "Reset Your Password",
+        "subtitle": "Enter the new password below so we can reset your password",
+        "newPassword": "New Password"
+      }
+    },
+    "signout": {
+      "title": "Sign out"
     }
   },
-  "resetYourPassword": {
-    "resetReq": {
-      "title": "Forgot Your Password",
-      "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
+  "2fa": {
+    "phone": {
+      "warn": "Not supported in DEV MODE",
+      "description": " Phone verification is currently disabled while in development mode."
     },
-    "resetPasswordForm": {
-      "title": "Reset Your Password",
-      "subtitle": "Enter the new password below so we can reset your password",
-      "newPassword": "New Password",
-      "showPassword": "Show",
-      "hidePassword": "Hide"
+    "setup": {
+      "title": "Protect your account with 2-step verification",
+      "description": "Each time you sign in, you will need to enter a code. Choose how you want to receive your verification code.",
+      "useYourPhone": "Use your phone",
+      "receiveViaSMS": "Receive a code via SMS",
+      "useAnApp": "Use an app",
+      "scanQR": "Scan a QR code with an authenticator app",
+      "qrCodeError": "QRcode Error",
+      "secretNA": "SECRET-KEY-N/A",
+      "skipForNow": "Skip for now — but we will remind you again next time!"
     },
-    "confirm": "Confirm"
+    "QR": {
+      "title": "2FA setup",
+      "scanQRCodeWithApp": "Get the codes from an authenticator app",
+      "description": "Each time you sign in, in addition to your password, you will use an authenticator app to generate a one-time code.",
+      "scanQR": "Scan QR code",
+      "stepOne": "Scan the QR code below or manually type the secret key into your authenticator app.",
+      "stepTwo": "Enter 6-digit code you see in your authenticator app",
+      "invalidToken": "Invalid Token"
+    },
+    "verify": {
+      "title": "Two-Factor Authentication",
+      "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
+      "verifyCode": "Verify Code",
+      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
+    }
   }
 }
