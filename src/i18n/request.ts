@@ -7,8 +7,6 @@ export default getRequestConfig(async () => {
     (await headers()).get('accept-language')?.split(',')[0] || 'en'
   // Check if the locale is supported (en or vi), otherwise fall back to en
   const userLocale = (await cookies()).get('locale')?.value || localeFromHeaders
-
-  // TODO: Change locale based on user's preference
   const baseLocale = ['en', 'vi'].includes(userLocale.split('-')[0])
     ? userLocale.split('-')[0]
     : 'en'
