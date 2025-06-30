@@ -86,7 +86,6 @@ describe('POST /api/2fa/auth/verify-otp', () => {
       false,
     )
 
-    // ✅ Fixed this expectation
     expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
       'true',
