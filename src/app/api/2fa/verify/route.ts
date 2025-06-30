@@ -21,11 +21,7 @@ function createSuccessResponse(jwt?: string, rememberMe = true) {
 
   if (jwt) {
     CookieService.setJwtCookie(nextResponse, jwt, rememberMe)
-    CookieService.setTwoFAVerifiedCookie(
-      nextResponse,
-      rememberMe ? 'true' : 'false',
-      rememberMe,
-    )
+    CookieService.setTwoFAVerifiedCookie(nextResponse, 'true', rememberMe)
   }
 
   return nextResponse
