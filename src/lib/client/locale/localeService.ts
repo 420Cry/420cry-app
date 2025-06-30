@@ -7,7 +7,7 @@ export const localeService = {
     if (locale !== 'en' && locale !== 'vi') {
       return {
         isSuccess: false,
-        message: 'Invalid language',
+        message: 'app.alertTitle.invalidLanguage',
       }
     }
 
