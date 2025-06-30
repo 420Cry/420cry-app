@@ -49,6 +49,16 @@ export const CookieService = {
     })
   },
 
+  setLocaleCookie(response: NextResponse, locale: string): void {
+    response.cookies.set('locale', locale, {
+      httpOnly: false,
+      secure: isProd,
+      path: '/',
+      sameSite: 'lax',
+      maxAge: 60 * 60,
+    })
+  },
+
   clearJwtCookie(response: NextResponse): void {
     response.cookies.set('jwt', '', {
       httpOnly: true,

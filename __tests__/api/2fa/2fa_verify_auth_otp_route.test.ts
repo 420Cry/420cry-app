@@ -85,9 +85,10 @@ describe('POST /api/2fa/auth/verify-otp', () => {
       'jwt-token',
       false,
     )
+
     expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
-      'false',
+      'true',
       false,
     )
   })
