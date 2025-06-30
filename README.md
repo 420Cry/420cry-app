@@ -5,7 +5,6 @@ This is a Next 420cry application.
 ## Preparation
 
 1. **Add Development Hosts to the `/etc/hosts` File**:
-
    - On **Linux/macOS**, add the following lines to your `/etc/hosts` file.
    - On **Windows**, add them to the `C:\Windows\System32\drivers\etc\hosts` file.
 
