@@ -6,6 +6,7 @@ export type { IVerifyResetPassword } from './auth/reset-password/IVerifyResetPas
 export type { ISignUpVerificationToken } from './auth/signup/ISignUpVerificationToken'
 export type { IUser } from './user/IUser'
 export type { ILocale } from './locale/ILocale'
+export type { ILocaleLanguage } from './locale/ILanguage'
 export type { IVerifyAccountToken } from './auth/signup/IVerifyAccountToken'
 export type { IAuthResponse } from './auth/IAuthResponse'
 export type { ITwoFactorSetUpRequest } from './2fa/setup/ITwoFactorSetUpRequest'

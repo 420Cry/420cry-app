@@ -24,3 +24,6 @@ export const SET_UP_2FA_API = '/api/2fa/setup'
 export const VERIFY_2FA_SET_UP_OTP_API = '/api/2fa/setup/verify-otp'
 export const SKIP_SETUP_FOR_NOW_API = '/api/2fa/setup/skip-setup-for-now'
 export const VERIFY_2FA_OTP_API = '/api/2fa/verify'
+
+// locale
+export const LOCALE_COOKIE_API = '/api/locale/language'

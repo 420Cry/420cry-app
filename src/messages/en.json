@@ -29,7 +29,9 @@
       "2FASetUpSuccessful": "Two-factor authentication setup was successful",
       "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
       "invalidOTP": "Invalid OTP",
-      "otpCannotBeEmpty": "OTP cannot be empty"
+      "otpCannotBeEmpty": "OTP cannot be empty",
+      "changeLanguageSuccessful": "Language change success!",
+      "invalidLanguage": "Invalid Language"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
