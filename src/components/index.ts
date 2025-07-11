@@ -7,10 +7,14 @@ export { default as ResetPasswordForm } from './pages/auth/reset-password/ResetP
 export { default as ResetReqForm } from './pages/auth/reset-password/ResetReqForm'
 export { default as TwoFactorSetupQRCode } from './pages/2fa/setup/TwoFactorSetupQRCode'
 export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetupOption'
-export { default as TwpFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
+export { default as TwoFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'
 
 // background
 export { default as HoneyCombBackground } from './background/HoneyCombBackground'
+
+// common
+export { default as Sidebar } from './pages/common/sidebar/Sidebar'
+export { default as LanguageChangeButton } from './pages/common/header/LanguageChangeButton'

@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { JSX } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import LanguageChangeButton from '../common/header/LanguageChangeButton'
+import { LanguageChangeButton } from '@/components'
 
 interface AuthHeaderProps {
   isSignUpButton?: boolean
