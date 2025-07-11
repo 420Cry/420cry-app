@@ -30,4 +30,5 @@ export const AUTH_ROUTES = [
   '/dashboard',
   '/profile',
   TWO_FACTOR_SETUP_ROUTE,
+  TWO_FACTOR_VERIFY_ROUTE,
 ]
