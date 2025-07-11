@@ -12,7 +12,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@420cry/420cry-lib": "=0.1.18",
+    "@420cry/420cry-lib": "=0.1.20",
+    "@heroicons/react": "^2.2.0",
     "autoprefixer": ">= 10.4.21",
     "axios": ">= 1.8.2",
     "class-variance-authority": ">= 0.7.1",
@@ -48,7 +49,6 @@
     "eslint-config-prettier": ">= 10.1.2",
     "jsdom": "^26.1.0",
     "postcss": ">= 8.5.3",
-    "tailwindcss": ">= 4.1.11",
     "prettier": ">= 3.6.2",
     "tailwindcss": ">= 4.1.4",
     "typescript": ">= 5.7.3",
