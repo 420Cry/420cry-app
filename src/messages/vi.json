@@ -121,5 +121,14 @@
       "verifyCode": "Verify Code",
       "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
     }
+  },
+  "dashboard": {
+    "navigation": {
+      "marketOverview": "Tổng quan thị trường",
+      "indicator": "Chỉ báo",
+      "settings": "Cài đặt",
+      "userPortfolio": "Danh mục người dùng",
+      "logout": "Đăng xuất"
+    }
   }
 }
