@@ -121,5 +121,14 @@
       "verifyCode": "Verify Code",
       "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
     }
+  },
+  "dashboard": {
+    "navigation": {
+      "marketOverview": "Market Overview",
+      "indicator": "Indicator",
+      "settings": "Settings",
+      "userPortfolio": "User Portfolio",
+      "logout": "Logout"
+    }
   }
 }
