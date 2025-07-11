@@ -35,17 +35,30 @@ export default function Sidebar(): ReactElement {
   return (
     <aside
       className={`h-screen bg-gray-800 text-white p-4 flex flex-col justify-between transition-all duration-300 ${
-        collapsed ? 'w-16' : 'w-40'
+        collapsed ? 'w-16' : 'w-44'
       }`}
     >
       <div>
-        {/* Toggle Button */}
+        {/* Logo + Toggle */}
         <div
-          className={`mb-4 flex ${collapsed ? 'justify-end' : 'justify-center'}`}
+          className={`flex items-center mb-6 ${
+            collapsed ? 'justify-center' : 'justify-between'
+          }`}
         >
+          {!collapsed && (
+            <Image
+              src={cryApplicationLogo}
+              alt="Cry Application Logo"
+              width={100}
+              height={40}
+              className="cursor-pointer"
+              priority
+            />
+          )}
           <CryButton
             onClick={() => setCollapsed(!collapsed)}
             className="bg-gray-700 text-white p-1 rounded hover:bg-gray-600"
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? (
               <ChevronRightIcon className="w-5 h-5" />
@@ -55,45 +68,31 @@ export default function Sidebar(): ReactElement {
           </CryButton>
         </div>
 
-        {/* Logo */}
-        {!collapsed && (
-          <div className="mb-6">
-            <Image
-              src={cryApplicationLogo}
-              alt="Cry Application Logo"
-              width={120}
-              height={40}
-              className="cursor-pointer"
-              priority
-            />
-          </div>
-        )}
-
         {/* Navigation */}
-        <nav className="flex flex-col gap-4">
+        <nav className="flex flex-col gap-4 items-center">
           <CryButton
-            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center"
+            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center w-full"
             aria-label="market-overview"
           >
             <LineGraphIcon className="h-6 w-6" />
           </CryButton>
 
           <CryButton
-            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center"
+            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center w-full"
             aria-label="market-share"
           >
             <PieChartIcon className="h-6 w-6" />
           </CryButton>
 
           <CryButton
-            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center"
+            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center w-full"
             aria-label="user-portfolio"
           >
             <UserIcon className="h-6 w-6" fill="currentColor" />
           </CryButton>
 
           <CryButton
-            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center"
+            className="hover:bg-gray-700 p-3 rounded flex justify-center items-center w-full"
             aria-label="settings"
           >
             <SettingIcon className="h-6 w-6" fill="currentColor" />
@@ -103,7 +102,7 @@ export default function Sidebar(): ReactElement {
 
       {/* Logout */}
       <CryButton
-        className="hover:bg-gray-700 p-3 rounded flex justify-center items-center"
+        className="hover:bg-gray-700 p-3 rounded flex justify-center items-center w-full"
         aria-label="logout"
         onClick={logout}
       >
