@@ -2,7 +2,7 @@
 
 import { ReactElement, useState } from 'react'
 import Image from 'next/image'
-import cryApplicationLogo from '@/../public/logo/CryApplicationLogo.png'
+
 import {
   DASHBOARD_ROUTE,
   showToast,
@@ -12,6 +12,8 @@ import {
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
   CryButton,
   LineGraphIcon,
   PieChartIcon,
@@ -19,7 +21,7 @@ import {
   SignOutIcon,
   UserIcon,
 } from '@420cry/420cry-lib'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { CryApplicationLogo } from '@/assets'
 
 export default function Sidebar(): ReactElement {
   const t = useTranslations()
@@ -75,7 +77,7 @@ export default function Sidebar(): ReactElement {
         >
           {!collapsed && (
             <Image
-              src={cryApplicationLogo}
+              src={CryApplicationLogo}
               alt="Cry Application Logo"
               width={100}
               height={40}
@@ -90,9 +92,9 @@ export default function Sidebar(): ReactElement {
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
             {collapsed ? (
-              <ChevronRightIcon className="w-5 h-5" />
+              <ArrowRightIcon className="w-5 h-5" />
             ) : (
-              <ChevronLeftIcon className="w-5 h-5" />
+              <ArrowLeftIcon className="w-5 h-5" />
             )}
           </CryButton>
         </div>
