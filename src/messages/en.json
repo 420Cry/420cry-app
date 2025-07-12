@@ -129,6 +129,7 @@
       "settings": "Settings",
       "userPortfolio": "User Portfolio",
       "logout": "Logout"
-    }
+    },
+    "search": "Enter public address, transaction hash, or crypto token"
   }
 }
