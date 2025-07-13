@@ -1,7 +1,6 @@
-import { API_URL, createErrorResponse, RequestService } from '@/lib'
-import { IResponse } from '@/types'
+import { API_URL, createErrorResponse, RequestService, getJWT } from '@/lib'
+import { IResponse, ITransactionData } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
-import { getJWT } from '@/lib'
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
@@ -14,19 +13,25 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
     const jwt = await getJWT()
 
-    const response = await RequestService.axiosGet<{ txid: string }, IResponse>(
-      `${API_URL}/wallet-explorer/tx`,
-      { txid },
-      jwt,
-    )
+    const response = await RequestService.axiosGet<
+      { txid: string },
+      { transaction_data: ITransactionData }
+    >(`${API_URL}/wallet-explorer/tx`, { txid }, jwt)
 
-    console.log('Transaction search response:', response)
+    if (response.status === 200 && response.data) {
+      if (!response.data.transaction_data.found) {
+        return NextResponse.json({
+          isSuccess: false,
+          message: 'app.alertTitle.invalidTransaction',
+          data: response.data.transaction_data,
+        } satisfies IResponse & { data: ITransactionData })
+      }
 
-    if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,
         message: 'app.alertTitle.validTransaction',
-      } satisfies IResponse)
+        data: response.data.transaction_data,
+      } satisfies IResponse & { data: ITransactionData })
     }
 
     return createErrorResponse(

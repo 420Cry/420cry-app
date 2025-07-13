@@ -22,3 +22,4 @@ export type {
   FullNameInput,
   UnknownInput,
 } from './search/ISearchInput'
+export type { ITransactionData } from './wallet-explorer/ITransactionData'

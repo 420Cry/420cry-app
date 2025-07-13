@@ -31,7 +31,8 @@
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
       "invalidLanguage": "Sai ngôn ngữ",
-      "validTransaction": "giao dịch được tìm thấy"
+      "validTransaction": "Giao dịch được tìm thấy",
+      "invalidTransaction": "Không tìm thấy giao dịch — có thể giao dịch không hợp lệ hoặc quá mới. Khối mới nhất được biết đến trong hệ thống của 420Cry: {blockHeight}"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",

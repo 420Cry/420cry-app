@@ -32,7 +32,8 @@
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Language change success!",
       "invalidLanguage": "Invalid Language",
-      "validTransaction": "Transaction is found"
+      "validTransaction": "Transaction is found",
+      "invalidTransaction": "Transaction not found — it may be invalid or too recent. Latest known block in 420Cry's database: {blockHeight}"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",

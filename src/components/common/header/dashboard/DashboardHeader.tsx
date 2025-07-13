@@ -23,13 +23,17 @@ export default function DashboardHeader(): ReactElement {
 
     switch (input.type) {
       case 'TXID':
-        console.log('Search TXID:', input.txid)
         try {
           const data = await TransactionService.getTransaction({
             txid: input.txid,
           })
-          console.log('Transaction search result:', data)
-          showToast(data.isSuccess, t(data.message))
+
+          showToast(
+            data.isSuccess,
+            t(data.message, {
+              blockHeight: data.data?.updated_to_block ?? 'unknown',
+            }),
+          )
         } catch (error) {
           showToast(
             false,
@@ -38,17 +42,17 @@ export default function DashboardHeader(): ReactElement {
         }
         break
       case 'XPUB':
-        console.log('Search XPUB:', input.xpub)
+        //console.log('Search XPUB:', input.xpub)
         break
       case 'SYMBOL':
-        console.log('Search Symbol:', input.symbol)
+        //console.log('Search Symbol:', input.symbol)
         break
       case 'FULL_NAME':
-        console.log('Search Full Name:', input.fullName)
+        //console.log('Search Full Name:', input.fullName)
         break
       case 'UNKNOWN':
       default:
-        console.warn('Unknown search type:', input.raw)
+      //console.warn('Unknown search type:', input.raw)
     }
   }
 
