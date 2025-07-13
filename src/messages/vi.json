@@ -132,6 +132,25 @@
       "userPortfolio": "Danh mục người dùng",
       "logout": "Đăng xuất"
     },
-    "search": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử"
+    "search": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử",
+    "transactionModal": {
+      "title": "Chi tiết giao dịch",
+      "closeButtonAriaLabel": "Đóng",
+      "found": "Đã tìm thấy",
+      "yes": "Có",
+      "no": "Không",
+      "label": "Nhãn",
+      "notAvailable": "Không có",
+      "txid": "TXID",
+      "coinbase": "Coinbase",
+      "walletId": "Wallet ID",
+      "blockHeight": "Chiều cao khối",
+      "blockPosition": "Vị trí khối",
+      "time": "Thời gian",
+      "size": "Kích thước",
+      "inputs": "Đầu vào (in)",
+      "outputs": "Đầu ra (out)",
+      "updatedToBlock": "Cập nhật đến khối"
+    }
   }
 }

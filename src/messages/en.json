@@ -132,6 +132,25 @@
       "userPortfolio": "User Portfolio",
       "logout": "Logout"
     },
-    "search": "Enter public address, transaction hash, or crypto token"
+    "search": "Enter public address, transaction hash, or crypto token",
+    "transactionModal": {
+      "title": "Transaction Details",
+      "closeButtonAriaLabel": "Close modal",
+      "found": "Found",
+      "yes": "Yes",
+      "no": "No",
+      "label": "Label",
+      "notAvailable": "N/A",
+      "txid": "TXID",
+      "coinbase": "Coinbase",
+      "walletId": "Wallet ID",
+      "blockHeight": "Block Height",
+      "blockPosition": "Block Position",
+      "time": "Time",
+      "size": "Size",
+      "inputs": "Inputs (in)",
+      "outputs": "Outputs (out)",
+      "updatedToBlock": "Updated To Block"
+    }
   }
 }

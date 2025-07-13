@@ -4,10 +4,20 @@ import { ReactElement, useState } from 'react'
 import { CrySearchBar, UserIcon } from '@420cry/420cry-lib'
 import LanguageChangeButton from '../LanguageChangeButton'
 import { useTranslations } from 'next-intl'
-import { SearchInput } from '@/types'
+import { ITransactionData, SearchInput } from '@/types'
 import { resolveSearchInputType, showToast, TransactionService } from '@/lib'
 
-export default function DashboardHeader(): ReactElement {
+interface DashboardHeaderProps {
+  setTransactionData: React.Dispatch<
+    React.SetStateAction<ITransactionData | null>
+  >
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function DashboardHeader({
+  setTransactionData,
+  setLoading,
+}: DashboardHeaderProps): ReactElement {
   const t = useTranslations()
   const searchPlaceholder = t('dashboard.search')
   const [searchTerm, setSearchTerm] = useState('')
@@ -23,15 +33,22 @@ export default function DashboardHeader(): ReactElement {
 
     switch (input.type) {
       case 'TXID':
+        setLoading(true)
         try {
-          const data = await TransactionService.getTransaction({
+          const transaction = await TransactionService.getTransaction({
             txid: input.txid,
           })
 
+          if (transaction.isSuccess && transaction.data) {
+            setTransactionData(transaction.data)
+          } else {
+            setTransactionData(null)
+          }
+
           showToast(
-            data.isSuccess,
-            t(data.message, {
-              blockHeight: data.data?.updated_to_block ?? 'unknown',
+            transaction.isSuccess,
+            t(transaction.message, {
+              blockHeight: transaction.data?.updated_to_block ?? 'unknown',
             }),
           )
         } catch (error) {
@@ -39,20 +56,14 @@ export default function DashboardHeader(): ReactElement {
             false,
             error instanceof Error ? error.message : String(error),
           )
+          setTransactionData(null)
+        } finally {
+          setLoading(false)
         }
         break
-      case 'XPUB':
-        //console.log('Search XPUB:', input.xpub)
-        break
-      case 'SYMBOL':
-        //console.log('Search Symbol:', input.symbol)
-        break
-      case 'FULL_NAME':
-        //console.log('Search Full Name:', input.fullName)
-        break
-      case 'UNKNOWN':
+      // Handle other input types if needed
       default:
-      //console.warn('Unknown search type:', input.raw)
+        break
     }
   }
 

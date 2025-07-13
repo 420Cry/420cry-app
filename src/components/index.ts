@@ -7,6 +7,7 @@ export { default as ResetReqForm } from './pages/auth/reset-password/ResetReqFor
 export { default as TwoFactorSetupQRCode } from './pages/2fa/setup/TwoFactorSetupQRCode'
 export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetupOption'
 export { default as TwoFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
+export { default as TransactionModal } from './pages/dashboard/TransactionModal'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'
@@ -19,3 +20,4 @@ export { default as Sidebar } from './common/sidebar/Sidebar'
 export { default as LanguageChangeButton } from './common/header/LanguageChangeButton'
 export { default as AuthHeader } from './common/header/auth/AuthHeader'
 export { default as DashboardHeader } from './common/header/dashboard/DashboardHeader'
+export { default as LoadingModal } from './common/loader/LoadingModal'
