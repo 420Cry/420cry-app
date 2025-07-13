@@ -30,7 +30,8 @@
       "invalidOTP": "OTP không hợp lệ",
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
-      "invalidLanguage": "Sai ngôn ngữ"
+      "invalidLanguage": "Sai ngôn ngữ",
+      "validTransaction": "giao dịch được tìm thấy"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",

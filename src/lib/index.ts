@@ -18,6 +18,7 @@ export * from './client/auth/reset_password/ResetRequestService'
 export * from './client/auth/signout/SignOutRequestService'
 export * from './client/cookies/cookieService'
 export * from './client/locale/localeService'
+export * from './client/wallet_explorer/TransactionService'
 
 // 2FA
 export * from './client/2fa/setup/TwoFactorSetUpService'
@@ -28,3 +29,5 @@ export * from './requests/RequestService'
 
 // Utils
 export * from './utils/fieldsRequired'
+export * from './utils/getJWT'
+export * from './utils/resolveSearchInputType'

@@ -20,8 +20,16 @@ export class RequestService {
     url: string,
     payload?: TPayload,
     config?: AxiosRequestConfig,
+    token?: string,
   ): Promise<AxiosResponse<TResponse>> {
-    return axios.post<TResponse>(url, payload, config)
+    const headers = token
+      ? { Authorization: `Bearer ${token}`, ...(config?.headers || {}) }
+      : config?.headers
+
+    return axios.post<TResponse>(url, payload, {
+      ...config,
+      headers,
+    })
   }
 
   // Axios GET
@@ -29,10 +37,16 @@ export class RequestService {
     url: string,
     params?: TParams,
     config?: AxiosRequestConfig,
+    token?: string,
   ): Promise<AxiosResponse<TResponse>> {
+    const headers = token
+      ? { Authorization: `Bearer ${token}`, ...(config?.headers || {}) }
+      : config?.headers
+
     return axios.get<TResponse>(url, {
       ...config,
       params,
+      headers,
     })
   }
 
@@ -58,7 +72,7 @@ export class RequestService {
 
   // Native GET
   public static async nativeFetchGet<
-    TParams extends Record<string, unknown> | undefined,
+    TParams extends object | undefined,
     TResponse,
   >(url: string, params?: TParams): Promise<TResponse> {
     const query = params
