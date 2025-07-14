@@ -32,12 +32,12 @@ export default function DashboardHeader({
     const input: SearchInput = resolveSearchInputType(searchTerm)
 
     switch (input.type) {
-      case 'TXID':
+      case 'TXID': {
+        const { txid } = input
         setLoading(true)
+
         try {
-          const transaction = await TransactionService.getTransaction({
-            txid: input.txid,
-          })
+          const transaction = await TransactionService.getTransaction(txid)
 
           if (transaction.isSuccess && transaction.data) {
             setTransactionData(transaction.data)
@@ -45,12 +45,7 @@ export default function DashboardHeader({
             setTransactionData(null)
           }
 
-          showToast(
-            transaction.isSuccess,
-            t(transaction.message, {
-              blockHeight: transaction.data?.updated_to_block ?? 'unknown',
-            }),
-          )
+          showToast(transaction.isSuccess, t(transaction.message))
         } catch (error) {
           showToast(
             false,
@@ -61,7 +56,7 @@ export default function DashboardHeader({
           setLoading(false)
         }
         break
-      // Handle other input types if needed
+      }
       default:
         break
     }

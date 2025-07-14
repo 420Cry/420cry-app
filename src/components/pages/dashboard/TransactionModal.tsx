@@ -1,110 +1,126 @@
 'use client'
 
 import { ITransactionData } from '@/types'
-import { CryButton } from '@420cry/420cry-lib'
+import { ArrowDownIcon, CryButton } from '@420cry/420cry-lib'
 import React, { ReactElement } from 'react'
 import { useTranslations } from 'next-intl'
 
 interface TransactionModalProps {
   show: boolean
   onClose: () => void
-  data: ITransactionData | null
+  transaction: ITransactionData | null
 }
 
 const TransactionModal = ({
   show,
   onClose,
-  data,
+  transaction,
 }: TransactionModalProps): ReactElement | null => {
   const t = useTranslations('dashboard.transactionModal')
 
-  if (!show || !data) return null
+  if (!show || !transaction) return null
 
   return (
     <div
-      className="absolute inset-0 z-50 flex items-center justify-center bg-opacity-40 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-40 backdrop-blur-md"
       onClick={onClose}
-      style={{ position: 'absolute' }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="transaction-modal-title"
     >
       <div
-        className="bg-white bg-opacity-90 rounded-lg shadow-xl max-w-lg w-full p-6 relative"
+        className="bg-white rounded-2xl shadow-2xl max-w-xl w-full p-8 relative overflow-y-auto max-h-[80vh] scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxHeight: '80vh', overflowY: 'auto' }}
       >
         {/* Close Button */}
         <CryButton
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition"
+          className="absolute top-5 right-5 text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-full transition"
           aria-label={t('closeButtonAriaLabel')}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <ArrowDownIcon className="w-6 h-6" />
         </CryButton>
 
-        <h2 className="text-xl font-semibold mb-4 text-gray-900">
+        <h2
+          id="transaction-modal-title"
+          className="text-2xl font-extrabold text-gray-900 mb-6"
+        >
           {t('title')}
         </h2>
 
-        <div className="grid grid-cols-2 gap-4 text-gray-700 text-sm">
-          <div>
-            <strong>{t('found')}:</strong> {data.found ? t('yes') : t('no')}
-          </div>
-          <div>
-            <strong>{t('label')}:</strong> {data.label || t('notAvailable')}
-          </div>
-          <div className="col-span-2 break-all">
-            <strong>{t('txid')}:</strong>{' '}
-            <code>{data.txid || t('notAvailable')}</code>
-          </div>
-          <div>
-            <strong>{t('coinbase')}:</strong>{' '}
-            {data.is_coinbase ? t('yes') : t('no')}
-          </div>
-          <div>
-            <strong>{t('walletId')}:</strong>{' '}
-            {data.wallet_id || t('notAvailable')}
-          </div>
-          <div>
-            <strong>{t('blockHeight')}:</strong> {data.block_height}
-          </div>
-          <div>
-            <strong>{t('blockPosition')}:</strong> {data.block_pos}
-          </div>
-          <div>
-            <strong>{t('time')}:</strong>{' '}
-            {new Date(data.time * 1000).toLocaleString()}
-          </div>
-          <div>
-            <strong>{t('size')}:</strong> {data.size} bytes
-          </div>
-          <div className="col-span-2">
-            <strong>{t('inputs')}:</strong>
-            <pre className="max-h-24 overflow-auto p-2 bg-gray-100 rounded text-xs">
-              {JSON.stringify(data.in, null, 2)}
-            </pre>
-          </div>
-          <div className="col-span-2">
-            <strong>{t('outputs')}:</strong>
-            <pre className="max-h-24 overflow-auto p-2 bg-gray-100 rounded text-xs">
-              {JSON.stringify(data.out, null, 2)}
-            </pre>
-          </div>
-          <div className="col-span-2">
-            <strong>{t('updatedToBlock')}:</strong> {data.updated_to_block}
-          </div>
-        </div>
+        {/* Inputs */}
+        <section className="mb-8">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            {t('inputs')}
+          </h3>
+          {transaction.inputs.length === 0 ? (
+            <p className="text-sm text-gray-500 italic">{t('notAvailable')}</p>
+          ) : (
+            <ul className="space-y-3 text-sm text-gray-700">
+              {transaction.inputs.map((input, idx) => (
+                <li
+                  key={idx}
+                  className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition"
+                >
+                  <p>
+                    <span className="font-semibold">{t('script')}: </span>
+                    <code className="break-all">{input.script}</code>
+                  </p>
+                  {input.prev_out && (
+                    <div className="mt-1 space-y-1 pl-4">
+                      <p>
+                        <span className="font-semibold">{t('value')}: </span>
+                        {input.prev_out.value}
+                      </p>
+                      <p>
+                        <span className="font-semibold">{t('txIndex')}: </span>
+                        {input.prev_out.tx_index}
+                      </p>
+                      <p>
+                        <span className="font-semibold">{t('n')}: </span>
+                        {input.prev_out.n}
+                      </p>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        {/* Outputs */}
+        <section>
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            {t('outputs')}
+          </h3>
+          {transaction.out.length === 0 ? (
+            <p className="text-sm text-gray-500 italic">{t('notAvailable')}</p>
+          ) : (
+            <ul className="space-y-3 text-sm text-gray-700">
+              {transaction.out.map((output, idx) => (
+                <li
+                  key={idx}
+                  className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50 transition"
+                >
+                  <p>
+                    <span className="font-semibold">{t('value')}: </span>
+                    {output.value}
+                  </p>
+                  {output.addr && (
+                    <p>
+                      <span className="font-semibold">{t('address')}: </span>
+                      <code className="break-all">{output.addr}</code>
+                    </p>
+                  )}
+                  <p>
+                    <span className="font-semibold">{t('script')}: </span>
+                    <code className="break-all">{output.script}</code>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       </div>
     </div>
   )

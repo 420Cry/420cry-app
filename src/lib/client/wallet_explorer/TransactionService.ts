@@ -1,15 +1,15 @@
 import { GET_TRANSACTION_API, RequestService } from '@/lib'
-import { IResponse, ITransaction, ITransactionData } from '@/types'
+import { IResponse, ITransactionData } from '@/types'
 
 export const TransactionService = {
   async getTransaction(
-    txid: ITransaction,
+    txid: string,
   ): Promise<IResponse & { data?: ITransactionData }> {
     try {
       const result = await RequestService.nativeFetchGet<
-        ITransaction,
+        { txid: string },
         IResponse & { data?: ITransactionData }
-      >(GET_TRANSACTION_API, txid)
+      >(GET_TRANSACTION_API, { txid })
 
       return {
         isSuccess: result.isSuccess,

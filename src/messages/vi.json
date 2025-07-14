@@ -31,8 +31,7 @@
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
       "invalidLanguage": "Sai ngôn ngữ",
-      "validTransaction": "Giao dịch được tìm thấy",
-      "invalidTransaction": "Không tìm thấy giao dịch — có thể giao dịch không hợp lệ hoặc quá mới. Khối mới nhất được biết đến trong hệ thống của 420Cry: {blockHeight}"
+      "validTransaction": "Giao dịch được tìm thấy"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
@@ -136,9 +135,6 @@
     "transactionModal": {
       "title": "Chi tiết giao dịch",
       "closeButtonAriaLabel": "Đóng",
-      "found": "Đã tìm thấy",
-      "yes": "Có",
-      "no": "Không",
       "label": "Nhãn",
       "notAvailable": "Không có",
       "txid": "TXID",
@@ -148,9 +144,14 @@
       "blockPosition": "Vị trí khối",
       "time": "Thời gian",
       "size": "Kích thước",
-      "inputs": "Đầu vào (in)",
-      "outputs": "Đầu ra (out)",
-      "updatedToBlock": "Cập nhật đến khối"
+      "inputs": "Đầu vào",
+      "outputs": "Đầu ra",
+      "updatedToBlock": "Cập nhật đến khối",
+      "script": "Script",
+      "value": "Giá trị",
+      "txIndex": "Chỉ số giao dịch",
+      "n": "Chỉ số N",
+      "address": "Địa chỉ"
     }
   }
 }

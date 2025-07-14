@@ -13,7 +13,6 @@ export type { ITwoFactorSetUpRequest } from './2fa/setup/ITwoFactorSetUpRequest'
 export type { ITwoFactorSetUpResponse } from './2fa/setup/ITwoFactorSetUpResponse'
 export type { ITwoFactorVerifyRequest } from './2fa/verify/ITwoFactorVerifyRequest'
 export type { ITwoFactorVerifyResponse } from './2fa/verify/ITwoFactorVerifyResponse'
-export type { ITransaction } from './wallet-explorer/ITransaction'
 export type {
   SearchInput,
   TxidInput,
@@ -22,4 +21,8 @@ export type {
   FullNameInput,
   UnknownInput,
 } from './search/ISearchInput'
-export type { ITransactionData } from './wallet-explorer/ITransactionData'
+export type {
+  ITransactionData,
+  ITransactionInput,
+  ITransactionOutput,
+} from './wallet-explorer/transaction/ITransactionData'

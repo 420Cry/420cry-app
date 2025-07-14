@@ -32,8 +32,7 @@
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Language change success!",
       "invalidLanguage": "Invalid Language",
-      "validTransaction": "Transaction is found",
-      "invalidTransaction": "Transaction not found — it may be invalid or too recent. Latest known block in 420Cry's database: {blockHeight}"
+      "validTransaction": "Transaction is found"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -136,9 +135,6 @@
     "transactionModal": {
       "title": "Transaction Details",
       "closeButtonAriaLabel": "Close modal",
-      "found": "Found",
-      "yes": "Yes",
-      "no": "No",
       "label": "Label",
       "notAvailable": "N/A",
       "txid": "TXID",
@@ -148,9 +144,14 @@
       "blockPosition": "Block Position",
       "time": "Time",
       "size": "Size",
-      "inputs": "Inputs (in)",
-      "outputs": "Outputs (out)",
-      "updatedToBlock": "Updated To Block"
+      "inputs": "Inputs",
+      "outputs": "Outputs",
+      "updatedToBlock": "Updated To Block",
+      "script": "Script",
+      "value": "Value",
+      "txIndex": "TxIndex",
+      "n": "N",
+      "address": "Address"
     }
   }
 }

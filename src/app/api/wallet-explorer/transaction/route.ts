@@ -19,14 +19,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     >(`${API_URL}/wallet-explorer/tx`, { txid }, jwt)
 
     if (response.status === 200 && response.data) {
-      if (!response.data.transaction_data.found) {
-        return NextResponse.json({
-          isSuccess: false,
-          message: 'app.alertTitle.invalidTransaction',
-          data: response.data.transaction_data,
-        } satisfies IResponse & { data: ITransactionData })
-      }
-
       return NextResponse.json({
         isSuccess: true,
         message: 'app.alertTitle.validTransaction',

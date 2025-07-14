@@ -30,4 +30,4 @@ export * from './requests/RequestService'
 // Utils
 export * from './utils/fieldsRequired'
 export * from './utils/getJWT'
-export * from './utils/resolveSearchInputType'
+export * from './server/validation/dashboardSearch/resolveSearchInputType'

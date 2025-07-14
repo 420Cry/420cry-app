@@ -12,7 +12,6 @@ export default function DashboardPage(): JSX.Element {
 
   return (
     <div className="relative min-h-screen">
-      {/* Pass setters down */}
       <DashboardHeader
         setTransactionData={setTransactionData}
         setLoading={setLoading}
@@ -23,11 +22,11 @@ export default function DashboardPage(): JSX.Element {
         <p className="mt-2 text-gray-700">This is your main content area.</p>
       </main>
 
-      {/* Modals here, rendered inside page container */}
+      {/* Modals */}
       <LoadingModal show={loading} />
       <TransactionModal
         show={Boolean(transactionData)}
-        data={transactionData}
+        transaction={transactionData}
         onClose={() => setTransactionData(null)}
       />
     </div>
