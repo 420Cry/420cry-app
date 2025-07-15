@@ -57,6 +57,25 @@ export default function DashboardHeader({
         }
         break
       }
+      case 'XPUB': {
+        const { xpub } = input
+        setLoading(true)
+        try {
+          const transaction =
+            await TransactionService.getTransactionByXPUB(xpub)
+          console.log('Transaction by XPUB:', transaction)
+          showToast(transaction.isSuccess, t(transaction.message))
+        } catch (error) {
+          showToast(
+            false,
+            error instanceof Error ? error.message : String(error),
+          )
+          setTransactionData(null)
+        } finally {
+          setLoading(false)
+        }
+        break
+      }
       default:
         break
     }

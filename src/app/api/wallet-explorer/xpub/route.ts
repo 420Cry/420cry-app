@@ -1,0 +1,43 @@
+import { API_URL, createErrorResponse, RequestService, getJWT } from '@/lib'
+import { IResponse, ITransactionXPUB } from '@/types'
+import { NextRequest, NextResponse } from 'next/server'
+
+export async function GET(request: NextRequest): Promise<NextResponse> {
+  try {
+    const { searchParams } = new URL(request.url)
+    const xpub = searchParams.get('xpub')
+    console.log('xpub:', xpub)
+
+    if (!xpub) {
+      return createErrorResponse('Missing xpub query parameter', 400)
+    }
+
+    const jwt = await getJWT()
+
+    const response = await RequestService.axiosGet<
+      { xpub: string },
+      { xpub: ITransactionXPUB }
+    >(`${API_URL}/wallet-explorer/xpub`, { xpub }, jwt)
+
+    const transactionData = response.data.xpub
+    console.log('response xpub:', transactionData)
+
+    if (response.status === 200 && transactionData?.found) {
+      return NextResponse.json({
+        isSuccess: true,
+        message: 'app.alertTitle.validTransaction',
+        data: transactionData,
+      } satisfies IResponse & { data: ITransactionXPUB })
+    }
+
+    return createErrorResponse(
+      'app.alertTitle.somethingWentWrong',
+      response.status,
+    )
+  } catch (error: unknown) {
+    const err = error as { response?: { status?: number } }
+    const status = err?.response?.status ?? 500
+    const message = 'app.alertTitle.somethingWentWrong'
+    return createErrorResponse(message, status)
+  }
+}

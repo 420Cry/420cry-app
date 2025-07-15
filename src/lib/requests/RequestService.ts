@@ -27,6 +27,7 @@ export class RequestService {
       : config?.headers
 
     return axios.post<TResponse>(url, payload, {
+      timeout: 60000,
       ...config,
       headers,
     })
@@ -44,6 +45,7 @@ export class RequestService {
       : config?.headers
 
     return axios.get<TResponse>(url, {
+      timeout: 60000,
       ...config,
       params,
       headers,

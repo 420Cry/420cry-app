@@ -25,4 +25,8 @@ export type {
   ITransactionData,
   ITransactionInput,
   ITransactionOutput,
-} from './wallet-explorer/transaction/ITransactionData'
+} from './wallet-explorer/ITransactionData'
+export type {
+  ITransactionXPUB,
+  XPUBTransaction,
+} from './wallet-explorer/ITransactionXPUB'

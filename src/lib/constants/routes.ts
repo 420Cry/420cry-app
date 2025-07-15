@@ -27,6 +27,7 @@ export const VERIFY_2FA_OTP_API = '/api/2fa/verify'
 
 // wallet explorer
 export const GET_TRANSACTION_API = '/api/wallet-explorer/transaction'
+export const GET_XPUB_API = '/api/wallet-explorer/xpub'
 
 // locale
 export const LOCALE_COOKIE_API = '/api/locale/language'
