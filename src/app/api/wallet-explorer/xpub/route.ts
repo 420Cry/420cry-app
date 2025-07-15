@@ -6,7 +6,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url)
     const xpub = searchParams.get('xpub')
-    console.log('xpub:', xpub)
 
     if (!xpub) {
       return createErrorResponse('Missing xpub query parameter', 400)
@@ -20,7 +19,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     >(`${API_URL}/wallet-explorer/xpub`, { xpub }, jwt)
 
     const transactionData = response.data.xpub
-    console.log('response xpub:', transactionData)
 
     if (response.status === 200 && transactionData?.found) {
       return NextResponse.json({
