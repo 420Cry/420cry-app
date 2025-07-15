@@ -11,12 +11,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       return createErrorResponse('Missing xpub query parameter', 400)
     }
 
-    const jwt = await getJWT()
-
     const response = await RequestService.axiosGet<
       { xpub: string },
       { xpub: ITransactionXPUB }
-    >(`${API_URL}/wallet-explorer/xpub`, { xpub }, jwt)
+    >(`${API_URL}/wallet-explorer/xpub`, { xpub }, { withAuth: true })
 
     const transactionData = response.data.xpub
 

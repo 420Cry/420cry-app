@@ -1,4 +1,4 @@
-import { API_URL, createErrorResponse, RequestService, getJWT } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { IResponse, ITransactionData } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -11,12 +11,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       return createErrorResponse('Missing txid query parameter', 400)
     }
 
-    const jwt = await getJWT()
-
     const response = await RequestService.axiosGet<
       { txid: string },
       { transaction_data: ITransactionData }
-    >(`${API_URL}/wallet-explorer/tx`, { txid }, jwt)
+    >(`${API_URL}/wallet-explorer/tx`, { txid }, { withAuth: true })
 
     if (response.status === 200 && response.data) {
       return NextResponse.json({

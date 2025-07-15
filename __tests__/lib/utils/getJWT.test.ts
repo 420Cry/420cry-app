@@ -13,18 +13,14 @@ describe('getJWT', () => {
     vi.clearAllMocks()
   })
 
-  it('returns config with Authorization header when jwt cookie exists', async () => {
+  it('returns the JWT token string when jwt cookie exists', async () => {
     // Mock cookieStore with a jwt cookie
     const mockGet = vi.fn().mockReturnValue({ value: 'mock-jwt-token' })
     ;(cookies as any).mockReturnValue({ get: mockGet })
 
-    const config = await getJWT()
+    const token = await getJWT()
 
-    expect(config).toEqual({
-      headers: {
-        Authorization: 'Bearer mock-jwt-token',
-      },
-    })
+    expect(token).toBe('mock-jwt-token')
     expect(mockGet).toHaveBeenCalledWith('jwt')
   })
 

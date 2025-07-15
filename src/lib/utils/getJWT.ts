@@ -1,9 +1,8 @@
 'use server'
 
 import { cookies } from 'next/headers'
-import { AxiosRequestConfig } from 'axios'
 
-export async function getJWT(): Promise<AxiosRequestConfig> {
+export async function getJWT(): Promise<string> {
   const cookieStore = cookies()
   const token = (await cookieStore).get('jwt')?.value
 
@@ -11,9 +10,5 @@ export async function getJWT(): Promise<AxiosRequestConfig> {
     throw new Error('Unauthorized: JWT token not found in cookies')
   }
 
-  return {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
+  return token
 }

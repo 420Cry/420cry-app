@@ -8,7 +8,6 @@ vi.mock('@/lib', () => ({
   RequestService: {
     axiosGet: vi.fn(),
   },
-  getJWT: vi.fn().mockResolvedValue('fake-jwt-token'),
   createErrorResponse: (message: string, status: number) =>
     NextResponse.json(
       {
