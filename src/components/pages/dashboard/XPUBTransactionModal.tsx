@@ -50,7 +50,7 @@ export default function XPUBTransactionModal({
     labels: sortedTxs.map((tx) => new Date(tx.time * 1000)),
     datasets: [
       {
-        label: t('balanceGraph.label')   ,
+        label: t('balanceGraph.label'),
         data: sortedTxs.map((tx) => tx.balance),
         fill: false,
         borderColor: '#3b82f6',

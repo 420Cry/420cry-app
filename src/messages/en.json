@@ -166,7 +166,7 @@
       "closeButtonAriaLabel": "Close XPUB transaction modal",
       "balanceGraph": {
         "title": "Balance Graph",
-        "label" : "BTC Balance (BTC)"
+        "label": "BTC Balance (BTC)"
       },
       "date": "Date"
     }

@@ -166,7 +166,7 @@
       "closeButtonAriaLabel": "Đóng cửa sổ giao dịch XPUB",
       "balanceGraph": {
         "title": "Biểu đồ số dư",
-        "label" : "Số dư BTC (BTC)"
+        "label": "Số dư BTC (BTC)"
       },
       "date": "Ngày"
     }
