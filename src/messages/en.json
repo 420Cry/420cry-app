@@ -158,12 +158,17 @@
       "noTransactions": "No transactions found.",
       "txid": "Transaction ID",
       "time": "Time",
-      "balanceDiff": "Balance Diff",
-      "balance": "Balance",
+      "balanceDiff": "Balance Diff (BTC)",
+      "balance": "Balance (BTC)",
       "blockHeight": "Block Height",
       "blockPos": "Block Position",
       "walletIds": "Wallet IDs",
-      "closeButtonAriaLabel": "Close XPUB transaction modal"
+      "closeButtonAriaLabel": "Close XPUB transaction modal",
+      "balanceGraph": {
+        "title": "Balance Graph",
+        "label" : "BTC Balance (BTC)"
+      },
+      "date": "Date"
     }
   }
 }

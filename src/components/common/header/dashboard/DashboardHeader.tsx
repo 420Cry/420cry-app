@@ -8,8 +8,12 @@ import { ITransactionData, ITransactionXPUB, SearchInput } from '@/types'
 import { resolveSearchInputType, showToast, TransactionService } from '@/lib'
 
 interface DashboardHeaderProps {
-  setTransactionData: React.Dispatch<React.SetStateAction<ITransactionData | null>>
-  setXpubTransactionData: React.Dispatch<React.SetStateAction<ITransactionXPUB | null>>
+  setTransactionData: React.Dispatch<
+    React.SetStateAction<ITransactionData | null>
+  >
+  setXpubTransactionData: React.Dispatch<
+    React.SetStateAction<ITransactionXPUB | null>
+  >
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -61,7 +65,8 @@ export default function DashboardHeader({
         const { xpub } = input
         setLoading(true)
         try {
-          const transaction = await TransactionService.getTransactionByXPUB(xpub)
+          const transaction =
+            await TransactionService.getTransactionByXPUB(xpub)
 
           if (transaction.isSuccess && transaction.data) {
             setXpubTransactionData(transaction.data)
@@ -71,7 +76,10 @@ export default function DashboardHeader({
 
           showToast(transaction.isSuccess, t(transaction.message))
         } catch (error) {
-          showToast(false, error instanceof Error ? error.message : String(error))
+          showToast(
+            false,
+            error instanceof Error ? error.message : String(error),
+          )
           setXpubTransactionData(null)
         } finally {
           setLoading(false)

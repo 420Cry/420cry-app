@@ -158,12 +158,17 @@
       "noTransactions": "Không tìm thấy giao dịch nào.",
       "txid": "Mã giao dịch (TXID)",
       "time": "Thời gian",
-      "balanceDiff": "Chênh lệch số dư",
-      "balance": "Số dư",
+      "balanceDiff": "Chênh lệch số dư (BTC)",
+      "balance": "Số dư (BTC)",
       "blockHeight": "Chiều cao khối",
       "blockPos": "Vị trí khối",
       "walletIds": "Danh sách Wallet ID",
-      "closeButtonAriaLabel": "Đóng cửa sổ giao dịch XPUB"
+      "closeButtonAriaLabel": "Đóng cửa sổ giao dịch XPUB",
+      "balanceGraph": {
+        "title": "Biểu đồ số dư",
+        "label" : "Số dư BTC (BTC)"
+      },
+      "date": "Ngày"
     }
   }
 }

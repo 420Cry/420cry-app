@@ -1,12 +1,19 @@
 'use client'
 
-import { DashboardHeader, LoadingModal, TransactionModal, XPUBTransactionModal } from '@/components'
+import {
+  DashboardHeader,
+  LoadingModal,
+  TransactionModal,
+  XPUBTransactionModal,
+} from '@/components'
 import { ITransactionData, ITransactionXPUB } from '@/types'
 import { JSX, useState } from 'react'
 
 export default function DashboardPage(): JSX.Element {
-  const [transactionData, setTransactionData] = useState<ITransactionData | null>(null)
-  const [xpubTransactionData, setXpubTransactionData] = useState<ITransactionXPUB | null>(null)
+  const [transactionData, setTransactionData] =
+    useState<ITransactionData | null>(null)
+  const [xpubTransactionData, setXpubTransactionData] =
+    useState<ITransactionXPUB | null>(null)
   const [loading, setLoading] = useState(false)
 
   return (
@@ -37,4 +44,3 @@ export default function DashboardPage(): JSX.Element {
     </div>
   )
 }
-
