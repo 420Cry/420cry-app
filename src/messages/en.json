@@ -53,7 +53,8 @@
       "back": "Back",
       "ok": "Ok",
       "loading": "Loading",
-      "step": "Step"
+      "step": "Step",
+      "close": "Close"
     }
   },
   "header": {
@@ -134,7 +135,6 @@
     "search": "Enter public address, transaction hash, or crypto token",
     "transactionModal": {
       "title": "Transaction Details",
-      "closeButtonAriaLabel": "Close modal",
       "label": "Label",
       "notAvailable": "N/A",
       "txid": "TXID",

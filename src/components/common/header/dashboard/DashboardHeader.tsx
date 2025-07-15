@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactElement, useState } from 'react'
+import { JSX, useState } from 'react'
 import { CrySearchBar, UserIcon } from '@420cry/420cry-lib'
 import LanguageChangeButton from '../LanguageChangeButton'
 import { useTranslations } from 'next-intl'
@@ -21,7 +21,7 @@ export default function DashboardHeader({
   setTransactionData,
   setXpubTransactionData,
   setLoading,
-}: DashboardHeaderProps): ReactElement {
+}: DashboardHeaderProps): JSX.Element {
   const t = useTranslations()
   const searchPlaceholder = t('dashboard.search')
   const [searchTerm, setSearchTerm] = useState('')

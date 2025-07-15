@@ -53,7 +53,8 @@
       "back": "Quay lại",
       "ok": "Ok",
       "loading": "Đang tải ...",
-      "step": "Bước"
+      "step": "Bước",
+      "close": "Đóng"
     }
   },
   "header": {
@@ -134,7 +135,6 @@
     "search": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử",
     "transactionModal": {
       "title": "Chi tiết giao dịch",
-      "closeButtonAriaLabel": "Đóng",
       "label": "Nhãn",
       "notAvailable": "Không có",
       "txid": "TXID",

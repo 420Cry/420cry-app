@@ -17,8 +17,8 @@ export { default as ClientLayout } from './layout/ClientLayout'
 export { default as HoneyCombBackground } from './background/HoneyCombBackground'
 
 // common
-export { default as Sidebar } from './common/sidebar/Sidebar'
+export { default as DashboardSidebar } from './common/sidebar/DashboardSidebar'
 export { default as LanguageChangeButton } from './common/header/LanguageChangeButton'
 export { default as AuthHeader } from './common/header/auth/AuthHeader'
 export { default as DashboardHeader } from './common/header/dashboard/DashboardHeader'
-export { default as LoadingModal } from './common/loader/LoadingModal'
+export { default as Loader } from './common/loader/Loader'

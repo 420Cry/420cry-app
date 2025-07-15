@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactElement, useState } from 'react'
+import { JSX, useState } from 'react'
 import Image from 'next/image'
 
 import {
@@ -23,7 +23,7 @@ import {
 } from '@420cry/420cry-lib'
 import { CryApplicationLogo } from '@/assets'
 
-export default function Sidebar(): ReactElement {
+export default function Sidebar(): JSX.Element {
   const t = useTranslations()
   const router = useRouter()
   const [collapsed, setCollapsed] = useState(false)

@@ -2,10 +2,10 @@
 
 import {
   DashboardHeader,
-  LoadingModal,
   TransactionModal,
   XPUBTransactionModal,
 } from '@/components'
+import { useLoading } from '@/lib'
 import { ITransactionData, ITransactionXPUB } from '@/types'
 import { JSX, useState } from 'react'
 
@@ -14,7 +14,8 @@ export default function DashboardPage(): JSX.Element {
     useState<ITransactionData | null>(null)
   const [xpubTransactionData, setXpubTransactionData] =
     useState<ITransactionXPUB | null>(null)
-  const [loading, setLoading] = useState(false)
+
+  const { setLoading } = useLoading()
 
   return (
     <div className="relative min-h-screen">
@@ -30,7 +31,6 @@ export default function DashboardPage(): JSX.Element {
       </main>
 
       {/* Modals */}
-      <LoadingModal show={loading} />
       <TransactionModal
         show={Boolean(transactionData)}
         transaction={transactionData}
