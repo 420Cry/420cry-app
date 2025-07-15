@@ -13,3 +13,20 @@ export type { ITwoFactorSetUpRequest } from './2fa/setup/ITwoFactorSetUpRequest'
 export type { ITwoFactorSetUpResponse } from './2fa/setup/ITwoFactorSetUpResponse'
 export type { ITwoFactorVerifyRequest } from './2fa/verify/ITwoFactorVerifyRequest'
 export type { ITwoFactorVerifyResponse } from './2fa/verify/ITwoFactorVerifyResponse'
+export type {
+  SearchInput,
+  TxidInput,
+  XpubInput,
+  SymbolInput,
+  FullNameInput,
+  UnknownInput,
+} from './search/ISearchInput'
+export type {
+  ITransactionData,
+  ITransactionInput,
+  ITransactionOutput,
+} from './wallet-explorer/ITransactionData'
+export type {
+  ITransactionXPUB,
+  XPUBTransaction,
+} from './wallet-explorer/ITransactionXPUB'

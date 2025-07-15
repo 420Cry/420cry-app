@@ -1,12 +1,13 @@
 'use server-only'
 
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { getJWT } from '@/lib'
 
 export class ApiError extends Error {
   public status: number
   public data: unknown
 
-  public constructor(message: string, status: number, data: unknown) {
+  constructor(message: string, status: number, data: unknown) {
     super(message)
     this.status = status
     this.data = data
@@ -14,25 +15,49 @@ export class ApiError extends Error {
   }
 }
 
+type ExtendedAxiosConfig = AxiosRequestConfig & {
+  withAuth?: boolean
+}
+
 export class RequestService {
   // Axios POST
   public static async axiosPost<TPayload, TResponse>(
     url: string,
     payload?: TPayload,
-    config?: AxiosRequestConfig,
+    config: ExtendedAxiosConfig = {},
   ): Promise<AxiosResponse<TResponse>> {
-    return axios.post<TResponse>(url, payload, config)
+    const jwt = config.withAuth ? await getJWT() : undefined
+
+    const headers = {
+      ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+      ...(config.headers || {}),
+    }
+
+    return axios.post<TResponse>(url, payload, {
+      timeout: 60000,
+      ...config,
+      headers,
+    })
   }
 
   // Axios GET
   public static async axiosGet<TParams, TResponse>(
     url: string,
     params?: TParams,
-    config?: AxiosRequestConfig,
+    config: ExtendedAxiosConfig = {},
   ): Promise<AxiosResponse<TResponse>> {
+    const jwt = config.withAuth ? await getJWT() : undefined
+
+    const headers = {
+      ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+      ...(config.headers || {}),
+    }
+
     return axios.get<TResponse>(url, {
+      timeout: 60000,
       ...config,
       params,
+      headers,
     })
   }
 
@@ -58,7 +83,7 @@ export class RequestService {
 
   // Native GET
   public static async nativeFetchGet<
-    TParams extends Record<string, unknown> | undefined,
+    TParams extends object | undefined,
     TResponse,
   >(url: string, params?: TParams): Promise<TResponse> {
     const query = params

@@ -12,7 +12,6 @@
       "Successful": "Successful",
       "allfieldsAreRequired": "All fields are required!",
       "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
-      "signInSuccessful": "Welcome back to 420Cry app, {fullname}!",
       "somethingWentWrong": "Something went wrong. Please try again later!",
       "duplicatedUserNameOrEmail": "Email or username already exists!",
       "invalidOrExpiredToken": "Invalid or expired token",
@@ -20,7 +19,6 @@
       "invalidToken": "Invalid token",
       "emailVerifiedSuccessfully": "Email verified successfully",
       "emailVerificationFailed": "Email verification failed",
-      "emailOrUserNameAlreadyExist": "Username or email already exists",
       "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
       "resetSuccess": "You have successfully resetted your password. Please login again!",
       "invalidCredentials": "Invalid username or password.",
@@ -31,7 +29,10 @@
       "invalidOTP": "Invalid OTP",
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Language change success!",
-      "invalidLanguage": "Invalid Language"
+      "invalidLanguage": "Invalid Language",
+      "validTransaction": "Transaction is found",
+      "validWallet": "Wallet is found",
+      "emailOrUserNameAlreadyExist": "Username or email already exists"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -52,7 +53,8 @@
       "back": "Back",
       "ok": "Ok",
       "loading": "Loading",
-      "step": "Step"
+      "step": "Step",
+      "close": "Close"
     }
   },
   "header": {
@@ -130,6 +132,43 @@
       "userPortfolio": "User Portfolio",
       "logout": "Logout"
     },
-    "search": "Enter public address, transaction hash, or crypto token"
+    "search": "Enter public address, transaction hash, or crypto token",
+    "transactionModal": {
+      "title": "Transaction Details",
+      "label": "Label",
+      "notAvailable": "N/A",
+      "txid": "TXID",
+      "coinbase": "Coinbase",
+      "walletId": "Wallet ID",
+      "blockHeight": "Block Height",
+      "blockPosition": "Block Position",
+      "time": "Time",
+      "size": "Size",
+      "inputs": "Inputs",
+      "outputs": "Outputs",
+      "updatedToBlock": "Updated To Block",
+      "script": "Script",
+      "value": "Value",
+      "txIndex": "TxIndex",
+      "n": "N",
+      "address": "Address"
+    },
+    "xpubTransactionModal": {
+      "title": "XPUB Transactions",
+      "noTransactions": "No transactions found.",
+      "txid": "Transaction ID",
+      "time": "Time",
+      "balanceDiff": "Balance Diff (BTC)",
+      "balance": "Balance (BTC)",
+      "blockHeight": "Block Height",
+      "blockPos": "Block Position",
+      "walletIds": "Wallet IDs",
+      "closeButtonAriaLabel": "Close XPUB transaction modal",
+      "balanceGraph": {
+        "title": "Balance Graph",
+        "label": "BTC Balance (BTC)"
+      },
+      "date": "Date"
+    }
   }
 }

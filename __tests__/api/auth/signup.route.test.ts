@@ -118,6 +118,6 @@ it('returns failure JSON when status is 409 (Conflict)', async () => {
   const json = await res.json()
   expect(json).toEqual({
     isSuccess: false,
-    message: 'app.alertTitle.somethingWentWrong',
+    message: 'app.alertTitle.emailOrUserNameAlreadyExist',
   })
 })

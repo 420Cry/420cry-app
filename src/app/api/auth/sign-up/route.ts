@@ -12,6 +12,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       `${API_URL}/users/signup`,
       body,
     )
+
     switch (response.status) {
       case 200:
       case 201:
@@ -19,13 +20,28 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
           isSuccess: true,
           message: 'app.alertTitle.Successful',
         } satisfies IResponse)
+
+      case 409:
+        return NextResponse.json({
+          isSuccess: false,
+          message: 'app.alertTitle.emailOrUserNameAlreadyExist',
+        } satisfies IResponse)
+
       default:
         return NextResponse.json({
           isSuccess: false,
           message: 'app.alertTitle.somethingWentWrong',
         } satisfies IResponse)
     }
-  } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+  } catch (error: unknown) {
+    const err = error as { response?: { status?: number } }
+    const status = err?.response?.status ?? 500
+
+    const message =
+      status === 409
+        ? 'app.alertTitle.emailOrUserNameAlreadyExist'
+        : 'app.alertTitle.somethingWentWrong'
+
+    return createErrorResponse(message, status)
   }
 }
