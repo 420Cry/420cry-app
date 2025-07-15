@@ -152,6 +152,18 @@
       "txIndex": "Chỉ số giao dịch",
       "n": "Chỉ số N",
       "address": "Địa chỉ"
+    },
+    "xpubTransactionModal": {
+      "title": "Giao dịch XPUB",
+      "noTransactions": "Không tìm thấy giao dịch nào.",
+      "txid": "Mã giao dịch (TXID)",
+      "time": "Thời gian",
+      "balanceDiff": "Chênh lệch số dư",
+      "balance": "Số dư",
+      "blockHeight": "Chiều cao khối",
+      "blockPos": "Vị trí khối",
+      "walletIds": "Danh sách Wallet ID",
+      "closeButtonAriaLabel": "Đóng cửa sổ giao dịch XPUB"
     }
   }
 }

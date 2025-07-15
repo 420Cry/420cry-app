@@ -4,18 +4,18 @@ import { ReactElement, useState } from 'react'
 import { CrySearchBar, UserIcon } from '@420cry/420cry-lib'
 import LanguageChangeButton from '../LanguageChangeButton'
 import { useTranslations } from 'next-intl'
-import { ITransactionData, SearchInput } from '@/types'
+import { ITransactionData, ITransactionXPUB, SearchInput } from '@/types'
 import { resolveSearchInputType, showToast, TransactionService } from '@/lib'
 
 interface DashboardHeaderProps {
-  setTransactionData: React.Dispatch<
-    React.SetStateAction<ITransactionData | null>
-  >
+  setTransactionData: React.Dispatch<React.SetStateAction<ITransactionData | null>>
+  setXpubTransactionData: React.Dispatch<React.SetStateAction<ITransactionXPUB | null>>
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function DashboardHeader({
   setTransactionData,
+  setXpubTransactionData,
   setLoading,
 }: DashboardHeaderProps): ReactElement {
   const t = useTranslations()
@@ -61,21 +61,24 @@ export default function DashboardHeader({
         const { xpub } = input
         setLoading(true)
         try {
-          const transaction =
-            await TransactionService.getTransactionByXPUB(xpub)
-          console.log('Transaction by XPUB:', transaction)
+          const transaction = await TransactionService.getTransactionByXPUB(xpub)
+
+          if (transaction.isSuccess && transaction.data) {
+            setXpubTransactionData(transaction.data)
+          } else {
+            setXpubTransactionData(null)
+          }
+
           showToast(transaction.isSuccess, t(transaction.message))
         } catch (error) {
-          showToast(
-            false,
-            error instanceof Error ? error.message : String(error),
-          )
-          setTransactionData(null)
+          showToast(false, error instanceof Error ? error.message : String(error))
+          setXpubTransactionData(null)
         } finally {
           setLoading(false)
         }
         break
       }
+
       default:
         break
     }

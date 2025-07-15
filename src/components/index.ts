@@ -8,6 +8,7 @@ export { default as TwoFactorSetupQRCode } from './pages/2fa/setup/TwoFactorSetu
 export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetupOption'
 export { default as TwoFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
 export { default as TransactionModal } from './pages/dashboard/TransactionModal'
+export { default as XPUBTransactionModal } from './pages/dashboard/XPUBTransactionModal'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'

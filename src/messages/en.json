@@ -152,6 +152,18 @@
       "txIndex": "TxIndex",
       "n": "N",
       "address": "Address"
+    },
+    "xpubTransactionModal": {
+      "title": "XPUB Transactions",
+      "noTransactions": "No transactions found.",
+      "txid": "Transaction ID",
+      "time": "Time",
+      "balanceDiff": "Balance Diff",
+      "balance": "Balance",
+      "blockHeight": "Block Height",
+      "blockPos": "Block Position",
+      "walletIds": "Wallet IDs",
+      "closeButtonAriaLabel": "Close XPUB transaction modal"
     }
   }
 }

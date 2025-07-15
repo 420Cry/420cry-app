@@ -1,19 +1,19 @@
 'use client'
 
+import { DashboardHeader, LoadingModal, TransactionModal, XPUBTransactionModal } from '@/components'
+import { ITransactionData, ITransactionXPUB } from '@/types'
 import { JSX, useState } from 'react'
 
-import { ITransactionData } from '@/types'
-import { DashboardHeader, LoadingModal, TransactionModal } from '@/components'
-
 export default function DashboardPage(): JSX.Element {
-  const [transactionData, setTransactionData] =
-    useState<ITransactionData | null>(null)
+  const [transactionData, setTransactionData] = useState<ITransactionData | null>(null)
+  const [xpubTransactionData, setXpubTransactionData] = useState<ITransactionXPUB | null>(null)
   const [loading, setLoading] = useState(false)
 
   return (
     <div className="relative min-h-screen">
       <DashboardHeader
         setTransactionData={setTransactionData}
+        setXpubTransactionData={setXpubTransactionData}
         setLoading={setLoading}
       />
 
@@ -29,6 +29,12 @@ export default function DashboardPage(): JSX.Element {
         transaction={transactionData}
         onClose={() => setTransactionData(null)}
       />
+      <XPUBTransactionModal
+        show={Boolean(xpubTransactionData)}
+        transactionData={xpubTransactionData}
+        onClose={() => setXpubTransactionData(null)}
+      />
     </div>
   )
 }
+
