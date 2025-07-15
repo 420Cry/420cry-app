@@ -32,7 +32,8 @@
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Language change success!",
       "invalidLanguage": "Invalid Language",
-      "validTransaction": "Transaction is found"
+      "validTransaction": "Transaction is found",
+      "validWallet": "Wallet is found"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",

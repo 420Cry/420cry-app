@@ -75,7 +75,7 @@ describe('GET /api/wallet-explorer/xpub', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(true)
-    expect(data.message).toBe('app.alertTitle.validTransaction')
+    expect(data.message).toBe('app.alertTitle.validWallet')
     expect(data.data).toEqual(mockXpubData)
   })
 

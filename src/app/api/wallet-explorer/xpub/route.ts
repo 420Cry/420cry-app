@@ -23,7 +23,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     if (response.status === 200 && transactionData?.found) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.validTransaction',
+        message: 'app.alertTitle.validWallet',
         data: transactionData,
       } satisfies IResponse & { data: ITransactionXPUB })
     }

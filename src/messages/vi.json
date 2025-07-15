@@ -31,7 +31,8 @@
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
       "invalidLanguage": "Sai ngôn ngữ",
-      "validTransaction": "Giao dịch được tìm thấy"
+      "validTransaction": "Giao dịch được tìm thấy",
+      "validWallet": "Ví được tìm thấy"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
