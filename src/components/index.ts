@@ -9,6 +9,7 @@ export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetu
 export { default as TwoFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
 export { default as TransactionModal } from './pages/dashboard/TransactionModal'
 export { default as XPUBTransactionModal } from './pages/dashboard/XPUBTransactionModal'
+export { default as FearAndGreedIndex } from './pages/indicator/fear-and-greed/FearAndGreedIndex'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'

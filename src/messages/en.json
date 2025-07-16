@@ -173,5 +173,15 @@
       },
       "date": "Date"
     }
+  },
+  "indicator" : {
+    "fearAndGreed": {
+      "title": "Fear and Greed Index",
+      "greed": "Greed",
+      "fear": "Fear",
+      "neutral": "Neutral",
+      "extremeFear": "Extreme Fear",
+      "extremeGreed": "Extreme Greed"
+    }
   }
 }

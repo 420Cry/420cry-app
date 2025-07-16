@@ -173,5 +173,15 @@
       },
       "date": "Ngày"
     }
+  },
+  "indicator": {
+    "fearAndGreed": {
+      "title": "Chỉ số Sợ hãi và Tham lam",
+      "fear": "Sợ hãi",
+      "greed": "Tham lam",
+      "neutral": "Trung lập",
+      "extremeFear": "Sợ hãi cực độ",
+      "extremeGreed": "Tham lam cực độ"
+    }
   }
 }
