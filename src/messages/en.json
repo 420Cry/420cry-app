@@ -174,7 +174,7 @@
       "date": "Date"
     }
   },
-  "indicator" : {
+  "indicator": {
     "fearAndGreed": {
       "title": "Fear and Greed Index",
       "greed": "Greed",

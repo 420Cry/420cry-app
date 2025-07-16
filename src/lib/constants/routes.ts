@@ -30,7 +30,10 @@ export const GET_TRANSACTION_API = '/api/wallet-explorer/transaction'
 export const GET_XPUB_API = '/api/wallet-explorer/xpub'
 
 // indicator
-export const GET_FEAR_AND_GREED_API = '/api/indicator/fear-and-greed'
+export const GET_FEAR_AND_GREED_LASTEST_API =
+  '/api/indicator/fear-and-greed-lastest'
+export const GET_FEAR_AND_GREED_HISTORICAL_API =
+  '/api/indicator/fear-and-greed-historical'
 
 // locale
 export const LOCALE_COOKIE_API = '/api/locale/language'

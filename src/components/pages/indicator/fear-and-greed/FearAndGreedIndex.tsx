@@ -11,7 +11,9 @@ export default function FearAndGreedGauge({ data }: FearAndGreedGaugeProps) {
   const t = useTranslations()
 
   const value = data.value
-  const classification = data.value_classification.toLowerCase().replace(/\s/g, '') // normalize
+  const classification = data.value_classification
+    .toLowerCase()
+    .replace(/\s/g, '') // normalize
 
   // Map the classification string to your translation keys
   const classificationKeyMap: Record<string, string> = {
@@ -22,7 +24,9 @@ export default function FearAndGreedGauge({ data }: FearAndGreedGaugeProps) {
     extremegreed: 'indicator.fearAndGreed.extremeGreed',
   }
 
-  const classificationText = t(classificationKeyMap[classification] ?? 'indicator.fearAndGreed.neutral')
+  const classificationText = t(
+    classificationKeyMap[classification] ?? 'indicator.fearAndGreed.neutral',
+  )
 
   const baseRadius = 70
   const offset = 15
@@ -96,14 +100,7 @@ export default function FearAndGreedGauge({ data }: FearAndGreedGaugeProps) {
         </text>
 
         {/* Pointer */}
-        <circle
-          cx={x}
-          cy={y}
-          r="6"
-          fill="#000"
-          stroke="#fff"
-          strokeWidth="2"
-        />
+        <circle cx={x} cy={y} r="6" fill="#000" stroke="#fff" strokeWidth="2" />
       </svg>
     </div>
   )
