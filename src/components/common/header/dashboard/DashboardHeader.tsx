@@ -2,29 +2,29 @@
 
 import { JSX, useState } from 'react'
 import { CrySearchBar, UserIcon } from '@420cry/420cry-lib'
-import LanguageChangeButton from '../LanguageChangeButton'
 import { useTranslations } from 'next-intl'
-import { ITransactionData, ITransactionXPUB, SearchInput } from '@/types'
-import { resolveSearchInputType, showToast, TransactionService } from '@/lib'
+
+import LanguageChangeButton from '../LanguageChangeButton'
+import {
+  resolveSearchInputType,
+  showToast,
+  TransactionService,
+  useModal,
+} from '@/lib'
+
+import { SearchInput } from '@/types'
 
 interface DashboardHeaderProps {
-  setTransactionData: React.Dispatch<
-    React.SetStateAction<ITransactionData | null>
-  >
-  setXpubTransactionData: React.Dispatch<
-    React.SetStateAction<ITransactionXPUB | null>
-  >
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function DashboardHeader({
-  setTransactionData,
-  setXpubTransactionData,
   setLoading,
 }: DashboardHeaderProps): JSX.Element {
   const t = useTranslations()
   const searchPlaceholder = t('dashboard.search')
   const [searchTerm, setSearchTerm] = useState('')
+  const { openModal } = useModal()
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
@@ -32,55 +32,53 @@ export default function DashboardHeader({
 
   const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
     const input: SearchInput = resolveSearchInputType(searchTerm)
 
     switch (input.type) {
       case 'TXID': {
-        const { txid } = input
         setLoading(true)
-
         try {
-          const transaction = await TransactionService.getTransaction(txid)
+          const response = await TransactionService.getTransaction(input.txid)
 
-          if (transaction.isSuccess && transaction.data) {
-            setTransactionData(transaction.data)
+          if (response.isSuccess && response.data) {
+            openModal({ type: 'transaction', data: response.data })
           } else {
-            setTransactionData(null)
+            openModal({ type: null, data: null })
           }
 
-          showToast(transaction.isSuccess, t(transaction.message))
+          showToast(response.isSuccess, t(response.message))
         } catch (error) {
           showToast(
             false,
             error instanceof Error ? error.message : String(error),
           )
-          setTransactionData(null)
+          openModal({ type: null, data: null })
         } finally {
           setLoading(false)
         }
         break
       }
+
       case 'XPUB': {
-        const { xpub } = input
         setLoading(true)
         try {
-          const transaction =
-            await TransactionService.getTransactionByXPUB(xpub)
+          const response = await TransactionService.getTransactionByXPUB(
+            input.xpub,
+          )
 
-          if (transaction.isSuccess && transaction.data) {
-            setXpubTransactionData(transaction.data)
+          if (response.isSuccess && response.data) {
+            openModal({ type: 'xpubTransaction', data: response.data })
           } else {
-            setXpubTransactionData(null)
+            openModal({ type: null, data: null })
           }
 
-          showToast(transaction.isSuccess, t(transaction.message))
+          showToast(response.isSuccess, t(response.message))
         } catch (error) {
           showToast(
             false,
             error instanceof Error ? error.message : String(error),
           )
-          setXpubTransactionData(null)
+          openModal({ type: null, data: null })
         } finally {
           setLoading(false)
         }
@@ -88,6 +86,7 @@ export default function DashboardHeader({
       }
 
       default:
+        showToast(false, t('dashboard.alert.invalidInput'))
         break
     }
   }

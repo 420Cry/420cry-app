@@ -19,6 +19,7 @@ export * from './client/auth/signout/SignOutRequestService'
 export * from './client/cookies/cookieService'
 export * from './client/locale/localeService'
 export * from './client/wallet_explorer/TransactionService'
+export * from './client/indicator/fear_and_greed/FearAndGreedService'
 
 // 2FA
 export * from './client/2fa/setup/TwoFactorSetUpService'
@@ -33,4 +34,6 @@ export * from './utils/getJWT'
 export * from './server/validation/dashboardSearch/resolveSearchInputType'
 
 // Context
-export * from './context/LoadingContext'
+export * from './context/loading/LoadingContext'
+export * from './context/modal/ModalContext'
+export * from './context/modal/ModalRenderer'

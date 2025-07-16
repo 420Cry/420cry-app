@@ -127,7 +127,10 @@
   "dashboard": {
     "navigation": {
       "marketOverview": "Market Overview",
-      "indicator": "Indicator",
+      "indicator": {
+        "label": "Indicator",
+        "fearAndGreed": "Fear and Greed Index"
+      },
       "settings": "Settings",
       "userPortfolio": "User Portfolio",
       "logout": "Logout"
@@ -169,6 +172,16 @@
         "label": "BTC Balance (BTC)"
       },
       "date": "Date"
+    }
+  },
+  "indicator": {
+    "fearAndGreed": {
+      "title": "Fear and Greed Index",
+      "greed": "Greed",
+      "fear": "Fear",
+      "neutral": "Neutral",
+      "extremeFear": "Extreme Fear",
+      "extremeGreed": "Extreme Greed"
     }
   }
 }

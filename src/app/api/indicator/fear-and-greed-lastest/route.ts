@@ -1,29 +1,22 @@
 import { API_URL, createErrorResponse, RequestService } from '@/lib'
-import { IResponse, ITransactionXPUB } from '@/types'
+import { IFearAndGreedIndexData, IResponse } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
-    const { searchParams } = new URL(request.url)
-    const xpub = searchParams.get('xpub')
-
-    if (!xpub) {
-      return createErrorResponse('Missing xpub query parameter', 400)
-    }
-
     const response = await RequestService.axiosGet<
-      { xpub: string },
-      { xpub: ITransactionXPUB }
-    >(`${API_URL}/wallet-explorer/xpub`, { xpub }, { withAuth: true })
+      null,
+      { fear_and_greed_index: IFearAndGreedIndexData }
+    >(`${API_URL}/coin-market-cap/fear-and-greed-lastest`, null, {
+      withAuth: true,
+    })
 
-    const transactionData = response.data.xpub
-
-    if (response.status === 200 && transactionData?.found) {
+    if (response.status === 200 && response.data) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.validWallet',
-        data: transactionData,
-      } satisfies IResponse & { data: ITransactionXPUB })
+        message: 'app.alertTitle.Successful',
+        data: response.data.fear_and_greed_index,
+      } satisfies IResponse & { data: IFearAndGreedIndexData })
     }
 
     return createErrorResponse(

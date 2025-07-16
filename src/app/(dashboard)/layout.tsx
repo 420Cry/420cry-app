@@ -1,19 +1,33 @@
 'use client'
 
-import { DashboardSidebar, Loader } from '@/components'
+import { DashboardSidebar, DashboardHeader, Loader } from '@/components'
 import { JSX, ReactNode } from 'react'
-import { LoadingProvider, useLoading } from '@/lib'
+import {
+  LoadingProvider,
+  ModalProvider,
+  ModalRenderer,
+  useLoading,
+} from '@/lib'
 
 function LayoutContent({ children }: { children: ReactNode }) {
-  const { loading } = useLoading()
+  const { loading, setLoading } = useLoading()
 
   return (
     <div className="flex h-screen">
       <DashboardSidebar />
-      <main className="flex-1 p-6 overflow-y-auto relative">
-        {children}
-        <Loader show={loading} />
-      </main>
+      <div className="flex-1 flex flex-col relative overflow-hidden">
+        {/* Header */}
+        <DashboardHeader setLoading={setLoading} />
+
+        {/* Main content */}
+        <main className="flex-1 p-6 overflow-y-auto relative">
+          {children}
+          <Loader show={loading} />
+        </main>
+
+        {/* Render dynamic modals */}
+        <ModalRenderer />
+      </div>
     </div>
   )
 }
@@ -25,7 +39,9 @@ export default function DashboardLayout({
 }): JSX.Element {
   return (
     <LoadingProvider>
-      <LayoutContent>{children}</LayoutContent>
+      <ModalProvider>
+        <LayoutContent>{children}</LayoutContent>
+      </ModalProvider>
     </LoadingProvider>
   )
 }
