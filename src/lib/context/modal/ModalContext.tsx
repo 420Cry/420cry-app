@@ -7,12 +7,12 @@ import React, {
   useContext,
   useState,
 } from 'react'
-import { ModalState } from '@/types/modal/ModalState'
+import { IModalState } from '@/types/modal/IModalState'
 
 interface ModalContextProps {
-  modal: ModalState
+  modal: IModalState
   // eslint-disable-next-line no-unused-vars
-  openModal: (modal: ModalState) => void
+  openModal: (modal: IModalState) => void
   closeModal: () => void
 }
 
@@ -23,9 +23,9 @@ export function ModalProvider({
 }: {
   children: ReactNode
 }): JSX.Element {
-  const [modal, setModal] = useState<ModalState>({ type: null, data: null })
+  const [modal, setModal] = useState<IModalState>({ type: null, data: null })
 
-  const openModal = (modalState: ModalState): void => {
+  const openModal = (modalState: IModalState): void => {
     setModal(modalState)
   }
 
