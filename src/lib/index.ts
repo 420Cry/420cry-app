@@ -33,6 +33,6 @@ export * from './utils/getJWT'
 export * from './server/validation/dashboardSearch/resolveSearchInputType'
 
 // Context
-export * from './context/LoadingContext'
+export * from './context/loading/LoadingContext'
 export * from './context/modal/ModalContext'
 export * from './context/modal/ModalRenderer'
