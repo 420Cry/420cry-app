@@ -127,7 +127,10 @@
   "dashboard": {
     "navigation": {
       "marketOverview": "Tổng quan thị trường",
-      "indicator": "Chỉ báo",
+      "indicator": {
+        "label": "Chỉ báo",
+        "fearAndGreed": "Chỉ số Sợ hãi và Tham lam"
+      },
       "settings": "Cài đặt",
       "userPortfolio": "Danh mục người dùng",
       "logout": "Đăng xuất"

@@ -30,3 +30,4 @@ export type {
   ITransactionXPUB,
   XPUBTransaction,
 } from './wallet-explorer/ITransactionXPUB'
+export type { ModalState } from './modal/ModalState'

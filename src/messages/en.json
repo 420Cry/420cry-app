@@ -127,7 +127,10 @@
   "dashboard": {
     "navigation": {
       "marketOverview": "Market Overview",
-      "indicator": "Indicator",
+      "indicator": {
+        "label": "Indicator",
+        "fearAndGreed": "Fear and Greed Index"
+      },
       "settings": "Settings",
       "userPortfolio": "User Portfolio",
       "logout": "Logout"
