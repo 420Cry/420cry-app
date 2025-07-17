@@ -1,13 +1,13 @@
 'use client'
 
 import { HOME_ROUTE, SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
-import cryApplicationLogo from '@/../public/logo/CryApplicationLogo.png'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { JSX } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import LanguageChangeButton from '../common/header/LanguageChangeButton'
+import { LanguageChangeButton } from '@/components'
+import { CryApplicationLogo } from '@/assets'
 
 interface AuthHeaderProps {
   isSignUpButton?: boolean
@@ -22,7 +22,7 @@ const AuthHeader = ({
   return (
     <div className="flex justify-between items-center flex-col sm:flex-row sm:items-center px-12 py-6">
       <Image
-        src={cryApplicationLogo}
+        src={CryApplicationLogo}
         alt="dark mode logo"
         width={143}
         height={58}

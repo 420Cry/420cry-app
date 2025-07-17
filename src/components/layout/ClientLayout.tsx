@@ -1,4 +1,5 @@
 'use client'
+
 import { ILocale } from '@/types'
 import { IntlProvider } from 'next-intl'
 import { JSX, ReactNode } from 'react'

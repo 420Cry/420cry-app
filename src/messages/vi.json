@@ -12,7 +12,6 @@
       "Successful": "Thành công",
       "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
       "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
-      "signInSuccessful": "Chào mừng trở lại với 420Cry, {fullName}!",
       "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
       "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!",
       "invalidOrExpiredToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
@@ -30,7 +29,10 @@
       "invalidOTP": "OTP không hợp lệ",
       "otpCannotBeEmpty": "OTP cannot be empty",
       "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
-      "invalidLanguage": "Sai ngôn ngữ"
+      "invalidLanguage": "Sai ngôn ngữ",
+      "validTransaction": "Giao dịch được tìm thấy",
+      "validWallet": "Ví được tìm thấy",
+      "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
@@ -40,8 +42,7 @@
       "passwordLetterContain": "Mật khẩu phải có ít nhất 1 chữ cái!",
       "passwordNumberContain": "Mật khẩu phải có ít nhất 1 số!",
       "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 kí tự dặc biệt!",
-      "repeatedPassword": "Mật khẩu không khớp!",
-      "emailOrUserNameAlreadyExist": "Email hoặc tên tài khoản đã tồi tại"
+      "repeatedPassword": "Mật khẩu không khớp!"
     },
     "common": {
       "showPassword": "Hiện",
@@ -52,7 +53,8 @@
       "back": "Quay lại",
       "ok": "Ok",
       "loading": "Đang tải ...",
-      "step": "Bước"
+      "step": "Bước",
+      "close": "Đóng"
     }
   },
   "header": {
@@ -120,6 +122,53 @@
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
       "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
+    }
+  },
+  "dashboard": {
+    "navigation": {
+      "marketOverview": "Tổng quan thị trường",
+      "indicator": "Chỉ báo",
+      "settings": "Cài đặt",
+      "userPortfolio": "Danh mục người dùng",
+      "logout": "Đăng xuất"
+    },
+    "search": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử",
+    "transactionModal": {
+      "title": "Chi tiết giao dịch",
+      "label": "Nhãn",
+      "notAvailable": "Không có",
+      "txid": "TXID",
+      "coinbase": "Coinbase",
+      "walletId": "Wallet ID",
+      "blockHeight": "Chiều cao khối",
+      "blockPosition": "Vị trí khối",
+      "time": "Thời gian",
+      "size": "Kích thước",
+      "inputs": "Đầu vào",
+      "outputs": "Đầu ra",
+      "updatedToBlock": "Cập nhật đến khối",
+      "script": "Script",
+      "value": "Giá trị",
+      "txIndex": "Chỉ số giao dịch",
+      "n": "Chỉ số N",
+      "address": "Địa chỉ"
+    },
+    "xpubTransactionModal": {
+      "title": "Giao dịch XPUB",
+      "noTransactions": "Không tìm thấy giao dịch nào.",
+      "txid": "Mã giao dịch (TXID)",
+      "time": "Thời gian",
+      "balanceDiff": "Chênh lệch số dư (BTC)",
+      "balance": "Số dư (BTC)",
+      "blockHeight": "Chiều cao khối",
+      "blockPos": "Vị trí khối",
+      "walletIds": "Danh sách Wallet ID",
+      "closeButtonAriaLabel": "Đóng cửa sổ giao dịch XPUB",
+      "balanceGraph": {
+        "title": "Biểu đồ số dư",
+        "label": "Số dư BTC (BTC)"
+      },
+      "date": "Ngày"
     }
   }
 }
