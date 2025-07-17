@@ -10,6 +10,7 @@ import {
 } from '@420cry/420cry-lib'
 import { showToast, SIGN_IN_ROUTE, SignUpService } from '@/lib'
 import { useRouter } from 'next/navigation'
+import { OAuthService } from '@/lib/client/auth/oauth/OAuthService'
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()
@@ -36,6 +37,12 @@ const SignupForm = (): JSX.Element => {
       }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+    }
+  }
+
+  const handleSignUp = (index: number) => {
+    if (index === 0) {
+      OAuthService.handleGoogleService()
     }
   }
 
@@ -109,6 +116,7 @@ const SignupForm = (): JSX.Element => {
               circle
               outlined
               color="primary"
+              onClick={() => handleSignUp(index)}
             >
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />
