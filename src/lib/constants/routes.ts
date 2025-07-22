@@ -28,6 +28,7 @@ export const VERIFY_EMAIL_TOKEN_API = '/api/auth/verify-email-token'
 export const RESET_REQUEST_API = '/api/auth/reset-request'
 export const VERIFY_RESET_PASSWORD_API = '/api/auth/verify-reset-password-token'
 export const GOOGLE_AUTH_REQUEST_API = '/api/auth/google'
+export const COMPLETE_PROFILE_API = '/api/auth/complete-profile'
 
 // 2fa
 export const SET_UP_2FA_API = '/api/2fa/setup'
