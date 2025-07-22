@@ -33,10 +33,10 @@ const SignupForm = (): JSX.Element => {
   const [fullName, setFullName] = useState(fullNameParam || null)
 
   useEffect(() => {
-    if (email && fullName) {
+    if (emailParam && fullNameParam) {
       setIsOAuthSignUp(true)
     }
-  }, [email, fullName])
+  }, [emailParam, fullNameParam])
 
   const validateFormData = (formData: FormData): boolean => {
     return [...formData.values()].every((value) => value)
@@ -57,11 +57,8 @@ const SignupForm = (): JSX.Element => {
     }
 
     try {
-      const { response, user } = await SignUpService.signUpAction(
-        formData,
-        isOAuthSignUp,
-      )
-
+      const result = await SignUpService.signUpAction(formData, isOAuthSignUp)
+      const { response, user } = result
       const success = response.isSuccess
       const message = user
         ? t(response.message, { fullname: user.fullname })

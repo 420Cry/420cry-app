@@ -16,10 +16,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     switch (response.status) {
       case 200:
       case 201:
-        return NextResponse.json({
-          isSuccess: true,
-          message: 'app.alertTitle.Successful',
-        } satisfies IResponse)
+        const responseBody = {
+          response: {
+            isSuccess: true,
+            message: 'app.alertTitle.Successful',
+          } satisfies IResponse,
+          user: null,
+        }
+        return NextResponse.json(responseBody)
 
       case 409:
         return NextResponse.json({
