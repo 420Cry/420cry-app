@@ -20,15 +20,23 @@ import {
 
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
+import { OAuthService } from '@/lib/client/auth/oauth/OAuthService'
 
 const SocialButton = ({
   Icon,
   label,
+  onClick,
 }: {
   Icon: ComponentType<{ className?: string }>
   label: string
+  onClick: React.MouseEventHandler<HTMLButtonElement>
 }): JSX.Element => (
-  <CryButton key={label} className="bg-transparent w-12" circle>
+  <CryButton
+    onClick={onClick}
+    key={label}
+    className="bg-transparent w-12"
+    circle
+  >
     <div className="flex items-center justify-center">
       <Icon className="h-8 w-8" />
     </div>
@@ -73,6 +81,12 @@ const LogInForm = (): JSX.Element => {
       showToast(success, message)
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+    }
+  }
+
+  const handleOAuthSignIn = (label: string) => {
+    if (label === 'Google') {
+      OAuthService.handleGoogleService()
     }
   }
 
@@ -137,7 +151,12 @@ const LogInForm = (): JSX.Element => {
             { icon: GoogleIcon, label: 'Google' },
             { icon: DiscordIcon, label: 'Discord' },
           ].map(({ icon, label }) => (
-            <SocialButton key={label} Icon={icon} label={label} />
+            <SocialButton
+              onClick={() => handleOAuthSignIn(label)}
+              key={label}
+              Icon={icon}
+              label={label}
+            />
           ))}
         </div>
         <div className="text-center sm:text-base sm:mt-4">

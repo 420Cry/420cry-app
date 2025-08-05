@@ -19,7 +19,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         const responseBody = {
           response: {
             isSuccess: true,
-            message: 'app.alertTitle.Successful',
+            message: 'app.alertTitle.signUpSuccessful',
           } satisfies IResponse,
           user: null,
         }

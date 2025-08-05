@@ -1,6 +1,6 @@
 'use client'
 
-import { JSX, useEffect, useState } from 'react'
+import { ComponentType, JSX, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   CryButton,
@@ -17,6 +17,27 @@ import {
 import { useRouter, useSearchParams } from 'next/navigation'
 import { OAuthService } from '@/lib/client/auth/oauth/OAuthService'
 import { useAuthStore } from '@/store'
+
+const SocialButton = ({
+  Icon,
+  label,
+  onClick,
+}: {
+  Icon: ComponentType<{ className?: string }>
+  label: string
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+}): JSX.Element => (
+  <CryButton
+    onClick={onClick}
+    key={label}
+    className="bg-transparent w-12"
+    circle
+  >
+    <div className="flex items-center justify-center">
+      <Icon className="h-8 w-8" />
+    </div>
+  </CryButton>
+)
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()
@@ -82,9 +103,8 @@ const SignupForm = (): JSX.Element => {
     }
   }
 
-  const handleOAuthSignUp = (index: number) => {
-    // TODO: Fix magic number
-    if (index === 0) {
+  const handleOAuthSignUp = (label: string) => {
+    if (label === 'Google') {
       OAuthService.handleGoogleService()
     }
   }
@@ -160,23 +180,16 @@ const SignupForm = (): JSX.Element => {
               {t('auth.signup.orSignInUsing')}
             </div>
             <div className="flex flex-wrap justify-center gap-4 mt-4">
-              {[GoogleIcon, DiscordIcon].map((Icon, index) => (
-                <CryButton
-                  key={index}
-                  size="lg"
-                  className="bg-transparen w-36 sm:w-40"
-                  circle
-                  outlined
-                  color="primary"
-                  onClick={() => handleOAuthSignUp(index)}
-                >
-                  <div className="flex items-center justify-center">
-                    <Icon className="h-5 w-5 mr-2" />
-                    <span className="text-white">
-                      {Icon === GoogleIcon ? 'Google' : 'Discord'}
-                    </span>
-                  </div>
-                </CryButton>
+              {[
+                { icon: GoogleIcon, label: 'Google' },
+                { icon: DiscordIcon, label: 'Discord' },
+              ].map(({ icon, label }) => (
+                <SocialButton
+                  onClick={() => handleOAuthSignUp(label)}
+                  key={label}
+                  Icon={icon}
+                  label={label}
+                />
               ))}
             </div>
           </>
