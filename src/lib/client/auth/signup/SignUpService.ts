@@ -44,7 +44,6 @@ export const SignUpService = {
           { response: IResponse; user?: IUser }
         >(COMPLETE_PROFILE_API, payload)
         return response
-        
       }
 
       const response = await RequestService.nativeFetchPost<
