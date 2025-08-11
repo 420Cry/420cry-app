@@ -16,6 +16,7 @@ interface LoadingContextProps {
 
 const LoadingContext = createContext<LoadingContextProps | undefined>(undefined)
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function LoadingProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(false)
 
@@ -26,6 +27,7 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useLoading() {
   const context = useContext(LoadingContext)
   if (!context)
