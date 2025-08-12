@@ -185,8 +185,8 @@
       "about": "Giới thiệu về Chỉ số Sợ hãi và Tham lam Tiền điện tử CMC",
       "description": "Chỉ số Sợ hãi và Tham lam CMC là một công cụ độc quyền được phát triển bởi CoinMarketCap, dùng để đo lường tâm lý chung trên thị trường tiền điện tử. Chỉ số này dao động từ 0 đến 100, trong đó giá trị thấp hơn biểu thị mức độ sợ hãi cực độ, và giá trị cao hơn biểu thị mức độ tham lam cực độ. Chỉ số này giúp các nhà đầu tư hiểu được trạng thái cảm xúc của thị trường, điều này có thể ảnh hưởng đến hành vi mua và bán. Chỉ số này cung cấp thông tin chi tiết về việc thị trường có thể bị định giá thấp (sợ hãi cực độ) hay được định giá quá cao (lòng tham cực độ).",
       "section": {
-        "howCanIUseThisIndex": "Tôi có thể sử dụng chỉ mục này như thế nào?",
-        "marketSentimentAnalysis:": {
+        "howToUseThisIndex": "Tôi có thể sử dụng chỉ mục này như thế nào?",
+        "marketSentimentAnalysis": {
           "title": "Phân tích tâm lý thị trường:",
           "content": "Bằng cách quan sát giá trị hiện tại của chỉ số, bạn có thể đánh giá tâm lý chung của thị trường tiền điện tử. Ví dụ, giá trị cao cho thấy các nhà đầu tư đang quá tham lam, điều này có thể cho thấy thị trường đang quá nóng và sắp có một đợt điều chỉnh. Ngược lại, giá trị thấp có thể cho thấy nỗi sợ hãi đang khiến giá giảm, tạo ra cơ hội mua vào."
         },
@@ -215,7 +215,7 @@
           "title": "Thành phần thị trường:",
           "content": "Thành phần này xem xét giá trị tương đối của Bitcoin (BTC) trên thị trường, sử dụng Tỷ lệ cung ứng Stablecoin (SSR) để đo lường tỷ lệ giữa vốn hóa thị trường của Bitcoin và các stablecoin lớn."
         },
-        "CMCProprietaryData:": {
+        "CMCProprietaryData": {
           "title": "Dữ liệu độc quyền của CMC(coin market cap):",
           "content": "Chỉ số này cũng sử dụng các tìm kiếm từ khóa theo xu hướng xã hội và số liệu về mức độ tương tác của người dùng để nắm bắt tâm lý thị trường, sự quan tâm của nhà bán lẻ và các xu hướng mới nổi."
         }

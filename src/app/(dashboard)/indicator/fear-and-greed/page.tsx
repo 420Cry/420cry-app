@@ -61,7 +61,7 @@ export default function FearAndGreedPage(): JSX.Element {
                 aria-expanded={expandedSection === 0}
                 aria-controls="section-0-content"
               >
-                {t('indicator.about')}
+                {t('indicator.fearAndGreed.about')}
                 <span>{expandedSection === 0 ? '−' : '+'}</span>
               </button>
               <div
@@ -69,7 +69,7 @@ export default function FearAndGreedPage(): JSX.Element {
                 className="transition-max-height duration-300 ease-in-out overflow-hidden px-6"
                 style={getAccordionStyle(expandedSection === 0)}
               >
-                <p>{t('indicator.description')}</p>
+                <p>{t('indicator.fearAndGreed.description')}</p>
               </div>
             </section>
 
@@ -80,7 +80,7 @@ export default function FearAndGreedPage(): JSX.Element {
                 aria-expanded={expandedSection === 1}
                 aria-controls="section-1-content"
               >
-                {t('indicator.section.howCanIUseThisIndex')}
+                {t('indicator.fearAndGreed.section.howToUseThisIndex')}
                 <span>{expandedSection === 1 ? '−' : '+'}</span>
               </button>
               <div
@@ -92,21 +92,33 @@ export default function FearAndGreedPage(): JSX.Element {
                   <li>
                     <strong>
                       {' '}
-                      {t('indicator.section.marketSentimentAnalysis.title')}
+                      {t(
+                        'indicator.fearAndGreed.section.marketSentimentAnalysis.title',
+                      )}
                     </strong>
-                    {t('indicator.section.marketSentimentAnalysis.content')}
+                    {t(
+                      'indicator.fearAndGreed.section.marketSentimentAnalysis.content',
+                    )}
                   </li>
                   <li>
                     <strong>
-                      {t('indicator.section.contrarianStrategy.title')}
+                      {t(
+                        'indicator.fearAndGreed.section.contrarianStrategy.title',
+                      )}
                     </strong>
-                    {t('indicator.section.contrarianStrategy.content')}
+                    {t(
+                      'indicator.fearAndGreed.section.contrarianStrategy.content',
+                    )}
                   </li>
                   <li>
                     <strong>
-                      {t('indicator.section.complementaryAnalysis.title')}
+                      {t(
+                        'indicator.fearAndGreed.section.complementaryAnalysis.title',
+                      )}
                     </strong>
-                    {t('indicator.section.complementaryAnalysis.content')}
+                    {t(
+                      'indicator.fearAndGreed.section.complementaryAnalysis.content',
+                    )}
                   </li>
                 </ul>
               </div>
@@ -119,7 +131,7 @@ export default function FearAndGreedPage(): JSX.Element {
                 aria-expanded={expandedSection === 2}
                 aria-controls="section-2-content"
               >
-                {t('indicator.section.howIsThisIndexCalculated')}
+                {t('indicator.fearAndGreed.section.howIsThisIndexCalculated')}
                 <span>{expandedSection === 2 ? '−' : '+'}</span>
               </button>
               <div
@@ -130,34 +142,50 @@ export default function FearAndGreedPage(): JSX.Element {
                 <ol className="list-decimal ml-5 space-y-2">
                   <li>
                     <strong>
-                      {t('indicator.section.priceMomentum.title')}
+                      {t('indicator.fearAndGreed.section.priceMomentum.title')}
                     </strong>
-                    {t('indicator.section.priceMomentum.content')}
-                  </li>
-                  <li>
-                    <strong> {t('indicator.section.volatility.title')}</strong>
-                    {t('indicator.section.volatility.content')}
+                    {t('indicator.fearAndGreed.section.priceMomentum.content')}
                   </li>
                   <li>
                     <strong>
                       {' '}
-                      {t('indicator.section.derivativesMarket.title')}
+                      {t('indicator.fearAndGreed.section.volatility.title')}
                     </strong>
-                    {t('indicator.section.derivativesMarket.content')}
+                    {t('indicator.fearAndGreed.section.volatility.content')}
                   </li>
                   <li>
                     <strong>
-                      {t('indicator.section.marketComposition.title')}
+                      {' '}
+                      {t(
+                        'indicator.fearAndGreed.section.derivativesMarket.title',
+                      )}
+                    </strong>
+                    {t(
+                      'indicator.fearAndGreed.section.derivativesMarket.content',
+                    )}
+                  </li>
+                  <li>
+                    <strong>
+                      {t(
+                        'indicator.fearAndGreed.section.marketComposition.title',
+                      )}
                     </strong>
 
-                    {t('indicator.section.marketComposition.content')}
+                    {t(
+                      'indicator.fearAndGreed.section.marketComposition.content',
+                    )}
                   </li>
                   <li>
                     <strong>
                       {' '}
-                      {t('indicator.section.CMCProprietaryData.title')}:
+                      {t(
+                        'indicator.fearAndGreed.section.CMCProprietaryData.title',
+                      )}
+                      :
                     </strong>
-                    {t('indicator.section.CMCProprietaryData.content')}
+                    {t(
+                      'indicator.fearAndGreed.section.CMCProprietaryData.content',
+                    )}
                   </li>
                 </ol>
               </div>

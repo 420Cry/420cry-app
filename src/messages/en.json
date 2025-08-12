@@ -186,7 +186,7 @@
       "description": "The CMC Fear and Greed Index is a proprietary tool developed by CoinMarketCap that measures the prevailing sentiment in the cryptocurrency market. This index ranges from 0 to 100, where a lower value indicates extreme fear, and a higher value indicates extreme greed. It helps investors understand the emotional state of the market, which can influence buying and selling behaviors. The index provides insights into whether the market may be undervalued (extreme fear) or overvalued (extreme greed).",
       "section": {
         "howToUseThisIndex": "How can I use this index?",
-        "marketSentimentAnalysis:": {
+        "marketSentimentAnalysis": {
           "title": "Market Sentiment Analysis:",
           "content": "By observing the current value of the index, you can gauge the overall mood of the cryptocurrency market. For example, a high value suggests that investors are overly greedy, which may indicate that the market is overheated and due for a correction. Conversely, a low value may suggest that fear is driving prices down, potentially creating buying opportunities."
         },
@@ -215,7 +215,7 @@
           "title": "Market Composition:",
           "content": "This component looks at the relative value of Bitcoin (BTC) in the market, using the Stablecoin Supply Ratio (SSR) to measure the ratio between Bitcoin’s market capitalization and that of major stablecoins."
         },
-        "CMCProprietaryData:": {
+        "CMCProprietaryData": {
           "title": "CMC (coin market cap) Proprietary Data:",
           "content": "The index also uses social trend keyword searches and user engagement metrics to capture market sentiment, retail interest, and emerging trends."
         }
