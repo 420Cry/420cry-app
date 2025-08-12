@@ -1,4 +1,4 @@
-import { API_URL, createErrorResponse, RequestService, getJWT } from '@/lib'
+import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { IResponse, ITransactionXPUB } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 

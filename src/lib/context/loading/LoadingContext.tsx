@@ -8,6 +8,7 @@ import {
   Dispatch,
   SetStateAction,
 } from 'react'
+import { JSX } from 'react/jsx-runtime'
 
 interface LoadingContextProps {
   loading: boolean
@@ -16,7 +17,11 @@ interface LoadingContextProps {
 
 const LoadingContext = createContext<LoadingContextProps | undefined>(undefined)
 
-export function LoadingProvider({ children }: { children: ReactNode }) {
+export function LoadingProvider({
+  children,
+}: {
+  children: ReactNode
+}): JSX.Element {
   const [loading, setLoading] = useState(false)
 
   return (
@@ -26,7 +31,10 @@ export function LoadingProvider({ children }: { children: ReactNode }) {
   )
 }
 
-export function useLoading() {
+export function useLoading(): {
+  loading: boolean
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
+} {
   const context = useContext(LoadingContext)
   if (!context)
     throw new Error('useLoading must be used within LoadingProvider')

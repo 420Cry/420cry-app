@@ -30,3 +30,12 @@ export type {
   ITransactionXPUB,
   XPUBTransaction,
 } from './wallet-explorer/ITransactionXPUB'
+export type { IModalState } from './modal/IModalState'
+export type {
+  IFearAndGreedIndexData,
+  IFearAndGreedIndex,
+} from './indicator/fear-and-greed/IFearAndGreedIndex'
+export type {
+  IFearAndGreedHistoricalData,
+  IFearAndGreedDataPoint,
+} from './indicator/fear-and-greed/IFearAndGreedHistorical'

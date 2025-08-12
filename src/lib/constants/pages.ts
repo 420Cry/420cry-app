@@ -12,6 +12,7 @@ export const TWO_FACTOR_SIGNUP_VERIFY_ROUTE = '/auth/signup/verify'
 // Home
 export const DASHBOARD_ROUTE = '/dashboard'
 export const HOME_ROUTE = '/'
+export const FEAR_AND_GREED_ROUTE = '/indicator/fear-and-greed'
 
 // Routes for middleware
 export const UN_AUTH_ROUTES = [
