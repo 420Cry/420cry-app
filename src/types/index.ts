@@ -35,4 +35,7 @@ export type {
   IFearAndGreedIndexData,
   IFearAndGreedIndex,
 } from './indicator/fear-and-greed/IFearAndGreedIndex'
-export type { IFearAndGreedHistoricalData, IFearAndGreedDataPoint } from './indicator/fear-and-greed/IFearAndGreedHistorical'
+export type {
+  IFearAndGreedHistoricalData,
+  IFearAndGreedDataPoint,
+} from './indicator/fear-and-greed/IFearAndGreedHistorical'

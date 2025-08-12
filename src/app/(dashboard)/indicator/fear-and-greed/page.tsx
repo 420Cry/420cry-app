@@ -4,13 +4,18 @@ import { useEffect, useState } from 'react'
 import { FearAndGreedService } from '@/lib'
 import { IFearAndGreedIndexData, IFearAndGreedHistoricalData } from '@/types'
 import { FearAndGreedHistorical, FearAndGreedIndex } from '@/components'
+import { useTranslations } from 'next-intl'
 
 export default function FearAndGreedPage() {
-  const [latestData, setLatestData] = useState<IFearAndGreedIndexData | null>(null)
-  const [historicalData, setHistoricalData] = useState<IFearAndGreedHistoricalData | null>(null)
+  const [latestData, setLatestData] = useState<IFearAndGreedIndexData | null>(
+    null,
+  )
+  const [historicalData, setHistoricalData] =
+    useState<IFearAndGreedHistoricalData | null>(null)
 
   // Track which section is expanded (null = none)
   const [expandedSection, setExpandedSection] = useState<number | null>(null)
+  const t = useTranslations()
 
   useEffect(() => {
     Promise.all([
@@ -29,7 +34,7 @@ export default function FearAndGreedPage() {
   if (!latestData || !historicalData) return null
 
   const toggleSection = (index: number) => {
-    setExpandedSection(prev => (prev === index ? null : index))
+    setExpandedSection((prev) => (prev === index ? null : index))
   }
 
   // Helper to set maxHeight style and padding bottom for smooth accordion
@@ -47,7 +52,6 @@ export default function FearAndGreedPage() {
             <FearAndGreedIndex data={latestData.data} />
           </div>
 
-
           {/* Accordion style text blocks */}
           <div className="space-y-6">
             <section className="border rounded-lg bg-white shadow-sm">
@@ -57,7 +61,7 @@ export default function FearAndGreedPage() {
                 aria-expanded={expandedSection === 0}
                 aria-controls="section-0-content"
               >
-                About CMC Crypto Fear and Greed Index
+                {t('indicator.about')}
                 <span>{expandedSection === 0 ? '−' : '+'}</span>
               </button>
               <div
@@ -65,15 +69,7 @@ export default function FearAndGreedPage() {
                 className="transition-max-height duration-300 ease-in-out overflow-hidden px-6"
                 style={getAccordionStyle(expandedSection === 0)}
               >
-                <p>
-                  The CMC Fear and Greed Index is a proprietary tool developed by CoinMarketCap that
-                  measures the prevailing sentiment in the cryptocurrency market. This index ranges
-                  from 0 to 100, where a lower value indicates extreme fear, and a higher value
-                  indicates extreme greed. It helps investors understand the emotional state of the
-                  market, which can influence buying and selling behaviors. The index provides
-                  insights into whether the market may be undervalued (extreme fear) or overvalued
-                  (extreme greed).
-                </p>
+                <p>{t('indicator.description')}</p>
               </div>
             </section>
 
@@ -84,7 +80,7 @@ export default function FearAndGreedPage() {
                 aria-expanded={expandedSection === 1}
                 aria-controls="section-1-content"
               >
-                How can I use this index?
+                {t('indicator.section.howCanIUseThisIndex')}
                 <span>{expandedSection === 1 ? '−' : '+'}</span>
               </button>
               <div
@@ -94,25 +90,23 @@ export default function FearAndGreedPage() {
               >
                 <ul className="list-disc ml-5 space-y-2">
                   <li>
-                    <strong>Market Sentiment Analysis:</strong> By observing the current value of the
-                    index, you can gauge the overall mood of the cryptocurrency market. For example,
-                    a high value suggests that investors are overly greedy, which may indicate that
-                    the market is overheated and due for a correction. Conversely, a low value may
-                    suggest that fear is driving prices down, potentially creating buying
-                    opportunities.
+                    <strong>
+                      {' '}
+                      {t('indicator.section.marketSentimentAnalysis.title')}
+                    </strong>
+                    {t('indicator.section.marketSentimentAnalysis.content')}
                   </li>
                   <li>
-                    <strong>Contrarian Strategy:</strong> Some investors use the index as part of a
-                    contrarian investment strategy. The idea is to "be fearful when others are greedy
-                    and greedy when others are fearful." If the index shows extreme greed, it might be
-                    a signal to consider selling assets, while extreme fear could indicate a buying
-                    opportunity.
+                    <strong>
+                      {t('indicator.section.contrarianStrategy.title')}
+                    </strong>
+                    {t('indicator.section.contrarianStrategy.content')}
                   </li>
                   <li>
-                    <strong>Complementary Analysis:</strong> Use the index alongside other analytical
-                    tools and indicators to make more informed decisions. It’s important to
-                    remember that the index is a tool for gauging sentiment and should not be used in
-                    isolation.
+                    <strong>
+                      {t('indicator.section.complementaryAnalysis.title')}
+                    </strong>
+                    {t('indicator.section.complementaryAnalysis.content')}
                   </li>
                 </ul>
               </div>
@@ -125,7 +119,7 @@ export default function FearAndGreedPage() {
                 aria-expanded={expandedSection === 2}
                 aria-controls="section-2-content"
               >
-                How is this index calculated?
+                {t('indicator.section.howIsThisIndexCalculated')}
                 <span>{expandedSection === 2 ? '−' : '+'}</span>
               </button>
               <div
@@ -135,38 +129,41 @@ export default function FearAndGreedPage() {
               >
                 <ol className="list-decimal ml-5 space-y-2">
                   <li>
-                    <strong>Price Momentum:</strong> This factor analyzes the price performance of the
-                    top 10 cryptocurrencies by market capitalization (excluding stablecoins). It
-                    assesses how these coins are performing relative to each other and the broader
-                    market.
+                    <strong>
+                      {t('indicator.section.priceMomentum.title')}
+                    </strong>
+                    {t('indicator.section.priceMomentum.content')}
                   </li>
                   <li>
-                    <strong>Volatility:</strong> The index incorporates Volmex Implied Volatility
-                    Indices (BVIV and EVIV) for Bitcoin (BTC) and Ethereum (ETH), which provide
-                    forward-looking measures of expected volatility over the next 30 days.
+                    <strong> {t('indicator.section.volatility.title')}</strong>
+                    {t('indicator.section.volatility.content')}
                   </li>
                   <li>
-                    <strong>Derivatives Market:</strong> The index considers the Put/Call Ratio in the
-                    Bitcoin and Ethereum options markets. A higher ratio of puts to calls indicates
-                    more fear in the market, suggesting bearish expectations among investors.
+                    <strong>
+                      {' '}
+                      {t('indicator.section.derivativesMarket.title')}
+                    </strong>
+                    {t('indicator.section.derivativesMarket.content')}
                   </li>
                   <li>
-                    <strong>Market Composition:</strong> This component looks at the relative value of
-                    Bitcoin (BTC) in the market, using the Stablecoin Supply Ratio (SSR) to measure
-                    the ratio between Bitcoin’s market capitalization and that of major stablecoins.
+                    <strong>
+                      {t('indicator.section.marketComposition.title')}
+                    </strong>
+
+                    {t('indicator.section.marketComposition.content')}
                   </li>
                   <li>
-                    <strong>CMC Proprietary Data:</strong> The index also uses social trend keyword
-                    searches and user engagement metrics to capture market sentiment, retail
-                    interest, and emerging trends.
+                    <strong>
+                      {' '}
+                      {t('indicator.section.CMCProprietaryData.title')}:
+                    </strong>
+                    {t('indicator.section.CMCProprietaryData.content')}
                   </li>
                 </ol>
               </div>
             </section>
           </div>
         </div>
-
-        {/* Right column 7/10 */}
         <div className="md:flex-[7_7_0%] flex items-center justify-center mt-10 md:mt-0">
           <FearAndGreedHistorical data={historicalData.data} />
         </div>

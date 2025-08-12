@@ -181,7 +181,45 @@
       "greed": "Tham lam",
       "neutral": "Trung lập",
       "extremeFear": "Sợ hãi cực độ",
-      "extremeGreed": "Tham lam cực độ"
+      "extremeGreed": "Tham lam cực độ",
+      "about": "Giới thiệu về Chỉ số Sợ hãi và Tham lam Tiền điện tử CMC",
+      "description": "Chỉ số Sợ hãi và Tham lam CMC là một công cụ độc quyền được phát triển bởi CoinMarketCap, dùng để đo lường tâm lý chung trên thị trường tiền điện tử. Chỉ số này dao động từ 0 đến 100, trong đó giá trị thấp hơn biểu thị mức độ sợ hãi cực độ, và giá trị cao hơn biểu thị mức độ tham lam cực độ. Chỉ số này giúp các nhà đầu tư hiểu được trạng thái cảm xúc của thị trường, điều này có thể ảnh hưởng đến hành vi mua và bán. Chỉ số này cung cấp thông tin chi tiết về việc thị trường có thể bị định giá thấp (sợ hãi cực độ) hay được định giá quá cao (lòng tham cực độ).",
+      "section": {
+        "howCanIUseThisIndex": "Tôi có thể sử dụng chỉ mục này như thế nào?",
+        "marketSentimentAnalysis:": {
+          "title": "Phân tích tâm lý thị trường:",
+          "content": "Bằng cách quan sát giá trị hiện tại của chỉ số, bạn có thể đánh giá tâm lý chung của thị trường tiền điện tử. Ví dụ, giá trị cao cho thấy các nhà đầu tư đang quá tham lam, điều này có thể cho thấy thị trường đang quá nóng và sắp có một đợt điều chỉnh. Ngược lại, giá trị thấp có thể cho thấy nỗi sợ hãi đang khiến giá giảm, tạo ra cơ hội mua vào."
+        },
+        "contrarianStrategy": {
+          "title": "Chiến lược ngược đời:",
+          "content": "Một số nhà đầu tư sử dụng chỉ số này như một phần của chiến lược đầu tư ngược xu hướng. Ý tưởng là hãy sợ hãi khi người khác tham lam và hãy tham lam khi người khác sợ hãi. Nếu chỉ số cho thấy lòng tham tột độ, đó có thể là tín hiệu để cân nhắc bán tài sản, trong khi nỗi sợ hãi tột độ có thể báo hiệu cơ hội mua vào."
+        },
+        "complementaryAnalysis": {
+          "title": "Phân tích bổ sung:",
+          "content": "Sử dụng chỉ số cùng với các công cụ và chỉ báo phân tích khác để đưa ra những quyết định sáng suốt hơn. Điều quan trọng cần nhớ là chỉ số là một công cụ để đo lường tâm lý và không nên được sử dụng một cách riêng lẻ."
+        },
+        "howIsThisIndexCalculated": "Chỉ số này được tính như thế nào?",
+        "priceMomentum": {
+          "title": "Động lực giá:",
+          "content": "Yếu tố này phân tích hiệu suất giá của 10 loại tiền điện tử hàng đầu theo vốn hóa thị trường (không bao gồm stablecoin). Yếu tố này đánh giá hiệu suất của các đồng tiền này so với nhau và so với thị trường rộng lớn hơn."
+        },
+        "volatility": {
+          "title": "Sự biến động:",
+          "content": "Chỉ số này kết hợp Chỉ số biến động ngụ ý Volmex (BVIV và EVIV) dành cho Bitcoin (BTC) và Ethereum (ETH), cung cấp các biện pháp dự báo về biến động dự kiến trong 30 ngày tới."
+        },
+        "derivativesMarket": {
+          "title": "Thị trường phái sinh:",
+          "content": "Chỉ số này xem xét Tỷ lệ quyền chọn bán/quyền chọn mua trên thị trường quyền chọn Bitcoin và Ethereum. Tỷ lệ quyền chọn bán/quyền chọn mua cao hơn cho thấy nỗi sợ hãi gia tăng trên thị trường, cho thấy kỳ vọng bi quan của các nhà đầu tư."
+        },
+        "marketComposition": {
+          "title": "Thành phần thị trường:",
+          "content": "Thành phần này xem xét giá trị tương đối của Bitcoin (BTC) trên thị trường, sử dụng Tỷ lệ cung ứng Stablecoin (SSR) để đo lường tỷ lệ giữa vốn hóa thị trường của Bitcoin và các stablecoin lớn."
+        },
+        "CMCProprietaryData:": {
+          "title": "Dữ liệu độc quyền của CMC(coin market cap):",
+          "content": "Chỉ số này cũng sử dụng các tìm kiếm từ khóa theo xu hướng xã hội và số liệu về mức độ tương tác của người dùng để nắm bắt tâm lý thị trường, sự quan tâm của nhà bán lẻ và các xu hướng mới nổi."
+        }
+      }
     }
   }
 }
