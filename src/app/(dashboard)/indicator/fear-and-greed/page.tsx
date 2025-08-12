@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { FearAndGreedService } from '@/lib'
 import { IFearAndGreedIndexData, IFearAndGreedHistoricalData } from '@/types'
 import { FearAndGreedHistorical, FearAndGreedIndex } from '@/components'
 import { useTranslations } from 'next-intl'
 
-export default function FearAndGreedPage() {
+export default function FearAndGreedPage(): JSX.Element {
   const [latestData, setLatestData] = useState<IFearAndGreedIndexData | null>(
     null,
   )
@@ -31,7 +31,7 @@ export default function FearAndGreedPage() {
     })
   }, [])
 
-  if (!latestData || !historicalData) return null
+  if (!latestData || !historicalData) return <></>
 
   const toggleSection = (index: number) => {
     setExpandedSection((prev) => (prev === index ? null : index))

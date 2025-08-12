@@ -2,12 +2,15 @@
 
 import { IFearAndGreedIndex } from '@/types'
 import { useTranslations } from 'next-intl'
+import { JSX } from 'react'
 
 interface FearAndGreedGaugeProps {
   data: IFearAndGreedIndex
 }
 
-export default function FearAndGreedGauge({ data }: FearAndGreedGaugeProps) {
+export default function FearAndGreedGauge({
+  data,
+}: FearAndGreedGaugeProps): JSX.Element {
   const t = useTranslations()
 
   const value = data.value

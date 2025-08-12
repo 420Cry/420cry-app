@@ -1,8 +1,8 @@
 import { API_URL, createErrorResponse, RequestService } from '@/lib'
 import { IFearAndGreedIndexData, IResponse } from '@/types'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
   try {
     const response = await RequestService.axiosGet<
       null,
