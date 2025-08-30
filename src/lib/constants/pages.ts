@@ -7,6 +7,7 @@ export const RESET_PASSWORD_ROUTE = '/auth/reset-password'
 // 2FA
 export const TWO_FACTOR_SETUP_ROUTE = '/2fa/setup'
 export const TWO_FACTOR_VERIFY_ROUTE = '/2fa/verify'
+export const TWO_FACTOR_ALTERNATIVE = '/2fa/alternative'
 export const TWO_FACTOR_SIGNUP_VERIFY_ROUTE = '/auth/signup/verify'
 
 // Home

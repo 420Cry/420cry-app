@@ -118,10 +118,22 @@
       "invalidToken": "Mã xác nhận không hợp lệ"
     },
     "Verify": {
-      "title": "Two-Factor Authentication",
-      "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
-      "verifyCode": "Verify Code",
-      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
+      "title": "Xác minh xác thực hai yếu tố",
+      "description": "Mở ứng dụng xác thực của bạn (như Google Authenticator, Authy hoặc 1Password) và nhập mã 6 chữ số bên dưới.",
+      "verifyCode": "Mã xác nhận",
+      "havingTroubleWithAuthenticatorApp": "Gặp khó khăn với ứng dụng xác thực?"
+    },
+    "alternative": {
+      "title": "Xác minh 2FA thay thế",
+      "description": "Nhận mã qua email thay vào đó.",
+      "sendTo": "Email đã gửi đến",
+      "resendCode": "Gửi lại mã",
+      "resendIn": "Gửi lại trong",
+      "sendCode": "Gửi mã",
+      "emailSend": "email đã gửi đến {email}",
+      "enterVerificationCode": "Nhập mã xác minh",
+      "verifyTitle": "Xác minh mã",
+      "verifyDescription": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn"
     }
   },
   "dashboard": {

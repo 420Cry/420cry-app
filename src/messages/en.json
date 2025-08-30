@@ -121,7 +121,19 @@
       "title": "Two-Factor Authentication",
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
-      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
+      "havingTroubleWithAuthenticatorApp": "Having trouble with authenticator app?"
+    },
+    "alternative": {
+      "title": "Alternative 2FA Verification",
+      "description": "Get the code via email instead.",
+      "sendTo": "Email sent to",
+      "resendCode": "Resend Code",
+      "resendIn": "Resend in",
+      "sendCode": "Send code",
+      "emailSend": "Email sent to {email}",
+      "enterVerificationCode": "Enter Verification Code",
+      "verifyTitle": "Verify Code",
+      "verifyDescription": "Please enter the verification token we have sent to your email."
     }
   },
   "dashboard": {

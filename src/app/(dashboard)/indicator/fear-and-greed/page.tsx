@@ -46,13 +46,11 @@ export default function FearAndGreedPage(): JSX.Element {
   return (
     <main className="max-w mx-auto p-6">
       <div className="flex flex-col md:flex-row md:gap-12">
-        {/* Left column 3/10 */}
         <div className="md:flex-[3_3_0%] flex flex-col gap-6">
           <div className="w-full max-w-md ml-20">
             <FearAndGreedIndex data={latestData.data} />
           </div>
 
-          {/* Accordion style text blocks */}
           <div className="space-y-6">
             <section className="border rounded-lg bg-white shadow-sm">
               <button
