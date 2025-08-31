@@ -41,7 +41,7 @@ const LanguageChangeButton = (): JSX.Element => {
   return (
     <div className="flex items-center justify-center gap-4">
       <span className={`${isEN ? 'text-white' : 'text-gray-400'} font-bold`}>
-        VN
+        EN
       </span>
       <button
         onClick={changeLanguage}
@@ -50,7 +50,7 @@ const LanguageChangeButton = (): JSX.Element => {
         <span className={buttonClassname}></span>
       </button>
       <span className={`${isEN ? 'text-gray-400' : 'text-white'} font-bold`}>
-        EN
+        VN
       </span>
     </div>
   )

@@ -25,11 +25,11 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         showToast(false, t('app.alertTitle.somethingWentWrong'))
         return
       }
-
       if (!otp.trim()) {
         showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
         return
       }
+
       const response = await TwoFactorVerifyService.verifyToken({
         userUUID: user.uuid,
         otp,
@@ -52,41 +52,39 @@ const TwoFactorVerifyForm = (): JSX.Element => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-r from-green-400 to-emerald-600">
-      <div className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-10 border border-gray-200">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">
-          {t('2fa.verify.title')}
-        </h1>
-        <p className="text-gray-700 text-base text-center mb-8 font-mono">
-          {t('2fa.verify.description')}
-        </p>
+    <div className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-10 border border-gray-200">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">
+        {t('2fa.verify.title')}
+      </h1>
+      <p className="text-gray-700 text-base text-center mb-8 font-mono">
+        {t('2fa.verify.description')}
+      </p>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <CryTextField
-            modelValue={otp}
-            onChange={setOtp}
-            placeholder="Enter 6-digit code"
-            shape="rounded"
-            name="otp"
-            className="text-xl px-6 py-4 focus:shadow-green-500/50 transition duration-300"
-          />
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <CryTextField
+          modelValue={otp}
+          onChange={setOtp}
+          placeholder="Enter 6-digit code"
+          shape="rounded"
+          name="otp"
+          className="text-xl px-6 py-4 focus:shadow-green-500/50 transition duration-300"
+        />
 
-          <CryButton
-            type="submit"
-            className="w-full bg-green-600 text-white text-lg font-semibold px-6 py-4 rounded-xl hover:bg-green-700 hover:scale-105 transform transition-all shadow-lg"
-            rounded
-          >
-            {t('2fa.verify.verifyCode')}
-          </CryButton>
-        </form>
-
-        <p
-          className="mt-8 text-center text-base font-semibold text-gray-800 hover:underline cursor-pointer transition-colors"
-          onClick={handleAuthenticatorTroubleClick}
+        <CryButton
+          type="submit"
+          className="w-full bg-green-600 text-white text-lg font-semibold px-6 py-4 rounded-xl hover:bg-green-700 hover:scale-105 transform transition-all shadow-lg"
+          rounded
         >
-          {t('2fa.verify.havingTroubleWithAuthenticatorApp')}
-        </p>
-      </div>
+          {t('2fa.verify.verifyCode')}
+        </CryButton>
+      </form>
+
+      <p
+        className="mt-8 text-center text-base font-semibold text-gray-800 hover:underline cursor-pointer transition-colors"
+        onClick={handleAuthenticatorTroubleClick}
+      >
+        {t('2fa.verify.havingTroubleWithAuthenticatorApp')}
+      </p>
     </div>
   )
 }

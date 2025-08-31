@@ -133,7 +133,8 @@
       "emailSend": "Email sent to {email}",
       "enterVerificationCode": "Enter Verification Code",
       "verifyTitle": "Verify Code",
-      "verifyDescription": "Please enter the verification token we have sent to your email."
+      "verifyDescription": "Please enter the verification token we have sent to your email.",
+      "backToVerify": "Back to Verify"
     }
   },
   "dashboard": {

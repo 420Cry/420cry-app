@@ -74,7 +74,7 @@ const TwoFactorSetupQRCode = ({
     return <p className="text-center py-10">{t('app.common.loading')}</p>
   }
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 relative">
+    <div className="flex flex-col justify-center items-center px-4 relative">
       <div className="max-w-lg w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
         <div className="bg-gray-100 px-8 py-6">
           <p className="text-xl font-semibold text-left">{t('2fa.QR.title')}</p>

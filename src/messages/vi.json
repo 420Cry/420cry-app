@@ -117,7 +117,7 @@
       "stepTwo": "Nhập mã 6 chữ số bạn thấy trong ứng dụng xác thực của mình",
       "invalidToken": "Mã xác nhận không hợp lệ"
     },
-    "Verify": {
+    "verify": {
       "title": "Xác minh xác thực hai yếu tố",
       "description": "Mở ứng dụng xác thực của bạn (như Google Authenticator, Authy hoặc 1Password) và nhập mã 6 chữ số bên dưới.",
       "verifyCode": "Mã xác nhận",
@@ -133,7 +133,8 @@
       "emailSend": "email đã gửi đến {email}",
       "enterVerificationCode": "Nhập mã xác minh",
       "verifyTitle": "Xác minh mã",
-      "verifyDescription": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn"
+      "verifyDescription": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn",
+      "backToVerify": "Quay lại xác minh"
     }
   },
   "dashboard": {
