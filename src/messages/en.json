@@ -32,7 +32,8 @@
       "invalidLanguage": "Invalid Language",
       "validTransaction": "Transaction is found",
       "validWallet": "Wallet is found",
-      "emailOrUserNameAlreadyExist": "Username or email already exists"
+      "emailOrUserNameAlreadyExist": "Username or email already exists",
+      "profileAlreadyCompleted": "Your profile is already completed. Please login again!"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -122,6 +123,12 @@
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
       "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
+    }
+  },
+  "oauth": {
+    "signup": {
+      "title": "Please complete your profile to continue",
+      "button": "Complete"
     }
   },
   "dashboard": {

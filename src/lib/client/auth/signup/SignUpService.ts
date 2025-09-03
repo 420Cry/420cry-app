@@ -1,10 +1,19 @@
-import { SIGN_UP_API, SignUpFormSchema, validateFormData } from '@/lib'
+import {
+  COMPLETE_PROFILE_API,
+  SIGN_UP_API,
+  SignUpFormSchema,
+  validateFormData,
+} from '@/lib'
+import SignUpError from '@/lib/constants/error/SignUpError'
 
 import { RequestService } from '@/lib/requests/RequestService'
-import { IResponse, ISignUp } from '@/types'
+import { IResponse, ISignUp, IUser } from '@/types'
 
 export const SignUpService = {
-  signUpAction: async (formData: FormData): Promise<IResponse> => {
+  signUpAction: async (
+    formData: FormData,
+    isOAuthSignUp: boolean,
+  ): Promise<{ response: IResponse; user?: IUser }> => {
     const formValues = {
       fullName: formData.get('fullName')?.toString() || '',
       email: formData.get('email')?.toString() || '',
@@ -15,8 +24,10 @@ export const SignUpService = {
     const validation = validateFormData(SignUpFormSchema, formValues)
     if (!validation.success) {
       return {
-        isSuccess: false,
-        message: validation.message,
+        response: {
+          isSuccess: false,
+          message: validation.message,
+        },
       }
     }
     try {
@@ -26,26 +37,34 @@ export const SignUpService = {
         username: validation.data.userName,
         password: validation.data.password,
       }
-      const response = await RequestService.nativeFetchPost<ISignUp, IResponse>(
-        SIGN_UP_API,
-        payload,
-      )
+
+      if (isOAuthSignUp) {
+        const response = await RequestService.nativeFetchPost<
+          ISignUp,
+          { response: IResponse; user?: IUser }
+        >(COMPLETE_PROFILE_API, payload)
+        return response
+      }
+
+      const response = await RequestService.nativeFetchPost<
+        ISignUp,
+        { response: IResponse; user?: IUser }
+      >(SIGN_UP_API, payload)
       return response
     } catch (error: unknown) {
-      if (
-        typeof error === 'object' &&
-        error !== null &&
-        'status' in error &&
-        (error as { status?: number }).status === 409
-      ) {
+      if (typeof error === 'object' && error !== null && 'status' in error) {
         return {
-          isSuccess: false,
-          message: 'app.alertTitle.emailOrUserNameAlreadyExist',
+          response: {
+            isSuccess: false,
+            message: SignUpError[error?.status as number],
+          },
         }
       }
       return {
-        isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        response: {
+          isSuccess: false,
+          message: 'app.alertTitle.somethingWentWrong',
+        },
       }
     }
   },
