@@ -3,7 +3,7 @@
 import { JSX, useState, useMemo, useEffect } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { showToast, TWO_FACTOR_VERIFY_ROUTE } from '@/lib'
+import { showToast, TWO_FACTOR_VERIFY_ROUTE, twoFactorService } from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
 
@@ -15,11 +15,11 @@ const maskEmail = (email: string): string => {
   return `${visiblePart}${'*'.repeat(Math.max(1, name.length - 2))}@${domain}`
 }
 
-const TwoFactorAlternativeForm = (): JSX.Element => {
+const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const [isSending, setIsSending] = useState(false)
   const [emailSent, setEmailSent] = useState(false)
   const [otp, setOtp] = useState('')
-  const [timeLeft, setTimeLeft] = useState(10 * 60) // 10 minutes
+  const [timeLeft, setTimeLeft] = useState(5 * 60) // 5 minutes
   const [canResend, setCanResend] = useState(false)
   const user = useAuthStore((state) => state.user)
   const t = useTranslations()
@@ -28,7 +28,8 @@ const TwoFactorAlternativeForm = (): JSX.Element => {
 
   // countdown timer
   useEffect(() => {
-    if (!emailSent) return
+    if (!emailSent) return undefined
+
     setCanResend(false)
     const interval = setInterval(() => {
       setTimeLeft((prev) => {
@@ -44,17 +45,30 @@ const TwoFactorAlternativeForm = (): JSX.Element => {
         return prev - 1
       })
     }, 1000)
+
     return () => clearInterval(interval)
   }, [emailSent, t])
 
-  const handleSendEmail = async () => {
+  const handleSendAlternativeEmail = async () => {
+    const email = user?.email
+    if (!email) {
+      showToast(false, t('app.alertTitle.emailNotExist'))
+      return
+    }
+
+    setIsSending(true)
     try {
-      setIsSending(true)
-      // await TwoFactorService.sendEmailOTP(user?.email)
-      showToast(true, t('2fa.alternative.emailSend', { email }))
-      setEmailSent(true)
-      setTimeLeft(10 * 60)
-      setCanResend(false)
+      const response =
+        await twoFactorService.alternative.sendAlternativeEmailOTP(email)
+
+      if (response.isSuccess) {
+        showToast(true, t('2fa.alternative.emailSend', { email }))
+        setEmailSent(true)
+        setTimeLeft(10 * 60)
+        setCanResend(false)
+      } else {
+        showToast(false, t(response.message))
+      }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     } finally {
@@ -68,7 +82,7 @@ const TwoFactorAlternativeForm = (): JSX.Element => {
       return
     }
     try {
-      // await TwoFactorService.verifyEmailOTP({ email: user?.email, otp })
+      //await twoFactorService.alternative.verifyEmailOTP({ email: user?.email, otp })
       showToast(true, t('2fa.alternative.verifySuccess'))
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
@@ -103,14 +117,12 @@ const TwoFactorAlternativeForm = (): JSX.Element => {
         <div>
           <div className="flex items-center space-x-4 w-full">
             <CryButton
-              onClick={handleSendEmail}
+              onClick={handleSendAlternativeEmail}
               disabled={isSending}
               className="flex-shrink-0 bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition font-medium shadow-lg text-lg"
               rounded
             >
-              {isSending
-                ? t('2fa.alternative.sending')
-                : t('2fa.alternative.sendCode')}
+              {t('2fa.alternative.sendCode')}
             </CryButton>
 
             <div className="flex-1 bg-gray-900 text-green-400 font-mono text-sm rounded-lg px-4 py-3 shadow-inner text-right break-all">
@@ -146,7 +158,7 @@ const TwoFactorAlternativeForm = (): JSX.Element => {
           </CryButton>
 
           <CryButton
-            onClick={handleSendEmail}
+            onClick={handleSendAlternativeEmail}
             disabled={!canResend || isSending}
             className={`mt-4 w-full ${
               canResend
@@ -167,4 +179,4 @@ const TwoFactorAlternativeForm = (): JSX.Element => {
   )
 }
 
-export default TwoFactorAlternativeForm
+export default TwoFactorAlternativeSendForm

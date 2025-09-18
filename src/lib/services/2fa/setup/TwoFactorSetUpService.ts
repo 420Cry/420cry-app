@@ -11,10 +11,10 @@ import {
   IUser,
 } from '@/types'
 
-export const TwoFactorSetUpService = {
-  getQRCodeAndSecret: async (
+export class TwoFactorSetUpService {
+  public async getQRCodeAndSecret(
     userUUID: ITwoFactorSetUpRequest,
-  ): Promise<ITwoFactorSetUpResponse> => {
+  ): Promise<ITwoFactorSetUpResponse> {
     try {
       return await RequestService.nativeFetchPost<
         ITwoFactorSetUpRequest,
@@ -26,11 +26,11 @@ export const TwoFactorSetUpService = {
         qrCode: '',
       }
     }
-  },
+  }
 
-  verifyToken: async (
+  public async verifyToken(
     payload: ITwoFactorSetUpRequest,
-  ): Promise<{ response: IResponse; user?: IUser }> => {
+  ): Promise<{ response: IResponse; user?: IUser }> {
     try {
       return await RequestService.nativeFetchPost<
         ITwoFactorSetUpRequest,
@@ -44,20 +44,19 @@ export const TwoFactorSetUpService = {
         },
       }
     }
-  },
+  }
 
-  skipForNow: async (): Promise<IResponse> => {
+  public async skipForNow(): Promise<IResponse> {
     try {
-      const res = await RequestService.nativeFetchPost<null, IResponse>(
+      return await RequestService.nativeFetchPost<null, IResponse>(
         SKIP_SETUP_FOR_NOW_API,
         null,
       )
-      return res
     } catch {
       return {
         isSuccess: false,
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

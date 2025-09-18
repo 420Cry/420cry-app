@@ -32,7 +32,8 @@
       "invalidLanguage": "Sai ngôn ngữ",
       "validTransaction": "Giao dịch được tìm thấy",
       "validWallet": "Ví được tìm thấy",
-      "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại"
+      "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại",
+      "emailNotExist": "Email không tồn tại"
     },
     "rules": {
       "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",

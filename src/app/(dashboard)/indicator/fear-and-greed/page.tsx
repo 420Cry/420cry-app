@@ -1,7 +1,7 @@
 'use client'
 
 import { JSX, useEffect, useState } from 'react'
-import { FearAndGreedService } from '@/lib'
+import { externalService } from '@/lib'
 import { IFearAndGreedIndexData, IFearAndGreedHistoricalData } from '@/types'
 import { FearAndGreedHistorical, FearAndGreedIndex } from '@/components'
 import { useTranslations } from 'next-intl'
@@ -19,8 +19,8 @@ export default function FearAndGreedPage(): JSX.Element {
 
   useEffect(() => {
     Promise.all([
-      FearAndGreedService.geFearAndGreedIndextLatest(),
-      FearAndGreedService.geFearAndGreedIndextHistorical(),
+      externalService.indicator.fearAndGreed.getFearAndGreedIndextLatest(),
+      externalService.indicator.fearAndGreed.getFearAndGreedIndextHistorical(),
     ]).then(([latestResponse, historicalResponse]) => {
       if (latestResponse.isSuccess && latestResponse.data) {
         setLatestData(latestResponse.data)

@@ -1,8 +1,8 @@
 import { VERIFY_ACCOUNT_TOKEN_API, RequestService } from '@/lib'
 import { IResponse, IVerifyAccountToken } from '@/types'
 
-export const VerifyAccountTokenService = {
-  verifyToken: async (token: IVerifyAccountToken): Promise<IResponse> => {
+export class VerifyAccountTokenService {
+  public async verifyToken(token: IVerifyAccountToken): Promise<IResponse> {
     try {
       return await RequestService.nativeFetchPost<
         IVerifyAccountToken,
@@ -14,5 +14,5 @@ export const VerifyAccountTokenService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

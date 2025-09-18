@@ -10,7 +10,7 @@ import {
   FEAR_AND_GREED_ROUTE,
   showToast,
   SIGN_IN_ROUTE,
-  SignOutRequestService,
+  authService,
 } from '@/lib'
 
 import {
@@ -35,7 +35,7 @@ export default function Sidebar(): JSX.Element {
 
   const logout = async () => {
     try {
-      const response = await SignOutRequestService.signOut()
+      const response = await authService.signOut.signOut()
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }

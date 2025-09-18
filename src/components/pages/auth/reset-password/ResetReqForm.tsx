@@ -8,12 +8,7 @@ import {
 import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import {
-  fieldsRequired,
-  showToast,
-  ResetRequestService,
-  SIGN_IN_ROUTE,
-} from '@/lib'
+import { fieldsRequired, showToast, authService, SIGN_IN_ROUTE } from '@/lib'
 import { useRouter } from 'next/navigation'
 
 const ResetReqForm = (): JSX.Element => {
@@ -25,7 +20,8 @@ const ResetReqForm = (): JSX.Element => {
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response = await ResetRequestService.resetRequestAction(formData)
+    const response =
+      await authService.resetPassword.request.resetRequestAction(formData)
     showToast(response.isSuccess, t(response.message))
 
     if (response.isSuccess) {

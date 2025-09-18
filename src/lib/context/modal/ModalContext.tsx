@@ -1,11 +1,11 @@
 'use client'
 
 import React, {
-  JSX,
-  ReactNode,
   createContext,
   useContext,
   useState,
+  JSX,
+  ReactNode,
 } from 'react'
 import { IModalState } from '@/types/modal/IModalState'
 
@@ -25,13 +25,8 @@ export function ModalProvider({
 }): JSX.Element {
   const [modal, setModal] = useState<IModalState>({ type: null, data: null })
 
-  const openModal = (modalState: IModalState): void => {
-    setModal(modalState)
-  }
-
-  const closeModal = (): void => {
-    setModal({ type: null, data: null })
-  }
+  const openModal = (modalState: IModalState): void => setModal(modalState)
+  const closeModal = (): void => setModal({ type: null, data: null })
 
   return (
     <ModalContext.Provider value={{ modal, openModal, closeModal }}>
@@ -42,8 +37,6 @@ export function ModalProvider({
 
 export function useModal(): ModalContextProps {
   const context = useContext(ModalContext)
-  if (!context) {
-    throw new Error('useModal must be used within ModalProvider')
-  }
+  if (!context) throw new Error('useModal must be used within ModalProvider')
   return context
 }

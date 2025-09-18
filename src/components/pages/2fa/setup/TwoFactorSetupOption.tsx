@@ -1,6 +1,6 @@
 'use client'
 
-import { HOME_ROUTE, showToast, TwoFactorSetUpService } from '@/lib'
+import { HOME_ROUTE, showToast, twoFactorService } from '@/lib'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -33,7 +33,7 @@ const TwoFactorSetupOption = ({
     e.preventDefault()
 
     try {
-      const skip = await TwoFactorSetUpService.skipForNow()
+      const skip = await twoFactorService.setup.skipForNow()
       if (skip.isSuccess) {
         router.push(HOME_ROUTE)
       }

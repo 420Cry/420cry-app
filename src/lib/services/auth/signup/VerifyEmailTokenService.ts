@@ -1,10 +1,10 @@
 import { VERIFY_EMAIL_TOKEN_API, RequestService } from '@/lib'
 import { IResponse, ISignUpVerificationToken } from '@/types'
 
-export const VerifyEmailTokenService = {
-  verifyToken: async (
+export class VerifyEmailTokenService {
+  public async verifyToken(
     payload: ISignUpVerificationToken,
-  ): Promise<IResponse> => {
+  ): Promise<IResponse> {
     try {
       return await RequestService.nativeFetchPost<
         ISignUpVerificationToken,
@@ -16,5 +16,5 @@ export const VerifyEmailTokenService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

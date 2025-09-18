@@ -4,11 +4,11 @@ import { ResetPasswordSchema } from '@/lib/server/validation/auth/ResetPasswordS
 import { validateFormData } from '@/lib/server/validation/validateFormData'
 import { IResponse, IVerifyResetPassword } from '@/types'
 
-export const VerifyResetPasswordService = {
-  verifyResetPasswordAction: async (
+export class VerifyResetPasswordService {
+  public async verifyResetPasswordAction(
     formData: FormData,
     resetPasswordToken?: string,
-  ): Promise<IResponse> => {
+  ): Promise<IResponse> {
     try {
       const formValues = {
         newPassword: formData.get('newPassword')?.toString() || '',
@@ -40,5 +40,5 @@ export const VerifyResetPasswordService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

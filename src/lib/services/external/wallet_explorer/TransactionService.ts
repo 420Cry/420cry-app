@@ -1,8 +1,8 @@
 import { GET_TRANSACTION_API, GET_XPUB_API, RequestService } from '@/lib'
 import { IResponse, ITransactionData, ITransactionXPUB } from '@/types'
 
-export const TransactionService = {
-  async getTransaction(
+export class TransactionService {
+  public async getTransaction(
     txid: string,
   ): Promise<IResponse & { data?: ITransactionData }> {
     try {
@@ -22,8 +22,8 @@ export const TransactionService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
-  async getTransactionByXPUB(
+  }
+  public async getTransactionByXPUB(
     xpub: string,
   ): Promise<IResponse & { data?: ITransactionXPUB }> {
     try {
@@ -43,5 +43,5 @@ export const TransactionService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

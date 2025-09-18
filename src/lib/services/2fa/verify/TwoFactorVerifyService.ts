@@ -1,8 +1,10 @@
 import { VERIFY_2FA_OTP_API, RequestService, ApiError } from '@/lib'
 import { IResponse, ITwoFactorVerifyRequest } from '@/types'
 
-export const TwoFactorVerifyService = {
-  async verifyToken(payload: ITwoFactorVerifyRequest): Promise<IResponse> {
+export class TwoFactorVerifyService {
+  public async verifyToken(
+    payload: ITwoFactorVerifyRequest,
+  ): Promise<IResponse> {
     try {
       const result = await RequestService.nativeFetchPost<
         ITwoFactorVerifyRequest,
@@ -28,5 +30,5 @@ export const TwoFactorVerifyService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

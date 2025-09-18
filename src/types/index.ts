@@ -13,6 +13,7 @@ export type { ITwoFactorSetUpRequest } from './2fa/setup/ITwoFactorSetUpRequest'
 export type { ITwoFactorSetUpResponse } from './2fa/setup/ITwoFactorSetUpResponse'
 export type { ITwoFactorVerifyRequest } from './2fa/verify/ITwoFactorVerifyRequest'
 export type { ITwoFactorVerifyResponse } from './2fa/verify/ITwoFactorVerifyResponse'
+export type { ITwoFactorAlternativeRequest } from './2fa/alternative/ITwoFactorAlternativeRequest'
 export type {
   SearchInput,
   TxidInput,

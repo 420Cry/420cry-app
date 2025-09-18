@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { LanguageChangeButton } from '@/components'
 import { CryApplicationLogo } from '@/assets'
 
-const TwoFactorHeader = ({}): JSX.Element => {
+const TwoFactorHeader = (): JSX.Element => {
   return (
     <div className="flex justify-between items-center flex-col sm:flex-row sm:items-center px-12 py-6">
       <Image

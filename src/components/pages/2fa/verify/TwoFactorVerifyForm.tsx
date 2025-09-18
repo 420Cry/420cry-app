@@ -8,7 +8,7 @@ import {
   HOME_ROUTE,
   showToast,
   TWO_FACTOR_ALTERNATIVE,
-  TwoFactorVerifyService,
+  twoFactorService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -30,7 +30,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         return
       }
 
-      const response = await TwoFactorVerifyService.verifyToken({
+      const response = await twoFactorService.verify.verifyToken({
         userUUID: user.uuid,
         otp,
         rememberMe: user.rememberMe,

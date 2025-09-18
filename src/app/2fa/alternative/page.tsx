@@ -1,8 +1,8 @@
-import { TwoFactorAlternativeForm } from '@/components'
+import { TwoFactorAlternativeSendForm } from '@/components'
 import { JSX } from 'react'
 
 const TwoFAAlternative = (): JSX.Element => {
-  return <TwoFactorAlternativeForm />
+  return <TwoFactorAlternativeSendForm />
 }
 
 export default TwoFAAlternative

@@ -32,7 +32,8 @@
       "invalidLanguage": "Invalid Language",
       "validTransaction": "Transaction is found",
       "validWallet": "Wallet is found",
-      "emailOrUserNameAlreadyExist": "Username or email already exists"
+      "emailOrUserNameAlreadyExist": "Username or email already exists",
+      "emailNotExist": "Email does not exist"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",

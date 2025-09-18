@@ -9,8 +9,8 @@ import {
   IResponse,
 } from '@/types'
 
-export const FearAndGreedService = {
-  async geFearAndGreedIndextLatest(): Promise<
+export class FearAndGreedService {
+  public async getFearAndGreedIndextLatest(): Promise<
     IResponse & { data?: IFearAndGreedIndexData }
   > {
     try {
@@ -30,8 +30,8 @@ export const FearAndGreedService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
-  async geFearAndGreedIndextHistorical(): Promise<
+  }
+  public async getFearAndGreedIndextHistorical(): Promise<
     IResponse & { data?: IFearAndGreedHistoricalData }
   > {
     try {
@@ -51,5 +51,5 @@ export const FearAndGreedService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }

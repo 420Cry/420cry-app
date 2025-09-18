@@ -8,7 +8,7 @@ import LanguageChangeButton from '../LanguageChangeButton'
 import {
   resolveSearchInputType,
   showToast,
-  TransactionService,
+  externalService,
   useModal,
 } from '@/lib'
 
@@ -38,7 +38,10 @@ export default function DashboardHeader({
       case 'TXID': {
         setLoading(true)
         try {
-          const response = await TransactionService.getTransaction(input.txid)
+          const response =
+            await externalService.walletExplorer.searchTransaction.getTransaction(
+              input.txid,
+            )
 
           if (response.isSuccess && response.data) {
             openModal({ type: 'transaction', data: response.data })
@@ -62,9 +65,10 @@ export default function DashboardHeader({
       case 'XPUB': {
         setLoading(true)
         try {
-          const response = await TransactionService.getTransactionByXPUB(
-            input.xpub,
-          )
+          const response =
+            await externalService.walletExplorer.searchTransaction.getTransactionByXPUB(
+              input.xpub,
+            )
 
           if (response.isSuccess && response.data) {
             openModal({ type: 'xpubTransaction', data: response.data })

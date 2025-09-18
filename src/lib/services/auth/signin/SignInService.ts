@@ -7,8 +7,8 @@ import {
 } from '@/lib'
 import { IUser, ISignIn, IResponse } from '@/types'
 
-export const SignInService = {
-  async signInAction(
+export class SignInService {
+  public async signInAction(
     formData: FormData,
   ): Promise<{ response: IResponse; user?: IUser }> {
     const formValues = {
@@ -62,5 +62,5 @@ export const SignInService = {
         },
       }
     }
-  },
+  }
 }

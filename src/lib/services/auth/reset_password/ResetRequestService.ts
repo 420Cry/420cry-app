@@ -4,8 +4,8 @@ import { ResetRequestSchema } from '@/lib/server/validation/auth/ResetRequestSch
 import { validateFormData } from '@/lib/server/validation/validateFormData'
 import { IResetPasswordRequest, IResponse } from '@/types'
 
-export const ResetRequestService = {
-  async resetRequestAction(formData: FormData): Promise<IResponse> {
+export class ResetRequestService {
+  public async resetRequestAction(formData: FormData): Promise<IResponse> {
     const formValues = {
       email: formData.get('email')?.toString() || '',
     }
@@ -46,5 +46,5 @@ export const ResetRequestService = {
         message: 'app.alertTitle.somethingWentWrong',
       }
     }
-  },
+  }
 }
