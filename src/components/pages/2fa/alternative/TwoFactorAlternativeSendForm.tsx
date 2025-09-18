@@ -3,7 +3,12 @@
 import { JSX, useState, useMemo, useEffect } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { showToast, TWO_FACTOR_VERIFY_ROUTE, twoFactorService } from '@/lib'
+import {
+  HOME_ROUTE,
+  showToast,
+  TWO_FACTOR_VERIFY_ROUTE,
+  twoFactorService,
+} from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
 
@@ -23,7 +28,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const [canResend, setCanResend] = useState(false)
   const user = useAuthStore((state) => state.user)
   const t = useTranslations()
-
+  const router = useRouter()
   const email = useMemo(() => maskEmail(user?.email || ''), [user?.email])
 
   // countdown timer
@@ -64,7 +69,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       if (response.isSuccess) {
         showToast(true, t('2fa.alternative.emailSend', { email }))
         setEmailSent(true)
-        setTimeLeft(10 * 60)
+        setTimeLeft(5 * 60) // 5 mins
         setCanResend(false)
       } else {
         showToast(false, t(response.message))
@@ -82,14 +87,26 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       return
     }
     try {
-      //await twoFactorService.alternative.verifyEmailOTP({ email: user?.email, otp })
-      showToast(true, t('2fa.alternative.verifySuccess'))
+      if (!user?.uuid) {
+        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        return
+      }
+      const response =
+        await twoFactorService.alternative.verifyAlternativeToken({
+          userUUID: user.uuid,
+          otp,
+          rememberMe: user.rememberMe,
+        })
+      if (response.isSuccess) {
+        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        router.push(HOME_ROUTE)
+      } else {
+        showToast(false, t(response.message))
+      }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
     }
   }
-
-  const router = useRouter()
 
   const handleBackClick = () => {
     router.push(TWO_FACTOR_VERIFY_ROUTE)

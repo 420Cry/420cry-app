@@ -1,5 +1,14 @@
-import { ALTERNATIVE_2FA_API, RequestService } from '@/lib'
-import { IResponse, ITwoFactorAlternativeRequest } from '@/types'
+import {
+  ALTERNATIVE_2FA_API,
+  ApiError,
+  RequestService,
+  VERIFY_ALTERNATIVE_2FA_API,
+} from '@/lib'
+import {
+  IResponse,
+  ITwoFactorAlternativeRequest,
+  ITwoFactorVerifyRequest,
+} from '@/types'
 
 export class TwoFactorAlternativeService {
   public async sendAlternativeEmailOTP(email: string): Promise<IResponse> {
@@ -9,6 +18,35 @@ export class TwoFactorAlternativeService {
         IResponse
       >(ALTERNATIVE_2FA_API, { email })
     } catch {
+      return {
+        isSuccess: false,
+        message: 'app.alertTitle.somethingWentWrong',
+      }
+    }
+  }
+  public async verifyAlternativeToken(
+    payload: ITwoFactorVerifyRequest,
+  ): Promise<IResponse> {
+    try {
+      const result = await RequestService.nativeFetchPost<
+        ITwoFactorVerifyRequest,
+        { response: IResponse }
+      >(VERIFY_ALTERNATIVE_2FA_API, payload)
+      return result.response
+    } catch (error: unknown) {
+      if (error instanceof ApiError) {
+        const status = error.status
+        const message =
+          status === 401
+            ? 'app.alertTitle.invalidOTP'
+            : 'app.alertTitle.somethingWentWrong'
+
+        return {
+          isSuccess: false,
+          message,
+        }
+      }
+
       return {
         isSuccess: false,
         message: 'app.alertTitle.somethingWentWrong',
