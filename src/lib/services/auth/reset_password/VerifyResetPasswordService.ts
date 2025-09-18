@@ -1,6 +1,6 @@
 import { VERIFY_RESET_PASSWORD_API } from '@/lib/constants/routes'
-import { RequestService } from '@/lib/requests/RequestService'
-import { ResetPasswordSchema } from '@/lib/server/validation/auth/ResetPasswordSchema'
+import { RequestService } from '@/lib/requests/requestService'
+import { ResetPasswordSchema } from '@/lib/server/validation/auth/resetPasswordSchema'
 import { validateFormData } from '@/lib/server/validation/validateFormData'
 import { IResponse, IVerifyResetPassword } from '@/types'
 

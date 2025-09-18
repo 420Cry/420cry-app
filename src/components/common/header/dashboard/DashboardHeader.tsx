@@ -22,7 +22,7 @@ export default function DashboardHeader({
   setLoading,
 }: DashboardHeaderProps): JSX.Element {
   const t = useTranslations()
-  const searchPlaceholder = t('dashboard.search')
+  const searchPlaceholder = t('dashboard.search.searchPlayholder')
   const [searchTerm, setSearchTerm] = useState('')
   const { openModal } = useModal()
 
@@ -32,6 +32,12 @@ export default function DashboardHeader({
 
   const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    // Check if input is empty
+    if (!searchTerm.trim()) {
+      showToast(false, t('app.alertTitle.emptyInput'))
+      return
+    }
     const input: SearchInput = resolveSearchInputType(searchTerm)
 
     switch (input.type) {
@@ -90,7 +96,7 @@ export default function DashboardHeader({
       }
 
       default:
-        showToast(false, t('dashboard.alert.invalidInput'))
+        showToast(false, t('dashboard.search.alert.invalidInput'))
         break
     }
   }
@@ -99,11 +105,11 @@ export default function DashboardHeader({
     <header className="relative w-full h-16 flex items-center px-4 sm:px-6">
       <form
         onSubmit={handleSearchSubmit}
-        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg"
+        className="w-full sm:flex-1 flex justify-center"
       >
         <CrySearchBar
           placeholder={searchPlaceholder}
-          width="w-full"
+          width="w-full sm:w-[90%]"
           height="h-10"
           textColor="text-gray-800"
           iconColor="text-gray-400"
@@ -114,7 +120,7 @@ export default function DashboardHeader({
           onChange={handleSearchChange}
         />
       </form>
-      <div className="ml-auto flex items-center gap-3 sm:gap-4">
+      <div className="ml-6 sm:ml-8 flex items-center gap-3 sm:gap-4">
         <LanguageChangeButton />
         <UserIcon className="h-7 w-7 sm:h-9 sm:w-9 text-gray-600 cursor-pointer" />
       </div>

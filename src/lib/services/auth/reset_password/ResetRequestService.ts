@@ -1,6 +1,6 @@
 import { RESET_REQUEST_API } from '@/lib/constants/routes'
-import { RequestService, ApiError } from '@/lib/requests/RequestService'
-import { ResetRequestSchema } from '@/lib/server/validation/auth/ResetRequestSchema'
+import { RequestService, ApiError } from '@/lib/requests/requestService'
+import { ResetRequestSchema } from '@/lib/server/validation/auth/resetRequestSchema'
 import { validateFormData } from '@/lib/server/validation/validateFormData'
 import { IResetPasswordRequest, IResponse } from '@/types'
 

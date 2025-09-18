@@ -1,10 +1,10 @@
-import { ResetRequestService } from './reset_password/ResetRequestService'
-import { VerifyResetPasswordService } from './reset_password/VerifyResetPasswordService'
-import { SignInService } from './signin/SignInService'
-import { SignOutRequestService } from './signout/SignOutRequestService'
-import { SignUpService } from './signup/SignUpService'
-import { VerifyAccountTokenService } from './signup/VerifyAccountTokenService'
-import { VerifyEmailTokenService } from './signup/VerifyEmailTokenService'
+import { ResetRequestService } from './reset_password/resetRequestService'
+import { VerifyResetPasswordService } from './reset_password/verifyResetPasswordService'
+import { SignInService } from './signin/signInService'
+import { SignOutRequestService } from './signout/signOutRequestService'
+import { SignUpService } from './signup/signUpService'
+import { VerifyAccountTokenService } from './signup/verifyAccountTokenService'
+import { VerifyEmailTokenService } from './signup/verifyEmailTokenService'
 
 export class AuthService {
   public signIn: SignInService

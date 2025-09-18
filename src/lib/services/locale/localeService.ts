@@ -1,5 +1,4 @@
-import { LOCALE_COOKIE_API } from '@/lib/constants/routes'
-import { RequestService } from '@/lib/requests/RequestService'
+import { LOCALE_COOKIE_API, RequestService } from '@/lib'
 import { ILocaleLanguage, IResponse } from '@/types'
 
 export const localeService = {

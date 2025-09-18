@@ -1,5 +1,5 @@
 import { SIGN_OUT_API } from '@/lib/constants/routes'
-import { RequestService } from '@/lib/requests/RequestService'
+import { RequestService } from '@/lib/requests/requestService'
 import { IResponse } from '@/types'
 
 export class SignOutRequestService {

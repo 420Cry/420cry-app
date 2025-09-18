@@ -1,4 +1,4 @@
-import { ResetRequestSchema } from '@/lib/server/validation/auth/ResetRequestSchema'
+import { ResetRequestSchema } from '@/lib/server/validation/auth/resetRequestSchema'
 import { describe, it, expect } from 'vitest'
 
 describe('ResetRequestSchema', () => {

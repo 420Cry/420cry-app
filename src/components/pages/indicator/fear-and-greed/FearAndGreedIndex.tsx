@@ -41,19 +41,16 @@ export default function FearAndGreedGauge({
 
   const x = centerX - radius * Math.cos(angle)
   const y = centerY - radius * Math.sin(angle)
-
   return (
-    <div className="inline-block border border-gray-300 rounded-xl p-6 shadow-md bg-white w-[280px] text-center">
+    <div className="inline-block border border-gray-300 rounded-xl p-6 shadow-md bg-white w-full max-w-[280px] text-center">
       <h1 className="text-lg font-semibold mb-2">
         {t('indicator.fearAndGreed.title')}
       </h1>
       <svg
-        width="177"
-        height="89"
-        viewBox="0 0 177 89"
+        viewBox="0 0 177 89" // only define the coordinate system
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="mx-auto"
+        className="mx-auto w-full h-auto" // responsive sizing
       >
         {/* Rainbow arcs */}
         <path
@@ -79,7 +76,7 @@ export default function FearAndGreedGauge({
 
         {/* Value */}
         <text
-          x="88"
+          x="50%" // center horizontally
           y="55"
           dominantBaseline="middle"
           textAnchor="middle"
@@ -92,7 +89,7 @@ export default function FearAndGreedGauge({
 
         {/* Classification */}
         <text
-          x="88"
+          x="50%" // center horizontally
           y="75"
           dominantBaseline="middle"
           textAnchor="middle"

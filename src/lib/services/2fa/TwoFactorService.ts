@@ -1,6 +1,6 @@
-import { TwoFactorAlternativeService } from './alternative/TwoFactorAlternativeService'
-import { TwoFactorSetUpService } from './setup/TwoFactorSetUpService'
-import { TwoFactorVerifyService } from './verify/TwoFactorVerifyService'
+import { TwoFactorAlternativeService } from './alternative/twoFactorAlternativeService'
+import { TwoFactorSetUpService } from './setup/twoFactorSetUpService'
+import { TwoFactorVerifyService } from './verify/twoFactorVerifyService'
 
 class TwoFactorService {
   public alternative: TwoFactorAlternativeService

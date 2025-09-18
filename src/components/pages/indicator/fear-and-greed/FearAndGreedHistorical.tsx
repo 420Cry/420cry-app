@@ -59,7 +59,6 @@ export const FearAndGreedHistorical = ({
     gradient.addColorStop(0, 'rgba(255, 99, 132, 0.5)')
     gradient.addColorStop(1, 'rgba(255, 99, 132, 1)')
 
-    // Update dataset borderColor with gradient
     if (chart.data.datasets[0]) {
       chart.data.datasets[0].borderColor = gradient
       chart.update()
@@ -75,7 +74,7 @@ export const FearAndGreedHistorical = ({
         borderColor: CHART_COLORS.red, // fallback color, overridden by gradient
         backgroundColor: CHART_COLORS.red,
         borderWidth: 2,
-        pointRadius: 0,
+        pointRadius: 2, // slightly bigger for mobile touch
         fill: false,
         tension: 0.2,
       },
@@ -105,29 +104,25 @@ export const FearAndGreedHistorical = ({
           maxRotation: 45,
           minRotation: 30,
           color: '#555',
-          font: {
-            size: 11,
-          },
+          font: { size: 11 },
+          autoSkip: true, // skip labels automatically
+          maxTicksLimit: 6, // show at most 6 labels on mobile
         },
-        grid: {
-          color: '#eee',
-        },
+        grid: { color: '#eee' },
       },
       y: {
         min: 0,
         max: 100,
         display: true,
         title: { display: true, text: 'Index Value' },
-        grid: {
-          color: '#eee',
-        },
+        grid: { color: '#eee' },
       },
     },
   }
 
   return (
     <div
-      className={`relative w-full h-full md:h-[400px] border border-gray-300 rounded-lg p-4 bg-white shadow-sm ${className}`}
+      className={`relative w-full min-h-[250px] md:h-[400px] border border-gray-300 rounded-lg p-4 bg-white shadow-sm ${className}`}
     >
       <Line ref={chartRef} data={chartConfig} options={chartOptions} />
     </div>

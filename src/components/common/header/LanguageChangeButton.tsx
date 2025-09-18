@@ -36,20 +36,26 @@ const LanguageChangeButton = (): JSX.Element => {
     router.refresh()
   }
 
-  const buttonClassname = `absolute w-10 h-10 rounded-full top-0 left-0 bg-white duration-200 ease-in-out ${isEN ? 'translate-x-0' : 'translate-x-14'}`
-
   return (
-    <div className="flex items-center justify-center gap-4">
-      <span className={`${isEN ? 'text-white' : 'text-gray-400'} font-bold`}>
+    <div className="flex items-center justify-center gap-2 sm:gap-4">
+      <span
+        className={`font-bold text-xs sm:text-sm ${isEN ? 'text-white' : 'text-gray-400'}`}
+      >
         EN
       </span>
       <button
         onClick={changeLanguage}
-        className="relative w-24 h-10 rounded-full bg-primary cursor-pointer"
+        className="relative flex items-center w-12 h-6 sm:w-24 sm:h-10 rounded-full bg-primary cursor-pointer transition-all duration-200"
       >
-        <span className={buttonClassname}></span>
+        <span
+          className={`absolute w-5 h-5 sm:w-10 sm:h-10 rounded-full bg-white left-0.5 sm:left-0.5 transition-transform duration-200 ${
+            isEN ? 'translate-x-0' : 'translate-x-6 sm:translate-x-14'
+          }`}
+        />
       </button>
-      <span className={`${isEN ? 'text-gray-400' : 'text-white'} font-bold`}>
+      <span
+        className={`font-bold text-xs sm:text-sm ${isEN ? 'text-gray-400' : 'text-white'}`}
+      >
         VN
       </span>
     </div>
