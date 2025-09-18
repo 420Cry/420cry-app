@@ -1,4 +1,4 @@
-import { ResetPasswordSchema } from '@/lib/server/validation/auth/resetPasswordSchema'
+import { ResetPasswordSchema } from '@/lib/server/validation/auth/ResetPasswordSchema'
 import { describe, it, expect } from 'vitest'
 
 describe('ResetPasswordSchema', () => {

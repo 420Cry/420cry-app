@@ -1,5 +1,5 @@
-import { FearAndGreedService } from './fear_and_greed/fearAndGreedService'
-import { TransactionService } from './wallet_explorer/transactionService'
+import { FearAndGreedService } from './fear_and_greed/FearAndGreedService'
+import { TransactionService } from './wallet_explorer/TransactionService'
 
 export class ExternalService {
   public indicator: {

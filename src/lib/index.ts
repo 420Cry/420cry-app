@@ -3,19 +3,19 @@ export * from './constants/pages'
 export * from './constants/routes'
 
 // Server
-export * from './server/validation/auth/resetRequestSchema'
-export * from './server/validation/auth/signInFormSchema'
-export * from './server/validation/auth/signUpFormSchema'
+export * from './server/validation/auth/ResetRequestSchema'
+export * from './server/validation/auth/SignInFormSchema'
+export * from './server/validation/auth/SignUpFormSchema'
 export * from './server/validation/validateFormData'
 export * from './server/api/createErrorResponse'
 
 // Services
-export { twoFactorService } from './services/2fa/twoFactorService'
-export { authService } from './services/auth/authService'
-export { externalService } from './services/external/externalService'
-export * from './services/cookies/cookieService'
+export { twoFactorService } from './services/2fa/TwoFactorService'
+export { authService } from './services/auth/AuthService'
+export { externalService } from './services/external/ExternalService'
+export * from './services/cookies/CookieService'
 export * from './services/locale/localeService'
-export * from './requests/requestService'
+export * from './requests/RequestService'
 
 // Utils
 export * from './utils/showToast'
