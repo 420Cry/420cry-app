@@ -3,6 +3,7 @@ export * from './constants/pages'
 export * from './constants/routes'
 
 // Server
+export * from './server/validation/auth/resetRequestSchema'
 export * from './server/validation/auth/signInFormSchema'
 export * from './server/validation/auth/signUpFormSchema'
 export * from './server/validation/validateFormData'
