@@ -239,6 +239,15 @@
           "title": "CMC (coin market cap) Proprietary Data",
           "content": "The index also uses social trend keyword searches and user engagement metrics to capture market sentiment, retail interest, and emerging trends."
         }
+      },
+      "historical": {
+        "filterTitle": "Show last",
+        "7days": "7 days",
+        "30days": "30 days",
+        "90days": "90 days",
+        "180days": "180 days",
+        "oneYear": "1 year",
+        "all": "all"
       }
     }
   }

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { JSX, useRef, useEffect } from 'react'
+import React, { JSX, useMemo, useState } from 'react'
 import {
   Chart as ChartJS,
   LineElement,
@@ -10,9 +10,12 @@ import {
   Tooltip,
   Legend,
   CategoryScale,
+  ChartOptions,
+  ChartData,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
 import { IFearAndGreedDataPoint } from '@/types'
+import { useTranslations } from 'next-intl'
 
 ChartJS.register(
   LineElement,
@@ -24,9 +27,13 @@ ChartJS.register(
   Legend,
 )
 
-const CHART_COLORS = {
-  red: 'rgb(255, 99, 132)',
-  blue: 'rgb(54, 162, 235)',
+// Colors by value_classification
+const CLASSIFICATION_COLORS: Record<string, string> = {
+  'Extreme Fear': '#EA3943',
+  Fear: '#EA8C01',
+  Neutral: '#F3D42F',
+  Greed: '#93D900',
+  'Extreme Greed': '#14C784',
 }
 
 interface FearAndGreedHistoricalProps {
@@ -38,75 +45,101 @@ export const FearAndGreedHistorical = ({
   data,
   className = '',
 }: FearAndGreedHistoricalProps): JSX.Element => {
-  const chartRef = useRef<ChartJS<'line'>>(null)
+  const t = useTranslations()
+  const [range, setRange] = useState<'all' | 7 | 30 | 90 | 180 | 365>('all')
 
-  // Prepare labels with shorter date format (e.g. 'MMM dd')
-  const chartLabels = data.map((point) =>
-    new Date(Number(point.timestamp) * 1000).toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-    }),
+  // Sort by timestamp ascending
+  const sortedData = useMemo(
+    () => [...data].sort((a, b) => Number(a.timestamp) - Number(b.timestamp)),
+    [data],
   )
-  const chartData = data.map((point) => point.value)
 
-  // Create gradient once canvas is ready
-  useEffect(() => {
-    if (!chartRef.current) return
+  // Filter based on range
+  const filteredData = useMemo(() => {
+    if (range === 'all') return sortedData
+    return sortedData.slice(-range) // last N days
+  }, [sortedData, range])
 
-    const chart = chartRef.current
-    const ctx = chart.ctx
-    const gradient = ctx.createLinearGradient(0, 0, ctx.canvas.width, 0)
-    gradient.addColorStop(0, 'rgba(255, 99, 132, 0.5)')
-    gradient.addColorStop(1, 'rgba(255, 99, 132, 1)')
+  // X labels: "MM/YYYY"
+  const chartLabels = useMemo(
+    () =>
+      filteredData.map((p) =>
+        new Date(Number(p.timestamp) * 1000).toLocaleDateString(undefined, {
+          month: 'short',
+          year: 'numeric',
+        }),
+      ),
+    [filteredData],
+  )
 
-    if (chart.data.datasets[0]) {
-      chart.data.datasets[0].borderColor = gradient
-      chart.update()
-    }
-  }, [data])
+  const chartData = useMemo(
+    () => filteredData.map((p) => p.value),
+    [filteredData],
+  )
 
-  const chartConfig = {
-    labels: chartLabels,
-    datasets: [
-      {
-        label: 'Fear and Greed Index',
-        data: chartData,
-        borderColor: CHART_COLORS.red, // fallback color, overridden by gradient
-        backgroundColor: CHART_COLORS.red,
-        borderWidth: 2,
-        pointRadius: 2, // slightly bigger for mobile touch
-        fill: false,
-        tension: 0.2,
-      },
-    ],
-  }
+  // Use value_classification for colors
+  const pointColors = useMemo(
+    () =>
+      filteredData.map(
+        (p) => CLASSIFICATION_COLORS[p.value_classification] ?? '#F3D42F',
+      ),
+    [filteredData],
+  )
 
-  const chartOptions = {
+  const chartConfig: ChartData<'line'> = useMemo(
+    () => ({
+      labels: chartLabels,
+      datasets: [
+        {
+          label: 'Fear & Greed Index',
+          data: chartData,
+          backgroundColor: 'rgba(0,0,0,0)',
+          borderWidth: 3,
+          pointRadius: 4,
+          pointBackgroundColor: pointColors,
+          pointBorderColor: pointColors,
+          pointBorderWidth: 2,
+          tension: 0.3,
+          fill: false,
+          borderColor: '#888',
+        },
+      ],
+    }),
+    [chartLabels, chartData, pointColors],
+  )
+
+  const chartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
-    interaction: {
-      intersect: false,
-      mode: 'index' as const,
+    layout: {
+      padding: {
+        left: 10,
+        right: 10,
+        top: 10,
+        bottom: 30, // give extra bottom space for X-axis labels
+      },
     },
+    interaction: { intersect: false, mode: 'index' },
     plugins: {
-      legend: { display: true },
+      legend: { display: false },
+      tooltip: { enabled: true },
       title: {
         display: true,
-        text: 'Historical Fear and Greed Index',
+        text: 'Historical Fear & Greed Index',
+        font: { size: 16 },
       },
-      tooltip: { enabled: true },
     },
     scales: {
       x: {
         display: true,
-        title: { display: true, text: 'Date' },
+        title: { display: true, text: 'Date (Month/Year)' },
         ticks: {
-          maxRotation: 45,
-          minRotation: 30,
           color: '#555',
           font: { size: 11 },
-          autoSkip: true, // skip labels automatically
-          maxTicksLimit: 6, // show at most 6 labels on mobile
+          maxRotation: 45,
+          minRotation: 45,
+          autoSkip: true,
+          maxTicksLimit: 12,
         },
         grid: { color: '#eee' },
       },
@@ -122,9 +155,45 @@ export const FearAndGreedHistorical = ({
 
   return (
     <div
-      className={`relative w-full min-h-[250px] md:h-[400px] border border-gray-300 rounded-lg p-4 bg-white shadow-sm ${className}`}
+      className={`relative w-full min-h-[300px] md:h-[450px] border border-gray-300 rounded-lg p-4 bg-white shadow-sm ${className}`}
     >
-      <Line ref={chartRef} data={chartConfig} options={chartOptions} />
+      {/* Range filter */}
+      <div className="mb-4 flex gap-2 items-center">
+        <span>{t('indicator.fearAndGreed.historical.filterTitle')}</span>
+        <select
+          value={range}
+          onChange={(e) => {
+            const val = e.target.value
+            setRange(
+              val === 'all'
+                ? 'all'
+                : (parseInt(val) as 7 | 30 | 90 | 180 | 365),
+            )
+          }}
+          className="border rounded px-2 py-1"
+        >
+          <option value="7">
+            {t('indicator.fearAndGreed.historical.7days')}
+          </option>
+          <option value="30">
+            {t('indicator.fearAndGreed.historical.30days')}
+          </option>
+          <option value="90">
+            {t('indicator.fearAndGreed.historical.90days')}
+          </option>
+          <option value="180">
+            {t('indicator.fearAndGreed.historical.180days')}
+          </option>
+          <option value="365">
+            {t('indicator.fearAndGreed.historical.oneYear')}
+          </option>
+          <option value="all">
+            {t('indicator.fearAndGreed.historical.all')}
+          </option>
+        </select>
+      </div>
+
+      <Line data={chartConfig} options={chartOptions} />
     </div>
   )
 }

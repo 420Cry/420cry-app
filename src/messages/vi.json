@@ -239,6 +239,15 @@
           "title": "Dữ liệu độc quyền của CMC(coin market cap)",
           "content": "Chỉ số này cũng sử dụng các tìm kiếm từ khóa theo xu hướng xã hội và số liệu về mức độ tương tác của người dùng để nắm bắt tâm lý thị trường, sự quan tâm của nhà bán lẻ và các xu hướng mới nổi."
         }
+      },
+      "historical": {
+        "filterTitle": "Hiển thị",
+        "7days": "7 ngày",
+        "30days": "30 ngày",
+        "90days": "90 ngày",
+        "180days": "180 ngày",
+        "oneYear": "1 năm",
+        "all": "Tất cả"
       }
     }
   }
