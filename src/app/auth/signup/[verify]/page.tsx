@@ -3,7 +3,7 @@
 import { AuthHeader, VerifyEmailForm } from '@/components'
 import { useSearchParams, notFound } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
-import { VerifyAccountTokenService } from '@/lib'
+import { authService } from '@/lib'
 import { useTranslations } from 'next-intl'
 import { IVerifyAccountToken } from '@/types'
 
@@ -25,7 +25,8 @@ const SignUpConfirmationPage = (): JSX.Element => {
       const payload: IVerifyAccountToken = {
         token: token,
       }
-      const response = await VerifyAccountTokenService.verifyToken(payload)
+      const response =
+        await authService.signUp.verifyAccount.verifyToken(payload)
       setStatus(response.isSuccess ? 'success' : 'error')
     }
 

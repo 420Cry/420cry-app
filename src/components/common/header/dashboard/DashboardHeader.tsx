@@ -2,29 +2,29 @@
 
 import { JSX, useState } from 'react'
 import { CrySearchBar, UserIcon } from '@420cry/420cry-lib'
-import LanguageChangeButton from '../LanguageChangeButton'
 import { useTranslations } from 'next-intl'
-import { ITransactionData, ITransactionXPUB, SearchInput } from '@/types'
-import { resolveSearchInputType, showToast, TransactionService } from '@/lib'
+
+import LanguageChangeButton from '../LanguageChangeButton'
+import {
+  resolveSearchInputType,
+  showToast,
+  externalService,
+  useModal,
+} from '@/lib'
+
+import { SearchInput } from '@/types'
 
 interface DashboardHeaderProps {
-  setTransactionData: React.Dispatch<
-    React.SetStateAction<ITransactionData | null>
-  >
-  setXpubTransactionData: React.Dispatch<
-    React.SetStateAction<ITransactionXPUB | null>
-  >
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function DashboardHeader({
-  setTransactionData,
-  setXpubTransactionData,
   setLoading,
 }: DashboardHeaderProps): JSX.Element {
   const t = useTranslations()
-  const searchPlaceholder = t('dashboard.search')
+  const searchPlaceholder = t('dashboard.search.searchPlayholder')
   const [searchTerm, setSearchTerm] = useState('')
+  const { openModal } = useModal()
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
@@ -33,54 +33,62 @@ export default function DashboardHeader({
   const handleSearchSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    // Check if input is empty
+    if (!searchTerm.trim()) {
+      showToast(false, t('app.alertTitle.emptyInput'))
+      return
+    }
     const input: SearchInput = resolveSearchInputType(searchTerm)
 
     switch (input.type) {
       case 'TXID': {
-        const { txid } = input
         setLoading(true)
-
         try {
-          const transaction = await TransactionService.getTransaction(txid)
+          const response =
+            await externalService.walletExplorer.searchTransaction.getTransaction(
+              input.txid,
+            )
 
-          if (transaction.isSuccess && transaction.data) {
-            setTransactionData(transaction.data)
+          if (response.isSuccess && response.data) {
+            openModal({ type: 'transaction', data: response.data })
           } else {
-            setTransactionData(null)
+            openModal({ type: null, data: null })
           }
 
-          showToast(transaction.isSuccess, t(transaction.message))
+          showToast(response.isSuccess, t(response.message))
         } catch (error) {
           showToast(
             false,
             error instanceof Error ? error.message : String(error),
           )
-          setTransactionData(null)
+          openModal({ type: null, data: null })
         } finally {
           setLoading(false)
         }
         break
       }
+
       case 'XPUB': {
-        const { xpub } = input
         setLoading(true)
         try {
-          const transaction =
-            await TransactionService.getTransactionByXPUB(xpub)
+          const response =
+            await externalService.walletExplorer.searchTransaction.getTransactionByXPUB(
+              input.xpub,
+            )
 
-          if (transaction.isSuccess && transaction.data) {
-            setXpubTransactionData(transaction.data)
+          if (response.isSuccess && response.data) {
+            openModal({ type: 'xpubTransaction', data: response.data })
           } else {
-            setXpubTransactionData(null)
+            openModal({ type: null, data: null })
           }
 
-          showToast(transaction.isSuccess, t(transaction.message))
+          showToast(response.isSuccess, t(response.message))
         } catch (error) {
           showToast(
             false,
             error instanceof Error ? error.message : String(error),
           )
-          setXpubTransactionData(null)
+          openModal({ type: null, data: null })
         } finally {
           setLoading(false)
         }
@@ -88,6 +96,7 @@ export default function DashboardHeader({
       }
 
       default:
+        showToast(false, t('dashboard.search.alert.invalidInput'))
         break
     }
   }
@@ -96,11 +105,11 @@ export default function DashboardHeader({
     <header className="relative w-full h-16 flex items-center px-4 sm:px-6">
       <form
         onSubmit={handleSearchSubmit}
-        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-lg"
+        className="w-full sm:flex-1 flex justify-center"
       >
         <CrySearchBar
           placeholder={searchPlaceholder}
-          width="w-full"
+          width="w-full sm:w-[90%]"
           height="h-10"
           textColor="text-gray-800"
           iconColor="text-gray-400"
@@ -111,7 +120,7 @@ export default function DashboardHeader({
           onChange={handleSearchChange}
         />
       </form>
-      <div className="ml-auto flex items-center gap-3 sm:gap-4">
+      <div className="ml-6 sm:ml-8 flex items-center gap-3 sm:gap-4">
         <LanguageChangeButton />
         <UserIcon className="h-7 w-7 sm:h-9 sm:w-9 text-gray-600 cursor-pointer" />
       </div>

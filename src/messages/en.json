@@ -32,7 +32,9 @@
       "invalidLanguage": "Invalid Language",
       "validTransaction": "Transaction is found",
       "validWallet": "Wallet is found",
-      "emailOrUserNameAlreadyExist": "Username or email already exists"
+      "emailOrUserNameAlreadyExist": "Username or email already exists",
+      "emailNotExist": "Email does not exist",
+      "emptyInput": "Please enter something!"
     },
     "rules": {
       "fullName": "Full Name must be at least 2 characters long!",
@@ -121,18 +123,39 @@
       "title": "Two-Factor Authentication",
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
-      "remider": " Don't see the code? Make sure your authenticator app is synced and the QR code was scanned correctly during setup."
+      "havingTroubleWithAuthenticatorApp": "Having trouble with authenticator app?"
+    },
+    "alternative": {
+      "title": "Alternative 2FA Verification",
+      "description": "Get the code via email instead.",
+      "sendTo": "Email sent to",
+      "resendCode": "Resend Code",
+      "resendIn": "Resend in",
+      "sendCode": "Send code",
+      "emailSend": "Email sent to {email}",
+      "enterVerificationCode": "Enter Verification Code",
+      "verifyTitle": "Verify Code",
+      "verifyDescription": "Please enter the verification token we have sent to your email.",
+      "backToVerify": "Back to Verify"
     }
   },
   "dashboard": {
     "navigation": {
       "marketOverview": "Market Overview",
-      "indicator": "Indicator",
+      "indicator": {
+        "label": "Indicator",
+        "fearAndGreed": "Fear and Greed Index"
+      },
       "settings": "Settings",
       "userPortfolio": "User Portfolio",
       "logout": "Logout"
     },
-    "search": "Enter public address, transaction hash, or crypto token",
+    "search": {
+      "alert": {
+        "invalidInput": "Invalid Transaction Hash ID or wallet public key"
+      },
+      "searchPlayholder": "Enter public address, transaction hash, or crypto token"
+    },
     "transactionModal": {
       "title": "Transaction Details",
       "label": "Label",
@@ -169,6 +192,63 @@
         "label": "BTC Balance (BTC)"
       },
       "date": "Date"
+    }
+  },
+  "indicator": {
+    "fearAndGreed": {
+      "title": "Fear and Greed Index",
+      "greed": "Greed",
+      "fear": "Fear",
+      "neutral": "Neutral",
+      "extremeFear": "Extreme Fear",
+      "extremeGreed": "Extreme Greed",
+      "about": "About CMC Crypto Fear and Greed Index",
+      "description": "The CMC Fear and Greed Index is a proprietary tool developed by CoinMarketCap that measures the prevailing sentiment in the cryptocurrency market. This index ranges from 0 to 100, where a lower value indicates extreme fear, and a higher value indicates extreme greed. It helps investors understand the emotional state of the market, which can influence buying and selling behaviors. The index provides insights into whether the market may be undervalued (extreme fear) or overvalued (extreme greed).",
+      "section": {
+        "howToUseThisIndex": "How can I use this index?",
+        "marketSentimentAnalysis": {
+          "title": "Market Sentiment Analysis",
+          "content": "By observing the current value of the index, you can gauge the overall mood of the cryptocurrency market. For example, a high value suggests that investors are overly greedy, which may indicate that the market is overheated and due for a correction. Conversely, a low value may suggest that fear is driving prices down, potentially creating buying opportunities."
+        },
+        "contrarianStrategy": {
+          "title": "Contrarian Strategy",
+          "content": "Some investors use the index as part of a contrarian investment strategy. The idea is to be fearful when others are greedy and greedy when others are fearful. If the index shows extreme greed, it might be a signal to consider selling assets, while extreme fear could indicate a buying opportunity."
+        },
+        "complementaryAnalysis": {
+          "title": "Complementary Analysis",
+          "content": "Use the index alongside other analytical tools and indicators to make more informed decisions. It’s important to remember that the index is a tool for gauging sentiment and should not be used in isolation."
+        },
+        "howIsThisIndexCalculated": "How is this index calculated?",
+        "priceMomentum": {
+          "title": "Price Momentum",
+          "content": "This factor analyzes the price performance of the top 10 cryptocurrencies by market capitalization (excluding stablecoins). It assesses how these coins are performing relative to each other and the broader market."
+        },
+        "volatility": {
+          "title": "Volatility",
+          "content": "The index incorporates Volmex Implied Volatility Indices (BVIV and EVIV) for Bitcoin (BTC) and Ethereum (ETH), which provide forward-looking measures of expected volatility over the next 30 days."
+        },
+        "derivativesMarket": {
+          "title": "Derivatives Market",
+          "content": "The index considers the Put/Call Ratio in the Bitcoin and Ethereum options markets. A higher ratio of puts to calls indicates more fear in the market, suggesting bearish expectations among investors."
+        },
+        "marketComposition": {
+          "title": "Market Composition",
+          "content": "This component looks at the relative value of Bitcoin (BTC) in the market, using the Stablecoin Supply Ratio (SSR) to measure the ratio between Bitcoin’s market capitalization and that of major stablecoins."
+        },
+        "CMCProprietaryData": {
+          "title": "CMC (coin market cap) Proprietary Data",
+          "content": "The index also uses social trend keyword searches and user engagement metrics to capture market sentiment, retail interest, and emerging trends."
+        }
+      },
+      "historical": {
+        "filterTitle": "Show last",
+        "7days": "7 days",
+        "30days": "30 days",
+        "90days": "90 days",
+        "180days": "180 days",
+        "oneYear": "1 year",
+        "all": "all"
+      }
     }
   }
 }

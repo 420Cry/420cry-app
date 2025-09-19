@@ -8,6 +8,7 @@ import {
   TWO_FACTOR_SETUP_ROUTE,
   TWO_FACTOR_VERIFY_ROUTE,
   UN_AUTH_ROUTES,
+  TWO_FACTOR_ALTERNATIVE,
 } from './lib'
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || '')
@@ -54,6 +55,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     twoFAEnabled &&
     !twoFAVerified &&
     pathname !== TWO_FACTOR_VERIFY_ROUTE &&
+    pathname !== TWO_FACTOR_ALTERNATIVE &&
     !UN_AUTH_ROUTES.includes(pathname)
   ) {
     return NextResponse.redirect(new URL(TWO_FACTOR_VERIFY_ROUTE, req.url))
@@ -78,7 +80,8 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     isAuthenticated &&
     twoFAEnabled &&
     twoFAVerified &&
-    pathname === TWO_FACTOR_VERIFY_ROUTE
+    (pathname === TWO_FACTOR_VERIFY_ROUTE ||
+      pathname === TWO_FACTOR_ALTERNATIVE)
   ) {
     return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
   }
@@ -89,6 +92,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     extendedBlockedRoutesForAuthUsers.push(
       TWO_FACTOR_SETUP_ROUTE,
       TWO_FACTOR_VERIFY_ROUTE,
+      TWO_FACTOR_ALTERNATIVE,
     )
   }
 
