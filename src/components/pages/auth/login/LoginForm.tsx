@@ -14,7 +14,7 @@ import {
   RESET_PASSWORD_ROUTE,
   showToast,
   SIGN_UP_ROUTE,
-  SignInService,
+  authService,
   TWO_FACTOR_SETUP_ROUTE,
 } from '@/lib'
 
@@ -50,7 +50,7 @@ const LogInForm = (): JSX.Element => {
       return
     }
     try {
-      const { response, user } = await SignInService.signInAction(formData)
+      const { response, user } = await authService.signIn.signInAction(formData)
       const success = response.isSuccess
       const message = user
         ? t(response.message, { fullname: user.fullname })

@@ -3,7 +3,7 @@
 import { JSX, useEffect, useState } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { HOME_ROUTE, showToast, TwoFactorSetUpService } from '@/lib'
+import { HOME_ROUTE, showToast, twoFactorService } from '@/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
@@ -27,7 +27,7 @@ const TwoFactorSetupQRCode = ({
       setLoading(true)
 
       try {
-        const data = await TwoFactorSetUpService.getQRCodeAndSecret({
+        const data = await twoFactorService.setup.getQRCodeAndSecret({
           uuid: userUuid,
         })
         setSecret(data.secret)
@@ -57,7 +57,7 @@ const TwoFactorSetupQRCode = ({
         secret: secret,
       }
       const { response, user } =
-        await TwoFactorSetUpService.verifyToken(payload)
+        await twoFactorService.setup.verifyToken(payload)
 
       const success = response.isSuccess
       if (success && user) {
@@ -74,7 +74,7 @@ const TwoFactorSetupQRCode = ({
     return <p className="text-center py-10">{t('app.common.loading')}</p>
   }
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 relative">
+    <div className="flex flex-col justify-center items-center px-4 relative -mt-12">
       <div className="max-w-lg w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
         <div className="bg-gray-100 px-8 py-6">
           <p className="text-xl font-semibold text-left">{t('2fa.QR.title')}</p>

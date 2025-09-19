@@ -3,7 +3,7 @@
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, VerifyEmailTokenService } from '@/lib'
+import { showToast, SIGN_IN_ROUTE, authService } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
 
@@ -66,7 +66,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
     }
 
     try {
-      const response = await VerifyEmailTokenService.verifyToken(payload)
+      const response = await authService.signUp.verifyEmail.verifyToken(payload)
       setVerificationSuccess(response.isSuccess)
       showToast(response.isSuccess, t(response.message))
       if (response.isSuccess) {
