@@ -7,8 +7,11 @@ export { default as ResetReqForm } from './pages/auth/reset-password/ResetReqFor
 export { default as TwoFactorSetupQRCode } from './pages/2fa/setup/TwoFactorSetupQRCode'
 export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetupOption'
 export { default as TwoFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
+export { default as TwoFactorAlternativeSendForm } from './pages/2fa/alternative/TwoFactorAlternativeSendForm'
 export { default as TransactionModal } from './pages/dashboard/TransactionModal'
 export { default as XPUBTransactionModal } from './pages/dashboard/XPUBTransactionModal'
+export { default as FearAndGreedIndex } from './pages/indicator/fear-and-greed/FearAndGreedIndex'
+export { FearAndGreedHistorical } from './pages/indicator/fear-and-greed/FearAndGreedHistorical'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'
@@ -21,4 +24,5 @@ export { default as DashboardSidebar } from './common/sidebar/DashboardSidebar'
 export { default as LanguageChangeButton } from './common/header/LanguageChangeButton'
 export { default as AuthHeader } from './common/header/auth/AuthHeader'
 export { default as DashboardHeader } from './common/header/dashboard/DashboardHeader'
+export { default as TwoFactorHeader } from './common/header/2fa/TwoFactorHeader'
 export { default as Loader } from './common/loader/Loader'

@@ -8,9 +8,8 @@ import {
 import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast, SIGN_IN_ROUTE } from '@/lib'
+import { fieldsRequired, showToast, SIGN_IN_ROUTE, authService } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { VerifyResetPasswordService } from '@/lib/client/auth/reset_password/VerifyResetPasswordService'
 
 const ResetPasswordForm = ({
   resetPasswordId,
@@ -27,10 +26,11 @@ const ResetPasswordForm = ({
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response = await VerifyResetPasswordService.verifyResetPasswordAction(
-      formData,
-      resetPasswordId,
-    )
+    const response =
+      await authService.resetPassword.verify.verifyResetPasswordAction(
+        formData,
+        resetPasswordId,
+      )
 
     showToast(response.isSuccess, t(response.message))
     if (response.isSuccess) {
