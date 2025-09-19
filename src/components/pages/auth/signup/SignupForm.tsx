@@ -8,7 +8,7 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, SignUpService } from '@/lib'
+import { showToast, SIGN_IN_ROUTE, authService } from '@/lib'
 import { useRouter } from 'next/navigation'
 
 const SignupForm = (): JSX.Element => {
@@ -29,7 +29,7 @@ const SignupForm = (): JSX.Element => {
       return
     }
     try {
-      const response = await SignUpService.signUpAction(formData)
+      const response = await authService.signUp.action.signUpAction(formData)
       showToast(response.isSuccess, t(response.message))
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
