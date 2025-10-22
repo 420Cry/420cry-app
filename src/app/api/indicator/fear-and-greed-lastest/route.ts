@@ -8,7 +8,7 @@ export async function GET(): Promise<NextResponse> {
       null,
       { fear_and_greed_index: IFearAndGreedIndexData }
     >(`${API_URL}/api/v1/coin-market-cap/fear-and-greed-lastest`, null, {
-      withAuth: true,
+      withAuth: false,
     })
 
     if (response.status === 200 && response.data) {

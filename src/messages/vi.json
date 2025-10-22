@@ -269,6 +269,201 @@
       "pageDescription": "Theo dõi tâm lý thị trường với phân tích toàn diện về Sợ hãi và Tham lam"
     }
   },
+  "landing": {
+    "hero": {
+      "title": "420Crypto",
+      "subtitle": "Công cụ phân tích thị trường tiền điện tử và khám phá blockchain tiên tiến",
+      "getStarted": "Bắt đầu miễn phí",
+      "signIn": "Đăng nhập",
+      "trustedBy": "Được tin tưởng bởi những người đam mê tiền điện tử trên toàn thế giới",
+      "features": {
+        "marketIndicators": {
+          "title": "Chỉ số thị trường",
+          "description": "Chỉ số Fear & Greed theo thời gian thực và phân tích tâm lý thị trường"
+        },
+        "blockchainExplorer": {
+          "title": "Trình khám phá Blockchain",
+          "description": "Tìm kiếm giao dịch, địa chỉ và dữ liệu ví ngay lập tức"
+        },
+        "securePlatform": {
+          "title": "Nền tảng bảo mật",
+          "description": "Bảo mật cấp doanh nghiệp với bảo vệ 2FA"
+        }
+      },
+      "trustIndicators": {
+        "realTimeData": "Dữ liệu thời gian thực",
+        "securePlatform": "Nền tảng bảo mật",
+        "professionalTools": "Công cụ chuyên nghiệp"
+      }
+    },
+    "fearAndGreed": {
+      "title": "Tâm lý thị trường trực tiếp",
+      "subtitle": "Theo dõi trạng thái cảm xúc của thị trường tiền điện tử với chỉ số Fear & Greed thời gian thực của chúng tôi",
+      "currentSentiment": "Tâm lý thị trường hiện tại",
+      "description": "Chỉ số Fear & Greed đo lường tâm lý thị trường từ 0 (Sợ hãi cực độ) đến 100 (Tham lam cực độ). Điều này giúp xác định các cơ hội mua tiềm năng trong thời gian sợ hãi và cơ hội bán trong thời gian tham lam.",
+      "features": {
+        "realTimeUpdates": "Cập nhật thời gian thực",
+        "historicalAnalysis": "Phân tích lịch sử",
+        "marketInsights": "Hiểu biết thị trường",
+        "tradingSignals": "Tín hiệu giao dịch"
+      },
+      "whyMonitor": "Tại sao nên theo dõi tâm lý thị trường?",
+      "benefits": {
+        "contrarianOpportunities": {
+          "title": "Cơ hội ngược chiều",
+          "description": "Sợ hãi cực độ thường báo hiệu cơ hội mua, trong khi tham lam cực độ có thể chỉ ra điểm bán."
+        },
+        "riskManagement": {
+          "title": "Quản lý rủi ro",
+          "description": "Hiểu tâm lý thị trường để quản lý rủi ro danh mục đầu tư và thời gian tốt hơn."
+        },
+        "dataDrivenDecisions": {
+          "title": "Quyết định dựa trên dữ liệu",
+          "description": "Đưa ra quyết định giao dịch thông minh dựa trên phân tích tâm lý thị trường toàn diện."
+        }
+      },
+      "cta": {
+        "title": "Sẵn sàng khám phá?",
+        "description": "Truy cập vào biểu đồ lịch sử chi tiết, phân tích thị trường và hiểu biết giao dịch nâng cao.",
+        "button": "Bắt đầu dùng thử miễn phí"
+      }
+    },
+    "walletExplorer": {
+      "title": "Trình khám phá Blockchain",
+      "subtitle": "Tìm kiếm và phân tích giao dịch Bitcoin, địa chỉ ví và dữ liệu blockchain theo thời gian thực",
+      "trySearch": "Thử công cụ tìm kiếm của chúng tôi",
+      "searchPlaceholder": "Dán mã hash giao dịch hoặc địa chỉ ví vào đây...",
+      "searchButton": "Tìm kiếm Blockchain",
+      "searching": "Đang tìm kiếm...",
+      "exampleSearches": "Ví dụ tìm kiếm:",
+      "transactionHash": "Mã hash giao dịch",
+      "walletAddress": "Địa chỉ ví",
+      "transactionDescription": "Tìm kiếm chi tiết giao dịch Bitcoin",
+      "walletDescription": "Khám phá lịch sử giao dịch ví",
+      "powerfulAnalysis": "Phân tích Blockchain mạnh mẽ",
+      "features": {
+        "realTimeData": {
+          "title": "Dữ liệu thời gian thực",
+          "description": "Truy cập ngay lập tức vào dữ liệu blockchain mới nhất với công cụ tìm kiếm hiệu suất cao của chúng tôi."
+        },
+        "advancedSearch": {
+          "title": "Tìm kiếm nâng cao",
+          "description": "Tìm kiếm theo mã hash giao dịch, địa chỉ ví hoặc khóa công khai mở rộng (XPUB) để phân tích toàn diện."
+        },
+        "transactionDetails": {
+          "title": "Chi tiết giao dịch",
+          "description": "Xem thông tin giao dịch chi tiết bao gồm đầu vào, đầu ra, phí và trạng thái xác nhận."
+        },
+        "walletAnalytics": {
+          "title": "Phân tích ví",
+          "description": "Phân tích lịch sử số dư ví, mẫu giao dịch và hành vi chi tiêu theo thời gian."
+        }
+      },
+      "cta": {
+        "title": "Sẵn sàng khám phá blockchain?",
+        "description": "Mở khóa truy cập đầy đủ vào trình khám phá blockchain của chúng tôi với phân tích giao dịch chi tiết và hiểu biết ví.",
+        "button": "Lấy quyền truy cập đầy đủ"
+      },
+      "searchResult": {
+        "found": "Tìm thấy kết quả tìm kiếm!",
+        "transactionSuccess": "Chi tiết giao dịch đã được tải thành công. Đăng ký để xem phân tích giao dịch đầy đủ.",
+        "walletSuccess": "Dữ liệu ví đã được tải thành công. Đăng ký để xem phân tích ví chi tiết.",
+        "viewFullDetails": "Xem chi tiết đầy đủ",
+        "transactionHash": "Mã hash giao dịch",
+        "blockHeight": "Chiều cao khối",
+        "size": "Kích thước",
+        "inputs": "Đầu vào",
+        "outputs": "Đầu ra",
+        "transactionValue": "Giá trị giao dịch",
+        "output": "Đầu ra",
+        "moreOutputs": "đầu ra khác",
+        "walletAddress": "Địa chỉ ví",
+        "transactionsFound": "Giao dịch tìm thấy",
+        "status": "Trạng thái",
+        "activeWallet": "Ví hoạt động",
+        "noData": "Không có dữ liệu",
+        "previewDescription": "Đây là bản xem trước dữ liệu giao dịch. Đăng ký để truy cập phân tích chi tiết, theo dõi lịch sử và hiểu biết blockchain nâng cao.",
+        "walletPreviewDescription": "Dữ liệu ví đã được tải thành công. Đăng ký để xem phân tích ví chi tiết, lịch sử giao dịch và theo dõi số dư."
+      }
+    },
+    "features": {
+      "title": "Công cụ tiền điện tử toàn diện",
+      "subtitle": "Mọi thứ bạn cần để phân tích, theo dõi và quản lý các khoản đầu tư tiền điện tử của mình",
+      "items": {
+        "marketIndicators": {
+          "title": "Chỉ số thị trường",
+          "description": "Chỉ số Fear & Greed thời gian thực với phân tích lịch sử và theo dõi tâm lý thị trường.",
+          "features": {
+            "liveMarketData": "Dữ liệu thị trường trực tiếp",
+            "historicalCharts": "Biểu đồ lịch sử",
+            "sentimentAnalysis": "Phân tích tâm lý",
+            "tradingInsights": "Hiểu biết giao dịch"
+          }
+        },
+        "blockchainExplorer": {
+          "title": "Trình khám phá Blockchain",
+          "description": "Tìm kiếm và phân tích giao dịch Bitcoin, địa chỉ ví và dữ liệu blockchain.",
+          "features": {
+            "transactionSearch": "Tìm kiếm giao dịch",
+            "walletAnalysis": "Phân tích ví",
+            "addressTracking": "Theo dõi địa chỉ",
+            "xpubSupport": "Hỗ trợ XPUB"
+          }
+        },
+        "securePlatform": {
+          "title": "Nền tảng bảo mật",
+          "description": "Bảo mật cấp doanh nghiệp với xác thực hai yếu tố và lưu trữ dữ liệu được mã hóa.",
+          "features": {
+            "twoFactorProtection": "Bảo vệ 2FA",
+            "secureLogin": "Đăng nhập bảo mật",
+            "dataEncryption": "Mã hóa dữ liệu",
+            "privacyFocused": "Tập trung vào quyền riêng tư"
+          }
+        },
+        "portfolioTracking": {
+          "title": "Theo dõi danh mục đầu tư",
+          "description": "Theo dõi danh mục tiền điện tử của bạn với cập nhật giá thời gian thực và số liệu hiệu suất.",
+          "features": {
+            "portfolioOverview": "Tổng quan danh mục",
+            "priceAlerts": "Cảnh báo giá",
+            "performanceTracking": "Theo dõi hiệu suất",
+            "assetManagement": "Quản lý tài sản"
+          }
+        },
+        "multiLanguage": {
+          "title": "Hỗ trợ đa ngôn ngữ",
+          "description": "Truy cập nền tảng bằng nhiều ngôn ngữ với hỗ trợ quốc tế hóa đầy đủ.",
+          "features": {
+            "englishVietnamese": "Tiếng Anh & Tiếng Việt",
+            "easySwitching": "Chuyển đổi dễ dàng",
+            "localizedContent": "Nội dung địa phương hóa",
+            "globalAccessibility": "Khả năng tiếp cận toàn cầu"
+          }
+        },
+        "realTimeUpdates": {
+          "title": "Cập nhật thời gian thực",
+          "description": "Nhận thông báo và cập nhật tức thì với cơ sở hạ tầng dữ liệu hiệu suất cao của chúng tôi.",
+          "features": {
+            "liveDataFeeds": "Nguồn cấp dữ liệu trực tiếp",
+            "instantUpdates": "Cập nhật tức thì",
+            "highAvailability": "Tính khả dụng cao",
+            "fastPerformance": "Hiệu suất nhanh"
+          }
+        }
+      },
+      "cta": {
+        "title": "Sẵn sàng bắt đầu?",
+        "description": "Tham gia cùng hàng nghìn người đam mê tiền điện tử tin tưởng 420Crypto cho nhu cầu phân tích thị trường và khám phá blockchain của họ.",
+        "getStarted": "Bắt đầu dùng thử miễn phí",
+        "signIn": "Đăng nhập",
+        "benefits": {
+          "freeToStart": "Miễn phí để bắt đầu",
+          "noCreditCard": "Không cần thẻ tín dụng",
+          "cancelAnytime": "Hủy bất cứ lúc nào"
+        }
+      }
+    }
+  },
   "settings": {
     "title": "Cài đặt người dùng",
     "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn",

@@ -14,7 +14,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosGet<
       { xpub: string },
       { xpub: ITransactionXPUB }
-    >(`${API_URL}/api/v1/wallet-explorer/xpub`, { xpub }, { withAuth: true })
+    >(`${API_URL}/api/v1/wallet-explorer/xpub`, { xpub }, { withAuth: false })
 
     const transactionData = response.data.xpub
 
