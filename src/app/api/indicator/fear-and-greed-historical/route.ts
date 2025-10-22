@@ -7,7 +7,7 @@ export async function GET(): Promise<NextResponse> {
     const response = await RequestService.axiosGet<
       null,
       { fear_and_greed_historical: IFearAndGreedHistoricalData }
-    >(`${API_URL}/coin-market-cap/fear-and-greed-historical`, null, {
+    >(`${API_URL}/api/v1/coin-market-cap/fear-and-greed-historical`, null, {
       withAuth: true,
     })
 

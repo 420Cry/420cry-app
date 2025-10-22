@@ -16,6 +16,7 @@ import {
 import { Line } from 'react-chartjs-2'
 import { IFearAndGreedDataPoint } from '@/types'
 import { useTranslations } from 'next-intl'
+import { FearAndGreedHistoricalSkeleton } from '@/components'
 
 ChartJS.register(
   LineElement,
@@ -86,12 +87,16 @@ function getGradient(
 interface FearAndGreedHistoricalProps {
   data: IFearAndGreedDataPoint[]
   className?: string
+  isLoading?: boolean
 }
 
-export const FearAndGreedHistorical = ({
+function FearAndGreedHistoricalContent({
   data,
   className = '',
-}: FearAndGreedHistoricalProps): JSX.Element => {
+}: {
+  data: IFearAndGreedDataPoint[]
+  className?: string
+}): JSX.Element {
   const t = useTranslations()
   const [range, setRange] = useState<'all' | 7 | 30 | 90 | 180 | 365>('all')
 
@@ -417,4 +422,17 @@ export const FearAndGreedHistorical = ({
       </div>
     </div>
   )
+}
+
+export const FearAndGreedHistorical = ({
+  data,
+  className = '',
+  isLoading = false,
+}: FearAndGreedHistoricalProps): JSX.Element => {
+  // Show skeleton while loading or if no data
+  if (isLoading || !data || data.length === 0) {
+    return <FearAndGreedHistoricalSkeleton className={className} />
+  }
+
+  return <FearAndGreedHistoricalContent data={data} className={className} />
 }

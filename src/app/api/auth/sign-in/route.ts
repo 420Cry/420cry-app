@@ -18,7 +18,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const rememberFlag = !!body.rememberMe
 
     const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
-      `${API_URL}/users/signin`,
+      `${API_URL}/api/v1/users/signin`,
       body,
     )
 

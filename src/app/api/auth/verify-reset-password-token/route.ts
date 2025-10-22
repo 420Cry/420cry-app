@@ -8,7 +8,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const body = await request.json()
     const response = await RequestService.axiosPost(
-      `${API_URL}/users/verify-reset-password-token`,
+      `${API_URL}/api/v1/users/verify-reset-password-token`,
       body,
     )
 

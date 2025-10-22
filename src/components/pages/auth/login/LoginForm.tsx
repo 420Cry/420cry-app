@@ -18,6 +18,7 @@ import {
   TWO_FACTOR_SETUP_ROUTE,
   useFormValidation,
   formStyles,
+  useLoading,
   combineStyles,
 } from '@/lib'
 
@@ -44,11 +45,13 @@ const LogInForm = (): JSX.Element => {
   const hideLabel = t('app.common.showPassword')
   const showLabel = t('app.common.hidePassword')
   const { handleFormSubmission } = useFormValidation()
+  const { setLoading } = useLoading()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
 
+    setLoading(true)
     await handleFormSubmission(formData, async (formData) => {
       const { response, user } = await authService.signIn.signInAction(formData)
       const success = response.isSuccess
@@ -73,6 +76,7 @@ const LogInForm = (): JSX.Element => {
       showToast(success, message)
       return { response, user }
     })
+    setLoading(false)
   }
 
   return (

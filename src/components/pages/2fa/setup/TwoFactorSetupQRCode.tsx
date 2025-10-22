@@ -3,7 +3,7 @@
 import { JSX, useEffect, useState } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { HOME_ROUTE, showToast, twoFactorService } from '@/lib'
+import { HOME_ROUTE, showToast, twoFactorService, useLoading } from '@/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
@@ -17,6 +17,7 @@ const TwoFactorSetupQRCode = ({
 }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading: setGlobalLoading } = useLoading()
   const [secret, setSecret] = useState('')
   const [qrCode, setQrCode] = useState('')
   const [loading, setLoading] = useState(true)
@@ -50,6 +51,7 @@ const TwoFactorSetupQRCode = ({
       showToast(false, t('2fa.QR.invalidToken'))
       return
     }
+    setGlobalLoading(true)
     try {
       const payload = {
         uuid: userUuid,
@@ -67,6 +69,8 @@ const TwoFactorSetupQRCode = ({
       }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+    } finally {
+      setGlobalLoading(false)
     }
   }
 

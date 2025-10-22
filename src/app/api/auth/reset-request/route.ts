@@ -15,7 +15,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       IResetPasswordRequest,
       IResponse
-    >(`${API_URL}/users/reset-password`, body)
+    >(`${API_URL}/api/v1/users/reset-password`, body)
 
     if (response.status === 200) {
       return NextResponse.json({

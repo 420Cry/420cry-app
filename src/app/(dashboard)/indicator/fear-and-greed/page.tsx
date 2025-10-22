@@ -13,21 +13,25 @@ export default function FearAndGreedPage(): JSX.Element {
   const [historicalData, setHistoricalData] =
     useState<IFearAndGreedHistoricalData | null>(null)
   const [expandedSection, setExpandedSection] = useState<number | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const t = useTranslations()
 
   useEffect(() => {
+    setIsLoading(true)
     Promise.all([
       externalService.indicator.fearAndGreed.getFearAndGreedIndextLatest(),
       externalService.indicator.fearAndGreed.getFearAndGreedIndextHistorical(),
-    ]).then(([latestResponse, historicalResponse]) => {
-      if (latestResponse.isSuccess && latestResponse.data)
-        setLatestData(latestResponse.data)
-      if (historicalResponse.isSuccess && historicalResponse.data)
-        setHistoricalData(historicalResponse.data)
-    })
+    ])
+      .then(([latestResponse, historicalResponse]) => {
+        if (latestResponse.isSuccess && latestResponse.data)
+          setLatestData(latestResponse.data)
+        if (historicalResponse.isSuccess && historicalResponse.data)
+          setHistoricalData(historicalResponse.data)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }, [])
-
-  if (!latestData || !historicalData) return <></>
 
   const toggleSection = (index: number) => {
     setExpandedSection((prev) => (prev === index ? null : index))
@@ -54,7 +58,10 @@ export default function FearAndGreedPage(): JSX.Element {
         {/* Left Column - Index Gauge */}
         <div className="lg:flex-[3_3_0%] flex flex-col gap-8">
           <div className="flex justify-center lg:justify-start">
-            <FearAndGreedIndex data={latestData.data} />
+            <FearAndGreedIndex
+              data={latestData?.data || null}
+              isLoading={isLoading}
+            />
           </div>
 
           {/* Information Sections */}
@@ -140,7 +147,10 @@ export default function FearAndGreedPage(): JSX.Element {
 
         {/* Right Column - Historical Chart */}
         <div className="lg:flex-[7_7_0%] flex items-start justify-center mt-8 lg:mt-0">
-          <FearAndGreedHistorical data={historicalData.data} />
+          <FearAndGreedHistorical
+            data={historicalData?.data || []}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </div>

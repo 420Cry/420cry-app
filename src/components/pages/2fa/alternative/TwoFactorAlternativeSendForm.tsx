@@ -8,6 +8,7 @@ import {
   showToast,
   TWO_FACTOR_VERIFY_ROUTE,
   twoFactorService,
+  useLoading,
 } from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
@@ -29,6 +30,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const user = useAuthStore((state) => state.user)
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading } = useLoading()
   const email = useMemo(() => maskEmail(user?.email || ''), [user?.email])
 
   // countdown timer
@@ -86,6 +88,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
       return
     }
+    setLoading(true)
     try {
       if (!user?.uuid) {
         showToast(false, t('app.alertTitle.somethingWentWrong'))
@@ -105,6 +108,8 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+    } finally {
+      setLoading(false)
     }
   }
 

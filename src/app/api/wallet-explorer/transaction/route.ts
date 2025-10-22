@@ -14,7 +14,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosGet<
       { txid: string },
       { transaction_data: ITransactionData }
-    >(`${API_URL}/wallet-explorer/tx`, { txid }, { withAuth: true })
+    >(`${API_URL}/api/v1/wallet-explorer/tx`, { txid }, { withAuth: true })
 
     if (response.status === 200 && response.data) {
       return NextResponse.json({

@@ -11,7 +11,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ITwoFactorAlternativeRequest,
       IResponse
-    >(`${API_URL}/2fa/alternative/send-email-otp`, body)
+    >(`${API_URL}/api/v1/2fa/alternative/send-email-otp`, body)
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,

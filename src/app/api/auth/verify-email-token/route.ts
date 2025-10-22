@@ -11,7 +11,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ISignUpVerificationToken,
       IResponse
-    >(`${API_URL}/users/verify-email-token`, body)
+    >(`${API_URL}/api/v1/users/verify-email-token`, body)
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,

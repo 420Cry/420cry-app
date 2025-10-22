@@ -9,7 +9,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const body = await request.json()
 
     const response = await RequestService.axiosPost<ISignUp, IResponse>(
-      `${API_URL}/users/signup`,
+      `${API_URL}/api/v1/users/signup`,
       body,
     )
 

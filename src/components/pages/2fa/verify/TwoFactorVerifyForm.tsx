@@ -9,6 +9,7 @@ import {
   showToast,
   TWO_FACTOR_ALTERNATIVE,
   twoFactorService,
+  useLoading,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -16,10 +17,12 @@ const TwoFactorVerifyForm = (): JSX.Element => {
   const [otp, setOtp] = useState('')
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading } = useLoading()
   const user = useAuthStore((state) => state.user)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
     try {
       if (!user?.uuid) {
         showToast(false, t('app.alertTitle.somethingWentWrong'))
@@ -44,6 +47,8 @@ const TwoFactorVerifyForm = (): JSX.Element => {
       }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+    } finally {
+      setLoading(false)
     }
   }
 

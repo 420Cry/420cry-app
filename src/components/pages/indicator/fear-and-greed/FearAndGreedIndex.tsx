@@ -3,14 +3,18 @@
 import { IFearAndGreedIndex } from '@/types'
 import { useTranslations } from 'next-intl'
 import { JSX } from 'react'
+import { FearAndGreedIndexSkeleton } from '@/components'
 
 interface FearAndGreedGaugeProps {
-  data: IFearAndGreedIndex
+  data: IFearAndGreedIndex | null
+  isLoading?: boolean
 }
 
-export default function FearAndGreedGauge({
+function FearAndGreedGaugeContent({
   data,
-}: FearAndGreedGaugeProps): JSX.Element {
+}: {
+  data: IFearAndGreedIndex
+}): JSX.Element {
   const t = useTranslations()
 
   const value = data.value
@@ -134,4 +138,16 @@ export default function FearAndGreedGauge({
       </div>
     </div>
   )
+}
+
+export default function FearAndGreedGauge({
+  data,
+  isLoading = false,
+}: FearAndGreedGaugeProps): JSX.Element {
+  // Show skeleton while loading or if no data
+  if (isLoading || !data) {
+    return <FearAndGreedIndexSkeleton />
+  }
+
+  return <FearAndGreedGaugeContent data={data} />
 }
