@@ -12,6 +12,7 @@ import {
   showToast,
   SIGN_IN_ROUTE,
   authService,
+  useClientOnly,
 } from '@/lib'
 
 import {
@@ -32,6 +33,7 @@ export default function Sidebar(): JSX.Element {
   const router = useRouter()
   const [collapsed, setCollapsed] = useState(false)
   const [openMenu, setOpenMenu] = useState<string | null>(null)
+  const isClient = useClientOnly()
   const navRef = useRef<HTMLDivElement>(null)
 
   const logout = async () => {
@@ -97,17 +99,40 @@ export default function Sidebar(): JSX.Element {
     },
   ]
 
+  // Prevent hydration mismatch by rendering only on client side
+  if (!isClient) {
+    return (
+      <aside
+        className={`h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border-r border-slate-700/30 backdrop-blur-xl flex flex-col justify-between transition-all duration-500 ease-in-out shadow-2xl relative overflow-hidden group ${
+          collapsed ? 'w-16' : 'w-64'
+        }`}
+        suppressHydrationWarning
+      >
+        <div className="flex items-center justify-center h-full">
+          <div className="animate-pulse">Loading...</div>
+        </div>
+      </aside>
+    )
+  }
+
   return (
     <aside
       className={`h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border-r border-slate-700/30 backdrop-blur-xl flex flex-col justify-between transition-all duration-500 ease-in-out shadow-2xl relative overflow-hidden group ${
         collapsed ? 'w-16' : 'w-64'
       }`}
+      suppressHydrationWarning
     >
       {/* Animated background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-purple-600/5 to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-purple-600/5 to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+        suppressHydrationWarning
+      />
 
       {/* Subtle animated border glow */}
-      <div className="absolute inset-0 border-r border-gradient-to-b from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      <div
+        className="absolute inset-0 border-r border-gradient-to-b from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        suppressHydrationWarning
+      />
       <div>
         {/* Logo + Toggle Button */}
         <div
@@ -151,6 +176,7 @@ export default function Sidebar(): JSX.Element {
         <nav
           ref={navRef}
           className="flex flex-col gap-2 items-center w-full relative px-2 z-10"
+          suppressHydrationWarning
         >
           {navItems.map(
             ({ labelKey, icon, ariaLabel, hasChildren, children, route }) => {
