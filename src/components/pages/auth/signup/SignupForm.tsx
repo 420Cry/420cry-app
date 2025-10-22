@@ -1,6 +1,6 @@
 'use client'
 
-import { JSX } from 'react'
+import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   CryButton,
@@ -8,26 +8,64 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, authService } from '@/lib'
+import { showToast, SIGN_IN_ROUTE, authService, useLoading } from '@/lib'
 import { useRouter } from 'next/navigation'
+import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()
   const hideLabel = t('app.common.showPassword')
   const showLabel = t('app.common.hidePassword')
   const router = useRouter()
+  const { setLoading } = useLoading()
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({})
 
-  const validateFormData = (formData: FormData): boolean => {
-    return [...formData.values()].every((value) => value)
+  const validateFormData = (
+    formData: FormData,
+  ): { isValid: boolean; errors: Record<string, string> } => {
+    const data = {
+      fullName: formData.get('fullName') as string,
+      userName: formData.get('userName') as string,
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+      repeatedPassword: formData.get('repeatedPassword') as string,
+    }
+
+    try {
+      SignUpFormSchema.parse(data)
+      return { isValid: true, errors: {} }
+    } catch (error: unknown) {
+      const errors: Record<string, string> = {}
+      if (error && typeof error === 'object' && 'errors' in error) {
+        const zodError = error as {
+          errors: Array<{ path: string[]; message: string }>
+        }
+        zodError.errors.forEach((err) => {
+          const field = err.path[0]
+          errors[field] = err.message
+        })
+      }
+      return { isValid: false, errors }
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
-    if (!validateFormData(formData)) {
-      showToast(false, t('app.alertTitle.allfieldsAreRequired'))
+
+    // Clear previous validation errors
+    setValidationErrors({})
+
+    // Validate form data using the same schema as backend
+    const validation = validateFormData(formData)
+    if (!validation.isValid) {
+      setValidationErrors(validation.errors)
       return
     }
+
+    setLoading(true)
     try {
       const response = await authService.signUp.action.signUpAction(formData)
       showToast(response.isSuccess, t(response.message))
@@ -36,6 +74,8 @@ const SignupForm = (): JSX.Element => {
       }
     } catch {
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -53,6 +93,11 @@ const SignupForm = (): JSX.Element => {
                 name="fullName"
                 inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
               />
+              {validationErrors.fullName && (
+                <div className="text-red-500 text-sm mt-1">
+                  {t(validationErrors.fullName)}
+                </div>
+              )}
             </div>
             <div className="w-full sm:w-1/2">
               <CryFormTextField
@@ -60,6 +105,11 @@ const SignupForm = (): JSX.Element => {
                 name="email"
                 inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
               />
+              {validationErrors.email && (
+                <div className="text-red-500 text-sm mt-1">
+                  {t(validationErrors.email)}
+                </div>
+              )}
             </div>
           </div>
           <CryFormTextField
@@ -67,6 +117,11 @@ const SignupForm = (): JSX.Element => {
             name="userName"
             inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
           />
+          {validationErrors.userName && (
+            <div className="text-red-500 text-sm mt-1 mb-4">
+              {t(validationErrors.userName)}
+            </div>
+          )}
           <CryFormTextField
             label={t('app.fields.password')}
             name="password"
@@ -76,6 +131,11 @@ const SignupForm = (): JSX.Element => {
             inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
             slotClassName="text-white"
           />
+          {validationErrors.password && (
+            <div className="text-red-500 text-sm mt-1 mb-4">
+              {t(validationErrors.password)}
+            </div>
+          )}
           <CryFormTextField
             label={t('app.fields.repeatedPassword')}
             name="repeatedPassword"
@@ -85,6 +145,11 @@ const SignupForm = (): JSX.Element => {
             inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
             slotClassName="text-white"
           />
+          {validationErrors.repeatedPassword && (
+            <div className="text-red-500 text-sm mt-1 mb-4">
+              {t(validationErrors.repeatedPassword)}
+            </div>
+          )}
           <div className="flex justify-center mt-4">
             <CryButton
               circle

@@ -37,7 +37,7 @@ describe('POST /api/2fa/setup', () => {
     const mockResponse = {
       status: 200,
       data: {
-        secret: 'ABC123',
+        secret: '123456',
         qrCode: 'data:image/png;base64,...',
       },
     }
@@ -49,7 +49,7 @@ describe('POST /api/2fa/setup', () => {
     const body = await res.json()
 
     expect(res.status).toBe(200)
-    expect(body.secret).toBe('ABC123')
+    expect(body.secret).toBe('123456')
     expect(body.qrCode).toBe('data:image/png;base64,...')
   })
 

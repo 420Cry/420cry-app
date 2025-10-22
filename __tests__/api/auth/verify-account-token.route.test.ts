@@ -56,7 +56,7 @@ describe('POST /api/auth/verify-account-token', () => {
     await POST(req as any)
 
     expect(RequestService.axiosPost).toHaveBeenCalledWith(
-      'http://fake-api/users/verify-account-token',
+      'http://fake-api/api/v1/users/verify-account-token',
       mockBody,
     )
   })

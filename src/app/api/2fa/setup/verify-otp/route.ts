@@ -16,7 +16,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
       IAuthResponse
-    >(`${API_URL}/2fa/setup/verify-otp`, body)
+    >(`${API_URL}/api/v1/2fa/setup/verify-otp`, body)
 
     if (response.status === 200 && response.data) {
       const { user, jwt } = response.data

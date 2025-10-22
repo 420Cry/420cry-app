@@ -1,7 +1,5 @@
-import { DASHBOARD_ROUTE } from '@/lib'
-import { redirect } from 'next/navigation'
-import { JSX } from 'react'
+import { LandingPage } from '@/components'
 
-export default function Home(): JSX.Element {
-  redirect(DASHBOARD_ROUTE)
+export default function Home() {
+  return <LandingPage />
 }

@@ -11,7 +11,17 @@ export { default as TwoFactorAlternativeSendForm } from './pages/2fa/alternative
 export { default as TransactionModal } from './pages/dashboard/TransactionModal'
 export { default as XPUBTransactionModal } from './pages/dashboard/XPUBTransactionModal'
 export { default as FearAndGreedIndex } from './pages/indicator/fear-and-greed/FearAndGreedIndex'
+export { default as FearAndGreedHistoricalSkeleton } from './pages/indicator/fear-and-greed/FearAndGreedHistoricalSkeleton'
 export { FearAndGreedHistorical } from './pages/indicator/fear-and-greed/FearAndGreedHistorical'
+export { default as FearAndGreedIndexSkeleton } from './pages/indicator/fear-and-greed/FearAndGreedIndexSkeleton'
+export { UserSettings } from './pages/settings/UserSettings'
+
+// landing
+export { default as LandingPage } from './pages/landing/LandingPage'
+export { default as HeroSection } from './pages/landing/HeroSection'
+export { default as FearAndGreedPreview } from './pages/landing/FearAndGreedPreview'
+export { default as WalletExplorerPreview } from './pages/landing/WalletExplorerPreview'
+export { default as FeaturesSection } from './pages/landing/FeaturesSection'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'

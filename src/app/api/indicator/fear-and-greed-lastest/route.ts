@@ -7,8 +7,8 @@ export async function GET(): Promise<NextResponse> {
     const response = await RequestService.axiosGet<
       null,
       { fear_and_greed_index: IFearAndGreedIndexData }
-    >(`${API_URL}/coin-market-cap/fear-and-greed-lastest`, null, {
-      withAuth: true,
+    >(`${API_URL}/api/v1/coin-market-cap/fear-and-greed-lastest`, null, {
+      withAuth: false,
     })
 
     if (response.status === 200 && response.data) {

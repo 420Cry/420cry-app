@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/auth/sign-in/route'
-import { CookieService, RequestService } from '@/lib'
+import { CookieService, RequestService, ApiErrorHandler } from '@/lib'
 
 vi.mock('@/lib', () => ({
   API_URL: 'http://fake-api',
@@ -22,6 +22,9 @@ vi.mock('@/lib', () => ({
   CookieService: {
     setJwtCookie: vi.fn(),
     setTwoFAVerifiedCookie: vi.fn(),
+  },
+  ApiErrorHandler: {
+    handle: vi.fn(),
   },
 }))
 
@@ -88,6 +91,27 @@ describe('POST /api/auth/sign-in', () => {
     const res = await POST(req as any)
 
     expect(res.cookies.get('jwt')).toBeUndefined()
+  })
+
+  it('uses ApiErrorHandler for error handling', async () => {
+    const error = new Error('Network error')
+    ;(RequestService.axiosPost as any).mockRejectedValue(error)
+    ;(ApiErrorHandler.handle as any).mockReturnValue(
+      NextResponse.json({ error: 'handled' }, { status: 500 }),
+    )
+
+    const req = new MockNextRequest({
+      username: 'test',
+      password: 'test',
+      remember: false,
+    })
+    const res = await POST(req as any)
+
+    expect(ApiErrorHandler.handle).toHaveBeenCalledWith(error, {
+      operation: 'signin',
+      resource: 'user',
+    })
+    expect(res.status).toBe(500)
   })
 })
 

@@ -8,7 +8,13 @@ import {
 import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast, SIGN_IN_ROUTE, authService } from '@/lib'
+import {
+  fieldsRequired,
+  showToast,
+  SIGN_IN_ROUTE,
+  authService,
+  useLoading,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 
 const ResetPasswordForm = ({
@@ -18,6 +24,7 @@ const ResetPasswordForm = ({
 }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading } = useLoading()
   const showLabel = t('app.common.showPassword')
   const hideLabel = t('app.common.hidePassword')
 
@@ -26,15 +33,20 @@ const ResetPasswordForm = ({
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response =
-      await authService.resetPassword.verify.verifyResetPasswordAction(
-        formData,
-        resetPasswordId,
-      )
+    setLoading(true)
+    try {
+      const response =
+        await authService.resetPassword.verify.verifyResetPasswordAction(
+          formData,
+          resetPasswordId,
+        )
 
-    showToast(response.isSuccess, t(response.message))
-    if (response.isSuccess) {
-      router.push(SIGN_IN_ROUTE)
+      showToast(response.isSuccess, t(response.message))
+      if (response.isSuccess) {
+        router.push(SIGN_IN_ROUTE)
+      }
+    } finally {
+      setLoading(false)
     }
   }
 

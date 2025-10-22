@@ -7,6 +7,7 @@ import {
   createErrorResponse,
   RequestService,
   CookieService,
+  ApiErrorHandler,
 } from '@/lib'
 import { NextRequest, NextResponse } from 'next/server'
 import { ISignIn, IAuthResponse, IResponse } from '@/types'
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const rememberFlag = !!body.rememberMe
 
     const response = await RequestService.axiosPost<ISignIn, IAuthResponse>(
-      `${API_URL}/users/signin`,
+      `${API_URL}/api/v1/users/signin`,
       body,
     )
 
@@ -67,14 +68,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       response.status,
     )
   } catch (error: unknown) {
-    const err = error as { response?: { status?: number } }
-    const status = err?.response?.status ?? 500
-
-    const message =
-      status === 401
-        ? 'app.alertTitle.invalidCredentials'
-        : 'app.alertTitle.somethingWentWrong'
-
-    return createErrorResponse(message, status)
+    return ApiErrorHandler.handle(error, {
+      operation: 'signin',
+      resource: 'user',
+    })
   }
 }

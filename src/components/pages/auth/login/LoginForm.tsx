@@ -16,6 +16,10 @@ import {
   SIGN_UP_ROUTE,
   authService,
   TWO_FACTOR_SETUP_ROUTE,
+  useFormValidation,
+  formStyles,
+  useLoading,
+  combineStyles,
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
@@ -40,16 +44,15 @@ const LogInForm = (): JSX.Element => {
   const t = useTranslations()
   const hideLabel = t('app.common.showPassword')
   const showLabel = t('app.common.hidePassword')
+  const { handleFormSubmission } = useFormValidation()
+  const { setLoading } = useLoading()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
 
-    if ([...formData.values()].some((value) => !value)) {
-      showToast(false, t('app.alertTitle.allfieldsAreRequired'))
-      return
-    }
-    try {
+    setLoading(true)
+    await handleFormSubmission(formData, async (formData) => {
       const { response, user } = await authService.signIn.signInAction(formData)
       const success = response.isSuccess
       const message = user
@@ -71,37 +74,41 @@ const LogInForm = (): JSX.Element => {
       }
 
       showToast(success, message)
-    } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
-    }
+      return { response, user }
+    })
+    setLoading(false)
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
-      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
-        <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
-          {t('auth.login.title')}
-        </h1>
+    <div className={combineStyles(formStyles.layout.centerVertical)}>
+      <div className={formStyles.container.card}>
+        <h1 className={formStyles.text.title}>{t('auth.login.title')}</h1>
 
         <form onSubmit={handleSubmit}>
           <CryFormTextField
             label={t('app.fields.username')}
-            labelClassName="text-neutral-gray-3"
+            labelClassName={formStyles.label.default}
             name="userName"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
           />
           <CryFormTextField
             label={t('app.fields.password')}
-            labelClassName="text-neutral-gray-3"
+            labelClassName={formStyles.label.default}
             name="password"
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
           />
 
-          <div className="flex justify-between w-full">
+          <div className={formStyles.layout.spaceBetween}>
             <div className="inline-flex items-center text-left">
               <CryCheckBox
                 text={t('auth.login.rememberMe')}
@@ -112,19 +119,21 @@ const LogInForm = (): JSX.Element => {
               />
             </div>
             <div className="text-right mb-1">
-              <a
-                href={RESET_PASSWORD_ROUTE}
-                className="text-sm font-bold text-white hover:underline"
-              >
+              <a href={RESET_PASSWORD_ROUTE} className={formStyles.text.link}>
                 {t('auth.login.forgotYourPassword')}
               </a>
             </div>
           </div>
 
-          <div className="flex justify-center my-6">
+          <div
+            className={combineStyles(
+              formStyles.layout.centerHorizontal,
+              formStyles.spacing.large,
+            )}
+          >
             <CryButton
               circle
-              className="bg-green-600 w-52 sm:w-60 text-white"
+              className={formStyles.button.submit}
               type="submit"
             >
               {t('auth.login.title')}

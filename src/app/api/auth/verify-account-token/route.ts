@@ -10,7 +10,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       IVerifyAccountToken,
       IResponse
-    >(`${API_URL}/users/verify-account-token`, token)
+    >(`${API_URL}/api/v1/users/verify-account-token`, token)
 
     if (response.status === 200) {
       return NextResponse.json({

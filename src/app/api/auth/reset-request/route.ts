@@ -1,6 +1,11 @@
 'use server-only'
 
-import { API_URL, createErrorResponse, RequestService } from '@/lib'
+import {
+  API_URL,
+  createErrorResponse,
+  RequestService,
+  ApiErrorHandler,
+} from '@/lib'
 import { IResetPasswordRequest, IResponse } from '@/types'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -10,7 +15,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       IResetPasswordRequest,
       IResponse
-    >(`${API_URL}/users/reset-password`, body)
+    >(`${API_URL}/api/v1/users/reset-password`, body)
 
     if (response.status === 200) {
       return NextResponse.json({
@@ -24,14 +29,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       response.status,
     )
   } catch (error: unknown) {
-    const err = error as { response?: { status?: number } }
-    const status = err?.response?.status ?? 500
-
-    const message =
-      status === 404
-        ? 'app.alertTitle.userNotFound'
-        : 'app.alertTitle.somethingWentWrong'
-
-    return createErrorResponse(message, status)
+    return ApiErrorHandler.handle(error, {
+      operation: 'reset-request',
+      resource: 'user',
+    })
   }
 }

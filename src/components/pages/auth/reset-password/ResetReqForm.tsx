@@ -8,24 +8,36 @@ import {
 import React, { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast, authService, SIGN_IN_ROUTE } from '@/lib'
+import {
+  fieldsRequired,
+  showToast,
+  authService,
+  SIGN_IN_ROUTE,
+  useLoading,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 
 const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading } = useLoading()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response =
-      await authService.resetPassword.request.resetRequestAction(formData)
-    showToast(response.isSuccess, t(response.message))
+    setLoading(true)
+    try {
+      const response =
+        await authService.resetPassword.request.resetRequestAction(formData)
+      showToast(response.isSuccess, t(response.message))
 
-    if (response.isSuccess) {
-      router.push(SIGN_IN_ROUTE)
+      if (response.isSuccess) {
+        router.push(SIGN_IN_ROUTE)
+      }
+    } finally {
+      setLoading(false)
     }
   }
 

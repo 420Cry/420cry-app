@@ -1,12 +1,15 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/auth/sign-up/route'
-import { RequestService } from '@/lib'
+import { RequestService, ApiErrorHandler } from '@/lib'
 
 vi.mock('@/lib', () => ({
   API_URL: 'http://fake-api',
   RequestService: {
     axiosPost: vi.fn(),
+  },
+  ApiErrorHandler: {
+    handle: vi.fn(),
   },
 }))
 
@@ -69,10 +72,11 @@ describe('POST route handler', () => {
     await POST(req as any)
 
     expect(RequestService.axiosPost).toHaveBeenCalledWith(
-      'http://fake-api/users/signup',
+      'http://fake-api/api/v1/users/signup',
       mockBody,
     )
   })
+
   it('handles empty request body', async () => {
     ;(RequestService.axiosPost as any).mockResolvedValue({ status: 400 })
 
@@ -93,6 +97,23 @@ describe('POST route handler', () => {
     const res = await POST(req as any)
 
     expect(res).toBeInstanceOf(NextResponse)
+  })
+
+  it('uses ApiErrorHandler for error handling', async () => {
+    const error = new Error('Network error')
+    ;(RequestService.axiosPost as any).mockRejectedValue(error)
+    ;(ApiErrorHandler.handle as any).mockReturnValue(
+      NextResponse.json({ error: 'handled' }, { status: 500 }),
+    )
+
+    const req = new MockNextRequest({ some: 'data' })
+    const res = await POST(req as any)
+
+    expect(ApiErrorHandler.handle).toHaveBeenCalledWith(error, {
+      operation: 'signup',
+      resource: 'user',
+    })
+    expect(res.status).toBe(500)
   })
 })
 
