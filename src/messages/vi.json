@@ -384,7 +384,10 @@
         "noData": "Không có dữ liệu",
         "previewDescription": "Đây là bản xem trước dữ liệu giao dịch. Đăng ký để truy cập phân tích chi tiết, theo dõi lịch sử và hiểu biết blockchain nâng cao.",
         "walletPreviewDescription": "Dữ liệu ví đã được tải thành công. Đăng ký để xem phân tích ví chi tiết, lịch sử giao dịch và theo dõi số dư."
-      }
+      },
+      "clickToCopy": "Nhấp để sao chép địa chỉ",
+      "exampleCopied": "Địa chỉ đã được sao chép vào clipboard!",
+      "copyFailed": "Không thể sao chép địa chỉ"
     },
     "features": {
       "title": "Công cụ tiền điện tử toàn diện",

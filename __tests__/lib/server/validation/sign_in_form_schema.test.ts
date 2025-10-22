@@ -20,7 +20,7 @@ describe('SignInFormSchema', () => {
     })
     expect(result.success).toBe(false)
     expect(result.error?.flatten().fieldErrors.userName).toContain(
-      'app.rules.userName',
+      'app.rules.userNameMinLength',
     )
   })
 
@@ -42,7 +42,7 @@ describe('SignInFormSchema', () => {
     })
     expect(result.success).toBe(false)
     expect(result.error?.flatten().fieldErrors.password).toContain(
-      'app.rules.passwordLetterContain',
+      'app.rules.passwordUppercase',
     )
   })
 

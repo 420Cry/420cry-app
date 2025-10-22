@@ -384,7 +384,10 @@
         "noData": "No Data",
         "previewDescription": "This is a preview of the transaction data. Sign up to access detailed analysis, historical tracking, and advanced blockchain insights.",
         "walletPreviewDescription": "Wallet data loaded successfully. Sign up to view detailed wallet analytics, transaction history, and balance tracking."
-      }
+      },
+      "clickToCopy": "Click to copy address",
+      "exampleCopied": "Address copied to clipboard!",
+      "copyFailed": "Failed to copy address"
     },
     "features": {
       "title": "Comprehensive Crypto Tools",

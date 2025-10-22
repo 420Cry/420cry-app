@@ -43,7 +43,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
 
   // --- Force logout if token is expired ---
   if (tokenExpired) {
-    const response = NextResponse.redirect(new URL(LANDING_PAGE_ROUTE, req.url))
+    const response = NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
     response.cookies.delete('jwt')
     response.cookies.delete('twoFAVerified')
     response.cookies.delete('twoFASetUpSkippedForNow')
@@ -106,12 +106,17 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     return NextResponse.next()
   }
 
+  // --- Redirect authenticated users from landing page to dashboard ---
+  if (pathname === LANDING_PAGE_ROUTE && isAuthenticated) {
+    return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
+  }
+
   // --- Protected route but not authenticated ---
   const isProtectedRoute = AUTH_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(route + '/'),
   )
   if (isProtectedRoute && !isAuthenticated) {
-    return NextResponse.redirect(new URL(LANDING_PAGE_ROUTE, req.url))
+    return NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
   }
 
   // --- Must complete 2FA setup ---

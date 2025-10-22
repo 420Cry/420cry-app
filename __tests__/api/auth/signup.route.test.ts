@@ -72,7 +72,7 @@ describe('POST route handler', () => {
     await POST(req as any)
 
     expect(RequestService.axiosPost).toHaveBeenCalledWith(
-      'http://fake-api/users/signup',
+      'http://fake-api/api/v1/users/signup',
       mockBody,
     )
   })

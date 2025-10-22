@@ -15,7 +15,7 @@ describe('Common Validation Schemas', () => {
     const validPassword = 'Password123!'
     const invalidPasswords = [
       { password: 'short', error: 'app.rules.passwordLength' },
-      { password: '12345678!', error: 'app.rules.passwordLetterContain' },
+      { password: '12345678!', error: 'app.rules.passwordUppercase' },
       { password: 'NoNumbers!', error: 'app.rules.passwordNumberContain' },
       { password: 'NoSpecial123', error: 'app.rules.passwordSpecialContain' },
     ]
@@ -77,7 +77,9 @@ describe('Common Validation Schemas', () => {
       (username) => {
         const result = usernameSchema.safeParse(username)
         expect(result.success).toBe(false)
-        expect(result.error?.errors[0]?.message).toBe('app.rules.userName')
+        expect(result.error?.errors[0]?.message).toBe(
+          'app.rules.userNameMinLength',
+        )
       },
     )
   })
@@ -94,7 +96,9 @@ describe('Common Validation Schemas', () => {
     it.each(invalidNames)('fails validation for full name: %s', (name) => {
       const result = fullNameSchema.safeParse(name)
       expect(result.success).toBe(false)
-      expect(result.error?.errors[0]?.message).toBe('app.rules.fullName')
+      expect(result.error?.errors[0]?.message).toBe(
+        'app.rules.fullNameMinLength',
+      )
     })
   })
 

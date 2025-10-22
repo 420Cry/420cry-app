@@ -64,7 +64,7 @@ export const fullNameSchema = z
   .trim()
   .min(2, { message: 'app.rules.fullNameMinLength' })
   .max(100, { message: 'app.rules.fullNameMaxLength' })
-  .regex(/^[a-zA-Z\s\-']+$/, { message: 'app.rules.fullNameFormat' })
+  .regex(/^[a-zA-ZÀ-ÿ\s\-']+$/, { message: 'app.rules.fullNameFormat' })
 
 /**
  * Common OTP validation schema

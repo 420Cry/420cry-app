@@ -84,6 +84,16 @@ export default function WalletExplorerPreview(): JSX.Element {
     }
   }
 
+  const handleExampleClick = async (example: string) => {
+    try {
+      await navigator.clipboard.writeText(example)
+      showToast(true, t('landing.walletExplorer.exampleCopied'))
+      setSearchTerm(example)
+    } catch (error) {
+      showToast(false, t('landing.walletExplorer.copyFailed'))
+    }
+  }
+
   const exampleSearches = [
     {
       type: t('landing.walletExplorer.transactionHash'),
@@ -176,22 +186,39 @@ export default function WalletExplorerPreview(): JSX.Element {
               {exampleSearches.map((example, index) => (
                 <div
                   key={index}
-                  className="bg-white rounded-lg p-4 border border-gray-200"
+                  className="bg-white rounded-lg p-4 border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all duration-200 cursor-pointer group"
+                  onClick={() => handleExampleClick(example.example)}
+                  title={t('landing.walletExplorer.clickToCopy')}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <div className="flex-shrink-0 w-8 h-8 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors duration-200">
                       <span className="text-blue-600 text-sm font-semibold">
                         {example.type === 'Transaction Hash' ? 'TX' : 'WA'}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h5 className="font-medium text-gray-900 text-sm">
-                        {example.type}
-                      </h5>
+                      <div className="flex items-center gap-2">
+                        <h5 className="font-medium text-gray-900 text-sm group-hover:text-blue-700 transition-colors duration-200">
+                          {example.type}
+                        </h5>
+                        <svg
+                          className="w-3 h-3 text-gray-400 group-hover:text-blue-500 transition-colors duration-200"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
                       <p className="text-gray-600 text-xs mt-1">
                         {example.description}
                       </p>
-                      <code className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded mt-2 block break-all">
+                      <code className="text-xs text-gray-500 bg-gray-100 group-hover:bg-blue-50 group-hover:text-blue-700 px-2 py-1 rounded mt-2 block break-all transition-colors duration-200">
                         {example.example}
                       </code>
                     </div>
