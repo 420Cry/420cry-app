@@ -395,7 +395,7 @@
           "description": "Real-time Fear & Greed Index with historical analysis and market sentiment tracking.",
           "features": {
             "liveMarketData": "Live market data",
-            "historicalCharts": "Historical charts", 
+            "historicalCharts": "Historical charts",
             "sentimentAnalysis": "Sentiment analysis",
             "tradingInsights": "Trading insights"
           }

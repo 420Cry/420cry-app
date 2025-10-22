@@ -13,7 +13,8 @@ export default function FearAndGreedPreview(): JSX.Element {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await externalService.indicator.fearAndGreed.getFearAndGreedIndextLatest()
+        const response =
+          await externalService.indicator.fearAndGreed.getFearAndGreedIndextLatest()
         if (response.isSuccess && response.data) {
           setData(response.data)
         }
@@ -62,7 +63,7 @@ export default function FearAndGreedPreview(): JSX.Element {
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 {t('landing.fearAndGreed.currentSentiment')}
               </h3>
-              
+
               {isLoading ? (
                 <div className="flex items-center justify-center h-64">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
@@ -72,13 +73,19 @@ export default function FearAndGreedPreview(): JSX.Element {
                   {/* Gauge Preview */}
                   <div className="relative w-48 h-24 mx-auto">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className={`text-6xl font-bold ${getSentimentColor(data.data.value)}`}>
+                      <div
+                        className={`text-6xl font-bold ${getSentimentColor(data.data.value)}`}
+                      >
                         {data.data.value}
                       </div>
                     </div>
                     <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-                      <div className={`px-4 py-2 rounded-full ${getSentimentBg(data.data.value)}`}>
-                        <span className={`text-sm font-semibold ${getSentimentColor(data.data.value)}`}>
+                      <div
+                        className={`px-4 py-2 rounded-full ${getSentimentBg(data.data.value)}`}
+                      >
+                        <span
+                          className={`text-sm font-semibold ${getSentimentColor(data.data.value)}`}
+                        >
                           {data.data.value_classification}
                         </span>
                       </div>
@@ -94,19 +101,27 @@ export default function FearAndGreedPreview(): JSX.Element {
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                      <span className="text-gray-600">{t('landing.fearAndGreed.features.realTimeUpdates')}</span>
+                      <span className="text-gray-600">
+                        {t('landing.fearAndGreed.features.realTimeUpdates')}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                      <span className="text-gray-600">{t('landing.fearAndGreed.features.historicalAnalysis')}</span>
+                      <span className="text-gray-600">
+                        {t('landing.fearAndGreed.features.historicalAnalysis')}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                      <span className="text-gray-600">{t('landing.fearAndGreed.features.marketInsights')}</span>
+                      <span className="text-gray-600">
+                        {t('landing.fearAndGreed.features.marketInsights')}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                      <span className="text-gray-600">{t('landing.fearAndGreed.features.tradingSignals')}</span>
+                      <span className="text-gray-600">
+                        {t('landing.fearAndGreed.features.tradingSignals')}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -122,16 +137,22 @@ export default function FearAndGreedPreview(): JSX.Element {
               <h3 className="text-2xl font-bold text-gray-900">
                 {t('landing.fearAndGreed.whyMonitor')}
               </h3>
-              
+
               <div className="space-y-4">
                 <div className="flex gap-4">
                   <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                     <span className="text-blue-600 text-xl">📈</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">{t('landing.fearAndGreed.benefits.contrarianOpportunities.title')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-1">
+                      {t(
+                        'landing.fearAndGreed.benefits.contrarianOpportunities.title',
+                      )}
+                    </h4>
                     <p className="text-gray-600 text-sm">
-                      {t('landing.fearAndGreed.benefits.contrarianOpportunities.description')}
+                      {t(
+                        'landing.fearAndGreed.benefits.contrarianOpportunities.description',
+                      )}
                     </p>
                   </div>
                 </div>
@@ -141,9 +162,13 @@ export default function FearAndGreedPreview(): JSX.Element {
                     <span className="text-green-600 text-xl">🎯</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">{t('landing.fearAndGreed.benefits.riskManagement.title')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-1">
+                      {t('landing.fearAndGreed.benefits.riskManagement.title')}
+                    </h4>
                     <p className="text-gray-600 text-sm">
-                      {t('landing.fearAndGreed.benefits.riskManagement.description')}
+                      {t(
+                        'landing.fearAndGreed.benefits.riskManagement.description',
+                      )}
                     </p>
                   </div>
                 </div>
@@ -153,9 +178,15 @@ export default function FearAndGreedPreview(): JSX.Element {
                     <span className="text-purple-600 text-xl">📊</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">{t('landing.fearAndGreed.benefits.dataDrivenDecisions.title')}</h4>
+                    <h4 className="font-semibold text-gray-900 mb-1">
+                      {t(
+                        'landing.fearAndGreed.benefits.dataDrivenDecisions.title',
+                      )}
+                    </h4>
                     <p className="text-gray-600 text-sm">
-                      {t('landing.fearAndGreed.benefits.dataDrivenDecisions.description')}
+                      {t(
+                        'landing.fearAndGreed.benefits.dataDrivenDecisions.description',
+                      )}
                     </p>
                   </div>
                 </div>
@@ -163,7 +194,9 @@ export default function FearAndGreedPreview(): JSX.Element {
             </div>
 
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
-              <h4 className="font-semibold text-gray-900 mb-2">{t('landing.fearAndGreed.cta.title')}</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">
+                {t('landing.fearAndGreed.cta.title')}
+              </h4>
               <p className="text-gray-600 text-sm mb-4">
                 {t('landing.fearAndGreed.cta.description')}
               </p>
@@ -172,8 +205,18 @@ export default function FearAndGreedPreview(): JSX.Element {
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
               >
                 {t('landing.fearAndGreed.cta.button')}
-                <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="ml-1 w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </a>
             </div>
