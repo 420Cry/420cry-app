@@ -37,24 +37,24 @@ const LanguageChangeButton = (): JSX.Element => {
   }
 
   return (
-    <div className="flex items-center justify-center gap-2 sm:gap-4">
+    <div className="flex items-center justify-center gap-2">
       <span
-        className={`font-bold text-xs sm:text-sm ${isEN ? 'text-white' : 'text-gray-400'}`}
+        className={`font-semibold text-sm transition-colors duration-200 ${isEN ? 'text-white' : 'text-gray-400'}`}
       >
         EN
       </span>
       <button
         onClick={changeLanguage}
-        className="relative flex items-center w-12 h-6 sm:w-24 sm:h-10 rounded-full bg-primary cursor-pointer transition-all duration-200"
+        className="relative flex items-center w-12 h-6 rounded-full bg-gray-700 border border-gray-600 cursor-pointer transition-all duration-200 hover:bg-gray-600"
       >
         <span
-          className={`absolute w-5 h-5 sm:w-10 sm:h-10 rounded-full bg-white left-0.5 sm:left-0.5 transition-transform duration-200 ${
-            isEN ? 'translate-x-0' : 'translate-x-6 sm:translate-x-14'
+          className={`absolute w-5 h-5 rounded-full bg-blue-500 left-0.5 transition-transform duration-200 shadow-sm ${
+            isEN ? 'translate-x-0' : 'translate-x-6'
           }`}
         />
       </button>
       <span
-        className={`font-bold text-xs sm:text-sm ${isEN ? 'text-gray-400' : 'text-white'}`}
+        className={`font-semibold text-sm transition-colors duration-200 ${isEN ? 'text-gray-400' : 'text-white'}`}
       >
         VN
       </span>

@@ -102,27 +102,32 @@ export default function DashboardHeader({
   }
 
   return (
-    <header className="relative w-full h-16 flex items-center px-4 sm:px-6">
-      <form
-        onSubmit={handleSearchSubmit}
-        className="w-full sm:flex-1 flex justify-center"
-      >
-        <CrySearchBar
-          placeholder={searchPlaceholder}
-          width="w-full sm:w-[90%]"
-          height="h-10"
-          textColor="text-gray-800"
-          iconColor="text-gray-400"
-          rounded="rounded-full"
-          ringColor="focus:ring-transparent"
-          className="text-sm"
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </form>
-      <div className="ml-6 sm:ml-8 flex items-center gap-3 sm:gap-4">
+    <header className="relative w-full h-16 flex items-center px-4 sm:px-6 bg-gray-900 border-b border-gray-700">
+      {/* Search Section */}
+      <div className="flex-1 max-w-2xl mx-auto">
+        <form onSubmit={handleSearchSubmit} className="relative">
+          <CrySearchBar
+            placeholder={searchPlaceholder}
+            width="w-full"
+            height="h-11"
+            textColor="text-gray-200"
+            iconColor="text-gray-400"
+            rounded="rounded-lg"
+            ringColor="focus:ring-blue-500"
+            className="text-sm bg-gray-800 border border-gray-600 placeholder-gray-400 focus:border-blue-500 transition-all duration-200"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </form>
+      </div>
+
+      {/* Actions Section */}
+      <div className="flex items-center gap-4 ml-6">
         <LanguageChangeButton />
-        <UserIcon className="h-7 w-7 sm:h-9 sm:w-9 text-gray-600 cursor-pointer" />
+        <div className="relative group">
+          <UserIcon className="h-8 w-8 text-gray-400 hover:text-white cursor-pointer transition-colors duration-200" />
+          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-900"></div>
+        </div>
       </div>
     </header>
   )

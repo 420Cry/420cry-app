@@ -248,6 +248,86 @@
         "180days": "180 days",
         "oneYear": "1 year",
         "all": "all"
+      },
+      "currentSentiment": "Current Market Sentiment",
+      "chartAnalysis": "Market Analysis",
+      "liveData": "Live Data",
+      "dataSource": "Data source: CoinMarketCap Fear & Greed Index",
+      "updatedHourly": "Updated hourly",
+      "pageTitle": "Fear & Greed Index",
+      "pageDescription": "Track market sentiment with our comprehensive Fear & Greed analysis"
+    }
+  },
+  "settings": {
+    "title": "User Settings",
+    "subtitle": "Manage your account settings and preferences",
+    "tabs": {
+      "profile": "Profile",
+      "security": "Security",
+      "preferences": "Preferences"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "subtitle": "Update your personal information and account details",
+      "editButton": "Edit Profile",
+      "saveButton": "Save Changes",
+      "cancelButton": "Cancel",
+      "accountInfo": "Account Information",
+      "emailVerified": "Email Verification",
+      "verified": "Verified",
+      "notVerified": "Not Verified",
+      "memberSince": "Member Since",
+      "userId": "User ID",
+      "rememberMe": "Remember Me",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "fields": {
+        "fullname": "Full Name",
+        "username": "Username",
+        "email": "Email Address"
+      }
+    },
+    "security": {
+      "password": {
+        "title": "Password & Security",
+        "subtitle": "Change your password to keep your account secure",
+        "changeButton": "Change Password",
+        "updateButton": "Update Password",
+        "cancelButton": "Cancel",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "lastChanged": "Password",
+        "neverChanged": "Never changed"
+      },
+      "twoFactor": {
+        "title": "Two-Factor Authentication",
+        "subtitle": "Add an extra layer of security to your account",
+        "enable": "Enable 2FA",
+        "disable": "Disable 2FA",
+        "enabled": "Two-Factor Authentication is enabled",
+        "disabled": "Two-Factor Authentication is disabled",
+        "enabledDesc": "Your account is protected with 2FA",
+        "disabledDesc": "Add 2FA for better security"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "subtitle": "Customize your experience",
+      "language": {
+        "title": "Language",
+        "subtitle": "Choose your preferred language",
+        "change": "Change"
+      },
+      "theme": {
+        "title": "Theme",
+        "subtitle": "Choose your preferred theme",
+        "change": "Change"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "subtitle": "Manage your notification preferences",
+        "configure": "Configure"
       }
     }
   }

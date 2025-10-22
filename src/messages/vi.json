@@ -248,6 +248,86 @@
         "180days": "180 ngày",
         "oneYear": "1 năm",
         "all": "Tất cả"
+      },
+      "currentSentiment": "Tâm lý thị trường hiện tại",
+      "chartAnalysis": "Phân tích thị trường",
+      "liveData": "Dữ liệu trực tiếp",
+      "dataSource": "Nguồn dữ liệu: Chỉ số Sợ hãi và Tham lam CoinMarketCap",
+      "updatedHourly": "Cập nhật hàng giờ",
+      "pageTitle": "Chỉ số Sợ hãi và Tham lam",
+      "pageDescription": "Theo dõi tâm lý thị trường với phân tích toàn diện về Sợ hãi và Tham lam"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt người dùng",
+    "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn",
+    "tabs": {
+      "profile": "Hồ sơ",
+      "security": "Bảo mật",
+      "preferences": "Tùy chọn"
+    },
+    "profile": {
+      "title": "Thông tin hồ sơ",
+      "subtitle": "Cập nhật thông tin cá nhân và chi tiết tài khoản",
+      "editButton": "Chỉnh sửa hồ sơ",
+      "saveButton": "Lưu thay đổi",
+      "cancelButton": "Hủy",
+      "accountInfo": "Thông tin tài khoản",
+      "emailVerified": "Xác minh email",
+      "verified": "Đã xác minh",
+      "notVerified": "Chưa xác minh",
+      "memberSince": "Thành viên từ",
+      "userId": "ID người dùng",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "enabled": "Đã bật",
+      "disabled": "Đã tắt",
+      "fields": {
+        "fullname": "Họ và tên",
+        "username": "Tên người dùng",
+        "email": "Địa chỉ email"
+      }
+    },
+    "security": {
+      "password": {
+        "title": "Mật khẩu và bảo mật",
+        "subtitle": "Thay đổi mật khẩu để bảo vệ tài khoản của bạn",
+        "changeButton": "Thay đổi mật khẩu",
+        "updateButton": "Cập nhật mật khẩu",
+        "cancelButton": "Hủy",
+        "currentPassword": "Mật khẩu hiện tại",
+        "newPassword": "Mật khẩu mới",
+        "confirmPassword": "Xác nhận mật khẩu mới",
+        "lastChanged": "Mật khẩu",
+        "neverChanged": "Chưa bao giờ thay đổi"
+      },
+      "twoFactor": {
+        "title": "Xác thực hai yếu tố",
+        "subtitle": "Thêm một lớp bảo mật bổ sung cho tài khoản của bạn",
+        "enable": "Bật 2FA",
+        "disable": "Tắt 2FA",
+        "enabled": "Xác thực hai yếu tố đã được bật",
+        "disabled": "Xác thực hai yếu tố đã bị tắt",
+        "enabledDesc": "Tài khoản của bạn được bảo vệ bằng 2FA",
+        "disabledDesc": "Thêm 2FA để bảo mật tốt hơn"
+      }
+    },
+    "preferences": {
+      "title": "Tùy chọn",
+      "subtitle": "Tùy chỉnh trải nghiệm của bạn",
+      "language": {
+        "title": "Ngôn ngữ",
+        "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "theme": {
+        "title": "Chủ đề",
+        "subtitle": "Chọn chủ đề ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "notifications": {
+        "title": "Thông báo",
+        "subtitle": "Quản lý tùy chọn thông báo của bạn",
+        "configure": "Cấu hình"
       }
     }
   }

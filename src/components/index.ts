@@ -12,6 +12,7 @@ export { default as TransactionModal } from './pages/dashboard/TransactionModal'
 export { default as XPUBTransactionModal } from './pages/dashboard/XPUBTransactionModal'
 export { default as FearAndGreedIndex } from './pages/indicator/fear-and-greed/FearAndGreedIndex'
 export { FearAndGreedHistorical } from './pages/indicator/fear-and-greed/FearAndGreedHistorical'
+export { UserSettings } from './pages/settings/UserSettings'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'
