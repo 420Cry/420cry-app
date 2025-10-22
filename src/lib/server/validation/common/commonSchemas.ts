@@ -19,17 +19,7 @@ export const passwordSchema = z
  */
 export const passwordConfirmationSchema = <T extends z.ZodTypeAny>(
   passwordField: T,
-): z.ZodEffects<
-  z.ZodObject<
-    { password: T; repeatedPassword: z.ZodString },
-    'strip',
-    z.ZodTypeAny,
-    { password: z.infer<T>; repeatedPassword: string },
-    { password: z.infer<T>; repeatedPassword: string }
-  >,
-  { password: z.infer<T>; repeatedPassword: string },
-  { password: z.infer<T>; repeatedPassword: string }
-> =>
+) =>
   z
     .object({
       password: passwordField,
