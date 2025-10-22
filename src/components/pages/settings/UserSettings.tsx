@@ -4,7 +4,6 @@ import React, { JSX, useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useAuthStore } from '@/store'
-import { IUser } from '@/types'
 
 export const UserSettings = (): JSX.Element => {
   const t = useTranslations('settings')
@@ -56,13 +55,11 @@ export const UserSettings = (): JSX.Element => {
 
   const handleSaveProfile = () => {
     // TODO: Implement save profile logic
-    console.log('Saving profile:', formData)
     setIsEditing(false)
   }
 
   const handleChangePassword = () => {
     // TODO: Implement change password logic
-    console.log('Changing password:', passwordData)
     setIsChangingPassword(false)
     setPasswordData({
       currentPassword: '',
@@ -185,32 +182,38 @@ export const UserSettings = (): JSX.Element => {
                         @{userData.username || 'username'}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {(userData.email || '')}
+                        {userData.email || ''}
                       </p>
                     </div>
                   </div>
 
                   {/* Form Fields */}
-                  <div className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-300 ${
-                    isEditing ? 'bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800' : ''
-                  }`}>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          {t('profile.fields.fullname')}
-                        </label>
-                        <CryTextField
-                          name="fullname"
-                          modelValue={formData.fullname}
-                          placeholder={t('profile.fields.fullname')}
-                          onChange={(value) =>
-                            handleInputChange('fullname', value)
-                          }
-                          disabled={!isEditing}
-                          className={`w-full transition-all duration-200 ${
-                            isEditing ? 'ring-2 ring-blue-200 dark:ring-blue-800' : ''
-                          }`}
-                        />
-                      </div>
+                  <div
+                    className={`grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-300 ${
+                      isEditing
+                        ? 'bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl border border-blue-200 dark:border-blue-800'
+                        : ''
+                    }`}
+                  >
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        {t('profile.fields.fullname')}
+                      </label>
+                      <CryTextField
+                        name="fullname"
+                        modelValue={formData.fullname}
+                        placeholder={t('profile.fields.fullname')}
+                        onChange={(value) =>
+                          handleInputChange('fullname', value)
+                        }
+                        disabled={!isEditing}
+                        className={`w-full transition-all duration-200 ${
+                          isEditing
+                            ? 'ring-2 ring-blue-200 dark:ring-blue-800'
+                            : ''
+                        }`}
+                      />
+                    </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {t('profile.fields.username')}
@@ -224,7 +227,9 @@ export const UserSettings = (): JSX.Element => {
                         }
                         disabled={!isEditing}
                         className={`w-full transition-all duration-200 ${
-                          isEditing ? 'ring-2 ring-blue-200 dark:ring-blue-800' : ''
+                          isEditing
+                            ? 'ring-2 ring-blue-200 dark:ring-blue-800'
+                            : ''
                         }`}
                       />
                     </div>
@@ -237,12 +242,12 @@ export const UserSettings = (): JSX.Element => {
                         type="email"
                         modelValue={formData.email}
                         placeholder={t('profile.fields.email')}
-                        onChange={(value) =>
-                          handleInputChange('email', value)
-                        }
+                        onChange={(value) => handleInputChange('email', value)}
                         disabled={!isEditing}
                         className={`w-full transition-all duration-200 ${
-                          isEditing ? 'ring-2 ring-blue-200 dark:ring-blue-800' : ''
+                          isEditing
+                            ? 'ring-2 ring-blue-200 dark:ring-blue-800'
+                            : ''
                         }`}
                       />
                     </div>
@@ -274,7 +279,9 @@ export const UserSettings = (): JSX.Element => {
                           {t('profile.rememberMe')}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {userData.rememberMe ? t('profile.enabled') : t('profile.disabled')}
+                          {userData.rememberMe
+                            ? t('profile.enabled')
+                            : t('profile.disabled')}
                         </p>
                       </div>
                     </div>
@@ -366,38 +373,38 @@ export const UserSettings = (): JSX.Element => {
 
                   {isChangingPassword ? (
                     <div className="space-y-6">
-                        <div className="grid grid-cols-1 gap-6">
-                          <CryTextField
-                            name="currentPassword"
-                            type="password"
-                            modelValue={passwordData.currentPassword}
-                            placeholder={t('security.password.currentPassword')}
-                            onChange={(value) =>
-                              handlePasswordChange('currentPassword', value)
-                            }
-                            className="w-full"
-                          />
-                          <CryTextField
-                            name="newPassword"
-                            type="password"
-                            modelValue={passwordData.newPassword}
-                            placeholder={t('security.password.newPassword')}
-                            onChange={(value) =>
-                              handlePasswordChange('newPassword', value)
-                            }
-                            className="w-full"
-                          />
-                          <CryTextField
-                            name="confirmPassword"
-                            type="password"
-                            modelValue={passwordData.confirmPassword}
-                            placeholder={t('security.password.confirmPassword')}
-                            onChange={(value) =>
-                              handlePasswordChange('confirmPassword', value)
-                            }
-                            className="w-full"
-                          />
-                        </div>
+                      <div className="grid grid-cols-1 gap-6">
+                        <CryTextField
+                          name="currentPassword"
+                          type="password"
+                          modelValue={passwordData.currentPassword}
+                          placeholder={t('security.password.currentPassword')}
+                          onChange={(value) =>
+                            handlePasswordChange('currentPassword', value)
+                          }
+                          className="w-full"
+                        />
+                        <CryTextField
+                          name="newPassword"
+                          type="password"
+                          modelValue={passwordData.newPassword}
+                          placeholder={t('security.password.newPassword')}
+                          onChange={(value) =>
+                            handlePasswordChange('newPassword', value)
+                          }
+                          className="w-full"
+                        />
+                        <CryTextField
+                          name="confirmPassword"
+                          type="password"
+                          modelValue={passwordData.confirmPassword}
+                          placeholder={t('security.password.confirmPassword')}
+                          onChange={(value) =>
+                            handlePasswordChange('confirmPassword', value)
+                          }
+                          className="w-full"
+                        />
+                      </div>
                       <div className="flex items-center gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <CryButton
                           onClick={handleChangePassword}
@@ -481,7 +488,7 @@ export const UserSettings = (): JSX.Element => {
                     </div>
                     <CryButton
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-                        userData.twoFAEnabled 
+                        userData.twoFAEnabled
                           ? 'border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
                           : 'bg-blue-600 hover:bg-blue-700 text-white'
                       }`}

@@ -192,7 +192,9 @@ export default function Sidebar(): JSX.Element {
                                 if (child.route) router.push(child.route)
                               }}
                             >
-                              <span className="mr-3 text-slate-500 font-mono text-xs">└</span>
+                              <span className="mr-3 text-slate-500 font-mono text-xs">
+                                └
+                              </span>
                               {t(child.labelKey)}
                             </CryButton>
                           ))}

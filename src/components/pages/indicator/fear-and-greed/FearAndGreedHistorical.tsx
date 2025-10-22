@@ -44,7 +44,7 @@ let width: number,
 
 function getGradient(
   ctx: CanvasRenderingContext2D,
-  chartArea: any,
+  chartArea: { left: number; right: number; top: number; bottom: number },
   data: number[],
 ): CanvasGradient | null {
   const chartWidth = chartArea.right - chartArea.left
@@ -148,7 +148,17 @@ export const FearAndGreedHistorical = ({
           pointBorderColor: '#ffffff',
           pointBorderWidth: 1,
           tension: 0.4,
-          borderColor: function (context: any) {
+          borderColor: function (context: {
+            chart: {
+              ctx: CanvasRenderingContext2D
+              chartArea: {
+                left: number
+                right: number
+                top: number
+                bottom: number
+              } | null
+            }
+          }) {
             const chart = context.chart
             const { ctx, chartArea } = chart
             if (!chartArea) {

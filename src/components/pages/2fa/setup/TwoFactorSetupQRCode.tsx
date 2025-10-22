@@ -74,92 +74,141 @@ const TwoFactorSetupQRCode = ({
     return <p className="text-center py-10">{t('app.common.loading')}</p>
   }
   return (
-    <div className="flex flex-col justify-center items-center px-4 relative -mt-12">
-      <div className="max-w-lg w-full border border-gray-300 rounded-lg shadow-md overflow-hidden">
-        <div className="bg-gray-100 px-8 py-6">
-          <p className="text-xl font-semibold text-left">{t('2fa.QR.title')}</p>
-        </div>
-
-        <div className="bg-white px-8 py-10">
-          <p className="mb-4 text-center text-2xl font-semibold">
-            {t('2fa.QR.scanQRCodeWithApp')}
-          </p>
-          <p className="mb-8 text-center text-gray-700 text-lg max-w-md mx-auto">
-            {t('2fa.QR.description')}
-          </p>
-
-          {/* Step 1 */}
-          <p className="mb-4 text-center text-gray-700 text-lg max-w-md mx-auto">
-            <span className="font-bold mr-2">{t('app.common.step')}1: </span>{' '}
-            {t('2fa.QR.stepOne')}
-          </p>
-
-          <div className="flex flex-col items-center mb-8">
-            <div className="w-56 h-56 bg-white rounded-lg flex items-center justify-center text-gray-400 select-none mb-4">
-              {qrCode ? (
-                <Image
-                  src={qrCode}
-                  alt="2FA QR Code"
-                  width={224} // 56 * 4 (since div is w-56)
-                  height={224}
-                  className="w-full h-full object-contain"
-                />
-              ) : (
-                <p className="font-semibold text-lg">
-                  {t('2fa.setup.qrCodeError')}
-                </p>
-              )}
+    <div className="flex items-center justify-center">
+      <div className="w-full max-w-md mx-auto">
+        <div className="relative bg-white/80 backdrop-blur-xl border border-white/40 rounded-3xl shadow-2xl shadow-gray-900/10 overflow-hidden">
+          {/* Header */}
+          <div className="relative bg-gradient-to-br from-purple-500 via-pink-500 to-purple-600 p-6 text-center">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <div className="relative">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full mb-3 shadow-lg">
+                <span className="text-lg">🔐</span>
+              </div>
+              <h1 className="text-xl font-bold text-white mb-1">
+                {t('2fa.QR.title')}
+              </h1>
+              <p className="text-purple-100 text-xs">
+                {t('2fa.QR.scanQRCodeWithApp')}
+              </p>
             </div>
-
-            {/* Secret key */}
-            {secret ? (
-              <p className="font-bold text-center text-lg text-gray-800 select-all">
-                {secret}
-              </p>
-            ) : (
-              <p className="text-sm text-gray-500 italic">
-                {t('app.common.loading')}
-              </p>
-            )}
           </div>
 
-          <div className="my-6 border-t border-gray-300" />
+          {/* Content */}
+          <div className="p-6">
+            {/* Step 1 - QR Code */}
+            <div className="mb-6">
+              <div className="flex items-center justify-center mb-4">
+                <div className="flex items-center px-2.5 py-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full text-white shadow-lg">
+                  <span className="w-4 h-4 bg-white/20 rounded-full flex items-center justify-center text-xs font-bold mr-2">
+                    1
+                  </span>
+                  <span className="text-xs font-medium">
+                    {t('2fa.QR.stepOne')}
+                  </span>
+                </div>
+              </div>
 
-          {/* Step 2 */}
-          <p className="mb-4 text-center text-gray-700 text-lg max-w-md mx-auto">
-            <span className="font-bold mr-2">{t('app.common.step')}2: </span>{' '}
-            {t('2fa.QR.stepTwo')}
-          </p>
+              <div className="flex flex-col items-center">
+                <div className="relative group mb-4">
+                  <div className="w-32 h-32 bg-gradient-to-br from-white to-gray-50 rounded-xl flex items-center justify-center shadow-lg border-2 border-gray-200/50 group-hover:border-purple-300 transition-all duration-300">
+                    {qrCode ? (
+                      <Image
+                        src={qrCode}
+                        alt="2FA QR Code"
+                        width={128}
+                        height={128}
+                        className="w-full h-full object-contain rounded-lg"
+                      />
+                    ) : (
+                      <div className="text-center">
+                        <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center mb-1 mx-auto">
+                          <span className="text-gray-400 text-sm">📱</span>
+                        </div>
+                        <p className="font-medium text-xs text-gray-500">
+                          {t('2fa.setup.qrCodeError')}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse shadow-lg"></div>
+                </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div className="flex justify-center">
-              <CryTextField
-                modelValue={token}
-                name="token"
-                shape="rounded"
-                className="max-w"
-                onChange={setToken}
-                placeholder="123456"
-              />
+                {/* Secret key */}
+                {secret ? (
+                  <div className="w-full max-w-xs">
+                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-2.5 border border-gray-200/50">
+                      <p className="text-xs text-gray-500 mb-1 text-center font-medium">
+                        Secret Key
+                      </p>
+                      <p className="font-mono text-xs text-center text-gray-800 select-all break-all leading-relaxed">
+                        {secret}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex items-center text-xs text-gray-500">
+                    <div className="w-3 h-3 border-2 border-gray-300 border-t-purple-500 rounded-full animate-spin mr-2"></div>
+                    {t('app.common.loading')}
+                  </div>
+                )}
+              </div>
             </div>
-          </form>
-        </div>
 
-        <div className="bg-gray-100 px-8 py-6 flex justify-end gap-4">
-          <CryButton
-            onClick={onCancel}
-            className="bg-gray-600 text-white px-6 py-2 text-base rounded hover:bg-gray-800 transition"
-            rounded
-          >
-            {t('app.common.cancel')}
-          </CryButton>
-          <CryButton
-            className="bg-blue-600 text-white px-6 py-2 text-base rounded hover:bg-blue-800 transition"
-            rounded
-            onClick={handleSubmit}
-          >
-            {t('app.common.verify')}
-          </CryButton>
+            {/* Divider */}
+            <div className="flex items-center my-4">
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+              <div className="mx-3 w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+              <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+            </div>
+
+            {/* Step 2 - Token Input */}
+            <div className="mb-6">
+              <div className="flex items-center justify-center mb-4">
+                <div className="flex items-center px-2.5 py-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full text-white shadow-lg">
+                  <span className="w-4 h-4 bg-white/20 rounded-full flex items-center justify-center text-xs font-bold mr-2">
+                    2
+                  </span>
+                  <span className="text-xs font-medium">
+                    {t('2fa.QR.stepTwo')}
+                  </span>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit}>
+                <div className="flex justify-center">
+                  <div className="relative group">
+                    <CryTextField
+                      modelValue={token}
+                      name="token"
+                      shape="rounded"
+                      className="text-center text-base font-mono tracking-widest  transition-colors"
+                      onChange={setToken}
+                      placeholder="ABC123"
+                    />
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-400 rounded-full animate-pulse shadow-lg"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 flex justify-center gap-3">
+            <CryButton
+              onClick={onCancel}
+              className="px-5 py-2 text-xs font-medium text-gray-600 hover:text-gray-800 hover:bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-300/50 hover:shadow-md"
+              rounded
+            >
+              {t('app.common.cancel')}
+            </CryButton>
+            <CryButton
+              className="px-5 py-2 text-xs font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-300/50 hover:shadow-lg hover:scale-105 shadow-lg"
+              rounded
+              onClick={handleSubmit}
+            >
+              {t('app.common.verify')}
+            </CryButton>
+          </div>
         </div>
       </div>
     </div>

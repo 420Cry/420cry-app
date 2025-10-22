@@ -30,7 +30,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
   }
 
   return (
-    <>
+    <div className="flex items-center justify-center p-4">
       {method === 'app' && user?.uuid ? (
         <TwoFactorSetupQRCode userUuid={user.uuid} onCancel={handleBack} />
       ) : (
@@ -56,7 +56,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
           )}
         </>
       )}
-    </>
+    </div>
   )
 }
 
