@@ -206,33 +206,49 @@ export default function DashboardHeader({
                     </p>
                   </div>
                 </div>
-                
+
                 {/* User Data Display */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-gray-400">{t('dashboard.userMenu.userId')}:</span>
+                    <span className="text-gray-400">
+                      {t('dashboard.userMenu.userId')}:
+                    </span>
                     <span className="text-gray-300 font-mono text-xs">
-                      {user?.uuid ? `${user.uuid.slice(0, 8)}...` : t('dashboard.userMenu.notAvailable')}
+                      {user?.uuid
+                        ? `${user.uuid.slice(0, 8)}...`
+                        : t('dashboard.userMenu.notAvailable')}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-gray-400">{t('dashboard.userMenu.twoFAStatus')}:</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      user?.twoFAEnabled 
-                        ? 'bg-green-500/20 text-green-400' 
-                        : 'bg-gray-500/20 text-gray-400'
-                    }`}>
-                      {user?.twoFAEnabled ? t('dashboard.userMenu.enabled') : t('dashboard.userMenu.disabled')}
+                    <span className="text-gray-400">
+                      {t('dashboard.userMenu.twoFAStatus')}:
+                    </span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        user?.twoFAEnabled
+                          ? 'bg-green-500/20 text-green-400'
+                          : 'bg-gray-500/20 text-gray-400'
+                      }`}
+                    >
+                      {user?.twoFAEnabled
+                        ? t('dashboard.userMenu.enabled')
+                        : t('dashboard.userMenu.disabled')}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-gray-400">{t('dashboard.userMenu.rememberMe')}:</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      user?.rememberMe 
-                        ? 'bg-blue-500/20 text-blue-400' 
-                        : 'bg-gray-500/20 text-gray-400'
-                    }`}>
-                      {user?.rememberMe ? t('app.common.yes') : t('app.common.no')}
+                    <span className="text-gray-400">
+                      {t('dashboard.userMenu.rememberMe')}:
+                    </span>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${
+                        user?.rememberMe
+                          ? 'bg-blue-500/20 text-blue-400'
+                          : 'bg-gray-500/20 text-gray-400'
+                      }`}
+                    >
+                      {user?.rememberMe
+                        ? t('app.common.yes')
+                        : t('app.common.no')}
                     </span>
                   </div>
                 </div>
@@ -240,17 +256,23 @@ export default function DashboardHeader({
 
               {/* Action Buttons */}
               <div className="p-2 space-y-1">
-                <CryButton 
-                onClick={() => router.push(SETTINGS_ROUTE)}
-                className="w-full flex flex-row items-center justify-start gap-3 px-3 py-2.5 text-gray-300 rounded-lg hover:bg-gray-700/50 hover:text-white transition-all duration-200 text-sm hover:scale-[1.02]">
-                  <span className="text-left">{t('dashboard.userMenu.profileSettings')}</span>
+                <CryButton
+                  onClick={() => router.push(SETTINGS_ROUTE)}
+                  className="w-full flex flex-row items-center justify-start gap-3 px-3 py-2.5 text-gray-300 rounded-lg hover:bg-gray-700/50 hover:text-white transition-all duration-200 text-sm hover:scale-[1.02]"
+                >
+                  <span className="text-left">
+                    {t('dashboard.userMenu.profileSettings')}
+                  </span>
                 </CryButton>
-                <CryButton 
-                onClick={async () => {
-                  await authService.signOut.signOut()
-                }}
-                className="w-full flex flex-row items-center justify-start gap-3 px-3 py-2.5 text-red-400 rounded-lg hover:bg-red-500/10 hover:text-red-300 transition-all duration-200 text-sm hover:scale-[1.02]">
-                  <span className="text-left">{t('dashboard.userMenu.signOut')}</span>
+                <CryButton
+                  onClick={async () => {
+                    await authService.signOut.signOut()
+                  }}
+                  className="w-full flex flex-row items-center justify-start gap-3 px-3 py-2.5 text-red-400 rounded-lg hover:bg-red-500/10 hover:text-red-300 transition-all duration-200 text-sm hover:scale-[1.02]"
+                >
+                  <span className="text-left">
+                    {t('dashboard.userMenu.signOut')}
+                  </span>
                 </CryButton>
               </div>
             </div>

@@ -234,7 +234,10 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           </CryButton>
         </div>
       ) : (
-        <form onSubmit={handleFormSubmit} className="flex flex-col space-y-8 items-center w-full">
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col space-y-8 items-center w-full"
+        >
           <div className="w-full relative">
             <CryTextField
               modelValue={otp}
