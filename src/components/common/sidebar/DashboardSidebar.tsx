@@ -174,7 +174,7 @@ export default function Sidebar({
                   alt="Cry Application Logo"
                   width={120}
                   height={48}
-                  className="cursor-pointer"
+                  className="cursor-pointer dark:filter-none filter-invert"
                   style={{ width: 'auto', height: 'auto' }}
                   onClick={() => router.push(DASHBOARD_ROUTE)}
                 />
@@ -186,9 +186,9 @@ export default function Sidebar({
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {collapsed ? (
-                <ArrowRightIcon className="w-4 h-4" />
+                <ArrowRightIcon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
               ) : (
-                <ArrowLeftIcon className="w-4 h-4" />
+                <ArrowLeftIcon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
               )}
             </CryButton>
           </div>
@@ -249,7 +249,7 @@ export default function Sidebar({
                       {hasChildren && !collapsed && (
                         <div className="ml-auto">
                           <div
-                            className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-90' : ''}`}
+                            className={`w-4 h-4 transition-transform duration-200 text-gray-500 dark:text-gray-400 ${isOpen ? 'rotate-90' : ''}`}
                           >
                             <svg viewBox="0 0 16 16" fill="currentColor">
                               <path
@@ -323,7 +323,7 @@ export default function Sidebar({
                 }
               }}
             >
-              <div className="flex items-center justify-center w-5 h-5 text-red-500 dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300 transition-colors">
+              <div className="flex items-center justify-center w-5 h-5 text-red-500 dark:text-red-300 group-hover:text-red-600 dark:group-hover:text-red-200 transition-colors">
                 <SignOutIcon className="h-5 w-5" />
               </div>
               {!collapsed && (

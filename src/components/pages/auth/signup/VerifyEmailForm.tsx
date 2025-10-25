@@ -128,7 +128,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
           <CryButton
             color="success"
             className="w-52 sm:w-60 text-white"
-            circle
+            shape="circle"
             onClick={handleConfirm}
             disabled={loading}
           >

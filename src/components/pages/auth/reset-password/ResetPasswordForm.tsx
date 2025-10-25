@@ -15,6 +15,8 @@ import {
   useLoading,
   useNotification,
   useClientOnly,
+  formStyles,
+  combineStyles,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -90,7 +92,11 @@ const ResetPasswordForm = ({
             name="newPassword"
             type="password"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500 "
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+              'w-full max-w-[500px] focus:border-green-500',
+            )}
             showLabel={showLabel}
             hideLabel={hideLabel}
           />
@@ -100,14 +106,18 @@ const ResetPasswordForm = ({
             type="password"
             name="repeatedPassword"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+              'w-full max-w-[500px] focus:border-green-500',
+            )}
             showLabel={showLabel}
             hideLabel={hideLabel}
           />
 
           <div className="flex justify-center mt-10">
             <CryButton
-              circle
+              shape="circle"
               type="submit"
               color="primary"
               className="max-w-52 h-12 w-full"

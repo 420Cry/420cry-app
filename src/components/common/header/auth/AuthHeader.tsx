@@ -35,20 +35,20 @@ const AuthHeader = ({
         <LanguageChangeButton />
         {isSignUpButton ? (
           <CryButton
-            circle
+            shape="circle"
             className="w-52 h-12"
             color="primary"
-            outlined
+            variant="outline"
             to={SIGN_UP_ROUTE}
           >
             {t('header.signUp')}
           </CryButton>
         ) : (
           <CryButton
-            circle
+            shape="circle"
             className="w-60 h-12 sm:mr-2"
             color="primary"
-            outlined
+            variant="outline"
             to={SIGN_IN_ROUTE}
           >
             {t('header.alreadyHasAnAccount')}

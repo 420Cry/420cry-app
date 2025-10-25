@@ -99,7 +99,9 @@ const TwoFactorVerifyForm = (): JSX.Element => {
           <div className="space-y-2">
             <CryTextField
               modelValue={otp}
-              onChange={setOtp}
+              onChange={(event) =>
+                setOtp((event.target as HTMLInputElement).value)
+              }
               placeholder="ABC123"
               shape="rounded"
               name="otp"
@@ -110,7 +112,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
           <CryButton
             type="submit"
             className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white text-base font-semibold px-6 py-4 rounded-xl hover:from-green-700 hover:to-emerald-700 hover:shadow-xl hover:-translate-y-0.5 transform transition-all duration-300 shadow-lg border-0"
-            rounded
+            shape="rounded"
           >
             <span className="flex items-center justify-center gap-2">
               <svg

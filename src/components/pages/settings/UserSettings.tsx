@@ -323,8 +323,11 @@ export const UserSettings = (): JSX.Element => {
                         name="username"
                         modelValue={formData.username}
                         placeholder={t('profile.fields.username')}
-                        onChange={(value) =>
-                          handleInputChange('username', value)
+                        onChange={(event) =>
+                          handleInputChange(
+                            'username',
+                            (event.target as HTMLInputElement).value,
+                          )
                         }
                         disabled={!isEditingUsername}
                         className={`w-full transition-all duration-200 ${
@@ -441,7 +444,12 @@ export const UserSettings = (): JSX.Element => {
                         type="email"
                         modelValue={formData.email}
                         placeholder={t('profile.fields.email')}
-                        onChange={(value) => handleInputChange('email', value)}
+                        onChange={(event) =>
+                          handleInputChange(
+                            'email',
+                            (event.target as HTMLInputElement).value,
+                          )
+                        }
                         disabled={!isEditingEmail}
                         className={`w-full transition-all duration-200 ${
                           isEditingEmail ? 'ring-2 ring-purple-500/50' : ''
@@ -586,7 +594,10 @@ export const UserSettings = (): JSX.Element => {
                     {!isChangingPassword && (
                       <CryButton
                         onClick={() => setIsChangingPassword(true)}
-                        className="flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+                        color="danger"
+                        variant="solid"
+                        size="lg"
+                        className="flex items-center gap-2 px-6 py-3"
                       >
                         <svg
                           className="w-4 h-4"
@@ -614,8 +625,11 @@ export const UserSettings = (): JSX.Element => {
                           type="password"
                           modelValue={passwordData.currentPassword}
                           placeholder={t('security.password.currentPassword')}
-                          onChange={(value) =>
-                            handlePasswordChange('currentPassword', value)
+                          onChange={(event) =>
+                            handlePasswordChange(
+                              'currentPassword',
+                              (event.target as HTMLInputElement).value,
+                            )
                           }
                           className="w-full"
                         />
@@ -624,8 +638,11 @@ export const UserSettings = (): JSX.Element => {
                           type="password"
                           modelValue={passwordData.newPassword}
                           placeholder={t('security.password.newPassword')}
-                          onChange={(value) =>
-                            handlePasswordChange('newPassword', value)
+                          onChange={(event) =>
+                            handlePasswordChange(
+                              'newPassword',
+                              (event.target as HTMLInputElement).value,
+                            )
                           }
                           className="w-full"
                         />
@@ -634,8 +651,11 @@ export const UserSettings = (): JSX.Element => {
                           type="password"
                           modelValue={passwordData.confirmPassword}
                           placeholder={t('security.password.confirmPassword')}
-                          onChange={(value) =>
-                            handlePasswordChange('confirmPassword', value)
+                          onChange={(event) =>
+                            handlePasswordChange(
+                              'confirmPassword',
+                              (event.target as HTMLInputElement).value,
+                            )
                           }
                           className="w-full"
                         />
@@ -643,7 +663,10 @@ export const UserSettings = (): JSX.Element => {
                       <div className="flex items-center gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <CryButton
                           onClick={handleChangePassword}
-                          className="flex items-center gap-2"
+                          color="danger"
+                          variant="solid"
+                          size="lg"
+                          className="flex items-center gap-2 px-6 py-3"
                         >
                           <svg
                             className="w-4 h-4"
@@ -662,7 +685,10 @@ export const UserSettings = (): JSX.Element => {
                         </CryButton>
                         <CryButton
                           onClick={handleCancelPasswordChange}
-                          className="flex items-center gap-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 px-4 py-2 rounded-lg"
+                          color="default"
+                          variant="outline"
+                          size="lg"
+                          className="flex items-center gap-2 px-6 py-3"
                         >
                           <svg
                             className="w-4 h-4"
@@ -722,11 +748,10 @@ export const UserSettings = (): JSX.Element => {
                       </p>
                     </div>
                     <CryButton
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-                        userData.twoFAEnabled
-                          ? 'border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600'
-                          : 'bg-blue-600 hover:bg-blue-700 text-white'
-                      }`}
+                      color={userData.twoFAEnabled ? 'danger' : 'success'}
+                      variant="solid"
+                      size="lg"
+                      className="flex items-center gap-2 px-6 py-3"
                     >
                       <svg
                         className="w-4 h-4"
@@ -849,19 +874,28 @@ export const UserSettings = (): JSX.Element => {
                             onClick={() =>
                               handleCurrencyChange(currency as CurrencyCode)
                             }
-                            className={`p-3 rounded-lg border transition-all duration-200 ${
+                            color={
                               selectedCurrency === currency
-                                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
-                                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
-                            }`}
+                                ? 'primary'
+                                : 'default'
+                            }
+                            variant={
+                              selectedCurrency === currency
+                                ? 'solid'
+                                : 'outline'
+                            }
+                            size="md"
+                            className="p-4 min-h-[60px]"
                           >
-                            <div className="text-center">
-                              <div className="text-lg font-bold">
+                            <div className="text-center flex flex-col items-center justify-center h-full">
+                              <div className="text-xl font-bold mb-1">
                                 {CurrencyService.getCurrencySymbol(
                                   currency as CurrencyCode,
                                 )}
                               </div>
-                              <div className="text-xs">{currency}</div>
+                              <div className="text-sm font-medium">
+                                {currency}
+                              </div>
                             </div>
                           </CryButton>
                         ))}
@@ -878,11 +912,18 @@ export const UserSettings = (): JSX.Element => {
                           <CryButton
                             key={currency}
                             onClick={() => handleCurrencyChange(currency)}
-                            className={`p-3 rounded-lg border transition-all duration-200 ${
+                            color={
                               selectedCurrency === currency
-                                ? 'bg-blue-600 text-white border-blue-600 shadow-md'
-                                : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600'
-                            }`}
+                                ? 'primary'
+                                : 'default'
+                            }
+                            variant={
+                              selectedCurrency === currency
+                                ? 'solid'
+                                : 'outline'
+                            }
+                            size="md"
+                            className="p-4 min-h-[60px]"
                           >
                             <div className="text-center">
                               <div className="text-lg font-bold">

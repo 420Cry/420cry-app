@@ -1,6 +1,81 @@
 @import 'tailwindcss';
 @config "../../tailwind.config.ts";
 
+/* Theme CSS Variables */
+:root {
+  /* Light theme colors */
+  --color-button-default-bg: #ffffff; /* white */
+  --color-button-default-text: #1f2937; /* gray-800 */
+  --color-button-default-border: #d1d5db; /* gray-300 */
+  --color-button-default-hover: #f3f4f6; /* gray-100 */
+  --color-button-default-ring: #d1d5db; /* gray-300 */
+  
+  --color-button-outline-border: #d1d5db; /* gray-300 */
+  --color-button-outline-text: #1f2937; /* gray-800 */
+  --color-button-outline-hover-bg: #f3f4f6; /* gray-100 */
+  --color-button-outline-hover-text: #1f2937; /* gray-800 */
+  
+  --color-button-text-text: #1f2937; /* gray-800 */
+  --color-button-text-hover: #f3f4f6; /* gray-100 */
+  
+  --color-badge-bg: #f3f4f6; /* gray-100 */
+  --color-badge-text: #1f2937; /* gray-800 */
+  --color-badge-ring: #d1d5db; /* gray-300 */
+  
+  /* Input field colors */
+  --color-input-bg: #ffffff; /* white */
+  --color-input-text: #1f2937; /* gray-800 */
+  --color-input-border: #d1d5db; /* gray-300 */
+  --color-input-placeholder: #9ca3af; /* gray-400 */
+  --color-input-focus-border: #3b82f6; /* blue-500 */
+  --color-input-focus-ring: #3b82f6; /* blue-500 */
+  
+  /* Card colors */
+  --color-card-border: #d1d5db; /* gray-300 */
+  --color-card-bg-light: #ffffff; /* white */
+  --color-card-bg-dark: #1f2937; /* gray-800 */
+  --color-card-icon: #6b7280; /* gray-500 */
+  --color-card-hover: #f3f4f6; /* gray-100 */
+  --color-card-ring: #6b7280; /* gray-500 */
+}
+
+.dark {
+  /* Dark theme colors */
+  --color-button-default-bg: #1f2937; /* gray-800 */
+  --color-button-default-text: #ffffff; /* white */
+  --color-button-default-border: #374151; /* gray-700 */
+  --color-button-default-hover: #374151; /* gray-700 */
+  --color-button-default-ring: #374151; /* gray-700 */
+  
+  --color-button-outline-border: #4b5563; /* gray-600 */
+  --color-button-outline-text: #ffffff; /* white */
+  --color-button-outline-hover-bg: #374151; /* gray-700 */
+  --color-button-outline-hover-text: #ffffff; /* white */
+  
+  --color-button-text-text: #ffffff; /* white */
+  --color-button-text-hover: #374151; /* gray-700 */
+  
+  --color-badge-bg: #374151; /* gray-700 */
+  --color-badge-text: #ffffff; /* white */
+  --color-badge-ring: #4b5563; /* gray-600 */
+  
+  /* Input field colors */
+  --color-input-bg: #374151; /* gray-700 */
+  --color-input-text: #ffffff; /* white */
+  --color-input-border: #4b5563; /* gray-600 */
+  --color-input-placeholder: #9ca3af; /* gray-400 */
+  --color-input-focus-border: #60a5fa; /* blue-400 */
+  --color-input-focus-ring: #60a5fa; /* blue-400 */
+  
+  /* Card colors */
+  --color-card-border: #4b5563; /* gray-600 */
+  --color-card-bg-light: #ffffff; /* white */
+  --color-card-bg-dark: #1f2937; /* gray-800 */
+  --color-card-icon: #9ca3af; /* gray-400 */
+  --color-card-hover: #374151; /* gray-700 */
+  --color-card-ring: #4b5563; /* gray-600 */
+}
+
 /* Smooth theme transitions */
 * {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;

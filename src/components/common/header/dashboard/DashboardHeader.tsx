@@ -177,13 +177,13 @@ export default function DashboardHeader({
           <LanguageChangeButton />
         </div>
         <div className="relative group" ref={userMenuRef}>
-          <CryButton
+          <button
             onClick={() => setShowUserMenu(!showUserMenu)}
             className="relative p-1.5 md:p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800/50 transition-all duration-300 ease-in-out hover:scale-105"
           >
             <UserIcon className="h-6 w-6 md:h-8 md:w-8 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-300 ease-in-out" />
-            <div className="absolute -bottom-0.5 -right-0.5 md:-bottom-1 md:-right-1 w-2.5 h-2.5 md:w-3 md:h-3 bg-green-400 rounded-full border-2 border-white dark:border-gray-900 shadow-lg"></div>
-          </CryButton>
+            <div className="absolute -bottom-0.5 -right-0.5 md:-bottom-1 md:-right-1 w-2.5 h-2.5 md:w-3 md:h-3 bg-green-400 rounded-full border-2 border-gray-200 dark:border-gray-900 shadow-lg"></div>
+          </button>
 
           {/* User Menu Dropdown */}
           {showUserMenu && (

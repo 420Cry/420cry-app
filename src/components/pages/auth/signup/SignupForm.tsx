@@ -14,6 +14,8 @@ import {
   useLoading,
   useNotification,
   useClientOnly,
+  formStyles,
+  combineStyles,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
@@ -112,7 +114,10 @@ const SignupForm = (): JSX.Element => {
               <CryFormTextField
                 label={t('app.fields.fullname')}
                 name="fullName"
-                inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+                inputClassName={combineStyles(
+                  formStyles.input.default,
+                  formStyles.input.focus,
+                )}
               />
               {validationErrors.fullName && (
                 <div className="text-red-500 text-sm mt-1">
@@ -124,7 +129,10 @@ const SignupForm = (): JSX.Element => {
               <CryFormTextField
                 label={t('app.fields.email')}
                 name="email"
-                inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+                inputClassName={combineStyles(
+                  formStyles.input.default,
+                  formStyles.input.focus,
+                )}
               />
               {validationErrors.email && (
                 <div className="text-red-500 text-sm mt-1">
@@ -136,7 +144,10 @@ const SignupForm = (): JSX.Element => {
           <CryFormTextField
             label={t('app.fields.username')}
             name="userName"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
           />
           {validationErrors.userName && (
             <div className="text-red-500 text-sm mt-1 mb-4">
@@ -149,7 +160,10 @@ const SignupForm = (): JSX.Element => {
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
             slotClassName="text-white"
           />
           {validationErrors.password && (
@@ -163,7 +177,10 @@ const SignupForm = (): JSX.Element => {
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
             slotClassName="text-white"
           />
           {validationErrors.repeatedPassword && (
@@ -173,7 +190,7 @@ const SignupForm = (): JSX.Element => {
           )}
           <div className="flex justify-center mt-4">
             <CryButton
-              circle
+              shape="circle"
               className=" w-44 sm:w-52 text-white"
               type="submit"
               color="primary"
@@ -192,8 +209,8 @@ const SignupForm = (): JSX.Element => {
               key={index}
               size="lg"
               className="bg-transparen w-36 sm:w-40"
-              circle
-              outlined
+              shape="circle"
+              variant="outline"
               color="primary"
             >
               <div className="flex items-center justify-center">

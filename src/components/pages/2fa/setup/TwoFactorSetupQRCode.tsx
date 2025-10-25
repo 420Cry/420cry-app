@@ -208,7 +208,9 @@ const TwoFactorSetupQRCode = ({
                       name="token"
                       shape="rounded"
                       className="text-center text-base font-mono tracking-widest  transition-colors"
-                      onChange={setToken}
+                      onChange={(event) =>
+                        setToken((event.target as HTMLInputElement).value)
+                      }
                       placeholder="ABC123"
                     />
                     <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-400 rounded-full animate-pulse shadow-lg"></div>
@@ -223,14 +225,16 @@ const TwoFactorSetupQRCode = ({
             <CryButton
               onClick={onCancel}
               className="px-5 py-2 text-xs font-medium text-gray-600 hover:text-gray-800 hover:bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-300/50 hover:shadow-md"
-              rounded
+              shape="rounded"
             >
               {t('app.common.cancel')}
             </CryButton>
             <CryButton
               className="px-5 py-2 text-xs font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-300/50 hover:shadow-lg hover:scale-105 shadow-lg"
-              rounded
-              onClick={handleSubmit}
+              shape="rounded"
+              onClick={(event) =>
+                handleSubmit(event as React.MouseEvent<HTMLButtonElement>)
+              }
             >
               {t('app.common.verify')}
             </CryButton>

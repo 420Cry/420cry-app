@@ -15,6 +15,8 @@ import {
   useLoading,
   useNotification,
   useClientOnly,
+  formStyles,
+  combineStyles,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -85,12 +87,16 @@ const ResetReqForm = (): JSX.Element => {
             name="email"
             type="text"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500! "
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+              'w-full max-w-[500px] focus:border-green-500!',
+            )}
           />
 
           <div className="flex justify-center mt-14">
             <CryButton
-              circle
+              shape="circle"
               type="submit"
               color="primary"
               className="max-w-52 h-12 w-full"

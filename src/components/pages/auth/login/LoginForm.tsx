@@ -33,7 +33,7 @@ const SocialButton = ({
   Icon: ComponentType<{ className?: string }>
   label: string
 }): JSX.Element => (
-  <CryButton key={label} className="bg-transparent w-12" circle>
+  <CryButton key={label} className="bg-transparent w-12" shape="circle">
     <div className="flex items-center justify-center">
       <Icon className="h-8 w-8" />
     </div>
@@ -142,7 +142,7 @@ const LogInForm = (): JSX.Element => {
             )}
           >
             <CryButton
-              circle
+              shape="circle"
               className={formStyles.button.submit}
               type="submit"
             >

@@ -207,7 +207,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
               onClick={handleSendAlternativeEmail}
               disabled={isSending}
               className="flex-shrink-0 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-xl hover:shadow-2xl text-lg transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              rounded
+              shape="rounded"
             >
               {isSending ? (
                 <div className="flex items-center space-x-2">
@@ -227,8 +227,10 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           </div>
           <CryButton
             onClick={handleBackClick}
-            className="w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 text-lg font-semibold px-6 py-4 rounded-2xl hover:from-gray-200 hover:to-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl border border-gray-300"
-            rounded
+            variant="outline"
+            color="primary"
+            className="w-full text-lg font-semibold px-6 py-4 rounded-2xl"
+            shape="rounded"
           >
             {t('2fa.alternative.backToVerify')}
           </CryButton>
@@ -241,7 +243,9 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           <div className="w-full relative">
             <CryTextField
               modelValue={otp}
-              onChange={setOtp}
+              onChange={(event) =>
+                setOtp((event.target as HTMLInputElement).value)
+              }
               shape="rounded"
               name="otp"
               className="text-center text-2xl font-mono tracking-widest px-6 py-4 bg-gray-50/50 border-gray-200 focus:border-green-500 focus:bg-white focus:shadow-lg transition-all duration-300 rounded-xl"
@@ -252,7 +256,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           <CryButton
             type="submit"
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-semibold px-8 py-5 rounded-2xl hover:from-green-600 hover:to-emerald-700 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-            rounded
+            shape="rounded"
           >
             <div className="flex items-center justify-center space-x-2">
               <svg
@@ -280,7 +284,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
                 ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl'
                 : 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed'
             } text-white text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg`}
-            rounded
+            shape="rounded"
           >
             <div className="flex items-center justify-center space-x-2">
               {canResend ? (
