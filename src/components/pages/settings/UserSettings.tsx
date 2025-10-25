@@ -23,7 +23,6 @@ export const UserSettings = (): JSX.Element => {
   }
 
   const [formData, setFormData] = useState({
-    fullname: '',
     email: '',
     username: '',
   })
@@ -32,7 +31,6 @@ export const UserSettings = (): JSX.Element => {
   useEffect(() => {
     if (user) {
       setFormData({
-        fullname: user.fullname,
         email: user.email,
         username: user.username,
       })
@@ -71,7 +69,6 @@ export const UserSettings = (): JSX.Element => {
   const handleCancelEdit = () => {
     if (user) {
       setFormData({
-        fullname: user.fullname,
         email: user.email,
         username: user.username,
       })
@@ -197,25 +194,6 @@ export const UserSettings = (): JSX.Element => {
                   >
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        {t('profile.fields.fullname')}
-                      </label>
-                      <CryTextField
-                        name="fullname"
-                        modelValue={formData.fullname}
-                        placeholder={t('profile.fields.fullname')}
-                        onChange={(value) =>
-                          handleInputChange('fullname', value)
-                        }
-                        disabled={!isEditing}
-                        className={`w-full transition-all duration-200 ${
-                          isEditing
-                            ? 'ring-2 ring-blue-200 dark:ring-blue-800'
-                            : ''
-                        }`}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {t('profile.fields.username')}
                       </label>
                       <CryTextField
@@ -233,7 +211,7 @@ export const UserSettings = (): JSX.Element => {
                         }`}
                       />
                     </div>
-                    <div className="md:col-span-2">
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         {t('profile.fields.email')}
                       </label>

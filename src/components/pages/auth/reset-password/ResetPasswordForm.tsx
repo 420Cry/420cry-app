@@ -10,10 +10,11 @@ import { JSX } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   fieldsRequired,
-  showToast,
   SIGN_IN_ROUTE,
   authService,
   useLoading,
+  useNotification,
+  useClientOnly,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -25,6 +26,8 @@ const ResetPasswordForm = ({
   const t = useTranslations()
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
+  const _isClient = useClientOnly()
   const showLabel = t('app.common.showPassword')
   const hideLabel = t('app.common.hidePassword')
 
@@ -41,7 +44,13 @@ const ResetPasswordForm = ({
           resetPasswordId,
         )
 
-      showToast(response.isSuccess, t(response.message))
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.resetYourPassword.resetPasswordForm.successTitle')
+          : t('auth.resetYourPassword.resetPasswordForm.errorTitle'),
+        t(response.message),
+      )
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
@@ -51,7 +60,10 @@ const ResetPasswordForm = ({
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+    <div
+      className="flex items-center justify-center mt-16 sm:mt-32 px-4"
+      suppressHydrationWarning
+    >
       <div className="p-8 sm:p-14 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
         <div className="w-full flex flex-col items-center gap-12 justify-center">
           <ResetPasswordIcon />
@@ -67,7 +79,11 @@ const ResetPasswordForm = ({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full max-w-[500px] m-auto">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-[500px] m-auto"
+          suppressHydrationWarning
+        >
           <CryFormTextField
             label={t('app.fields.password')}
             labelClassName="text-neutral-gray-3"

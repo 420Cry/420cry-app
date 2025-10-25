@@ -10,6 +10,7 @@ import {
   TWO_FACTOR_ALTERNATIVE,
   twoFactorService,
   useLoading,
+  useNotification,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -18,6 +19,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
   const user = useAuthStore((state) => state.user)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,7 +42,11 @@ const TwoFactorVerifyForm = (): JSX.Element => {
       })
 
       if (response.isSuccess) {
-        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        showNotification(
+          'success',
+          t('2fa.verify.successTitle'),
+          t('app.alertTitle.2FAVerifySuccessful'),
+        )
         router.push(HOME_ROUTE)
       } else {
         showToast(false, t(response.message))

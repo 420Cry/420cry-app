@@ -15,6 +15,7 @@ export { default as FearAndGreedHistoricalSkeleton } from './pages/indicator/fea
 export { FearAndGreedHistorical } from './pages/indicator/fear-and-greed/FearAndGreedHistorical'
 export { default as FearAndGreedIndexSkeleton } from './pages/indicator/fear-and-greed/FearAndGreedIndexSkeleton'
 export { UserSettings } from './pages/settings/UserSettings'
+export { default as NotFoundPage } from './pages/not-found/NotFoundPage'
 
 // landing
 export { default as LandingPage } from './pages/landing/LandingPage'
@@ -25,9 +26,6 @@ export { default as FeaturesSection } from './pages/landing/FeaturesSection'
 
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'
-
-// background
-export { default as HoneyCombBackground } from './background/HoneyCombBackground'
 
 // common
 export { default as DashboardSidebar } from './common/sidebar/DashboardSidebar'

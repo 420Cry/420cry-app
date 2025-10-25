@@ -3,7 +3,12 @@
 import { JSX, useEffect, useState } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { HOME_ROUTE, showToast, twoFactorService, useLoading } from '@/lib'
+import {
+  HOME_ROUTE,
+  twoFactorService,
+  useLoading,
+  useNotification,
+} from '@/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
@@ -18,6 +23,7 @@ const TwoFactorSetupQRCode = ({
   const t = useTranslations()
   const router = useRouter()
   const { setLoading: setGlobalLoading } = useLoading()
+  const { showNotification } = useNotification()
   const [secret, setSecret] = useState('')
   const [qrCode, setQrCode] = useState('')
   const [loading, setLoading] = useState(true)
@@ -34,21 +40,29 @@ const TwoFactorSetupQRCode = ({
         setSecret(data.secret)
         setQrCode(data.qrCode)
       } catch (error) {
-        showToast(false, error instanceof Error ? error.message : String(error))
+        showNotification(
+          'error',
+          t('2fa.QR.errorTitle'),
+          error instanceof Error ? error.message : String(error),
+        )
       } finally {
         setLoading(false)
       }
     }
 
     fetchQRCodeAndSecret()
-  }, [userUuid])
+  }, [userUuid, t, showNotification])
 
   const handleSubmit = async (
     e?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e?.preventDefault()
     if (!token || token.length !== 6) {
-      showToast(false, t('2fa.QR.invalidToken'))
+      showNotification(
+        'error',
+        t('2fa.QR.errorTitle'),
+        t('2fa.QR.invalidToken'),
+      )
       return
     }
     setGlobalLoading(true)
@@ -64,11 +78,19 @@ const TwoFactorSetupQRCode = ({
       const success = response.isSuccess
       if (success && user) {
         useAuthStore.getState().setUser(user)
-        showToast(true, t('app.alertTitle.2FASetUpSuccessful'))
+        showNotification(
+          'success',
+          t('2fa.QR.successTitle'),
+          t('app.alertTitle.2FASetUpSuccessful'),
+        )
         router.push(HOME_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.QR.errorTitle'),
+        t('app.alertTitle.somethingWentWrong'),
+      )
     } finally {
       setGlobalLoading(false)
     }

@@ -1,7 +1,7 @@
 'use client'
 
 import { DashboardSidebar, DashboardHeader, Loader } from '@/components'
-import { JSX, ReactNode } from 'react'
+import { JSX, ReactNode, useState } from 'react'
 import {
   LoadingProvider,
   ModalProvider,
@@ -11,16 +11,29 @@ import {
 
 function LayoutContent({ children }: { children: ReactNode }) {
   const { loading, setLoading } = useLoading()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
 
   return (
     <div className="flex h-screen bg-gray-900" suppressHydrationWarning>
-      <DashboardSidebar />
+      <DashboardSidebar
+        mobileMenuOpen={mobileMenuOpen}
+        onMobileMenuToggle={toggleMobileMenu}
+      />
       <div
-        className="flex-1 flex flex-col relative overflow-hidden"
+        className={`flex-1 flex flex-col relative overflow-hidden transition-all duration-300 ${
+          mobileMenuOpen ? 'md:ml-0' : 'md:ml-0'
+        }`}
         suppressHydrationWarning
       >
         {/* Header */}
-        <DashboardHeader setLoading={setLoading} />
+        <DashboardHeader
+          setLoading={setLoading}
+          onMobileMenuToggle={toggleMobileMenu}
+        />
 
         {/* Main content */}
         <main

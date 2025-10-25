@@ -27,6 +27,7 @@ const AuthHeader = ({
         width={143}
         height={58}
         className="cursor-pointer"
+        style={{ width: 'auto', height: 'auto' }}
         onClick={() => router.push(HOME_ROUTE)}
         priority
       />

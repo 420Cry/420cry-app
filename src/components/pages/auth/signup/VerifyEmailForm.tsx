@@ -3,7 +3,7 @@
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, authService } from '@/lib'
+import { SIGN_IN_ROUTE, authService, useNotification } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
 
@@ -14,6 +14,7 @@ interface VerifyEmailFormProps {
 const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const { showNotification } = useNotification()
   const codeKeys = [
     'firstDigit',
     'secondDigit',
@@ -68,12 +69,22 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
     try {
       const response = await authService.signUp.verifyEmail.verifyToken(payload)
       setVerificationSuccess(response.isSuccess)
-      showToast(response.isSuccess, t(response.message))
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.signup.verifyEmail.successTitle')
+          : t('auth.signup.verifyEmail.errorTitle'),
+        t(response.message),
+      )
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('auth.signup.verifyEmail.errorTitle'),
+        t('app.alertTitle.somethingWentWrong'),
+      )
       setVerificationSuccess(false)
     } finally {
       setLoading(false)

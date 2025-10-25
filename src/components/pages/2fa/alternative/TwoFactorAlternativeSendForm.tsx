@@ -5,10 +5,10 @@ import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import {
   HOME_ROUTE,
-  showToast,
   TWO_FACTOR_VERIFY_ROUTE,
   twoFactorService,
   useLoading,
+  useNotification,
 } from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
@@ -31,6 +31,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
   const email = useMemo(() => maskEmail(user?.email || ''), [user?.email])
 
   // countdown timer
@@ -43,7 +44,11 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
         if (prev <= 1) {
           clearInterval(interval)
           setCanResend(true)
-          showToast(false, t('2fa.alternative.otpExpired'))
+          showNotification(
+            'warning',
+            t('2fa.alternative.warningTitle'),
+            t('2fa.alternative.otpExpired'),
+          )
           return 0
         }
         if (prev === 10 * 60 - 30) {
@@ -54,12 +59,16 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [emailSent, t])
+  }, [emailSent, t, showNotification])
 
   const handleSendAlternativeEmail = async () => {
     const email = user?.email
     if (!email) {
-      showToast(false, t('app.alertTitle.emailNotExist'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.alertTitle.emailNotExist'),
+      )
       return
     }
 
@@ -69,15 +78,27 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
         await twoFactorService.alternative.sendAlternativeEmailOTP(email)
 
       if (response.isSuccess) {
-        showToast(true, t('2fa.alternative.emailSend', { email }))
+        showNotification(
+          'success',
+          t('2fa.alternative.successTitle'),
+          t('2fa.alternative.emailSend', { email }),
+        )
         setEmailSent(true)
         setTimeLeft(5 * 60) // 5 mins
         setCanResend(false)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.alertTitle.somethingWentWrong'),
+      )
     } finally {
       setIsSending(false)
     }
@@ -85,13 +106,21 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
 
   const handleVerify = async () => {
     if (!otp.trim()) {
-      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.alertTitle.otpCannotBeEmpty'),
+      )
       return
     }
     setLoading(true)
     try {
       if (!user?.uuid) {
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t('app.alertTitle.somethingWentWrong'),
+        )
         return
       }
       const response =
@@ -101,13 +130,25 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           rememberMe: user.rememberMe,
         })
       if (response.isSuccess) {
-        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        showNotification(
+          'success',
+          t('2fa.alternative.successTitle'),
+          t('app.alertTitle.2FAVerifySuccessful'),
+        )
         router.push(HOME_ROUTE)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.alertTitle.somethingWentWrong'),
+      )
     } finally {
       setLoading(false)
     }

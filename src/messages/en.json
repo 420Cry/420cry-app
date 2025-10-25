@@ -76,25 +76,35 @@
   "auth": {
     "login": {
       "title": "Login",
+      "successTitle": "Login Successful",
+      "errorTitle": "Login Failed",
       "forgotYourPassword": "Forgot your password?",
       "rememberMe": "Remember me?",
       "doNotHaveAnAccount": "Do not have an account? Sign up here"
     },
     "signup": {
       "title": "Sign Up",
+      "successTitle": "Sign Up Successful",
+      "errorTitle": "Sign Up Failed",
       "orSignInUsing": "Or sign up using",
       "verifyEmail": {
         "title": "Verify your email",
+        "successTitle": "Verification Successful",
+        "errorTitle": "Verification Failed",
         "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
       }
     },
     "resetYourPassword": {
       "resetReq": {
         "title": "Forgot Your Password",
+        "successTitle": "Reset Request Sent",
+        "errorTitle": "Reset Request Failed",
         "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
       },
       "resetPasswordForm": {
         "title": "Reset Your Password",
+        "successTitle": "Password Reset Successful",
+        "errorTitle": "Password Reset Failed",
         "subtitle": "Enter the new password below so we can reset your password",
         "newPassword": "New Password"
       }
@@ -110,6 +120,8 @@
     },
     "setup": {
       "title": "Protect your account with 2-step verification",
+      "successTitle": "2FA Setup Successful",
+      "errorTitle": "2FA Setup Failed",
       "description": "Each time you sign in, you will need to enter a code. Choose how you want to receive your verification code.",
       "useYourPhone": "Use your phone",
       "receiveViaSMS": "Receive a code via SMS",
@@ -121,6 +133,8 @@
     },
     "QR": {
       "title": "2FA setup",
+      "successTitle": "QR Verification Successful",
+      "errorTitle": "QR Verification Failed",
       "scanQRCodeWithApp": "Get the codes from an authenticator app",
       "description": "Each time you sign in, in addition to your password, you will use an authenticator app to generate a one-time code.",
       "scanQR": "Scan QR code",
@@ -130,12 +144,17 @@
     },
     "verify": {
       "title": "Two-Factor Authentication",
+      "successTitle": "2FA Verification Successful",
+      "errorTitle": "2FA Verification Failed",
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
       "havingTroubleWithAuthenticatorApp": "Having trouble with authenticator app?"
     },
     "alternative": {
       "title": "Alternative 2FA Verification",
+      "successTitle": "Email Code Sent",
+      "errorTitle": "Email Code Failed",
+      "warningTitle": "Code Expired",
       "description": "Get the code via email instead.",
       "sendTo": "Email sent to",
       "resendCode": "Resend Code",
@@ -145,7 +164,8 @@
       "enterVerificationCode": "Enter Verification Code",
       "verifyTitle": "Verify Code",
       "verifyDescription": "Please enter the verification token we have sent to your email.",
-      "backToVerify": "Back to Verify"
+      "backToVerify": "Back to Verify",
+      "otpExpired": "Your verification code has expired. Please request a new one."
     }
   },
   "dashboard": {
@@ -464,6 +484,38 @@
           "noCreditCard": "No credit card required",
           "cancelAnytime": "Cancel anytime"
         }
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! The page you're looking for seems to have drifted off into the crypto universe.",
+    "subDescription": "Don't worry, even the best traders sometimes take a wrong turn.",
+    "actions": {
+      "home": {
+        "title": "Go Home",
+        "description": "Return to our main dashboard and explore our crypto tools"
+      },
+      "explore": {
+        "title": "Explore Blockchain",
+        "description": "Search transactions and analyze wallet data"
+      },
+      "market": {
+        "title": "Market Analysis",
+        "description": "Check the Fear & Greed Index and market sentiment"
+      }
+    },
+    "buttons": {
+      "goHome": "Take Me Home",
+      "signIn": "Sign In"
+    },
+    "help": {
+      "title": "Need Help Getting Started?",
+      "description": "Here are some popular destinations to get you back on track:",
+      "links": {
+        "signUp": "Create Account",
+        "dashboard": "Dashboard",
+        "marketIndicators": "Market Indicators"
       }
     }
   },

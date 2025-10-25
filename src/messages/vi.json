@@ -467,6 +467,38 @@
       }
     }
   },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Ôi! Trang bạn đang tìm kiếm có vẻ đã trôi dạt vào vũ trụ tiền điện tử.",
+    "subDescription": "Đừng lo lắng, ngay cả những nhà giao dịch giỏi nhất đôi khi cũng đi sai đường.",
+    "actions": {
+      "home": {
+        "title": "Về trang chủ",
+        "description": "Quay lại bảng điều khiển chính và khám phá các công cụ crypto của chúng tôi"
+      },
+      "explore": {
+        "title": "Khám phá Blockchain",
+        "description": "Tìm kiếm giao dịch và phân tích dữ liệu ví"
+      },
+      "market": {
+        "title": "Phân tích thị trường",
+        "description": "Kiểm tra chỉ số Fear & Greed và tâm lý thị trường"
+      }
+    },
+    "buttons": {
+      "goHome": "Đưa tôi về nhà",
+      "signIn": "Đăng nhập"
+    },
+    "help": {
+      "title": "Cần trợ giúp để bắt đầu?",
+      "description": "Đây là một số điểm đến phổ biến để đưa bạn trở lại đúng hướng:",
+      "links": {
+        "signUp": "Tạo tài khoản",
+        "dashboard": "Bảng điều khiển",
+        "marketIndicators": "Chỉ báo thị trường"
+      }
+    }
+  },
   "settings": {
     "title": "Cài đặt người dùng",
     "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn",

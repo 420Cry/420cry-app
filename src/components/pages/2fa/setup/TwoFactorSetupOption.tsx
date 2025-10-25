@@ -1,6 +1,6 @@
 'use client'
 
-import { HOME_ROUTE, showToast, twoFactorService } from '@/lib'
+import { HOME_ROUTE, twoFactorService, useNotification } from '@/lib'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -16,6 +16,7 @@ const TwoFactorSetupOption = ({
   )
   const t = useTranslations()
   const router = useRouter()
+  const { showNotification } = useNotification()
 
   const baseCardClasses =
     'group relative overflow-hidden rounded-2xl p-6 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-xl flex flex-col justify-center items-center text-center w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/30'
@@ -37,7 +38,11 @@ const TwoFactorSetupOption = ({
         router.push(HOME_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.setup.errorTitle'),
+        t('app.alertTitle.somethingWentWrong'),
+      )
     }
   }
 

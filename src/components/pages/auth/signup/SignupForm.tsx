@@ -8,7 +8,13 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, authService, useLoading } from '@/lib'
+import {
+  SIGN_IN_ROUTE,
+  authService,
+  useLoading,
+  useNotification,
+  useClientOnly,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
 
@@ -18,6 +24,8 @@ const SignupForm = (): JSX.Element => {
   const showLabel = t('app.common.hidePassword')
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
+  const _isClient = useClientOnly()
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({})
@@ -68,24 +76,37 @@ const SignupForm = (): JSX.Element => {
     setLoading(true)
     try {
       const response = await authService.signUp.action.signUpAction(formData)
-      showToast(response.isSuccess, t(response.message))
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.signup.successTitle')
+          : t('auth.signup.errorTitle'),
+        t(response.message),
+      )
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('auth.signup.errorTitle'),
+        t('app.alertTitle.somethingWentWrong'),
+      )
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex items-center justify-center px-4 py-8 mt-12">
+    <div
+      className="flex items-center justify-center px-4 py-8 mt-12"
+      suppressHydrationWarning
+    >
       <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
         <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
           {t('auth.signup.title')}
         </h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} suppressHydrationWarning>
           <div className="flex flex-wrap mb-4">
             <div className="w-full sm:w-1/2 sm:pr-4">
               <CryFormTextField
