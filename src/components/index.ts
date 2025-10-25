@@ -30,6 +30,7 @@ export { default as ClientLayout } from './layout/ClientLayout'
 // common
 export { default as DashboardSidebar } from './common/sidebar/DashboardSidebar'
 export { default as LanguageChangeButton } from './common/header/LanguageChangeButton'
+export { default as ThemeToggle } from './common/header/ThemeToggle'
 export { default as AuthHeader } from './common/header/auth/AuthHeader'
 export { default as DashboardHeader } from './common/header/dashboard/DashboardHeader'
 export { default as TwoFactorHeader } from './common/header/2fa/TwoFactorHeader'

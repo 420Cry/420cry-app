@@ -15,6 +15,8 @@ import {
   useClientOnly,
 } from '@/lib'
 
+import { LanguageChangeButton, ThemeToggle } from '@/components'
+
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -27,6 +29,7 @@ import {
 } from '@420cry/420cry-lib'
 
 import { CryApplicationLogo } from '@/assets'
+import { useAuthStore } from '@/store/useAuthStore'
 
 interface DashboardSidebarProps {
   mobileMenuOpen?: boolean
@@ -51,14 +54,25 @@ export default function Sidebar({
   const isClient = useClientOnly()
   const navRef = useRef<HTMLDivElement>(null)
 
+  const { clearUser } = useAuthStore()
+
   const logout = async () => {
+    // Clear user state immediately for instant feedback
+    clearUser()
+
     try {
       const response = await authService.signOut.signOut()
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
+      } else {
+        // If API call failed, show error but user is already signed out locally
+        showToast(false, t(response.message))
+        router.push(SIGN_IN_ROUTE)
       }
     } catch {
+      // If API call failed, show error but user is already signed out locally
       showToast(false, t('app.alertTitle.somethingWentWrong'))
+      router.push(SIGN_IN_ROUTE)
     }
   }
 
@@ -118,7 +132,7 @@ export default function Sidebar({
   if (!isClient) {
     return (
       <aside
-        className={`h-screen bg-gray-900/95 backdrop-blur-xl text-white border-r border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl ${
+        className={`h-screen bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl text-gray-900 dark:text-white border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl ${
           collapsed ? 'w-16' : 'w-72'
         }`}
         suppressHydrationWarning
@@ -141,7 +155,7 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`h-screen bg-gray-900 text-white border-r border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl ${
+        className={`h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl ${
           collapsed ? 'w-16' : 'w-72'
         } md:relative fixed inset-y-0 left-0 z-50 md:z-auto ${
           collapsed ? '-translate-x-full md:translate-x-0' : 'translate-x-0'
@@ -151,7 +165,7 @@ export default function Sidebar({
         <div>
           {/* Header */}
           <div
-            className={`flex items-center border-b border-gray-800/30 ${collapsed ? 'justify-center p-4' : 'justify-between p-6'}`}
+            className={`flex items-center border-b border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'justify-center p-4' : 'justify-between p-6'}`}
           >
             {!collapsed && (
               <div className="flex items-center space-x-3">
@@ -168,7 +182,7 @@ export default function Sidebar({
             )}
             <CryButton
               onClick={() => setCollapsed(!collapsed)}
-              className="p-2.5 rounded-xl bg-gray-800/50 hover:bg-gray-700/50 text-gray-400 hover:text-white transition-all duration-200 hover:scale-105"
+              className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:scale-105"
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {collapsed ? (
@@ -178,6 +192,16 @@ export default function Sidebar({
               )}
             </CryButton>
           </div>
+
+          {/* Mobile Controls - Theme and Language */}
+          {!collapsed && (
+            <div className="md:hidden px-4 py-3 border-b border-gray-200/30 dark:border-gray-800/30">
+              <div className="flex items-center justify-center gap-3">
+                <ThemeToggle />
+                <LanguageChangeButton />
+              </div>
+            </div>
+          )}
 
           {/* Navigation */}
           <nav
@@ -192,7 +216,7 @@ export default function Sidebar({
                 return (
                   <div key={ariaLabel} className="relative group">
                     <button
-                      className={`flex items-center gap-4 px-4 py-3 text-gray-300 rounded-xl hover:bg-gray-800/50 hover:text-white transition-all duration-200 group-hover:shadow-lg group-hover:shadow-gray-900/20 ${
+                      className={`flex items-center gap-4 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group-hover:shadow-lg group-hover:shadow-gray-900/20 ${
                         collapsed ? 'w-12 justify-center' : 'w-full'
                       } touch-manipulation`}
                       onClick={() => {
@@ -214,7 +238,7 @@ export default function Sidebar({
                         }
                       }}
                     >
-                      <div className="flex items-center justify-center w-5 h-5 text-gray-400 group-hover:text-white transition-colors">
+                      <div className="flex items-center justify-center w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                         {icon}
                       </div>
                       {!collapsed && (
@@ -244,7 +268,7 @@ export default function Sidebar({
 
                     {/* Tooltip for collapsed state */}
                     {collapsed && (
-                      <div className="absolute left-full top-0 ml-3 bg-gray-800/95 backdrop-blur-sm text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-50 pointer-events-none shadow-xl">
+                      <div className="absolute left-full top-0 ml-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-50 pointer-events-none shadow-xl border border-gray-200/50 dark:border-gray-700/50">
                         {t(labelKey)}
                       </div>
                     )}
@@ -255,7 +279,7 @@ export default function Sidebar({
                         {children?.map((child) => (
                           <button
                             key={child.ariaLabel}
-                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800/30 hover:text-white transition-all duration-200 hover:translate-x-1 touch-manipulation"
+                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-500 dark:text-gray-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:translate-x-1 touch-manipulation"
                             onClick={() => {
                               setOpenMenu(null)
                               if (child.route) {
@@ -267,7 +291,7 @@ export default function Sidebar({
                               }
                             }}
                           >
-                            <div className="w-1 h-1 bg-gray-500 rounded-full"></div>
+                            <div className="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full"></div>
                             <span className="font-medium">
                               {t(child.labelKey)}
                             </span>
@@ -284,11 +308,11 @@ export default function Sidebar({
 
         {/* Footer */}
         <div
-          className={`p-4 border-t border-gray-800/30 ${collapsed ? 'flex flex-col items-center' : ''}`}
+          className={`p-4 border-t border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'flex flex-col items-center' : ''}`}
         >
           <div className="mb-4">
             <button
-              className={`flex items-center gap-4 px-4 py-3 text-gray-300 rounded-xl hover:bg-red-500/20 hover:text-red-400 transition-all duration-200 group border border-red-500/20 hover:border-red-500/40 touch-manipulation ${
+              className={`flex items-center gap-4 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group border border-red-200 dark:border-red-500/20 hover:border-red-300 dark:hover:border-red-500/40 touch-manipulation ${
                 collapsed ? 'w-12 justify-center' : 'w-full'
               }`}
               onClick={() => {
@@ -299,7 +323,7 @@ export default function Sidebar({
                 }
               }}
             >
-              <div className="flex items-center justify-center w-5 h-5 text-red-400 group-hover:text-red-300 transition-colors">
+              <div className="flex items-center justify-center w-5 h-5 text-red-500 dark:text-red-400 group-hover:text-red-600 dark:group-hover:text-red-300 transition-colors">
                 <SignOutIcon className="h-5 w-5" />
               </div>
               {!collapsed && (

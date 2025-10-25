@@ -535,12 +535,69 @@
       "memberSince": "Thành viên từ",
       "userId": "ID người dùng",
       "rememberMe": "Ghi nhớ đăng nhập",
+      "twoFAStatus": "Xác thực hai yếu tố",
       "enabled": "Đã bật",
       "disabled": "Đã tắt",
       "fields": {
         "fullname": "Họ và tên",
         "username": "Tên người dùng",
         "email": "Địa chỉ email"
+      }
+    },
+    "preferences": {
+      "title": "Tùy chọn",
+      "subtitle": "Tùy chỉnh các tùy chọn ứng dụng của bạn",
+      "currency": {
+        "title": "Tùy chọn tiền tệ",
+        "subtitle": "Chọn loại tiền tệ ưa thích để hiển thị giá trị danh mục",
+        "currentCurrency": "Tiền tệ hiện tại",
+        "selectCurrency": "Chọn tiền tệ",
+        "currencies": {
+          "USD": "Đô la Mỹ ($)",
+          "EUR": "Euro (€)",
+          "GBP": "Bảng Anh (£)",
+          "JPY": "Yên Nhật (¥)",
+          "CAD": "Đô la Canada (C$)",
+          "AUD": "Đô la Úc (A$)",
+          "CHF": "Franc Thụy Sĩ (CHF)",
+          "CNY": "Nhân dân tệ Trung Quốc (¥)",
+          "KRW": "Won Hàn Quốc (₩)",
+          "INR": "Rupee Ấn Độ (₹)",
+          "BRL": "Real Brazil (R$)",
+          "RUB": "Ruble Nga (₽)",
+          "MXN": "Peso Mexico ($)",
+          "SGD": "Đô la Singapore (S$)",
+          "HKD": "Đô la Hồng Kông (HK$)",
+          "NOK": "Krone Na Uy (kr)",
+          "SEK": "Krona Thụy Điển (kr)",
+          "DKK": "Krone Đan Mạch (kr)",
+          "PLN": "Zloty Ba Lan (zł)",
+          "CZK": "Koruna Séc (Kč)",
+          "HUF": "Forint Hungary (Ft)",
+          "ILS": "Shekel Israel (₪)",
+          "TRY": "Lira Thổ Nhĩ Kỳ (₺)",
+          "ZAR": "Rand Nam Phi (R)",
+          "THB": "Baht Thái Lan (฿)",
+          "MYR": "Ringgit Malaysia (RM)",
+          "PHP": "Peso Philippines (₱)",
+          "IDR": "Rupiah Indonesia (Rp)",
+          "VND": "Đồng Việt Nam (₫)"
+        }
+      },
+      "language": {
+        "title": "Ngôn ngữ",
+        "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "theme": {
+        "title": "Chủ đề",
+        "subtitle": "Chọn chủ đề ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "notifications": {
+        "title": "Thông báo",
+        "subtitle": "Quản lý tùy chọn thông báo của bạn",
+        "configure": "Cấu hình"
       }
     },
     "security": {
@@ -565,25 +622,6 @@
         "disabled": "Xác thực hai yếu tố đã bị tắt",
         "enabledDesc": "Tài khoản của bạn được bảo vệ bằng 2FA",
         "disabledDesc": "Thêm 2FA để bảo mật tốt hơn"
-      }
-    },
-    "preferences": {
-      "title": "Tùy chọn",
-      "subtitle": "Tùy chỉnh trải nghiệm của bạn",
-      "language": {
-        "title": "Ngôn ngữ",
-        "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
-        "change": "Thay đổi"
-      },
-      "theme": {
-        "title": "Chủ đề",
-        "subtitle": "Chọn chủ đề ưa thích của bạn",
-        "change": "Thay đổi"
-      },
-      "notifications": {
-        "title": "Thông báo",
-        "subtitle": "Quản lý tùy chọn thông báo của bạn",
-        "configure": "Cấu hình"
       }
     }
   }

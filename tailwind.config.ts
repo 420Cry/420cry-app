@@ -1,7 +1,11 @@
 import type { Config } from 'tailwindcss'
 
 export default {
-  content: ['./node_modules/@420cry/420cry-lib/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    './node_modules/@420cry/420cry-lib/**/*.{js,ts,jsx,tsx}',
+  ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {

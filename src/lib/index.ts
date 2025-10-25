@@ -20,6 +20,7 @@ export { authService } from './services/auth/AuthService'
 export { externalService } from './services/external/ExternalService'
 export * from './services/cookies/CookieService'
 export * from './services/locale/localeService'
+export * from './services/currency/CurrencyService'
 export * from './requests/RequestService'
 
 // Utils
@@ -32,6 +33,7 @@ export * from './server/validation/dashboardSearch/resolveSearchInputType'
 export * from './hooks/useFormValidation'
 export * from './hooks/useClientOnly'
 export * from './hooks/useIsomorphicLayoutEffect'
+export * from './hooks/useCurrencyPreference'
 
 // Styles
 export * from './styles/formStyles'
@@ -42,3 +44,4 @@ export * from './context/modal/ModalContext'
 export * from './context/modal/ModalRenderer'
 export * from './context/notification/NotificationContext'
 export * from './context/notification/NotificationRenderer'
+export * from './context/theme/ThemeContext'

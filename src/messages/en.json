@@ -555,12 +555,69 @@
       "memberSince": "Member Since",
       "userId": "User ID",
       "rememberMe": "Remember Me",
+      "twoFAStatus": "Two-Factor Authentication",
       "enabled": "Enabled",
       "disabled": "Disabled",
       "fields": {
         "fullname": "Full Name",
         "username": "Username",
         "email": "Email Address"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "subtitle": "Customize your application preferences",
+      "currency": {
+        "title": "Currency Preference",
+        "subtitle": "Choose your preferred currency for displaying portfolio values",
+        "currentCurrency": "Current Currency",
+        "selectCurrency": "Select Currency",
+        "currencies": {
+          "USD": "US Dollar ($)",
+          "EUR": "Euro (€)",
+          "GBP": "British Pound (£)",
+          "JPY": "Japanese Yen (¥)",
+          "CAD": "Canadian Dollar (C$)",
+          "AUD": "Australian Dollar (A$)",
+          "CHF": "Swiss Franc (CHF)",
+          "CNY": "Chinese Yuan (¥)",
+          "KRW": "South Korean Won (₩)",
+          "INR": "Indian Rupee (₹)",
+          "BRL": "Brazilian Real (R$)",
+          "RUB": "Russian Ruble (₽)",
+          "MXN": "Mexican Peso ($)",
+          "SGD": "Singapore Dollar (S$)",
+          "HKD": "Hong Kong Dollar (HK$)",
+          "NOK": "Norwegian Krone (kr)",
+          "SEK": "Swedish Krona (kr)",
+          "DKK": "Danish Krone (kr)",
+          "PLN": "Polish Zloty (zł)",
+          "CZK": "Czech Koruna (Kč)",
+          "HUF": "Hungarian Forint (Ft)",
+          "ILS": "Israeli Shekel (₪)",
+          "TRY": "Turkish Lira (₺)",
+          "ZAR": "South African Rand (R)",
+          "THB": "Thai Baht (฿)",
+          "MYR": "Malaysian Ringgit (RM)",
+          "PHP": "Philippine Peso (₱)",
+          "IDR": "Indonesian Rupiah (Rp)",
+          "VND": "Vietnamese Dong (₫)"
+        }
+      },
+      "language": {
+        "title": "Language",
+        "subtitle": "Choose your preferred language",
+        "change": "Change"
+      },
+      "theme": {
+        "title": "Theme",
+        "subtitle": "Choose your preferred theme",
+        "change": "Change"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "subtitle": "Manage your notification preferences",
+        "configure": "Configure"
       }
     },
     "security": {
@@ -585,25 +642,6 @@
         "disabled": "Two-Factor Authentication is disabled",
         "enabledDesc": "Your account is protected with 2FA",
         "disabledDesc": "Add 2FA for better security"
-      }
-    },
-    "preferences": {
-      "title": "Preferences",
-      "subtitle": "Customize your experience",
-      "language": {
-        "title": "Language",
-        "subtitle": "Choose your preferred language",
-        "change": "Change"
-      },
-      "theme": {
-        "title": "Theme",
-        "subtitle": "Choose your preferred theme",
-        "change": "Change"
-      },
-      "notifications": {
-        "title": "Notifications",
-        "subtitle": "Manage your notification preferences",
-        "configure": "Configure"
       }
     }
   }

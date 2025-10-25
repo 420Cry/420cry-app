@@ -7,6 +7,7 @@ import {
   ModalProvider,
   ModalRenderer,
   useLoading,
+  ThemeProvider,
 } from '@/lib'
 
 function LayoutContent({ children }: { children: ReactNode }) {
@@ -18,7 +19,10 @@ function LayoutContent({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex h-screen bg-gray-900" suppressHydrationWarning>
+    <div
+      className="flex h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ease-in-out"
+      suppressHydrationWarning
+    >
       <DashboardSidebar
         mobileMenuOpen={mobileMenuOpen}
         onMobileMenuToggle={toggleMobileMenu}
@@ -37,7 +41,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
         {/* Main content */}
         <main
-          className="flex-1 p-6 overflow-y-auto relative bg-gray-900"
+          className="flex-1 p-6 overflow-y-auto relative bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ease-in-out"
           suppressHydrationWarning
         >
           {children}
@@ -57,10 +61,12 @@ export default function DashboardLayout({
   children: ReactNode
 }): JSX.Element {
   return (
-    <LoadingProvider>
-      <ModalProvider>
-        <LayoutContent>{children}</LayoutContent>
-      </ModalProvider>
-    </LoadingProvider>
+    <ThemeProvider>
+      <LoadingProvider>
+        <ModalProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </ModalProvider>
+      </LoadingProvider>
+    </ThemeProvider>
   )
 }
