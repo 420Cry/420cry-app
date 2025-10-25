@@ -65,7 +65,9 @@
       "ok": "Ok",
       "loading": "Đang tải ...",
       "step": "Bước",
-      "close": "Đóng"
+      "close": "Đóng",
+      "yes": "Có",
+      "no": "Không"
     }
   },
   "header": {
@@ -164,6 +166,19 @@
         "invalidInput": "Địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử không hợp lệ"
       },
       "searchPlayholder": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử"
+    },
+    "userMenu": {
+      "profileSettings": "Cài đặt hồ sơ",
+      "preferences": "Tùy chọn",
+      "signOut": "Đăng xuất",
+      "userId": "ID người dùng",
+      "twoFAStatus": "Trạng thái 2FA",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "enabled": "Đã bật",
+      "disabled": "Đã tắt",
+      "yes": "Có",
+      "no": "Không",
+      "notAvailable": "Không có"
     },
     "transactionModal": {
       "title": "Chi tiết giao dịch",

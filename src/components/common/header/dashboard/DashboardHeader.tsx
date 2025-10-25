@@ -1,7 +1,7 @@
 'use client'
 
 import { JSX, useState, useEffect, useRef } from 'react'
-import { CrySearchBar, UserIcon } from '@420cry/420cry-lib'
+import { CrySearchBar, UserIcon, CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { LanguageChangeButton } from '@/components'
 import {
@@ -9,9 +9,13 @@ import {
   showToast,
   externalService,
   useModal,
+  SETTINGS_ROUTE,
+  authService,
+  SIGN_OUT_API,
 } from '@/lib'
 import { SearchInput } from '@/types'
 import { useAuthStore } from '@/store/useAuthStore'
+import { useRouter } from 'next/navigation'
 
 interface DashboardHeaderProps {
   setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -23,6 +27,7 @@ export default function DashboardHeader({
   onMobileMenuToggle,
 }: DashboardHeaderProps): JSX.Element {
   const t = useTranslations()
+  const router = useRouter()
   const searchPlaceholder = t('dashboard.search.searchPlayholder')
   const [searchTerm, setSearchTerm] = useState('')
   const [showUserMenu, setShowUserMenu] = useState(false)
@@ -125,9 +130,9 @@ export default function DashboardHeader({
   return (
     <header className="relative w-full h-16 flex items-center px-4 sm:px-6 bg-gray-900 border-b border-gray-700">
       {/* Mobile Menu Button */}
-      <button
+      <CryButton
         onClick={onMobileMenuToggle}
-        className="md:hidden p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-gray-400 hover:text-white transition-colors mr-4"
+        className="md:hidden p-2 rounded-lg bg-gray-800/50 hover:bg-gray-700/50 text-gray-400 hover:text-white transition-all duration-200 mr-4"
         aria-label="Toggle mobile menu"
       >
         <svg
@@ -143,7 +148,7 @@ export default function DashboardHeader({
             d="M4 6h16M4 12h16M4 18h16"
           />
         </svg>
-      </button>
+      </CryButton>
 
       {/* Search Section */}
       <div className="flex-1 max-w-2xl mx-auto">
@@ -167,76 +172,86 @@ export default function DashboardHeader({
       <div className="flex items-center gap-4 ml-6">
         <LanguageChangeButton />
         <div className="relative group" ref={userMenuRef}>
-          <button
+          <CryButton
             onClick={() => setShowUserMenu(!showUserMenu)}
-            className="relative p-2 rounded-full hover:bg-gray-800 transition-colors duration-200"
+            className="relative p-2 rounded-full hover:bg-gray-800/50 transition-all duration-200 hover:scale-105"
           >
-            <UserIcon className="h-8 w-8 text-gray-400 hover:text-white transition-colors duration-200" />
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-900"></div>
-          </button>
+            <UserIcon className="h-8 w-8 text-gray-400 hover:text-white transition-all duration-200" />
+            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-900 shadow-lg"></div>
+          </CryButton>
 
           {/* User Menu Dropdown */}
           {showUserMenu && (
-            <div className="absolute right-0 top-full mt-2 w-64 bg-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-700/50 z-50">
+            <div className="absolute right-0 top-full mt-2 w-80 bg-gray-800/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-700/50 z-50">
+              {/* User Profile Section */}
               <div className="p-4 border-b border-gray-700/50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold text-sm">
-                      {user?.fullname?.charAt(0) ||
-                        user?.username?.charAt(0) ||
-                        user?.email?.charAt(0) ||
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                    <span className="text-white font-semibold text-lg">
+                      {user?.fullname?.charAt(0)?.toUpperCase() ||
+                        user?.username?.charAt(0)?.toUpperCase() ||
+                        user?.email?.charAt(0)?.toUpperCase() ||
                         'U'}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-white truncate">
-                      {user?.fullname || user?.username || 'User'}
+                      {user?.fullname || 'User'}
                     </p>
                     <p className="text-xs text-gray-400 truncate">
+                      @{user?.username || 'username'}
+                    </p>
+                    <p className="text-xs text-gray-500 truncate">
                       {user?.email || 'user@example.com'}
                     </p>
                   </div>
                 </div>
+                
+                {/* User Data Display */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-gray-400">{t('dashboard.userMenu.userId')}:</span>
+                    <span className="text-gray-300 font-mono text-xs">
+                      {user?.uuid ? `${user.uuid.slice(0, 8)}...` : t('dashboard.userMenu.notAvailable')}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-gray-400">{t('dashboard.userMenu.twoFAStatus')}:</span>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      user?.twoFAEnabled 
+                        ? 'bg-green-500/20 text-green-400' 
+                        : 'bg-gray-500/20 text-gray-400'
+                    }`}>
+                      {user?.twoFAEnabled ? t('dashboard.userMenu.enabled') : t('dashboard.userMenu.disabled')}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-gray-400">{t('dashboard.userMenu.rememberMe')}:</span>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      user?.rememberMe 
+                        ? 'bg-blue-500/20 text-blue-400' 
+                        : 'bg-gray-500/20 text-gray-400'
+                    }`}>
+                      {user?.rememberMe ? t('app.common.yes') : t('app.common.no')}
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <div className="p-2">
-                <button className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-300 rounded-lg hover:bg-gray-700/50 hover:text-white transition-colors text-sm">
-                  <div className="w-5 h-5 flex items-center justify-center">
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12 14a4 4 0 0 0-8 0v1h8v-1Z" />
-                    </svg>
-                  </div>
-                  Profile Settings
-                </button>
-                <button className="w-full flex items-center gap-3 px-3 py-2.5 text-gray-300 rounded-lg hover:bg-gray-700/50 hover:text-white transition-colors text-sm">
-                  <div className="w-5 h-5 flex items-center justify-center">
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM3 8a5 5 0 0 1 5-5v10a5 5 0 0 1-5-5Z" />
-                    </svg>
-                  </div>
-                  Preferences
-                </button>
-                <button className="w-full flex items-center gap-3 px-3 py-2.5 text-red-400 rounded-lg hover:bg-red-500/10 hover:text-red-300 transition-colors text-sm">
-                  <div className="w-5 h-5 flex items-center justify-center">
-                    <svg
-                      viewBox="0 0 16 16"
-                      fill="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path d="M6 12.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1H7.707l2.147-2.146a.5.5 0 0 0-.708-.708L7 11.293V9.5a.5.5 0 0 0-1 0v3Z" />
-                      <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1ZM3 8a5 5 0 0 1 5-5v10a5 5 0 0 1-5-5Z" />
-                    </svg>
-                  </div>
-                  Sign Out
-                </button>
+              {/* Action Buttons */}
+              <div className="p-2 space-y-1">
+                <CryButton 
+                onClick={() => router.push(SETTINGS_ROUTE)}
+                className="w-full flex flex-row items-center justify-start gap-3 px-3 py-2.5 text-gray-300 rounded-lg hover:bg-gray-700/50 hover:text-white transition-all duration-200 text-sm hover:scale-[1.02]">
+                  <span className="text-left">{t('dashboard.userMenu.profileSettings')}</span>
+                </CryButton>
+                <CryButton 
+                onClick={async () => {
+                  await authService.signOut.signOut()
+                }}
+                className="w-full flex flex-row items-center justify-start gap-3 px-3 py-2.5 text-red-400 rounded-lg hover:bg-red-500/10 hover:text-red-300 transition-all duration-200 text-sm hover:scale-[1.02]">
+                  <span className="text-left">{t('dashboard.userMenu.signOut')}</span>
+                </CryButton>
               </div>
             </div>
           )}

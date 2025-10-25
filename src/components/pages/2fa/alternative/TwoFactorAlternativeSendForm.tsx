@@ -158,6 +158,13 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
     router.push(TWO_FACTOR_VERIFY_ROUTE)
   }
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (emailSent && otp.trim()) {
+      handleVerify()
+    }
+  }
+
   const title = emailSent
     ? t('2fa.alternative.verifyTitle')
     : t('2fa.alternative.title')
@@ -227,7 +234,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           </CryButton>
         </div>
       ) : (
-        <div className="flex flex-col space-y-8 items-center w-full">
+        <form onSubmit={handleFormSubmit} className="flex flex-col space-y-8 items-center w-full">
           <div className="w-full relative">
             <CryTextField
               modelValue={otp}
@@ -240,7 +247,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           </div>
 
           <CryButton
-            onClick={handleVerify}
+            type="submit"
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-semibold px-8 py-5 rounded-2xl hover:from-green-600 hover:to-emerald-700 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             rounded
           >
@@ -300,7 +307,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
               )}
             </div>
           </CryButton>
-        </div>
+        </form>
       )}
     </div>
   )

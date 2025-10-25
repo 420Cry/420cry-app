@@ -65,7 +65,9 @@
       "ok": "Ok",
       "loading": "Loading",
       "step": "Step",
-      "close": "Close"
+      "close": "Close",
+      "yes": "Yes",
+      "no": "No"
     }
   },
   "header": {
@@ -184,6 +186,19 @@
         "invalidInput": "Invalid Transaction Hash ID or wallet public key"
       },
       "searchPlayholder": "Enter public address, transaction hash, or crypto token"
+    },
+    "userMenu": {
+      "profileSettings": "Profile Settings",
+      "preferences": "Preferences",
+      "signOut": "Sign Out",
+      "userId": "User ID",
+      "twoFAStatus": "2FA Status",
+      "rememberMe": "Remember Me",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "yes": "Yes",
+      "no": "No",
+      "notAvailable": "N/A"
     },
     "transactionModal": {
       "title": "Transaction Details",
