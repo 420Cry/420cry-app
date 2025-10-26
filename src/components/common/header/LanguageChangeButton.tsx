@@ -45,7 +45,7 @@ const LanguageChangeButton = (): JSX.Element => {
         setLanguage(newIsEN ? 'vi' : 'en')
         showToast(false, t(response.message))
       }
-    } catch (error) {
+    } catch (_error) {
       // Revert UI state if API call failed
       setIsEN(!newIsEN)
       setLanguage(newIsEN ? 'vi' : 'en')

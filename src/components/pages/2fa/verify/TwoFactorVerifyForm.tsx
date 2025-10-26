@@ -1,7 +1,13 @@
 'use client'
 
 import { JSX, useState } from 'react'
-import { CryButton, CryTextField } from '@420cry/420cry-lib'
+import {
+  CryButton,
+  CryTextField,
+  LockIcon,
+  CheckCircleIcon,
+  HelpIcon,
+} from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { useAuthStore } from '@/store'
 import {
@@ -72,19 +78,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         {/* Header Section */}
         <div className="relative z-10 text-center mb-8">
           <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
+            <LockIcon className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold mb-3 text-gray-900 tracking-tight">
             {t('2fa.verify.title')}
@@ -115,19 +109,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
             shape="rounded"
           >
             <span className="flex items-center justify-center gap-2">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <CheckCircleIcon className="w-5 h-5" />
               {t('2fa.verify.verifyCode')}
             </span>
           </CryButton>
@@ -141,19 +123,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
             onClick={handleAuthenticatorTroubleClick}
           >
             <span className="flex items-center justify-center gap-2">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <HelpIcon className="w-4 h-4" />
               {t('2fa.verify.havingTroubleWithAuthenticatorApp')}
             </span>
           </button>

@@ -1,6 +1,3 @@
-import { RequestService } from '@/lib/requests/RequestService'
-import { IResponse } from '@/types'
-
 export type CurrencyCode =
   | 'USD'
   | 'EUR'
@@ -84,44 +81,6 @@ export class CurrencyService {
   }
 
   /**
-   * Validate if the currency code is supported
-   */
-  private static isValidCurrency(currency: string): currency is CurrencyCode {
-    const validCurrencies: CurrencyCode[] = [
-      'USD',
-      'EUR',
-      'GBP',
-      'JPY',
-      'CAD',
-      'AUD',
-      'CHF',
-      'CNY',
-      'KRW',
-      'INR',
-      'BRL',
-      'RUB',
-      'MXN',
-      'SGD',
-      'HKD',
-      'NOK',
-      'SEK',
-      'DKK',
-      'PLN',
-      'CZK',
-      'HUF',
-      'ILS',
-      'TRY',
-      'ZAR',
-      'THB',
-      'MYR',
-      'PHP',
-      'IDR',
-      'VND',
-    ]
-    return validCurrencies.includes(currency as CurrencyCode)
-  }
-
-  /**
    * Get currency symbol for display
    */
   public static getCurrencySymbol(currency: CurrencyCode): string {
@@ -160,25 +119,6 @@ export class CurrencyService {
   }
 
   /**
-   * Format currency amount for display
-   */
-  public static formatCurrency(amount: number, currency: CurrencyCode): string {
-    const symbol = this.getCurrencySymbol(currency)
-
-    // For currencies that typically don't use decimals
-    const noDecimalCurrencies: CurrencyCode[] = ['JPY', 'KRW', 'VND', 'IDR']
-
-    if (noDecimalCurrencies.includes(currency)) {
-      return `${symbol}${Math.round(amount).toLocaleString()}`
-    }
-
-    return `${symbol}${amount.toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`
-  }
-
-  /**
    * Get all available currencies
    */
   public static getAllCurrencies(): CurrencyCode[] {
@@ -213,5 +153,62 @@ export class CurrencyService {
       'IDR',
       'VND',
     ]
+  }
+
+  /**
+   * Format currency amount for display
+   */
+  public static formatCurrency(amount: number, currency: CurrencyCode): string {
+    const symbol = this.getCurrencySymbol(currency)
+
+    // For currencies that typically don't use decimals
+    const noDecimalCurrencies: CurrencyCode[] = ['JPY', 'KRW', 'VND', 'IDR']
+
+    if (noDecimalCurrencies.includes(currency)) {
+      return `${symbol}${Math.round(amount).toLocaleString()}`
+    }
+
+    return `${symbol}${amount.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`
+  }
+
+  /**
+   * Validate if the currency code is supported
+   */
+  private static isValidCurrency(currency: string): currency is CurrencyCode {
+    const validCurrencies: CurrencyCode[] = [
+      'USD',
+      'EUR',
+      'GBP',
+      'JPY',
+      'CAD',
+      'AUD',
+      'CHF',
+      'CNY',
+      'KRW',
+      'INR',
+      'BRL',
+      'RUB',
+      'MXN',
+      'SGD',
+      'HKD',
+      'NOK',
+      'SEK',
+      'DKK',
+      'PLN',
+      'CZK',
+      'HUF',
+      'ILS',
+      'TRY',
+      'ZAR',
+      'THB',
+      'MYR',
+      'PHP',
+      'IDR',
+      'VND',
+    ]
+    return validCurrencies.includes(currency as CurrencyCode)
   }
 }

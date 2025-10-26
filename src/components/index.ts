@@ -1,3 +1,7 @@
+// modal
+export { default as TransactionModal } from './modal/transactions/TransactionModal'
+export { default as XPUBTransactionModal } from './modal/transactions/XPUBTransactionModal'
+
 // pages
 export { default as LogInForm } from './pages/auth/login/LoginForm'
 export { default as SignUpForm } from './pages/auth/signup/SignupForm'
@@ -8,8 +12,6 @@ export { default as TwoFactorSetupQRCode } from './pages/2fa/setup/TwoFactorSetu
 export { default as TwoFactorSetupOption } from './pages/2fa/setup/TwoFactorSetupOption'
 export { default as TwoFactorVerifyForm } from './pages/2fa/verify/TwoFactorVerifyForm'
 export { default as TwoFactorAlternativeSendForm } from './pages/2fa/alternative/TwoFactorAlternativeSendForm'
-export { default as TransactionModal } from './pages/dashboard/TransactionModal'
-export { default as XPUBTransactionModal } from './pages/dashboard/XPUBTransactionModal'
 export { default as FearAndGreedIndex } from './pages/indicator/fear-and-greed/FearAndGreedIndex'
 export { default as FearAndGreedHistoricalSkeleton } from './pages/indicator/fear-and-greed/FearAndGreedHistoricalSkeleton'
 export { FearAndGreedHistorical } from './pages/indicator/fear-and-greed/FearAndGreedHistorical'

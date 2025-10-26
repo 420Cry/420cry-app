@@ -3,7 +3,13 @@
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { CryButton, CrySearchBar } from '@420cry/420cry-lib'
+import {
+  ArrowRightIcon,
+  CryButton,
+  CrySearchBar,
+  MagnifyingGlassIcon,
+  CopyIcon,
+} from '@420cry/420cry-lib'
 import {
   resolveSearchInputType,
   showToast,
@@ -156,8 +162,9 @@ export default function WalletExplorerPreview(): JSX.Element {
 
               <CryButton
                 type="submit"
+                color="secondary"
                 disabled={isSearching}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+                className="w-full py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center gap-2"
               >
                 {isSearching ? (
                   <>
@@ -166,20 +173,10 @@ export default function WalletExplorerPreview(): JSX.Element {
                   </>
                 ) : (
                   <>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                    {t('landing.walletExplorer.searchButton')}
+                    <div className="flex items-center justify-center gap-2">
+                      <MagnifyingGlassIcon className="w-4 h-4" />
+                      {t('landing.walletExplorer.searchButton')}
+                    </div>
                   </>
                 )}
               </CryButton>
@@ -208,19 +205,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                         <h5 className="font-medium text-gray-900 text-sm group-hover:text-blue-700 transition-colors duration-200">
                           {example.type}
                         </h5>
-                        <svg
-                          className="w-3 h-3 text-gray-400 group-hover:text-blue-500 transition-colors duration-200"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                          />
-                        </svg>
+                        <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" />
                       </div>
                       <p className="text-gray-600 text-xs mt-1">
                         {example.description}
@@ -368,19 +353,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                           {t(
                             'landing.walletExplorer.searchResult.viewFullDetails',
                           )}
-                          <svg
-                            className="ml-1 w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
+                          <ArrowRightIcon className="ml-1 w-3 h-3" />
                         </Link>
                       </div>
                     </div>
@@ -444,19 +417,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                           {t(
                             'landing.walletExplorer.searchResult.viewFullDetails',
                           )}
-                          <svg
-                            className="ml-1 w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
+                          <ArrowRightIcon className="ml-1 w-3 h-3" />
                         </Link>
                       </div>
                     </div>
@@ -558,19 +519,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
               >
                 {t('landing.walletExplorer.cta.button')}
-                <svg
-                  className="ml-1 w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <ArrowRightIcon className="ml-1 w-3 h-3" />
               </Link>
             </div>
           </div>

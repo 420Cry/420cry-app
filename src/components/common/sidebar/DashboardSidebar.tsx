@@ -20,6 +20,7 @@ import { LanguageChangeButton, ThemeToggle } from '@/components'
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  ChevronRightIcon,
   CryButton,
   LineGraphIcon,
   PieChartIcon,
@@ -251,16 +252,7 @@ export default function Sidebar({
                           <div
                             className={`w-4 h-4 transition-transform duration-200 text-gray-500 dark:text-gray-400 ${isOpen ? 'rotate-90' : ''}`}
                           >
-                            <svg viewBox="0 0 16 16" fill="currentColor">
-                              <path
-                                d="M6 4l4 4-4 4"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                fill="none"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
+                            <ChevronRightIcon className="w-4 h-4" />
                           </div>
                         </div>
                       )}

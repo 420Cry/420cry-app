@@ -4,6 +4,7 @@ import { ILocale } from '@/types'
 import { IntlProvider } from 'next-intl'
 import { JSX, ReactNode } from 'react'
 import { ToastBar, Toaster, toast } from 'react-hot-toast'
+import { XIcon } from '@420cry/420cry-lib'
 
 interface ClientLayoutProps {
   children: ReactNode
@@ -56,19 +57,7 @@ const ClientLayout = ({
                     className="ml-3 flex-shrink-0 w-6 h-6 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/30 flex items-center justify-center group"
                     aria-label="Dismiss notification"
                   >
-                    <svg
-                      className="w-3 h-3 transition-transform duration-200 group-hover:scale-110"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
+                    <XIcon className="w-3 h-3 transition-transform duration-200 group-hover:scale-110" />
                   </button>
                 )}
               </div>

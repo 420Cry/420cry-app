@@ -1,7 +1,7 @@
 'use client'
 
 import { JSX, useState, useEffect, useRef } from 'react'
-import { CrySearchBar, UserIcon, CryButton } from '@420cry/420cry-lib'
+import { CrySearchBar, UserIcon, CryButton, MenuIcon } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { LanguageChangeButton, ThemeToggle } from '@/components'
 import {
@@ -135,19 +135,7 @@ export default function DashboardHeader({
         className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-300 ease-in-out mr-2 flex-shrink-0"
         aria-label="Toggle mobile menu"
       >
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
+        <MenuIcon className="w-5 h-5" />
       </CryButton>
 
       {/* Search Section */}
@@ -285,7 +273,7 @@ export default function DashboardHeader({
                         showToast(false, t(response.message))
                         router.push(SIGN_IN_ROUTE)
                       }
-                    } catch (error) {
+                    } catch (_error) {
                       // If API call failed, show error but user is already signed out locally
                       showToast(false, t('app.alertTitle.somethingWentWrong'))
                       router.push(SIGN_IN_ROUTE)
