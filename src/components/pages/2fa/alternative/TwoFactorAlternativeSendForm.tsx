@@ -68,8 +68,8 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   }, [emailSent, t, showNotification])
 
   const handleSendAlternativeEmail = async () => {
-    const email = user?.email
-    if (!email) {
+    const userEmail = user?.email
+    if (!userEmail) {
       showNotification(
         'error',
         t('2fa.alternative.errorTitle'),
@@ -81,7 +81,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
     setIsSending(true)
     try {
       const response =
-        await twoFactorService.alternative.sendAlternativeEmailOTP(email)
+        await twoFactorService.alternative.sendAlternativeEmailOTP(userEmail)
 
       if (response.isSuccess) {
         showNotification(

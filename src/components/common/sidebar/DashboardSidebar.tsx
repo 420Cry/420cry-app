@@ -2,7 +2,7 @@
 
 import { JSX, useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -13,6 +13,7 @@ import {
   SIGN_IN_ROUTE,
   authService,
   useClientOnly,
+  useLoading,
 } from '@/lib'
 
 import { LanguageChangeButton, ThemeToggle } from '@/components'
@@ -43,6 +44,8 @@ export default function Sidebar({
 }: DashboardSidebarProps): JSX.Element {
   const t = useTranslations()
   const router = useRouter()
+  const pathname = usePathname()
+  const { setLoading } = useLoading()
   const [collapsed, setCollapsed] = useState(false)
 
   // Sync mobile menu state with collapsed state
@@ -51,6 +54,11 @@ export default function Sidebar({
       setCollapsed(!mobileMenuOpen)
     }
   }, [mobileMenuOpen])
+
+  // Turn off loading when route changes
+  useEffect(() => {
+    setLoading(false)
+  }, [pathname, setLoading])
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const isClient = useClientOnly()
   const navRef = useRef<HTMLDivElement>(null)
@@ -177,7 +185,10 @@ export default function Sidebar({
                   height={48}
                   className="cursor-pointer dark:filter-none filter-invert"
                   style={{ width: 'auto', height: 'auto' }}
-                  onClick={() => router.push(DASHBOARD_ROUTE)}
+                  onClick={() => {
+                    setLoading(true)
+                    router.push(DASHBOARD_ROUTE)
+                  }}
                 />
               </div>
             )}
@@ -231,6 +242,7 @@ export default function Sidebar({
                             setOpenMenu(isOpen ? null : ariaLabel)
                           }
                         } else if (route) {
+                          setLoading(true)
                           router.push(route)
                           // Close sidebar on mobile after navigation
                           if (window.innerWidth < 768) {
@@ -275,6 +287,7 @@ export default function Sidebar({
                             onClick={() => {
                               setOpenMenu(null)
                               if (child.route) {
+                                setLoading(true)
                                 router.push(child.route)
                                 // Close sidebar on mobile after navigation
                                 if (window.innerWidth < 768) {
