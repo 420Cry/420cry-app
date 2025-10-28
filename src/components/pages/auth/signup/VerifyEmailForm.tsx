@@ -83,7 +83,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
       showNotification(
         'error',
         t('auth.signup.verifyEmail.errorTitle'),
-        t('app.alertTitle.somethingWentWrong'),
+        t('app.messages.error.general'),
       )
       setVerificationSuccess(false)
     } finally {

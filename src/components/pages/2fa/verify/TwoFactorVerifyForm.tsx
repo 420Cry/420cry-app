@@ -33,11 +33,11 @@ const TwoFactorVerifyForm = (): JSX.Element => {
     setLoading(true)
     try {
       if (!user?.uuid) {
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showToast(false, t('app.messages.error.general'))
         return
       }
       if (!otp.trim()) {
-        showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+        showToast(false, t('app.messages.error.otpCannotBeEmpty'))
         return
       }
 
@@ -51,14 +51,14 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         showNotification(
           'success',
           t('2fa.verify.successTitle'),
-          t('app.alertTitle.2FAVerifySuccessful'),
+          t('app.messages.success.2FAVerifySuccessful'),
         )
         router.push(HOME_ROUTE)
       } else {
         showToast(false, t(response.message))
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showToast(false, t('app.messages.error.general'))
     } finally {
       setLoading(false)
     }

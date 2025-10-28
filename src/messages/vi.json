@@ -15,7 +15,10 @@
         "logOutSuccessful": "Đăng xuất thành công",
         "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
         "usernameUpdated": "Đã cập nhật tên người dùng thành công",
-        "setup2FASuccess": "Đã thiết lập 2FA thành công"
+        "setup2FASuccess": "Đã thiết lập 2FA thành công",
+        "2FAVerifySuccessful": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+        "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+        "resetSuccess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!"
       },
       "error": {
         "general": "Đã cõ lỗi, vui lòng thử lại sau!",
@@ -29,7 +32,19 @@
         "emailNotExist": "Email không tồn tại",
         "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại",
         "invalidToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
-        "errorUpdateUsername": "Không thể cập nhật tên người dùng"
+        "errorUpdateUsername": "Không thể cập nhật tên người dùng",
+        "userNotVerified": "Tài khoản người dùng chưa được xác minh",
+        "validationError": "Lỗi xác thực",
+        "invalidRequest": "Yêu cầu không hợp lệ",
+        "unauthorized": "Không được phép",
+        "forbidden": "Bị cấm",
+        "notFound": "Không tìm thấy",
+        "conflict": "Xung đột",
+        "rateLimited": "Giới hạn tốc độ",
+        "serverError": "Lỗi máy chủ",
+        "badGateway": "Gateway lỗi",
+        "serviceUnavailable": "Dịch vụ không khả dụng",
+        "gatewayTimeout": "Hết thời gian chờ gateway"
       },
       "api": {
         "validTransaction": "Giao dịch được tìm thấy",
@@ -564,6 +579,8 @@
       "editButton": "Chỉnh sửa hồ sơ",
       "saveButton": "Lưu thay đổi",
       "cancelButton": "Hủy",
+      "verifyButton": "Xác nhận",
+      "loading": "Đang tải",
       "accountInfo": "Thông tin tài khoản",
       "emailVerified": "Xác minh email",
       "verified": "Đã xác minh",

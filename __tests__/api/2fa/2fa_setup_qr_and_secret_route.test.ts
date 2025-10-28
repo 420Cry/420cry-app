@@ -65,7 +65,7 @@ describe('POST /api/2fa/setup', () => {
 
     expect(res.status).toBe(403)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 when an error is thrown', async () => {
@@ -79,6 +79,6 @@ describe('POST /api/2fa/setup', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 })

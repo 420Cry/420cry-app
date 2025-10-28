@@ -61,7 +61,7 @@ export default function DashboardHeader({
 
     // Check if input is empty
     if (!searchTerm.trim()) {
-      showToast(false, t('app.alertTitle.emptyInput'))
+      showToast(false, t('app.messages.error.emptyInput'))
       return
     }
     const input: SearchInput = resolveSearchInputType(searchTerm)
@@ -275,7 +275,7 @@ export default function DashboardHeader({
                       }
                     } catch (_error) {
                       // If API call failed, show error but user is already signed out locally
-                      showToast(false, t('app.alertTitle.somethingWentWrong'))
+                      showToast(false, t('app.messages.error.general'))
                       router.push(SIGN_IN_ROUTE)
                     }
                   }}

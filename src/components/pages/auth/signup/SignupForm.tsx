@@ -92,7 +92,7 @@ const SignupForm = (): JSX.Element => {
       showNotification(
         'error',
         t('auth.signup.errorTitle'),
-        t('app.alertTitle.somethingWentWrong'),
+        t('app.messages.error.general'),
       )
     } finally {
       setLoading(false)

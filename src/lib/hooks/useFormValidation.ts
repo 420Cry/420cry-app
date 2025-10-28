@@ -35,7 +35,7 @@ export const useFormValidation = (): UseFormValidationReturn => {
     const isEmpty = [...formData.values()].some((value) => !value)
 
     if (isEmpty) {
-      showToast(false, t('app.alertTitle.allfieldsAreRequired'))
+      showToast(false, t('app.messages.success.allfieldsAreRequired'))
       return false
     }
 
@@ -73,7 +73,7 @@ export const useFormValidation = (): UseFormValidationReturn => {
    */
   const validateOTP = (otp: string): boolean => {
     if (!otp.trim()) {
-      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      showToast(false, t('app.messages.error.otpCannotBeEmpty'))
       return false
     }
 
@@ -125,7 +125,7 @@ export const useFormValidation = (): UseFormValidationReturn => {
         errorCallback(error)
       } else {
         // Default error handling
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showToast(false, t('app.messages.error.general'))
       }
 
       return null

@@ -15,7 +15,10 @@
         "logOutSuccessful": "Logged out",
         "changeLanguageSuccessful": "Language change success!",
         "usernameUpdated": "Username updated successfully",
-        "setup2FASuccess": "2FA setup completed successfully"
+        "setup2FASuccess": "2FA setup completed successfully",
+        "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
+        "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
+        "resetSuccess": "You have successfully reset your password. Please login again!"
       },
       "error": {
         "general": "Something went wrong. Please try again later!",
@@ -29,7 +32,19 @@
         "emailNotExist": "Email does not exist",
         "emailOrUserNameAlreadyExist": "Username or email already exists",
         "invalidToken": "Invalid or expired token",
-        "errorUpdateUsername": "Failed to update username"
+        "errorUpdateUsername": "Failed to update username",
+        "userNotVerified": "User account is not verified",
+        "validationError": "Validation error",
+        "invalidRequest": "Invalid request",
+        "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "notFound": "Not found",
+        "conflict": "Conflict",
+        "rateLimited": "Rate limited",
+        "serverError": "Server error",
+        "badGateway": "Bad gateway",
+        "serviceUnavailable": "Service unavailable",
+        "gatewayTimeout": "Gateway timeout"
       },
       "api": {
         "validTransaction": "Transaction is found",
@@ -566,6 +581,8 @@
       "editButton": "Edit Profile",
       "saveButton": "Save Changes",
       "cancelButton": "Cancel",
+      "verifyButton": "Verify",
+      "loading": "Loading",
       "accountInfo": "Account Information",
       "emailVerified": "Email Verification",
       "verified": "Verified",

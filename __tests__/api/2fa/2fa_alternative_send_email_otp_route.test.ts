@@ -40,7 +40,7 @@ describe('POST /api/2fa/alternative/send-email-otp', () => {
 
     expect(res.status).toBe(200)
     expect(body.isSuccess).toBe(true)
-    expect(body.message).toBe('app.alertTitle.Successful')
+    expect(body.message).toBe('app.messages.success.general')
   })
 
   it('returns error response for non-200 status', async () => {
@@ -55,7 +55,7 @@ describe('POST /api/2fa/alternative/send-email-otp', () => {
 
     expect(res.status).toBe(200) // handler still returns 200 with isSuccess: false
     expect(body.isSuccess).toBe(false)
-    expect(body.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 when axiosPost throws unknown error', async () => {
@@ -69,6 +69,6 @@ describe('POST /api/2fa/alternative/send-email-otp', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 })

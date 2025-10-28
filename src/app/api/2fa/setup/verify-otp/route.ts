@@ -24,7 +24,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       const responseBody = {
         response: {
           isSuccess: true,
-          message: 'app.alertTitle.Successful',
+          message: 'app.messages.success.general',
         } as IResponse,
         user,
       }
@@ -42,8 +42,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return nextResponse
     }
 
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 401)
+    return createErrorResponse('app.messages.error.general', 401)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }

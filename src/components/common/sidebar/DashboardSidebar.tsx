@@ -81,7 +81,7 @@ export default function Sidebar({
       }
     } catch {
       // If API call failed, show error but user is already signed out locally
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showToast(false, t('app.messages.error.general'))
       router.push(SIGN_IN_ROUTE)
     }
   }

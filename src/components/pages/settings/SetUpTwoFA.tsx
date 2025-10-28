@@ -34,7 +34,7 @@ export const SetUpTwoFA = ({
   useEffect(() => {
     const fetchQRCodeAndSecret = async () => {
       if (!user?.uuid) {
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showToast(false, t('app.messages.error.general'))
         return
       }
 
@@ -59,12 +59,12 @@ export const SetUpTwoFA = ({
     e.preventDefault()
 
     if (!otp.trim() || otp.length !== 6) {
-      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      showToast(false, t('app.messages.error.otpCannotBeEmpty'))
       return
     }
 
     if (!user?.uuid || !secret) {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showToast(false, t('app.messages.error.general'))
       return
     }
 
@@ -80,13 +80,13 @@ export const SetUpTwoFA = ({
 
       if (response.isSuccess && updatedUser) {
         useAuthStore.getState().setUser(updatedUser)
-        showToast(true, t('app.alertTitle.2FASetUpSuccessful'))
+        showToast(true, t('app.messages.success.setup2FASuccess'))
         onSuccess()
       } else {
         showToast(false, t(response.message))
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showToast(false, t('app.messages.error.general'))
     } finally {
       setVerifying(false)
     }

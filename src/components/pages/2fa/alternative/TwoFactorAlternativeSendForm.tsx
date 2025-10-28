@@ -73,7 +73,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       showNotification(
         'error',
         t('2fa.alternative.errorTitle'),
-        t('app.alertTitle.emailNotExist'),
+        t('app.messages.error.emailNotExist'),
       )
       return
     }
@@ -103,7 +103,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       showNotification(
         'error',
         t('2fa.alternative.errorTitle'),
-        t('app.alertTitle.somethingWentWrong'),
+        t('app.messages.error.general'),
       )
     } finally {
       setIsSending(false)
@@ -115,7 +115,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       showNotification(
         'error',
         t('2fa.alternative.errorTitle'),
-        t('app.alertTitle.otpCannotBeEmpty'),
+        t('app.messages.error.otpCannotBeEmpty'),
       )
       return
     }
@@ -125,7 +125,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
         showNotification(
           'error',
           t('2fa.alternative.errorTitle'),
-          t('app.alertTitle.somethingWentWrong'),
+          t('app.messages.error.general'),
         )
         return
       }
@@ -139,7 +139,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
         showNotification(
           'success',
           t('2fa.alternative.successTitle'),
-          t('app.alertTitle.2FAVerifySuccessful'),
+          t('app.messages.success.2FAVerifySuccessful'),
         )
         router.push(HOME_ROUTE)
       } else {
@@ -153,7 +153,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
       showNotification(
         'error',
         t('2fa.alternative.errorTitle'),
-        t('app.alertTitle.somethingWentWrong'),
+        t('app.messages.error.general'),
       )
     } finally {
       setLoading(false)

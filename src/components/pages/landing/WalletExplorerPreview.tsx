@@ -35,7 +35,7 @@ export default function WalletExplorerPreview(): JSX.Element {
     e.preventDefault()
 
     if (!searchTerm.trim()) {
-      showToast(false, t('app.alertTitle.emptyInput'))
+      showToast(false, t('app.messages.error.emptyInput'))
       return
     }
 

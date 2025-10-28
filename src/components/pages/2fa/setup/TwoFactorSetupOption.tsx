@@ -41,7 +41,7 @@ const TwoFactorSetupOption = ({
       showNotification(
         'error',
         t('2fa.setup.errorTitle'),
-        t('app.alertTitle.somethingWentWrong'),
+        t('app.messages.error.general'),
       )
     }
   }

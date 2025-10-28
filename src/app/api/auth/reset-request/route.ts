@@ -20,14 +20,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.resetRequestSuccess',
+        message: 'app.messages.success.resetRequestSuccess',
       } satisfies IResponse)
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch (error: unknown) {
     return ApiErrorHandler.handle(error, {
       operation: 'reset-request',

@@ -19,6 +19,7 @@ import { SetUpTwoFA } from './SetUpTwoFA'
 
 export const ProfileSettings = (): JSX.Element => {
   const t = useTranslations('settings')
+  const tApp = useTranslations()
   const { user } = useAuthStore()
   const { formatAmount } = useCurrencyPreference()
   const [isEditingUsername, setIsEditingUsername] = useState(false)
@@ -65,12 +66,12 @@ export const ProfileSettings = (): JSX.Element => {
   const handle2FAVerify = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!otp.trim()) {
-      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      showToast(false, tApp('app.messages.error.otpCannotBeEmpty'))
       return
     }
 
     if (!user?.uuid) {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showToast(false, tApp('app.messages.error.general'))
       return
     }
 
@@ -86,12 +87,12 @@ export const ProfileSettings = (): JSX.Element => {
         setShow2FAVerification(false)
         setIsEditingUsername(true)
         setOtp('')
-        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        showToast(true, tApp('app.messages.success.2FAVerifySuccessful'))
       } else {
         showToast(false, t(response.message))
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showToast(false, tApp('app.messages.error.general'))
     } finally {
       setVerifying(false)
     }
@@ -406,14 +407,16 @@ export const ProfileSettings = (): JSX.Element => {
                   disabled={verifying}
                   className="flex-1 px-4 py-2 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium"
                 >
-                  {t('app.common.cancel')}
+                  {tApp('app.common.cancel')}
                 </CryButton>
                 <CryButton
                   type="submit"
                   disabled={verifying || !otp.trim()}
                   className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium"
                 >
-                  {verifying ? t('app.common.loading') : t('app.common.verify')}
+                  {verifying
+                    ? tApp('app.common.loading')
+                    : tApp('app.common.verify')}
                 </CryButton>
               </div>
             </form>

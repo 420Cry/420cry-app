@@ -81,7 +81,7 @@ const TwoFactorSetupQRCode = ({
         showNotification(
           'success',
           t('2fa.QR.successTitle'),
-          t('app.alertTitle.2FASetUpSuccessful'),
+          t('app.messages.success.setup2FASuccess'),
         )
         router.push(HOME_ROUTE)
       }
@@ -89,7 +89,7 @@ const TwoFactorSetupQRCode = ({
       showNotification(
         'error',
         t('2fa.QR.errorTitle'),
-        t('app.alertTitle.somethingWentWrong'),
+        t('app.messages.error.general'),
       )
     } finally {
       setGlobalLoading(false)
