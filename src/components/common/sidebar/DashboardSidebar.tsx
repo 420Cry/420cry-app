@@ -59,6 +59,7 @@ export default function Sidebar({
   useEffect(() => {
     setLoading(false)
   }, [pathname, setLoading])
+
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const isClient = useClientOnly()
   const navRef = useRef<HTMLDivElement>(null)
@@ -186,7 +187,9 @@ export default function Sidebar({
                   className="cursor-pointer dark:filter-none filter-invert"
                   style={{ width: 'auto', height: 'auto' }}
                   onClick={() => {
-                    setLoading(true)
+                    if (pathname !== DASHBOARD_ROUTE) {
+                      setLoading(true)
+                    }
                     router.push(DASHBOARD_ROUTE)
                   }}
                 />
@@ -242,7 +245,10 @@ export default function Sidebar({
                             setOpenMenu(isOpen ? null : ariaLabel)
                           }
                         } else if (route) {
-                          setLoading(true)
+                          // Only set loading if navigating to a different route
+                          if (pathname !== route) {
+                            setLoading(true)
+                          }
                           router.push(route)
                           // Close sidebar on mobile after navigation
                           if (window.innerWidth < 768) {
@@ -287,7 +293,10 @@ export default function Sidebar({
                             onClick={() => {
                               setOpenMenu(null)
                               if (child.route) {
-                                setLoading(true)
+                                // Only set loading if navigating to a different route
+                                if (pathname !== child.route) {
+                                  setLoading(true)
+                                }
                                 router.push(child.route)
                                 // Close sidebar on mobile after navigation
                                 if (window.innerWidth < 768) {

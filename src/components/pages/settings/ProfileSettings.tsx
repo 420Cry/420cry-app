@@ -14,14 +14,18 @@ import {
   SuccessCheckIcon,
 } from '@420cry/420cry-lib'
 import { useAuthStore } from '@/store'
-import { showToast, useCurrencyPreference } from '@/lib'
+import { showToast, useCurrencyPreference, twoFactorService } from '@/lib'
+import { SetUpTwoFA } from './SetUpTwoFA'
 
 export const ProfileSettings = (): JSX.Element => {
   const t = useTranslations('settings')
   const { user } = useAuthStore()
   const { formatAmount } = useCurrencyPreference()
   const [isEditingUsername, setIsEditingUsername] = useState(false)
-  const [isEditingEmail, setIsEditingEmail] = useState(false)
+  const [show2FAVerification, setShow2FAVerification] = useState(false)
+  const [show2FASetup, setShow2FASetup] = useState(false)
+  const [otp, setOtp] = useState('')
+  const [verifying, setVerifying] = useState(false)
 
   const userData = user || {
     uuid: '',
@@ -33,14 +37,12 @@ export const ProfileSettings = (): JSX.Element => {
   }
 
   const [formData, setFormData] = useState({
-    email: '',
     username: '',
   })
 
   useEffect(() => {
     if (user) {
       setFormData({
-        email: user.email,
         username: user.username,
       })
     }
@@ -50,29 +52,67 @@ export const ProfileSettings = (): JSX.Element => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
+  const handleStartUsernameEdit = () => {
+    if (user?.twoFAEnabled) {
+      // Show 2FA verification modal before allowing edit
+      setShow2FAVerification(true)
+    } else {
+      // Directly allow edit if 2FA is not enabled
+      setIsEditingUsername(true)
+    }
+  }
+
+  const handle2FAVerify = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!otp.trim()) {
+      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      return
+    }
+
+    if (!user?.uuid) {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      return
+    }
+
+    setVerifying(true)
+    try {
+      const response = await twoFactorService.verify.verifyToken({
+        userUUID: user.uuid,
+        otp,
+        rememberMe: user.rememberMe,
+      })
+
+      if (response.isSuccess) {
+        setShow2FAVerification(false)
+        setIsEditingUsername(true)
+        setOtp('')
+        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+      } else {
+        showToast(false, t(response.message))
+      }
+    } catch {
+      showToast(false, t('app.alertTitle.somethingWentWrong'))
+    } finally {
+      setVerifying(false)
+    }
+  }
+
+  const handleClose2FAModal = () => {
+    setShow2FAVerification(false)
+    setOtp('')
+  }
+
   const handleSaveUsername = async () => {
     try {
       if (user && formData.username !== user.username) {
         // TODO: Implement update username API call
         // await updateUsername(formData.username)
+        showToast(true, t('profile.usernameUpdated'))
         setIsEditingUsername(false)
       }
     } catch (error) {
       showToast(false, t('profile.errorUpdateUsername'))
       console.error('Error updating username:', error)
-    }
-  }
-
-  const handleSaveEmail = async () => {
-    try {
-      if (user && formData.email !== user.email) {
-        // TODO: Implement update email API call
-        // await updateEmail(formData.email)
-        setIsEditingEmail(false)
-      }
-    } catch (error) {
-      showToast(false, t('profile.errorUpdateEmail'))
-      console.error('Error updating email:', error)
     }
   }
 
@@ -83,11 +123,16 @@ export const ProfileSettings = (): JSX.Element => {
     setIsEditingUsername(false)
   }
 
-  const handleCancelEmailEdit = () => {
-    if (user) {
-      setFormData((prev) => ({ ...prev, email: user.email }))
-    }
-    setIsEditingEmail(false)
+  const handleSetup2FA = () => {
+    setShow2FASetup(true)
+  }
+
+  const handle2FASetupSuccess = () => {
+    setShow2FASetup(false)
+  }
+
+  const handle2FASetupClose = () => {
+    setShow2FASetup(false)
   }
 
   return (
@@ -122,7 +167,6 @@ export const ProfileSettings = (): JSX.Element => {
               <p className="text-blue-100 text-lg mb-1">
                 @{userData.username || 'username'}
               </p>
-              <p className="text-blue-200 text-sm">{userData.email || ''}</p>
             </div>
           </div>
 
@@ -181,7 +225,7 @@ export const ProfileSettings = (): JSX.Element => {
               </div>
               {!isEditingUsername && (
                 <CryButton
-                  onClick={() => setIsEditingUsername(true)}
+                  onClick={handleStartUsernameEdit}
                   className="p-2 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
                 >
                   <EditIcon className="w-4 h-4" />
@@ -225,73 +269,21 @@ export const ProfileSettings = (): JSX.Element => {
             )}
           </div>
 
-          {/* Email Field */}
-          <div
-            className={`bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6 transition-all duration-300 ${
-              isEditingEmail
-                ? 'ring-2 ring-blue-500/20 bg-blue-50/50 dark:bg-blue-900/20'
-                : ''
-            }`}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
-                  <MailIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {t('profile.fields.email')}
-                  </label>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Your email address
-                  </p>
-                </div>
+          {/* Email Field - Read Only */}
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center">
+                <MailIcon className="w-5 h-5 text-purple-600 dark:text-purple-400" />
               </div>
-              {!isEditingEmail && (
-                <CryButton
-                  onClick={() => setIsEditingEmail(true)}
-                  className="p-2 text-gray-400 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg transition-all duration-200"
-                >
-                  <EditIcon className="w-4 h-4" />
-                </CryButton>
-              )}
+              <div className="flex-1">
+                <label className="block text-sm font-semibold text-gray-900 dark:text-gray-100">
+                  {t('profile.fields.email')}
+                </label>
+                <p className="text-xs text-gray-500 dark:text-gray-400">
+                  {userData.email}
+                </p>
+              </div>
             </div>
-
-            <CryTextField
-              name="email"
-              type="email"
-              modelValue={formData.email}
-              placeholder={t('profile.fields.email')}
-              onChange={(event) =>
-                handleInputChange(
-                  'email',
-                  (event.target as HTMLInputElement).value,
-                )
-              }
-              disabled={!isEditingEmail}
-              className={`w-full transition-all duration-200 ${
-                isEditingEmail ? 'ring-2 ring-purple-500/50' : ''
-              }`}
-            />
-
-            {isEditingEmail && (
-              <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
-                <CryButton
-                  onClick={handleSaveEmail}
-                  iconLeft={<SuccessCheckIcon className="w-4 h-4" />}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium"
-                >
-                  Save Changes
-                </CryButton>
-                <CryButton
-                  onClick={handleCancelEmailEdit}
-                  iconLeft={<XIcon className="w-4 h-4" />}
-                  className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm font-medium"
-                >
-                  Cancel
-                </CryButton>
-              </div>
-            )}
           </div>
         </div>
 
@@ -303,21 +295,55 @@ export const ProfileSettings = (): JSX.Element => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* 2FA Status */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                  <LockIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            <div
+              className={`rounded-xl p-4 border ${
+                userData.twoFAEnabled
+                  ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border-green-200 dark:border-green-800'
+                  : 'bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 border-orange-200 dark:border-orange-800'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                      userData.twoFAEnabled
+                        ? 'bg-green-100 dark:bg-green-900/30'
+                        : 'bg-orange-100 dark:bg-orange-900/30'
+                    }`}
+                  >
+                    <LockIcon
+                      className={`w-5 h-5 ${
+                        userData.twoFAEnabled
+                          ? 'text-green-600 dark:text-green-400'
+                          : 'text-orange-600 dark:text-orange-400'
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+                      {t('profile.twoFAStatus')}
+                    </p>
+                    <p
+                      className={`text-xs font-medium ${
+                        userData.twoFAEnabled
+                          ? 'text-green-700 dark:text-green-400'
+                          : 'text-orange-700 dark:text-orange-400'
+                      }`}
+                    >
+                      {userData.twoFAEnabled
+                        ? t('profile.enabled')
+                        : t('profile.disabled')}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    {t('profile.twoFAStatus')}
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    {userData.twoFAEnabled
-                      ? t('profile.enabled')
-                      : t('profile.disabled')}
-                  </p>
-                </div>
+                {!userData.twoFAEnabled && (
+                  <CryButton
+                    onClick={handleSetup2FA}
+                    className="px-3 py-1.5 text-xs font-medium bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
+                  >
+                    Setup 2FA
+                  </CryButton>
+                )}
               </div>
             </div>
 
@@ -340,6 +366,70 @@ export const ProfileSettings = (): JSX.Element => {
           </div>
         </div>
       </div>
+
+      {/* 2FA Verification Modal */}
+      {show2FAVerification && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 w-full max-w-md">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+                <LockIcon className="w-8 h-8 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                {t('profile.verify2FA')}
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                {t('profile.verify2FADescription')}
+              </p>
+            </div>
+
+            <form onSubmit={handle2FAVerify} className="space-y-6">
+              <div>
+                <CryTextField
+                  modelValue={otp}
+                  onChange={(event) => {
+                    const value = (event.target as HTMLInputElement).value
+                    // Limit to 6 characters
+                    setOtp(value.slice(0, 6))
+                  }}
+                  placeholder="Enter 6-digit code"
+                  name="otp"
+                  type="text"
+                  className="text-center text-2xl font-mono tracking-widest px-4 py-3 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-blue-500 focus:bg-white dark:focus:bg-gray-600 transition-all duration-300 rounded-xl"
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <CryButton
+                  type="button"
+                  onClick={handleClose2FAModal}
+                  disabled={verifying}
+                  className="flex-1 px-4 py-2 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium"
+                >
+                  {t('app.common.cancel')}
+                </CryButton>
+                <CryButton
+                  type="submit"
+                  disabled={verifying || !otp.trim()}
+                  className="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white rounded-lg text-sm font-medium"
+                >
+                  {verifying ? t('app.common.loading') : t('app.common.verify')}
+                </CryButton>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* 2FA Setup Modal */}
+      {show2FASetup && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <SetUpTwoFA
+            onClose={handle2FASetupClose}
+            onSuccess={handle2FASetupSuccess}
+          />
+        </div>
+      )}
     </div>
   )
 }

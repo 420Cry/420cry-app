@@ -17,6 +17,7 @@ export { default as FearAndGreedHistoricalSkeleton } from './pages/indicator/fea
 export { FearAndGreedHistorical } from './pages/indicator/fear-and-greed/FearAndGreedHistorical'
 export { default as FearAndGreedIndexSkeleton } from './pages/indicator/fear-and-greed/FearAndGreedIndexSkeleton'
 export { UserSettings } from './pages/settings/UserSettings'
+export { SetUpTwoFA } from './pages/settings/SetUpTwoFA'
 export { default as NotFoundPage } from './pages/not-found/NotFoundPage'
 
 // landing

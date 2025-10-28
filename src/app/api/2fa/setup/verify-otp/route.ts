@@ -33,6 +33,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       if (jwt) {
         CookieService.setJwtCookie(nextResponse, jwt, true)
+        // Set twoFAVerified cookie to true after successful 2FA setup
+        CookieService.setTwoFAVerifiedCookie(nextResponse, 'true', true)
+        // Clear the twoFASetUpSkippedForNow cookie since 2FA is now set up
+        CookieService.clearTwoFASetUpSkippedCookie(nextResponse)
       }
 
       return nextResponse

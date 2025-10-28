@@ -8,34 +8,34 @@
       "password": "Password",
       "repeatedPassword": "Repeated Password"
     },
-    "alertTitle": {
-      "Successful": "Successful",
-      "allfieldsAreRequired": "All fields are required!",
-      "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
-      "somethingWentWrong": "Something went wrong. Please try again later!",
-      "duplicatedUserNameOrEmail": "Email or username already exists!",
-      "invalidOrExpiredToken": "Invalid or expired token",
-      "validToken": "Valid token",
-      "invalidToken": "Invalid token",
-      "emailVerifiedSuccessfully": "Email verified successfully",
-      "emailVerificationFailed": "Email verification failed",
-      "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
-      "resetSuccess": "You have successfully resetted your password. Please login again!",
-      "invalidCredentials": "Invalid username or password.",
-      "userNotFound": "User is not found",
-      "logOutSuccessful": "Logged out",
-      "2FASetUpSuccessful": "Two-factor authentication setup was successful",
-      "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
-      "invalidOTP": "Invalid OTP",
-      "otpCannotBeEmpty": "OTP cannot be empty",
-      "changeLanguageSuccessful": "Language change success!",
-      "invalidLanguage": "Invalid Language",
-      "validTransaction": "Transaction is found",
-      "validWallet": "Wallet is found",
-      "emailOrUserNameAlreadyExist": "Username or email already exists",
-      "emailNotExist": "Email does not exist",
-      "emptyInput": "Please enter something!",
-      "validationFailed": "Validation failed"
+    "messages": {
+      "success": {
+        "general": "Success",
+        "allfieldsAreRequired": "All fields are required!",
+        "logOutSuccessful": "Logged out",
+        "changeLanguageSuccessful": "Language change success!",
+        "usernameUpdated": "Username updated successfully",
+        "setup2FASuccess": "2FA setup completed successfully"
+      },
+      "error": {
+        "general": "Something went wrong. Please try again later!",
+        "validationFailed": "Validation failed",
+        "invalidLanguage": "Invalid Language",
+        "invalidCredentials": "Invalid username or password.",
+        "invalidOTP": "Invalid OTP",
+        "otpCannotBeEmpty": "OTP cannot be empty",
+        "emptyInput": "Please enter something!",
+        "userNotFound": "User is not found",
+        "emailNotExist": "Email does not exist",
+        "emailOrUserNameAlreadyExist": "Username or email already exists",
+        "invalidToken": "Invalid or expired token",
+        "errorUpdateUsername": "Failed to update username"
+      },
+      "api": {
+        "validTransaction": "Transaction is found",
+        "validWallet": "Wallet is found",
+        "validToken": "Valid token"
+      }
     },
     "rules": {
       "fullNameMinLength": "Full name must be at least 2 characters long",
@@ -80,6 +80,8 @@
       "title": "Login",
       "successTitle": "Login Successful",
       "errorTitle": "Login Failed",
+      "successMessage": "Welcome back! Redirecting...",
+      "errorMessage": "Unable to sign in. Please check your credentials.",
       "forgotYourPassword": "Forgot your password?",
       "rememberMe": "Remember me?",
       "doNotHaveAnAccount": "Do not have an account? Sign up here"
@@ -88,11 +90,15 @@
       "title": "Sign Up",
       "successTitle": "Sign Up Successful",
       "errorTitle": "Sign Up Failed",
+      "successMessage": "Please check your email and follow the instructions to verify your account.",
+      "errorMessage": "Unable to create account. Please try again.",
       "orSignInUsing": "Or sign up using",
       "verifyEmail": {
         "title": "Verify your email",
         "successTitle": "Verification Successful",
         "errorTitle": "Verification Failed",
+        "successMessage": "Email verified successfully. You can now sign in.",
+        "errorMessage": "Verification failed. Please check your token.",
         "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
       }
     },
@@ -101,12 +107,16 @@
         "title": "Forgot Your Password",
         "successTitle": "Reset Request Sent",
         "errorTitle": "Reset Request Failed",
+        "successMessage": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
+        "errorMessage": "Unable to send reset email. Please check your email address.",
         "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
       },
       "resetPasswordForm": {
         "title": "Reset Your Password",
         "successTitle": "Password Reset Successful",
         "errorTitle": "Password Reset Failed",
+        "successMessage": "You have successfully resetted your password. Please login again!",
+        "errorMessage": "Unable to reset password. Please try again.",
         "subtitle": "Enter the new password below so we can reset your password",
         "newPassword": "New Password"
       }
@@ -137,6 +147,8 @@
       "title": "2FA setup",
       "successTitle": "QR Verification Successful",
       "errorTitle": "QR Verification Failed",
+      "successMessage": "Two-factor authentication setup was successful",
+      "errorMessage": "Verification failed. Please check your code.",
       "scanQRCodeWithApp": "Get the codes from an authenticator app",
       "description": "Each time you sign in, in addition to your password, you will use an authenticator app to generate a one-time code.",
       "scanQR": "Scan QR code",
@@ -148,6 +160,8 @@
       "title": "Two-Factor Authentication",
       "successTitle": "2FA Verification Successful",
       "errorTitle": "2FA Verification Failed",
+      "successMessage": "You're all set! 2FA has been verified.",
+      "errorMessage": "Verification failed. Please check your code.",
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
       "havingTroubleWithAuthenticatorApp": "Having trouble with authenticator app?"
@@ -157,6 +171,10 @@
       "successTitle": "Email Code Sent",
       "errorTitle": "Email Code Failed",
       "warningTitle": "Code Expired",
+      "successMessage": "Verification code has been sent to your email.",
+      "errorMessage": "Unable to send verification code. Please try again.",
+      "verifySuccessMessage": "You're all set! 2FA has been verified.",
+      "verifyErrorMessage": "Verification failed. Please check your code.",
       "description": "Get the code via email instead.",
       "sendTo": "Email sent to",
       "resendCode": "Resend Code",
@@ -558,6 +576,11 @@
       "twoFAStatus": "Two-Factor Authentication",
       "enabled": "Enabled",
       "disabled": "Disabled",
+      "verify2FA": "2FA Verification Required",
+      "verify2FADescription": "Please verify with your 2FA code to update your username",
+      "usernameUpdated": "Username updated successfully",
+      "errorUpdateUsername": "Failed to update username",
+      "setup2FASuccess": "2FA setup completed successfully",
       "fields": {
         "fullname": "Full Name",
         "username": "Username",
