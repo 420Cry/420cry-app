@@ -4,7 +4,7 @@ import { CookieService } from '@/lib'
 export async function POST(): Promise<NextResponse> {
   const response = NextResponse.json({
     isSuccess: true,
-    message: 'app.alertTitle.logOutSuccessful',
+    message: 'app.messages.success.logOutSuccessful',
   })
 
   CookieService.clearJwtCookie(response)

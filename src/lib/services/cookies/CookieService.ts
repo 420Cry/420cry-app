@@ -78,4 +78,14 @@ export const CookieService = {
       maxAge: 0,
     })
   },
+
+  clearTwoFASetUpSkippedCookie(response: NextResponse): void {
+    response.cookies.set('twoFASetUpSkippedForNow', '', {
+      httpOnly: false,
+      secure: isProd,
+      path: '/',
+      sameSite: 'lax',
+      maxAge: 0,
+    })
+  },
 }

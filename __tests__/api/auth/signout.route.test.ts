@@ -8,7 +8,7 @@ describe('POST /logout', () => {
     const json = await response.json()
     expect(json).toEqual({
       isSuccess: true,
-      message: 'app.alertTitle.logOutSuccessful',
+      message: 'app.messages.success.logOutSuccessful',
     })
 
     const cookie = response.cookies.get('jwt')

@@ -29,7 +29,7 @@ describe('POST /api/change-language', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(true)
-    expect(data.message).toBe('app.alertTitle.changeLanguageSuccessful')
+    expect(data.message).toBe('app.messages.success.changeLanguageSuccessful')
     expect(CookieService.setLocaleCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
       'en',
@@ -43,7 +43,7 @@ describe('POST /api/change-language', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(true)
-    expect(data.message).toBe('app.alertTitle.changeLanguageSuccessful')
+    expect(data.message).toBe('app.messages.success.changeLanguageSuccessful')
     expect(CookieService.setLocaleCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
       'vi',
@@ -57,7 +57,7 @@ describe('POST /api/change-language', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(true)
-    expect(data.message).toBe('app.alertTitle.changeLanguageSuccessful')
+    expect(data.message).toBe('app.messages.success.changeLanguageSuccessful')
     expect(CookieService.setLocaleCookie).not.toHaveBeenCalled()
   })
 
@@ -71,7 +71,7 @@ describe('POST /api/change-language', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
     expect(CookieService.setLocaleCookie).not.toHaveBeenCalled()
   })
 })

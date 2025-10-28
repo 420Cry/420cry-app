@@ -43,10 +43,10 @@ export class SignInService {
         const status = error.status
         const message =
           status === 401
-            ? 'app.alertTitle.invalidCredentials'
+            ? 'app.messages.error.invalidCredentials'
             : status === 403
-              ? 'app.alertTitle.userNotVerified'
-              : 'app.alertTitle.somethingWentWrong'
+              ? 'app.messages.error.userNotVerified'
+              : 'app.messages.error.general'
 
         return {
           response: {
@@ -58,7 +58,7 @@ export class SignInService {
       return {
         response: {
           isSuccess: false,
-          message: 'app.alertTitle.somethingWentWrong',
+          message: 'app.messages.error.general',
         },
       }
     }

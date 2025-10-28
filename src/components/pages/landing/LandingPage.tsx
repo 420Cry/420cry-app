@@ -1,10 +1,12 @@
 'use client'
 
 import { JSX } from 'react'
-import HeroSection from './HeroSection'
-import FearAndGreedPreview from './FearAndGreedPreview'
-import WalletExplorerPreview from './WalletExplorerPreview'
-import FeaturesSection from './FeaturesSection'
+import {
+  HeroSection,
+  FearAndGreedPreview,
+  WalletExplorerPreview,
+  FeaturesSection,
+} from '@/components'
 
 export default function LandingPage(): JSX.Element {
   return (

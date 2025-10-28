@@ -3,7 +3,12 @@
 import { JSX, useEffect, useState } from 'react'
 import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
-import { HOME_ROUTE, showToast, twoFactorService, useLoading } from '@/lib'
+import {
+  HOME_ROUTE,
+  twoFactorService,
+  useLoading,
+  useNotification,
+} from '@/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
@@ -18,6 +23,7 @@ const TwoFactorSetupQRCode = ({
   const t = useTranslations()
   const router = useRouter()
   const { setLoading: setGlobalLoading } = useLoading()
+  const { showNotification } = useNotification()
   const [secret, setSecret] = useState('')
   const [qrCode, setQrCode] = useState('')
   const [loading, setLoading] = useState(true)
@@ -34,21 +40,29 @@ const TwoFactorSetupQRCode = ({
         setSecret(data.secret)
         setQrCode(data.qrCode)
       } catch (error) {
-        showToast(false, error instanceof Error ? error.message : String(error))
+        showNotification(
+          'error',
+          t('2fa.QR.errorTitle'),
+          error instanceof Error ? error.message : String(error),
+        )
       } finally {
         setLoading(false)
       }
     }
 
     fetchQRCodeAndSecret()
-  }, [userUuid])
+  }, [userUuid, t, showNotification])
 
   const handleSubmit = async (
     e?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e?.preventDefault()
     if (!token || token.length !== 6) {
-      showToast(false, t('2fa.QR.invalidToken'))
+      showNotification(
+        'error',
+        t('2fa.QR.errorTitle'),
+        t('2fa.QR.invalidToken'),
+      )
       return
     }
     setGlobalLoading(true)
@@ -64,11 +78,19 @@ const TwoFactorSetupQRCode = ({
       const success = response.isSuccess
       if (success && user) {
         useAuthStore.getState().setUser(user)
-        showToast(true, t('app.alertTitle.2FASetUpSuccessful'))
+        showNotification(
+          'success',
+          t('2fa.QR.successTitle'),
+          t('app.messages.success.setup2FASuccess'),
+        )
         router.push(HOME_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.QR.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setGlobalLoading(false)
     }
@@ -186,7 +208,9 @@ const TwoFactorSetupQRCode = ({
                       name="token"
                       shape="rounded"
                       className="text-center text-base font-mono tracking-widest  transition-colors"
-                      onChange={setToken}
+                      onChange={(event) =>
+                        setToken((event.target as HTMLInputElement).value)
+                      }
                       placeholder="ABC123"
                     />
                     <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-400 rounded-full animate-pulse shadow-lg"></div>
@@ -201,14 +225,16 @@ const TwoFactorSetupQRCode = ({
             <CryButton
               onClick={onCancel}
               className="px-5 py-2 text-xs font-medium text-gray-600 hover:text-gray-800 hover:bg-white/80 backdrop-blur-sm border border-gray-200/50 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-300/50 hover:shadow-md"
-              rounded
+              shape="rounded"
             >
               {t('app.common.cancel')}
             </CryButton>
             <CryButton
               className="px-5 py-2 text-xs font-medium text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-300/50 hover:shadow-lg hover:scale-105 shadow-lg"
-              rounded
-              onClick={handleSubmit}
+              shape="rounded"
+              onClick={(event) =>
+                handleSubmit(event as React.MouseEvent<HTMLButtonElement>)
+              }
             >
               {t('app.common.verify')}
             </CryButton>

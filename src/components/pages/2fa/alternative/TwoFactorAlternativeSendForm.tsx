@@ -1,14 +1,20 @@
 'use client'
 
 import { JSX, useState, useMemo, useEffect } from 'react'
-import { CryButton, CryTextField } from '@420cry/420cry-lib'
+import {
+  CryButton,
+  CryTextField,
+  CheckCircleIcon,
+  LoadingIcon,
+  RefreshIcon,
+} from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import {
   HOME_ROUTE,
-  showToast,
   TWO_FACTOR_VERIFY_ROUTE,
   twoFactorService,
   useLoading,
+  useNotification,
 } from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
@@ -31,6 +37,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
   const email = useMemo(() => maskEmail(user?.email || ''), [user?.email])
 
   // countdown timer
@@ -43,7 +50,11 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
         if (prev <= 1) {
           clearInterval(interval)
           setCanResend(true)
-          showToast(false, t('2fa.alternative.otpExpired'))
+          showNotification(
+            'warning',
+            t('2fa.alternative.warningTitle'),
+            t('2fa.alternative.otpExpired'),
+          )
           return 0
         }
         if (prev === 10 * 60 - 30) {
@@ -54,30 +65,46 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [emailSent, t])
+  }, [emailSent, t, showNotification])
 
   const handleSendAlternativeEmail = async () => {
-    const email = user?.email
-    if (!email) {
-      showToast(false, t('app.alertTitle.emailNotExist'))
+    const userEmail = user?.email
+    if (!userEmail) {
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.emailNotExist'),
+      )
       return
     }
 
     setIsSending(true)
     try {
       const response =
-        await twoFactorService.alternative.sendAlternativeEmailOTP(email)
+        await twoFactorService.alternative.sendAlternativeEmailOTP(userEmail)
 
       if (response.isSuccess) {
-        showToast(true, t('2fa.alternative.emailSend', { email }))
+        showNotification(
+          'success',
+          t('2fa.alternative.successTitle'),
+          t('2fa.alternative.emailSend', { email }),
+        )
         setEmailSent(true)
         setTimeLeft(5 * 60) // 5 mins
         setCanResend(false)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setIsSending(false)
     }
@@ -85,13 +112,21 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
 
   const handleVerify = async () => {
     if (!otp.trim()) {
-      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.otpCannotBeEmpty'),
+      )
       return
     }
     setLoading(true)
     try {
       if (!user?.uuid) {
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t('app.messages.error.general'),
+        )
         return
       }
       const response =
@@ -101,13 +136,25 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           rememberMe: user.rememberMe,
         })
       if (response.isSuccess) {
-        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        showNotification(
+          'success',
+          t('2fa.alternative.successTitle'),
+          t('app.messages.success.2FAVerifySuccessful'),
+        )
         router.push(HOME_ROUTE)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setLoading(false)
     }
@@ -115,6 +162,13 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
 
   const handleBackClick = () => {
     router.push(TWO_FACTOR_VERIFY_ROUTE)
+  }
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (emailSent && otp.trim()) {
+      handleVerify()
+    }
   }
 
   const title = emailSent
@@ -130,19 +184,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
     <div className="w-full max-w-lg bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-3xl p-12 border border-gray-200/50 backdrop-blur-sm">
       <div className="text-center mb-8">
         <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg">
-          <svg
-            className="w-8 h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
+          <CheckCircleIcon className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
           {title}
@@ -159,7 +201,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
               onClick={handleSendAlternativeEmail}
               disabled={isSending}
               className="flex-shrink-0 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-xl hover:shadow-2xl text-lg transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              rounded
+              shape="rounded"
             >
               {isSending ? (
                 <div className="flex items-center space-x-2">
@@ -179,18 +221,25 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           </div>
           <CryButton
             onClick={handleBackClick}
-            className="w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-800 text-lg font-semibold px-6 py-4 rounded-2xl hover:from-gray-200 hover:to-gray-300 transition-all duration-300 shadow-lg hover:shadow-xl border border-gray-300"
-            rounded
+            variant="outline"
+            color="primary"
+            className="w-full text-lg font-semibold px-6 py-4 rounded-2xl"
+            shape="rounded"
           >
             {t('2fa.alternative.backToVerify')}
           </CryButton>
         </div>
       ) : (
-        <div className="flex flex-col space-y-8 items-center w-full">
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col space-y-8 items-center w-full"
+        >
           <div className="w-full relative">
             <CryTextField
               modelValue={otp}
-              onChange={setOtp}
+              onChange={(event) =>
+                setOtp((event.target as HTMLInputElement).value)
+              }
               shape="rounded"
               name="otp"
               className="text-center text-2xl font-mono tracking-widest px-6 py-4 bg-gray-50/50 border-gray-200 focus:border-green-500 focus:bg-white focus:shadow-lg transition-all duration-300 rounded-xl"
@@ -199,24 +248,12 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           </div>
 
           <CryButton
-            onClick={handleVerify}
+            type="submit"
             className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-semibold px-8 py-5 rounded-2xl hover:from-green-600 hover:to-emerald-700 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-            rounded
+            shape="rounded"
           >
             <div className="flex items-center justify-center space-x-2">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <CheckCircleIcon className="w-5 h-5" />
               <span>{t('2fa.verify.verifyCode')}</span>
             </div>
           </CryButton>
@@ -229,29 +266,17 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
                 ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl'
                 : 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed'
             } text-white text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg`}
-            rounded
+            shape="rounded"
           >
             <div className="flex items-center justify-center space-x-2">
               {canResend ? (
                 <>
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
+                  <RefreshIcon className="w-5 h-5 rotate-180" />
                   <span>{t('2fa.alternative.resendCode')}</span>
                 </>
               ) : (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <LoadingIcon className="w-5 h-5 animate-spin" />
                   <span>{`${t('2fa.alternative.resendIn')} ${minutes}:${seconds
                     .toString()
                     .padStart(2, '0')}`}</span>
@@ -259,7 +284,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
               )}
             </div>
           </CryButton>
-        </div>
+        </form>
       )}
     </div>
   )

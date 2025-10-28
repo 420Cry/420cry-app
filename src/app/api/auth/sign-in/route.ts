@@ -34,7 +34,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       const responseBody = {
         response: {
           isSuccess: true,
-          message: 'app.alertTitle.Successful',
+          message: 'app.messages.success.general',
         } as IResponse,
         user: userWithRemember,
       }
@@ -60,13 +60,10 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     }
 
     if (response.status === 401) {
-      return createErrorResponse('app.alertTitle.invalidCredentials', 401)
+      return createErrorResponse('app.messages.error.invalidCredentials', 401)
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch (error: unknown) {
     return ApiErrorHandler.handle(error, {
       operation: 'signin',

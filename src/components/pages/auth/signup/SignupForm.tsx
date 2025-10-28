@@ -8,7 +8,15 @@ import {
   DiscordIcon,
   CryFormTextField,
 } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, authService, useLoading } from '@/lib'
+import {
+  SIGN_IN_ROUTE,
+  authService,
+  useLoading,
+  useNotification,
+  useClientOnly,
+  formStyles,
+  combineStyles,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
 
@@ -18,6 +26,8 @@ const SignupForm = (): JSX.Element => {
   const showLabel = t('app.common.hidePassword')
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
+  const _isClient = useClientOnly()
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({})
@@ -68,30 +78,46 @@ const SignupForm = (): JSX.Element => {
     setLoading(true)
     try {
       const response = await authService.signUp.action.signUpAction(formData)
-      showToast(response.isSuccess, t(response.message))
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.signup.successTitle')
+          : t('auth.signup.errorTitle'),
+        t(response.message),
+      )
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('auth.signup.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex items-center justify-center px-4 py-8 mt-12">
+    <div
+      className="flex items-center justify-center px-4 py-8 mt-12"
+      suppressHydrationWarning
+    >
       <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
         <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
           {t('auth.signup.title')}
         </h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} suppressHydrationWarning>
           <div className="flex flex-wrap mb-4">
             <div className="w-full sm:w-1/2 sm:pr-4">
               <CryFormTextField
                 label={t('app.fields.fullname')}
                 name="fullName"
-                inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+                inputClassName={combineStyles(
+                  formStyles.input.default,
+                  formStyles.input.focus,
+                )}
               />
               {validationErrors.fullName && (
                 <div className="text-red-500 text-sm mt-1">
@@ -103,7 +129,10 @@ const SignupForm = (): JSX.Element => {
               <CryFormTextField
                 label={t('app.fields.email')}
                 name="email"
-                inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+                inputClassName={combineStyles(
+                  formStyles.input.default,
+                  formStyles.input.focus,
+                )}
               />
               {validationErrors.email && (
                 <div className="text-red-500 text-sm mt-1">
@@ -115,7 +144,10 @@ const SignupForm = (): JSX.Element => {
           <CryFormTextField
             label={t('app.fields.username')}
             name="userName"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
           />
           {validationErrors.userName && (
             <div className="text-red-500 text-sm mt-1 mb-4">
@@ -128,7 +160,10 @@ const SignupForm = (): JSX.Element => {
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
             slotClassName="text-white"
           />
           {validationErrors.password && (
@@ -142,7 +177,10 @@ const SignupForm = (): JSX.Element => {
             type="password"
             hideLabel={hideLabel}
             showLabel={showLabel}
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+            )}
             slotClassName="text-white"
           />
           {validationErrors.repeatedPassword && (
@@ -152,7 +190,7 @@ const SignupForm = (): JSX.Element => {
           )}
           <div className="flex justify-center mt-4">
             <CryButton
-              circle
+              shape="circle"
               className=" w-44 sm:w-52 text-white"
               type="submit"
               color="primary"
@@ -171,8 +209,8 @@ const SignupForm = (): JSX.Element => {
               key={index}
               size="lg"
               className="bg-transparen w-36 sm:w-40"
-              circle
-              outlined
+              shape="circle"
+              variant="outline"
               color="primary"
             >
               <div className="flex items-center justify-center">

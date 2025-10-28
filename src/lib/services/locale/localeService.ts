@@ -6,7 +6,7 @@ export const localeService = {
     if (locale !== 'en' && locale !== 'vi') {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.invalidLanguage',
+        message: 'app.messages.error.invalidLanguage',
       }
     }
 
@@ -20,7 +20,7 @@ export const localeService = {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   },

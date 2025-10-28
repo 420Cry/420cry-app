@@ -12,7 +12,7 @@ export class SignOutRequestService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

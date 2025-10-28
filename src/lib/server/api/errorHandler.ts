@@ -61,7 +61,7 @@ export class ApiErrorHandler {
       resource: context.resource,
     })
 
-    return createErrorResponse('app.alertTitle.validationError', 422)
+    return createErrorResponse('app.messages.error.validationError', 422)
   }
 
   /**
@@ -87,36 +87,36 @@ export class ApiErrorHandler {
     context: ApiErrorContext,
   ): string {
     const errorMap: Record<number, string> = {
-      400: 'app.alertTitle.invalidRequest',
-      401: 'app.alertTitle.unauthorized',
-      403: 'app.alertTitle.forbidden',
-      404: 'app.alertTitle.notFound',
-      409: 'app.alertTitle.conflict',
-      422: 'app.alertTitle.validationError',
-      429: 'app.alertTitle.rateLimited',
-      500: 'app.alertTitle.serverError',
-      502: 'app.alertTitle.badGateway',
-      503: 'app.alertTitle.serviceUnavailable',
-      504: 'app.alertTitle.gatewayTimeout',
+      400: 'app.messages.error.invalidRequest',
+      401: 'app.messages.error.unauthorized',
+      403: 'app.messages.error.forbidden',
+      404: 'app.messages.error.notFound',
+      409: 'app.messages.error.conflict',
+      422: 'app.messages.error.validationError',
+      429: 'app.messages.error.rateLimited',
+      500: 'app.messages.error.serverError',
+      502: 'app.messages.error.badGateway',
+      503: 'app.messages.error.serviceUnavailable',
+      504: 'app.messages.error.gatewayTimeout',
     }
 
     // Context-specific error messages
     if (context.operation.includes('signin') && status === 401) {
-      return 'app.alertTitle.invalidCredentials'
+      return 'app.messages.error.invalidCredentials'
     }
 
     if (context.operation.includes('signup') && status === 409) {
-      return 'app.alertTitle.emailOrUserNameAlreadyExist'
+      return 'app.messages.error.emailOrUserNameAlreadyExist'
     }
 
     if (context.operation.includes('reset') && status === 404) {
-      return 'app.alertTitle.userNotFound'
+      return 'app.messages.error.userNotFound'
     }
 
     if (context.operation.includes('2fa') && status === 401) {
-      return 'app.alertTitle.invalidOTP'
+      return 'app.messages.error.invalidOTP'
     }
 
-    return errorMap[status] || 'app.alertTitle.somethingWentWrong'
+    return errorMap[status] || 'app.messages.error.general'
   }
 }

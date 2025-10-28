@@ -15,15 +15,15 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.resetSuccess',
+        message: 'app.messages.success.resetSuccess',
       })
     }
 
     return NextResponse.json({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     } satisfies IResponse)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }

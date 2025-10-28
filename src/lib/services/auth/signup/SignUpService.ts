@@ -46,13 +46,13 @@ export class SignUpService {
       ) {
         return {
           isSuccess: false,
-          message: 'app.alertTitle.emailOrUserNameAlreadyExist',
+          message: 'app.messages.error.emailOrUserNameAlreadyExist',
         }
       }
 
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

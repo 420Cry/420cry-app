@@ -44,7 +44,9 @@ describe('POST /api/2fa/alternative/verify-email-otp', () => {
 
     expect(res.status).toBe(200)
     expect(body.response.isSuccess).toBe(true)
-    expect(body.response.message).toBe('app.alertTitle.2FAVerifySuccessful')
+    expect(body.response.message).toBe(
+      'app.messages.success.2FAVerifySuccessful',
+    )
 
     expect(CookieService.setJwtCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
@@ -70,7 +72,9 @@ describe('POST /api/2fa/alternative/verify-email-otp', () => {
 
     expect(res.status).toBe(200)
     expect(body.response.isSuccess).toBe(true)
-    expect(body.response.message).toBe('app.alertTitle.2FAVerifySuccessful')
+    expect(body.response.message).toBe(
+      'app.messages.success.2FAVerifySuccessful',
+    )
 
     expect(CookieService.setJwtCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
@@ -96,7 +100,7 @@ describe('POST /api/2fa/alternative/verify-email-otp', () => {
 
     expect(res.status).toBe(401)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.invalidOTP')
+    expect(body.response.message).toBe('app.messages.error.invalidOTP')
 
     expect(CookieService.setJwtCookie).not.toHaveBeenCalled()
     expect(CookieService.setTwoFAVerifiedCookie).not.toHaveBeenCalled()
@@ -114,7 +118,7 @@ describe('POST /api/2fa/alternative/verify-email-otp', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 
   it('returns 401 from caught error with status 401', async () => {
@@ -128,7 +132,7 @@ describe('POST /api/2fa/alternative/verify-email-otp', () => {
 
     expect(res.status).toBe(401)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.invalidOTP')
+    expect(body.response.message).toBe('app.messages.error.invalidOTP')
   })
 
   it('returns 500 from caught unknown error', async () => {
@@ -142,6 +146,6 @@ describe('POST /api/2fa/alternative/verify-email-otp', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 })

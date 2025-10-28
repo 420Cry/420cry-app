@@ -2,7 +2,9 @@
 
 import { JSX } from 'react'
 import { useTranslations } from 'next-intl'
-import LanguageChangeButton from '../../common/header/LanguageChangeButton'
+import Link from 'next/link'
+import { LanguageChangeButton } from '@/components'
+import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
 
 export default function HeroSection(): JSX.Element {
   const t = useTranslations()
@@ -64,18 +66,18 @@ export default function HeroSection(): JSX.Element {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="/auth/signup"
+          <Link
+            href={SIGN_UP_ROUTE}
             className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
           >
             {t('landing.hero.getStarted')}
-          </a>
-          <a
-            href="/auth/login"
+          </Link>
+          <Link
+            href={SIGN_IN_ROUTE}
             className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-4 px-8 rounded-lg transition duration-200 transform hover:scale-105"
           >
             {t('landing.hero.signIn')}
-          </a>
+          </Link>
         </div>
 
         {/* Trust Indicators */}

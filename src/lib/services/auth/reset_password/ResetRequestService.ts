@@ -32,8 +32,8 @@ export class ResetRequestService {
         const status = error.status
         const message =
           status === 404
-            ? 'app.alertTitle.userNotFound'
-            : 'app.alertTitle.somethingWentWrong'
+            ? 'app.messages.error.userNotFound'
+            : 'app.messages.error.general'
 
         return {
           isSuccess: false,
@@ -43,7 +43,7 @@ export class ResetRequestService {
 
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

@@ -12,7 +12,6 @@ import { useTranslations } from 'next-intl'
 import {
   HOME_ROUTE,
   RESET_PASSWORD_ROUTE,
-  showToast,
   SIGN_UP_ROUTE,
   authService,
   TWO_FACTOR_SETUP_ROUTE,
@@ -20,6 +19,8 @@ import {
   formStyles,
   useLoading,
   combineStyles,
+  useNotification,
+  useClientOnly,
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
@@ -32,7 +33,7 @@ const SocialButton = ({
   Icon: ComponentType<{ className?: string }>
   label: string
 }): JSX.Element => (
-  <CryButton key={label} className="bg-transparent w-12" circle>
+  <CryButton key={label} className="bg-transparent w-12" shape="circle">
     <div className="flex items-center justify-center">
       <Icon className="h-8 w-8" />
     </div>
@@ -46,6 +47,8 @@ const LogInForm = (): JSX.Element => {
   const showLabel = t('app.common.hidePassword')
   const { handleFormSubmission } = useFormValidation()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
+  const _isClient = useClientOnly()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,18 +76,25 @@ const LogInForm = (): JSX.Element => {
         router.push(targetRoute)
       }
 
-      showToast(success, message)
+      showNotification(
+        success ? 'success' : 'error',
+        success ? t('auth.login.successTitle') : t('auth.login.errorTitle'),
+        message,
+      )
       return { response, user }
     })
     setLoading(false)
   }
 
   return (
-    <div className={combineStyles(formStyles.layout.centerVertical)}>
+    <div
+      className={combineStyles(formStyles.layout.centerVertical)}
+      suppressHydrationWarning
+    >
       <div className={formStyles.container.card}>
         <h1 className={formStyles.text.title}>{t('auth.login.title')}</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} suppressHydrationWarning>
           <CryFormTextField
             label={t('app.fields.username')}
             labelClassName={formStyles.label.default}
@@ -132,7 +142,7 @@ const LogInForm = (): JSX.Element => {
             )}
           >
             <CryButton
-              circle
+              shape="circle"
               className={formStyles.button.submit}
               type="submit"
             >

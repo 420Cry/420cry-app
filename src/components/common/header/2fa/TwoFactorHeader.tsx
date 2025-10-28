@@ -14,6 +14,7 @@ const TwoFactorHeader = (): JSX.Element => {
         width={143}
         height={58}
         className="cursor-pointer"
+        style={{ width: 'auto', height: 'auto' }}
         priority
       />
       <div className="flex flex-col gap-12 sm:flex-row sm:items-center mt-6 sm:mt-0">

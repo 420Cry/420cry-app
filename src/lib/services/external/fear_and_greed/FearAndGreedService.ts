@@ -27,7 +27,7 @@ export class FearAndGreedService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }
@@ -48,7 +48,7 @@ export class FearAndGreedService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

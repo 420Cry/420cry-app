@@ -1,30 +1,47 @@
 'use client'
 
 import { DashboardSidebar, DashboardHeader, Loader } from '@/components'
-import { JSX, ReactNode } from 'react'
+import { JSX, ReactNode, useState } from 'react'
 import {
   LoadingProvider,
   ModalProvider,
   ModalRenderer,
   useLoading,
+  ThemeProvider,
 } from '@/lib'
 
 function LayoutContent({ children }: { children: ReactNode }) {
   const { loading, setLoading } = useLoading()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen)
+  }
 
   return (
-    <div className="flex h-screen bg-gray-900" suppressHydrationWarning>
-      <DashboardSidebar />
+    <div
+      className="flex h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ease-in-out"
+      suppressHydrationWarning
+    >
+      <DashboardSidebar
+        mobileMenuOpen={mobileMenuOpen}
+        onMobileMenuToggle={toggleMobileMenu}
+      />
       <div
-        className="flex-1 flex flex-col relative overflow-hidden"
+        className={`flex-1 flex flex-col relative overflow-hidden transition-all duration-300 ${
+          mobileMenuOpen ? 'md:ml-0' : 'md:ml-0'
+        }`}
         suppressHydrationWarning
       >
         {/* Header */}
-        <DashboardHeader setLoading={setLoading} />
+        <DashboardHeader
+          setLoading={setLoading}
+          onMobileMenuToggle={toggleMobileMenu}
+        />
 
         {/* Main content */}
         <main
-          className="flex-1 p-6 overflow-y-auto relative bg-gray-900"
+          className="flex-1 p-6 overflow-y-auto relative bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ease-in-out"
           suppressHydrationWarning
         >
           {children}
@@ -44,10 +61,12 @@ export default function DashboardLayout({
   children: ReactNode
 }): JSX.Element {
   return (
-    <LoadingProvider>
-      <ModalProvider>
-        <LayoutContent>{children}</LayoutContent>
-      </ModalProvider>
-    </LoadingProvider>
+    <ThemeProvider>
+      <LoadingProvider>
+        <ModalProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </ModalProvider>
+      </LoadingProvider>
+    </ThemeProvider>
   )
 }

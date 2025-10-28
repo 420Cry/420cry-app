@@ -42,7 +42,7 @@ describe('useFormValidation', () => {
       expect(isValid).toBe(false)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.alertTitle.allfieldsAreRequired',
+        'app.messages.success.allfieldsAreRequired',
       )
     })
 
@@ -57,7 +57,7 @@ describe('useFormValidation', () => {
       expect(isValid).toBe(false)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.alertTitle.allfieldsAreRequired',
+        'app.messages.success.allfieldsAreRequired',
       )
     })
   })
@@ -142,7 +142,7 @@ describe('useFormValidation', () => {
       expect(isValid).toBe(false)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.alertTitle.otpCannotBeEmpty',
+        'app.messages.error.otpCannotBeEmpty',
       )
     })
 
@@ -154,7 +154,7 @@ describe('useFormValidation', () => {
       expect(isValid).toBe(false)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.alertTitle.otpCannotBeEmpty',
+        'app.messages.error.otpCannotBeEmpty',
       )
     })
   })
@@ -229,7 +229,7 @@ describe('useFormValidation', () => {
       expect(submissionResult).toBe(null)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.alertTitle.allfieldsAreRequired',
+        'app.messages.success.allfieldsAreRequired',
       )
     })
 
@@ -277,7 +277,7 @@ describe('useFormValidation', () => {
       expect(submissionResult).toBe(null)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.alertTitle.somethingWentWrong',
+        'app.messages.error.general',
       )
     })
   })

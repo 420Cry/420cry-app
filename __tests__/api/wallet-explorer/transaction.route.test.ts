@@ -67,7 +67,7 @@ describe('GET /api/wallet-explorer/tx', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(true)
-    expect(data.message).toBe('app.alertTitle.validTransaction')
+    expect(data.message).toBe('app.messages.api.validTransaction')
     expect(data.data).toEqual(mockTxData)
   })
 
@@ -88,7 +88,7 @@ describe('GET /api/wallet-explorer/tx', () => {
 
     expect(res.status).toBe(404)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 on unexpected error', async () => {
@@ -102,7 +102,7 @@ describe('GET /api/wallet-explorer/tx', () => {
 
     expect(res.status).toBe(500)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 
   it('returns custom status if thrown error includes response.status', async () => {
@@ -118,6 +118,6 @@ describe('GET /api/wallet-explorer/tx', () => {
 
     expect(res.status).toBe(403)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 })

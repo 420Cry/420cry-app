@@ -19,7 +19,7 @@ export class TransactionService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }
@@ -40,7 +40,7 @@ export class TransactionService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

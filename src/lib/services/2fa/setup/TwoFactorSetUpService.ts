@@ -40,7 +40,7 @@ export class TwoFactorSetUpService {
       return {
         response: {
           isSuccess: false,
-          message: 'app.alertTitle.somethingWentWrong',
+          message: 'app.messages.error.general',
         },
       }
     }
@@ -55,7 +55,7 @@ export class TwoFactorSetUpService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

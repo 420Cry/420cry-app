@@ -33,7 +33,7 @@ describe('GET /api/coin-market-cap/fear-and-greed-historical', () => {
 
     expect(res.status).toBe(200)
     expect(body.isSuccess).toBe(true)
-    expect(body.message).toBe('app.alertTitle.Successful')
+    expect(body.message).toBe('app.messages.success.general')
     expect(body.data).toEqual(fakeData)
   })
 
@@ -48,7 +48,7 @@ describe('GET /api/coin-market-cap/fear-and-greed-historical', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 
   it('returns error response when request throws', async () => {
@@ -61,7 +61,7 @@ describe('GET /api/coin-market-cap/fear-and-greed-historical', () => {
 
     expect(res.status).toBe(502)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 when unknown error is thrown', async () => {
@@ -72,6 +72,6 @@ describe('GET /api/coin-market-cap/fear-and-greed-historical', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 })

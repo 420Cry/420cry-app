@@ -136,7 +136,7 @@ export default function FeaturesSection(): JSX.Element {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <CryButton
               to={SIGN_UP_ROUTE}
-              className="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition duration-200 transform hover:scale-105"
+              className="hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition duration-200 transform hover:scale-105"
             >
               {t('landing.features.cta.getStarted')}
             </CryButton>
