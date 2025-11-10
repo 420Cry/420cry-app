@@ -55,7 +55,7 @@ describe('POST /api/auth/sign-in', () => {
     expect(res.status).toBe(401)
     const data = await res.json()
     expect(data.response.isSuccess).toBe(false)
-    expect(data.response.message).toBe('app.alertTitle.invalidCredentials')
+    expect(data.response.message).toBe('app.messages.error.invalidCredentials')
   })
 
   it('returns 403 with generic error message on forbidden status', async () => {
@@ -74,7 +74,7 @@ describe('POST /api/auth/sign-in', () => {
     expect(res.status).toBe(403)
     const data = await res.json()
     expect(data.response.isSuccess).toBe(false)
-    expect(data.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.response.message).toBe('app.messages.error.general')
   })
 
   it('does not set cookie if JWT is missing in response', async () => {

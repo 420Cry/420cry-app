@@ -34,7 +34,7 @@ describe('POST route handler', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: true,
-      message: 'app.alertTitle.Successful',
+      message: 'app.messages.success.general',
     })
   })
 
@@ -47,7 +47,7 @@ describe('POST route handler', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: true,
-      message: 'app.alertTitle.Successful',
+      message: 'app.messages.success.general',
     })
   })
 
@@ -60,7 +60,7 @@ describe('POST route handler', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     })
   })
 
@@ -86,7 +86,7 @@ describe('POST route handler', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     })
   })
 
@@ -126,7 +126,7 @@ it('returns failure JSON when status is 400', async () => {
   const json = await res.json()
   expect(json).toEqual({
     isSuccess: false,
-    message: 'app.alertTitle.somethingWentWrong',
+    message: 'app.messages.error.general',
   })
 })
 
@@ -139,6 +139,6 @@ it('returns failure JSON when status is 409 (Conflict)', async () => {
   const json = await res.json()
   expect(json).toEqual({
     isSuccess: false,
-    message: 'app.alertTitle.emailOrUserNameAlreadyExist',
+    message: 'app.messages.error.emailOrUserNameAlreadyExist',
   })
 })

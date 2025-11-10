@@ -1,6 +1,6 @@
 'use client'
 
-import { HOME_ROUTE, showToast, twoFactorService } from '@/lib'
+import { HOME_ROUTE, twoFactorService, useNotification } from '@/lib'
 import { CryButton } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
@@ -16,9 +16,10 @@ const TwoFactorSetupOption = ({
   )
   const t = useTranslations()
   const router = useRouter()
+  const { showNotification } = useNotification()
 
   const baseCardClasses =
-    'group relative overflow-hidden rounded-2xl p-6 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-xl flex flex-col justify-center items-center text-center w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/30'
+    'group relative overflow-hidden rounded-2xl p-8 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out bg-white/80 backdrop-blur-xl border border-white/20 shadow-lg hover:shadow-xl flex flex-col justify-center items-center text-center w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500/30 min-h-[240px]'
 
   const getCardClasses = (method: 'phone' | 'app') => {
     return `${baseCardClasses} ${
@@ -37,13 +38,17 @@ const TwoFactorSetupOption = ({
         router.push(HOME_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.setup.errorTitle'),
+        t('app.messages.error.general'),
+      )
     }
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <div className="relative bg-white/70 backdrop-blur-2xl border border-white/30 rounded-2xl shadow-xl shadow-gray-900/10 p-8">
+    <div className="w-full">
+      <div className="relative bg-white/70 backdrop-blur-2xl border border-white/30 rounded-2xl shadow-xl shadow-gray-900/10 p-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-4 shadow-lg shadow-blue-500/25">
             <span className="text-xl">🔐</span>
@@ -56,7 +61,7 @@ const TwoFactorSetupOption = ({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <CryButton
             onClick={() => {
               setSelectedMethod('phone')
@@ -81,19 +86,19 @@ const TwoFactorSetupOption = ({
                 <h2 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors duration-300">
                   {t('2fa.setup.useYourPhone')}
                 </h2>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 whitespace-normal">
                   {t('2fa.setup.receiveViaSMS')}
                 </p>
 
                 {/* Feature List */}
-                <div className="space-y-1 text-left">
-                  <div className="flex items-center text-xs text-gray-500">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></span>
-                    Instant SMS delivery
+                <div className="space-y-1.5 text-left">
+                  <div className="flex items-center text-xs text-gray-500 whitespace-normal">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 flex-shrink-0"></span>
+                    <span className="break-words">Instant SMS delivery</span>
                   </div>
-                  <div className="flex items-center text-xs text-gray-500">
-                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2"></span>
-                    Works with any phone
+                  <div className="flex items-center text-xs text-gray-500 whitespace-normal">
+                    <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-2 flex-shrink-0"></span>
+                    <span className="break-words">Works with any phone</span>
                   </div>
                 </div>
               </div>
@@ -124,19 +129,19 @@ const TwoFactorSetupOption = ({
                 <h2 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-purple-700 transition-colors duration-300">
                   {t('2fa.setup.useAnApp')}
                 </h2>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 whitespace-normal">
                   {t('2fa.setup.scanQR')}
                 </p>
 
                 {/* Feature List */}
-                <div className="space-y-1 text-left">
-                  <div className="flex items-center text-xs text-gray-500">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
-                    Works offline
+                <div className="space-y-1.5 text-left">
+                  <div className="flex items-center text-xs text-gray-500 whitespace-normal">
+                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 flex-shrink-0"></span>
+                    <span className="break-words">Works offline</span>
                   </div>
-                  <div className="flex items-center text-xs text-gray-500">
-                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2"></span>
-                    More secure
+                  <div className="flex items-center text-xs text-gray-500 whitespace-normal">
+                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mr-2 flex-shrink-0"></span>
+                    <span className="break-words">More secure</span>
                   </div>
                 </div>
               </div>

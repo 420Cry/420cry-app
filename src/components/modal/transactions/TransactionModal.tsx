@@ -3,7 +3,12 @@
 import React, { JSX } from 'react'
 import { ITransactionData } from '@/types'
 import { useTranslations } from 'next-intl'
-import { CryModal } from '@420cry/420cry-lib'
+import {
+  CryModal,
+  ArrowLeftCircleIcon,
+  ArrowRightCircleIcon,
+  ChartLineIcon,
+} from '@420cry/420cry-lib'
 
 interface TransactionModalProps {
   show: boolean
@@ -26,44 +31,20 @@ export default function TransactionModal({
       onClose={onClose}
       title={t('title')}
       ariaLabelledBy="transaction-modal-title"
-      maxWidth="max-w-xl"
+      maxWidth="xl"
     >
       {/* Inputs Section */}
       <section className="mb-8">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
-            <svg
-              className="w-4 h-4 text-red-600 dark:text-red-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M20 12H4m16 0l-4-4m4 4l-4 4"
-              />
-            </svg>
+            <ArrowRightCircleIcon className="w-4 h-4 text-red-600 dark:text-red-400" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">{t('inputs')}</h3>
         </div>
         {transaction.inputs.length === 0 ? (
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-center">
             <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg
-                className="w-6 h-6 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.709"
-                />
-              </svg>
+              <ChartLineIcon className="w-6 h-6 text-gray-400" />
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400 italic">
               {t('notAvailable')}
@@ -131,38 +112,14 @@ export default function TransactionModal({
       <section>
         <div className="flex items-center gap-3 mb-4">
           <div className="w-8 h-8 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
-            <svg
-              className="w-4 h-4 text-green-600 dark:text-green-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 12h16m-16 0l4-4m-4 4l4 4"
-              />
-            </svg>
+            <ArrowLeftCircleIcon className="w-4 h-4 text-green-600 dark:text-green-400" />
           </div>
           <h3 className="text-xl font-bold text-gray-900">{t('outputs')}</h3>
         </div>
         {transaction.out.length === 0 ? (
           <div className="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-6 text-center">
             <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-3">
-              <svg
-                className="w-6 h-6 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.709"
-                />
-              </svg>
+              <ChartLineIcon className="w-6 h-6 text-gray-400" />
             </div>
             <p className="text-sm text-gray-500 italic">{t('notAvailable')}</p>
           </div>

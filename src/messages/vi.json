@@ -8,34 +8,49 @@
       "password": "Mật khẩu",
       "repeatedPassword": "Lặp lại mật khẩu"
     },
-    "alertTitle": {
-      "Successful": "Thành công",
-      "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
-      "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
-      "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
-      "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!",
-      "invalidOrExpiredToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
-      "validToken": "Mã xác nhận hợp lệ",
-      "invalidToken": "Mã xác nhận không hợp lệ",
-      "emailVerifiedSuccessfully": "Xác nhận email thành công",
-      "emailVerificationFailed": "Xác nhận email thất bại",
-      "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
-      "resetSucecess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
-      "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
-      "userNotFound": "người dùng không tồn tại",
-      "logOutSuccessful": "Đăng xuất thành công",
-      "2FASetUpSuccessful": "Thiết lập xác thực hai yếu tố thành công.",
-      "2FAVerifySuccessful": "Xác thực hai yếu tố đã được xác minh thành công.",
-      "invalidOTP": "OTP không hợp lệ",
-      "otpCannotBeEmpty": "OTP cannot be empty",
-      "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
-      "invalidLanguage": "Sai ngôn ngữ",
-      "validTransaction": "Giao dịch được tìm thấy",
-      "validWallet": "Ví được tìm thấy",
-      "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại",
-      "emailNotExist": "Email không tồn tại",
-      "emptyInput": "Hãy nhập một cái gì đó!",
-      "validationFailed": "Xác thực dữ liệu thất bại"
+    "messages": {
+      "success": {
+        "general": "Thành công",
+        "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
+        "logOutSuccessful": "Đăng xuất thành công",
+        "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
+        "usernameUpdated": "Đã cập nhật tên người dùng thành công",
+        "setup2FASuccess": "Đã thiết lập 2FA thành công",
+        "2FAVerifySuccessful": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+        "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+        "resetSuccess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!"
+      },
+      "error": {
+        "general": "Đã cõ lỗi, vui lòng thử lại sau!",
+        "validationFailed": "Xác thực dữ liệu thất bại",
+        "invalidLanguage": "Sai ngôn ngữ",
+        "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
+        "invalidOTP": "OTP không hợp lệ",
+        "otpCannotBeEmpty": "OTP không thể để trống",
+        "emptyInput": "Hãy nhập một cái gì đó!",
+        "userNotFound": "người dùng không tồn tại",
+        "emailNotExist": "Email không tồn tại",
+        "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại",
+        "invalidToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
+        "errorUpdateUsername": "Không thể cập nhật tên người dùng",
+        "userNotVerified": "Tài khoản người dùng chưa được xác minh",
+        "validationError": "Lỗi xác thực",
+        "invalidRequest": "Yêu cầu không hợp lệ",
+        "unauthorized": "Không được phép",
+        "forbidden": "Bị cấm",
+        "notFound": "Không tìm thấy",
+        "conflict": "Xung đột",
+        "rateLimited": "Giới hạn tốc độ",
+        "serverError": "Lỗi máy chủ",
+        "badGateway": "Gateway lỗi",
+        "serviceUnavailable": "Dịch vụ không khả dụng",
+        "gatewayTimeout": "Hết thời gian chờ gateway"
+      },
+      "api": {
+        "validTransaction": "Giao dịch được tìm thấy",
+        "validWallet": "Ví được tìm thấy",
+        "validToken": "Mã xác nhận hợp lệ"
+      }
     },
     "rules": {
       "fullNameMinLength": "Họ và tên phải có ít nhất 2 ký tự",
@@ -65,7 +80,9 @@
       "ok": "Ok",
       "loading": "Đang tải ...",
       "step": "Bước",
-      "close": "Đóng"
+      "close": "Đóng",
+      "yes": "Có",
+      "no": "Không"
     }
   },
   "header": {
@@ -76,25 +93,45 @@
   "auth": {
     "login": {
       "title": "Đăng nhập",
+      "successTitle": "Đăng nhập thành công",
+      "errorTitle": "Đăng nhập thất bại",
+      "successMessage": "Chào mừng trở lại! Đang chuyển hướng...",
+      "errorMessage": "Không thể đăng nhập. Vui lòng kiểm tra thông tin đăng nhập.",
       "forgotYourPassword": "quên mật khẩu?",
       "rememberMe": "Ghi nhớ đăng nhập?",
       "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
     },
     "signup": {
       "title": "Đăng ký",
+      "successTitle": "Đăng ký thành công",
+      "errorTitle": "Đăng ký thất bại",
+      "successMessage": "Vui lòng kiểm tra email và xác nhận tài khoản.",
+      "errorMessage": "Không thể tạo tài khoản. Vui lòng thử lại.",
       "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
       "verifyEmail": {
         "title": "Xác nhận email của bạn",
+        "successTitle": "Xác nhận thành công",
+        "errorTitle": "Xác nhận thất bại",
+        "successMessage": "Email đã được xác nhận thành công. Bạn có thể đăng nhập ngay.",
+        "errorMessage": "Xác nhận thất bại. Vui lòng kiểm tra mã xác nhận.",
         "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
       }
     },
     "resetYourPassword": {
       "resetReq": {
         "title": "Quên mật khẩu",
+        "successTitle": "Yêu cầu đặt lại đã được gửi",
+        "errorTitle": "Yêu cầu đặt lại thất bại",
+        "successMessage": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+        "errorMessage": "Không thể gửi email đặt lại. Vui lòng kiểm tra địa chỉ email.",
         "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
       },
       "resetPasswordForm": {
         "title": "Đổi mật khẩu",
+        "successTitle": "Đặt lại mật khẩu thành công",
+        "errorTitle": "Đặt lại mật khẩu thất bại",
+        "successMessage": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
+        "errorMessage": "Không thể đặt lại mật khẩu. Vui lòng thử lại.",
         "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
         "newPassword": "Mật khẩu mới"
       }
@@ -121,6 +158,10 @@
     },
     "QR": {
       "title": "Cài đặt xác thực hai yếu tố",
+      "successTitle": "Xác minh QR thành công",
+      "errorTitle": "Xác minh QR thất bại",
+      "successMessage": "Thiết lập xác thực hai yếu tố thành công",
+      "errorMessage": "Xác minh thất bại. Vui lòng kiểm tra mã của bạn.",
       "scanQRCodeWithApp": "Nhận mã từ ứng dụng xác thực",
       "description": "Mỗi lần đăng nhập, ngoài mật khẩu, bạn sẽ sử dụng ứng dụng xác thực để tạo mã một lần.",
       "scanQR": "Quét mã QR",
@@ -130,12 +171,23 @@
     },
     "verify": {
       "title": "Xác minh xác thực hai yếu tố",
+      "successTitle": "Xác minh 2FA thành công",
+      "errorTitle": "Xác minh 2FA thất bại",
+      "successMessage": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+      "errorMessage": "Xác minh thất bại. Vui lòng kiểm tra mã của bạn.",
       "description": "Mở ứng dụng xác thực của bạn (như Google Authenticator, Authy hoặc 1Password) và nhập mã 6 chữ số bên dưới.",
       "verifyCode": "Mã xác nhận",
       "havingTroubleWithAuthenticatorApp": "Gặp khó khăn với ứng dụng xác thực?"
     },
     "alternative": {
       "title": "Xác minh 2FA thay thế",
+      "successTitle": "Mã email đã được gửi",
+      "errorTitle": "Mã email thất bại",
+      "warningTitle": "Mã đã hết hạn",
+      "successMessage": "Mã xác minh đã được gửi đến email của bạn.",
+      "errorMessage": "Không thể gửi mã xác minh. Vui lòng thử lại.",
+      "verifySuccessMessage": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+      "verifyErrorMessage": "Xác minh thất bại. Vui lòng kiểm tra mã của bạn.",
       "description": "Nhận mã qua email thay vào đó.",
       "sendTo": "Email đã gửi đến",
       "resendCode": "Gửi lại mã",
@@ -145,7 +197,8 @@
       "enterVerificationCode": "Nhập mã xác minh",
       "verifyTitle": "Xác minh mã",
       "verifyDescription": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn",
-      "backToVerify": "Quay lại xác minh"
+      "backToVerify": "Quay lại xác minh",
+      "otpExpired": "Mã xác minh của bạn đã hết hạn. Vui lòng yêu cầu mã mới."
     }
   },
   "dashboard": {
@@ -164,6 +217,19 @@
         "invalidInput": "Địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử không hợp lệ"
       },
       "searchPlayholder": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử"
+    },
+    "userMenu": {
+      "profileSettings": "Cài đặt hồ sơ",
+      "preferences": "Tùy chọn",
+      "signOut": "Đăng xuất",
+      "userId": "ID người dùng",
+      "twoFAStatus": "Trạng thái 2FA",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "enabled": "Đã bật",
+      "disabled": "Đã tắt",
+      "yes": "Có",
+      "no": "Không",
+      "notAvailable": "Không có"
     },
     "transactionModal": {
       "title": "Chi tiết giao dịch",
@@ -467,6 +533,38 @@
       }
     }
   },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Ôi! Trang bạn đang tìm kiếm có vẻ đã trôi dạt vào vũ trụ tiền điện tử.",
+    "subDescription": "Đừng lo lắng, ngay cả những nhà giao dịch giỏi nhất đôi khi cũng đi sai đường.",
+    "actions": {
+      "home": {
+        "title": "Về trang chủ",
+        "description": "Quay lại bảng điều khiển chính và khám phá các công cụ crypto của chúng tôi"
+      },
+      "explore": {
+        "title": "Khám phá Blockchain",
+        "description": "Tìm kiếm giao dịch và phân tích dữ liệu ví"
+      },
+      "market": {
+        "title": "Phân tích thị trường",
+        "description": "Kiểm tra chỉ số Fear & Greed và tâm lý thị trường"
+      }
+    },
+    "buttons": {
+      "goHome": "Đưa tôi về nhà",
+      "signIn": "Đăng nhập"
+    },
+    "help": {
+      "title": "Cần trợ giúp để bắt đầu?",
+      "description": "Đây là một số điểm đến phổ biến để đưa bạn trở lại đúng hướng:",
+      "links": {
+        "signUp": "Tạo tài khoản",
+        "dashboard": "Bảng điều khiển",
+        "marketIndicators": "Chỉ báo thị trường"
+      }
+    }
+  },
   "settings": {
     "title": "Cài đặt người dùng",
     "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn",
@@ -481,6 +579,8 @@
       "editButton": "Chỉnh sửa hồ sơ",
       "saveButton": "Lưu thay đổi",
       "cancelButton": "Hủy",
+      "verifyButton": "Xác nhận",
+      "loading": "Đang tải",
       "accountInfo": "Thông tin tài khoản",
       "emailVerified": "Xác minh email",
       "verified": "Đã xác minh",
@@ -488,12 +588,79 @@
       "memberSince": "Thành viên từ",
       "userId": "ID người dùng",
       "rememberMe": "Ghi nhớ đăng nhập",
+      "twoFAStatus": "Xác thực hai yếu tố",
       "enabled": "Đã bật",
       "disabled": "Đã tắt",
+      "verify2FA": "Yêu cầu xác thực 2FA",
+      "verify2FADescription": "Vui lòng xác thực bằng mã 2FA để cập nhật tên người dùng",
+      "usernameUpdated": "Đã cập nhật tên người dùng thành công",
+      "errorUpdateUsername": "Không thể cập nhật tên người dùng",
+      "setup2FASuccess": "Đã thiết lập 2FA thành công",
+      "uniqueUsername": "Tên người dùng duy nhất của bạn",
+      "saveChanges": "Lưu thay đổi",
+      "accountStatus": "Trạng thái tài khoản",
+      "activeVerified": "Hoạt động & Đã xác minh",
+      "setup2FAButton": "Thiết lập 2FA",
       "fields": {
         "fullname": "Họ và tên",
         "username": "Tên người dùng",
         "email": "Địa chỉ email"
+      }
+    },
+    "preferences": {
+      "title": "Tùy chọn",
+      "subtitle": "Tùy chỉnh các tùy chọn ứng dụng của bạn",
+      "currency": {
+        "title": "Tùy chọn tiền tệ",
+        "subtitle": "Chọn loại tiền tệ ưa thích để hiển thị giá trị danh mục",
+        "currentCurrency": "Tiền tệ hiện tại",
+        "selectCurrency": "Chọn tiền tệ",
+        "currencies": {
+          "USD": "Đô la Mỹ ($)",
+          "EUR": "Euro (€)",
+          "GBP": "Bảng Anh (£)",
+          "JPY": "Yên Nhật (¥)",
+          "CAD": "Đô la Canada (C$)",
+          "AUD": "Đô la Úc (A$)",
+          "CHF": "Franc Thụy Sĩ (CHF)",
+          "CNY": "Nhân dân tệ Trung Quốc (¥)",
+          "KRW": "Won Hàn Quốc (₩)",
+          "INR": "Rupee Ấn Độ (₹)",
+          "BRL": "Real Brazil (R$)",
+          "RUB": "Ruble Nga (₽)",
+          "MXN": "Peso Mexico ($)",
+          "SGD": "Đô la Singapore (S$)",
+          "HKD": "Đô la Hồng Kông (HK$)",
+          "NOK": "Krone Na Uy (kr)",
+          "SEK": "Krona Thụy Điển (kr)",
+          "DKK": "Krone Đan Mạch (kr)",
+          "PLN": "Zloty Ba Lan (zł)",
+          "CZK": "Koruna Séc (Kč)",
+          "HUF": "Forint Hungary (Ft)",
+          "ILS": "Shekel Israel (₪)",
+          "TRY": "Lira Thổ Nhĩ Kỳ (₺)",
+          "ZAR": "Rand Nam Phi (R)",
+          "THB": "Baht Thái Lan (฿)",
+          "MYR": "Ringgit Malaysia (RM)",
+          "PHP": "Peso Philippines (₱)",
+          "IDR": "Rupiah Indonesia (Rp)",
+          "VND": "Đồng Việt Nam (₫)"
+        }
+      },
+      "language": {
+        "title": "Ngôn ngữ",
+        "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "theme": {
+        "title": "Chủ đề",
+        "subtitle": "Chọn chủ đề ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "notifications": {
+        "title": "Thông báo",
+        "subtitle": "Quản lý tùy chọn thông báo của bạn",
+        "configure": "Cấu hình"
       }
     },
     "security": {
@@ -518,25 +685,6 @@
         "disabled": "Xác thực hai yếu tố đã bị tắt",
         "enabledDesc": "Tài khoản của bạn được bảo vệ bằng 2FA",
         "disabledDesc": "Thêm 2FA để bảo mật tốt hơn"
-      }
-    },
-    "preferences": {
-      "title": "Tùy chọn",
-      "subtitle": "Tùy chỉnh trải nghiệm của bạn",
-      "language": {
-        "title": "Ngôn ngữ",
-        "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
-        "change": "Thay đổi"
-      },
-      "theme": {
-        "title": "Chủ đề",
-        "subtitle": "Chọn chủ đề ưa thích của bạn",
-        "change": "Thay đổi"
-      },
-      "notifications": {
-        "title": "Thông báo",
-        "subtitle": "Quản lý tùy chọn thông báo của bạn",
-        "configure": "Cấu hình"
       }
     }
   }

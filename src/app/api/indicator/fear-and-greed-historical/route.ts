@@ -14,19 +14,16 @@ export async function GET(): Promise<NextResponse> {
     if (response.status === 200 && response.data) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.Successful',
+        message: 'app.messages.success.general',
         data: response.data.fear_and_greed_historical,
       } satisfies IResponse & { data: IFearAndGreedHistoricalData })
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch (error: unknown) {
     const err = error as { response?: { status?: number } }
     const status = err?.response?.status ?? 500
-    const message = 'app.alertTitle.somethingWentWrong'
+    const message = 'app.messages.error.general'
     return createErrorResponse(message, status)
   }
 }

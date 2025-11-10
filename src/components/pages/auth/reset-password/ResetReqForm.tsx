@@ -10,10 +10,13 @@ import React, { JSX } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   fieldsRequired,
-  showToast,
   authService,
   SIGN_IN_ROUTE,
   useLoading,
+  useNotification,
+  useClientOnly,
+  formStyles,
+  combineStyles,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -21,6 +24,8 @@ const ResetReqForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
+  const _isClient = useClientOnly()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,7 +36,13 @@ const ResetReqForm = (): JSX.Element => {
     try {
       const response =
         await authService.resetPassword.request.resetRequestAction(formData)
-      showToast(response.isSuccess, t(response.message))
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.resetYourPassword.resetReq.successTitle')
+          : t('auth.resetYourPassword.resetReq.errorTitle'),
+        t(response.message),
+      )
 
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
@@ -42,7 +53,10 @@ const ResetReqForm = (): JSX.Element => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+    <div
+      className={combineStyles(formStyles.layout.centerVertical)}
+      suppressHydrationWarning
+    >
       <div className="p-8 sm:p-20 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
         <div className="w-full flex flex-col items-center gap-12 justify-center">
           {/* TODO: Forgot Password Icon */}
@@ -62,19 +76,27 @@ const ResetReqForm = (): JSX.Element => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full max-w-[500px] m-auto">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-[500px] m-auto"
+          suppressHydrationWarning
+        >
           <CryFormTextField
             label={t('app.fields.email')}
             labelClassName="text-neutral-gray-3"
             name="email"
             type="text"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500! "
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+              'w-full max-w-[500px] focus:border-green-500!',
+            )}
           />
 
           <div className="flex justify-center mt-14">
             <CryButton
-              circle
+              shape="circle"
               type="submit"
               color="primary"
               className="max-w-52 h-12 w-full"

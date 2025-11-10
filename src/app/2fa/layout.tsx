@@ -7,6 +7,8 @@ import {
   ModalProvider,
   ModalRenderer,
   useLoading,
+  NotificationProvider,
+  NotificationRenderer,
 } from '@/lib'
 
 function LayoutContent({ children }: { children: ReactNode }) {
@@ -26,6 +28,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
         {/* Render dynamic modals */}
         <ModalRenderer />
+        <NotificationRenderer />
       </div>
     </div>
   )
@@ -38,9 +41,11 @@ export default function TwoFactorLayout({
 }): JSX.Element {
   return (
     <LoadingProvider>
-      <ModalProvider>
-        <LayoutContent>{children}</LayoutContent>
-      </ModalProvider>
+      <NotificationProvider>
+        <ModalProvider>
+          <LayoutContent>{children}</LayoutContent>
+        </ModalProvider>
+      </NotificationProvider>
     </LoadingProvider>
   )
 }
