@@ -42,7 +42,7 @@ describe('useFormValidation', () => {
       expect(isValid).toBe(false)
       expect(showToast).toHaveBeenCalledWith(
         false,
-        'app.messages.success.allfieldsAreRequired',
+        'app.messages.error.allfieldsAreRequired',
       )
     })
 
