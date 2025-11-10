@@ -16,11 +16,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json(response.data)
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }

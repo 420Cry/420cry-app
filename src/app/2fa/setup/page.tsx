@@ -30,24 +30,27 @@ const TwoFactorSetupPage = (): JSX.Element => {
   }
 
   return (
-    <div className="flex items-center justify-center p-4">
+    <div className="w-full max-w-3xl mx-auto">
       {method === 'app' && user?.uuid ? (
         <TwoFactorSetupQRCode userUuid={user.uuid} onCancel={handleBack} />
       ) : (
         <>
           <TwoFactorSetupOption onSelect={handleSelect} />
           {showPhoneModal && (
-            <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
-              <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm text-center">
-                <h2 className="text-xl font-semibold mb-2">
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+              <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md text-center animate-scale-in">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-4 mx-auto">
+                  <span className="text-2xl">📱</span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">
                   {t('2fa.phone.warn')}
                 </h2>
-                <p className="text-sm text-gray-600 mb-6">
+                <p className="text-base text-gray-600 mb-8 leading-relaxed">
                   {t('2fa.phone.description')}
                 </p>
                 <CryButton
                   onClick={handleCloseModal}
-                  className="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                  className="px-8 py-3 text-base font-medium bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   {t('app.common.ok')}
                 </CryButton>

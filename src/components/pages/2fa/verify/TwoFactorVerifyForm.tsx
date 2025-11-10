@@ -1,15 +1,21 @@
 'use client'
 
 import { JSX, useState } from 'react'
-import { CryButton, CryTextField } from '@420cry/420cry-lib'
+import {
+  CryButton,
+  CryTextField,
+  LockIcon,
+  CheckCircleIcon,
+  HelpIcon,
+} from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import { useAuthStore } from '@/store'
 import {
   HOME_ROUTE,
-  showToast,
   TWO_FACTOR_ALTERNATIVE,
   twoFactorService,
   useLoading,
+  useNotification,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -18,6 +24,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
   const user = useAuthStore((state) => state.user)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,11 +32,19 @@ const TwoFactorVerifyForm = (): JSX.Element => {
     setLoading(true)
     try {
       if (!user?.uuid) {
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showNotification(
+          'error',
+          t('2fa.verify.errorTitle'),
+          t('app.messages.error.general'),
+        )
         return
       }
       if (!otp.trim()) {
-        showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+        showNotification(
+          'error',
+          t('2fa.verify.errorTitle'),
+          t('app.messages.error.otpCannotBeEmpty'),
+        )
         return
       }
 
@@ -40,13 +55,25 @@ const TwoFactorVerifyForm = (): JSX.Element => {
       })
 
       if (response.isSuccess) {
-        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        showNotification(
+          'success',
+          t('2fa.verify.successTitle'),
+          t('app.messages.success.2FAVerifySuccessful'),
+        )
         router.push(HOME_ROUTE)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.verify.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.verify.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setLoading(false)
     }
@@ -66,19 +93,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         {/* Header Section */}
         <div className="relative z-10 text-center mb-8">
           <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center shadow-lg">
-            <svg
-              className="w-8 h-8 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-              />
-            </svg>
+            <LockIcon className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold mb-3 text-gray-900 tracking-tight">
             {t('2fa.verify.title')}
@@ -93,7 +108,9 @@ const TwoFactorVerifyForm = (): JSX.Element => {
           <div className="space-y-2">
             <CryTextField
               modelValue={otp}
-              onChange={setOtp}
+              onChange={(event) =>
+                setOtp((event.target as HTMLInputElement).value)
+              }
               placeholder="ABC123"
               shape="rounded"
               name="otp"
@@ -104,22 +121,10 @@ const TwoFactorVerifyForm = (): JSX.Element => {
           <CryButton
             type="submit"
             className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white text-base font-semibold px-6 py-4 rounded-xl hover:from-green-700 hover:to-emerald-700 hover:shadow-xl hover:-translate-y-0.5 transform transition-all duration-300 shadow-lg border-0"
-            rounded
+            shape="rounded"
           >
             <span className="flex items-center justify-center gap-2">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <CheckCircleIcon className="w-5 h-5" />
               {t('2fa.verify.verifyCode')}
             </span>
           </CryButton>
@@ -133,19 +138,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
             onClick={handleAuthenticatorTroubleClick}
           >
             <span className="flex items-center justify-center gap-2">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+              <HelpIcon className="w-4 h-4" />
               {t('2fa.verify.havingTroubleWithAuthenticatorApp')}
             </span>
           </button>

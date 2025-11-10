@@ -29,32 +29,49 @@ const LanguageChangeButton = (): JSX.Element => {
     const newIsEN = !isEN
     const locale = newIsEN ? 'en' : 'vi'
 
+    // Update UI immediately for instant feedback
     setIsEN(newIsEN)
+    setLanguage(locale)
 
-    const response = await localeService.changeLanguage(locale)
-    showToast(response.isSuccess, t(response.message))
-    router.refresh()
+    // Make API call in background
+    try {
+      const response = await localeService.changeLanguage(locale)
+      if (response.isSuccess) {
+        // Only refresh if the API call was successful
+        router.refresh()
+      } else {
+        // Revert UI state if API call failed
+        setIsEN(!newIsEN)
+        setLanguage(newIsEN ? 'vi' : 'en')
+        showToast(false, t(response.message))
+      }
+    } catch (_error) {
+      // Revert UI state if API call failed
+      setIsEN(!newIsEN)
+      setLanguage(newIsEN ? 'vi' : 'en')
+      showToast(false, t('app.messages.error.general'))
+    }
   }
 
   return (
     <div className="flex items-center justify-center gap-2">
       <span
-        className={`font-semibold text-sm transition-colors duration-200 ${isEN ? 'text-white' : 'text-gray-400'}`}
+        className={`font-semibold text-sm transition-colors duration-300 ease-in-out ${isEN ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}
       >
         EN
       </span>
       <button
         onClick={changeLanguage}
-        className="relative flex items-center w-12 h-6 rounded-full bg-gray-700 border border-gray-600 cursor-pointer transition-all duration-200 hover:bg-gray-600"
+        className="relative flex items-center w-12 h-6 rounded-full bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 cursor-pointer transition-all duration-300 ease-in-out hover:bg-gray-300 dark:hover:bg-gray-600"
       >
         <span
-          className={`absolute w-5 h-5 rounded-full bg-blue-500 left-0.5 transition-transform duration-200 shadow-sm ${
+          className={`absolute w-5 h-5 rounded-full bg-blue-500 left-0.5 transition-all duration-300 ease-in-out shadow-sm ${
             isEN ? 'translate-x-0' : 'translate-x-6'
           }`}
         />
       </button>
       <span
-        className={`font-semibold text-sm transition-colors duration-200 ${isEN ? 'text-gray-400' : 'text-white'}`}
+        className={`font-semibold text-sm transition-colors duration-300 ease-in-out ${isEN ? 'text-gray-500 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}
       >
         VN
       </span>

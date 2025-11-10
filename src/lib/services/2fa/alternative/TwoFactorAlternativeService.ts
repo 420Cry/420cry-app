@@ -20,7 +20,7 @@ export class TwoFactorAlternativeService {
     } catch {
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }
@@ -38,8 +38,8 @@ export class TwoFactorAlternativeService {
         const status = error.status
         const message =
           status === 401
-            ? 'app.alertTitle.invalidOTP'
-            : 'app.alertTitle.somethingWentWrong'
+            ? 'app.messages.error.invalidOTP'
+            : 'app.messages.error.general'
 
         return {
           isSuccess: false,
@@ -49,7 +49,7 @@ export class TwoFactorAlternativeService {
 
       return {
         isSuccess: false,
-        message: 'app.alertTitle.somethingWentWrong',
+        message: 'app.messages.error.general',
       }
     }
   }

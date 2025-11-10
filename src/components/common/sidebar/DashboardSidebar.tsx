@@ -2,7 +2,7 @@
 
 import { JSX, useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -13,11 +13,15 @@ import {
   SIGN_IN_ROUTE,
   authService,
   useClientOnly,
+  useLoading,
 } from '@/lib'
+
+import { LanguageChangeButton, ThemeToggle } from '@/components'
 
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
+  ChevronRightIcon,
   CryButton,
   LineGraphIcon,
   PieChartIcon,
@@ -27,23 +31,58 @@ import {
 } from '@420cry/420cry-lib'
 
 import { CryApplicationLogo } from '@/assets'
+import { useAuthStore } from '@/store/useAuthStore'
 
-export default function Sidebar(): JSX.Element {
+interface DashboardSidebarProps {
+  mobileMenuOpen?: boolean
+  onMobileMenuToggle?: () => void
+}
+
+export default function Sidebar({
+  mobileMenuOpen = false,
+  onMobileMenuToggle: _onMobileMenuToggle,
+}: DashboardSidebarProps): JSX.Element {
   const t = useTranslations()
   const router = useRouter()
+  const pathname = usePathname()
+  const { setLoading } = useLoading()
   const [collapsed, setCollapsed] = useState(false)
+
+  // Sync mobile menu state with collapsed state
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setCollapsed(!mobileMenuOpen)
+    }
+  }, [mobileMenuOpen])
+
+  // Turn off loading when route changes
+  useEffect(() => {
+    setLoading(false)
+  }, [pathname, setLoading])
+
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const isClient = useClientOnly()
   const navRef = useRef<HTMLDivElement>(null)
 
+  const { clearUser } = useAuthStore()
+
   const logout = async () => {
+    // Clear user state immediately for instant feedback
+    clearUser()
+
     try {
       const response = await authService.signOut.signOut()
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
+      } else {
+        // If API call failed, show error but user is already signed out locally
+        showToast(false, t(response.message))
+        router.push(SIGN_IN_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      // If API call failed, show error but user is already signed out locally
+      showToast(false, t('app.messages.error.general'))
+      router.push(SIGN_IN_ROUTE)
     }
   }
 
@@ -103,8 +142,8 @@ export default function Sidebar(): JSX.Element {
   if (!isClient) {
     return (
       <aside
-        className={`h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border-r border-slate-700/30 backdrop-blur-xl flex flex-col justify-between transition-all duration-500 ease-in-out shadow-2xl relative overflow-hidden group ${
-          collapsed ? 'w-16' : 'w-64'
+        className={`h-screen bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl text-gray-900 dark:text-white border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl ${
+          collapsed ? 'w-16' : 'w-72'
         }`}
         suppressHydrationWarning
       >
@@ -116,192 +155,202 @@ export default function Sidebar(): JSX.Element {
   }
 
   return (
-    <aside
-      className={`h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white border-r border-slate-700/30 backdrop-blur-xl flex flex-col justify-between transition-all duration-500 ease-in-out shadow-2xl relative overflow-hidden group ${
-        collapsed ? 'w-16' : 'w-64'
-      }`}
-      suppressHydrationWarning
-    >
-      {/* Animated background gradient overlay */}
-      <div
-        className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-purple-600/5 to-cyan-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-        suppressHydrationWarning
-      />
-
-      {/* Subtle animated border glow */}
-      <div
-        className="absolute inset-0 border-r border-gradient-to-b from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        suppressHydrationWarning
-      />
-      <div>
-        {/* Logo + Toggle Button */}
+    <>
+      {/* Mobile Backdrop */}
+      {!collapsed && (
         <div
-          className={`flex items-center mb-8 mt-8 relative z-10 ${
-            collapsed ? 'justify-center' : 'justify-between'
-          }`}
-        >
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setCollapsed(true)}
+        />
+      )}
+
+      <aside
+        className={`h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl overflow-hidden ${
+          collapsed ? 'w-16' : 'w-72'
+        } md:relative fixed inset-y-0 left-0 z-50 md:z-auto ${
+          collapsed ? '-translate-x-full md:translate-x-0' : 'translate-x-0'
+        }`}
+        suppressHydrationWarning
+      >
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Header */}
+          <div
+            className={`flex items-center border-b border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'justify-center p-4' : 'justify-between p-6'}`}
+          >
+            {!collapsed && (
+              <div className="flex items-center space-x-3">
+                <Image
+                  src={CryApplicationLogo}
+                  alt="Cry Application Logo"
+                  width={120}
+                  height={48}
+                  className="cursor-pointer dark:filter-none filter-invert"
+                  style={{ width: 'auto', height: 'auto' }}
+                  onClick={() => {
+                    if (pathname !== DASHBOARD_ROUTE) {
+                      setLoading(true)
+                    }
+                    router.push(DASHBOARD_ROUTE)
+                  }}
+                />
+              </div>
+            )}
+            <CryButton
+              onClick={() => setCollapsed(!collapsed)}
+              className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800/50 hover:bg-gray-200 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:scale-105"
+              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {collapsed ? (
+                <ArrowRightIcon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+              ) : (
+                <ArrowLeftIcon className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+              )}
+            </CryButton>
+          </div>
+
+          {/* Mobile Controls - Theme and Language */}
           {!collapsed && (
-            <div className="relative group">
-              <Image
-                src={CryApplicationLogo}
-                alt="Cry Application Logo"
-                width={120}
-                height={48}
-                className="cursor-pointer transition-all duration-300 hover:scale-105 filter drop-shadow-lg hover:drop-shadow-xl hover:brightness-110"
-                priority
-                onClick={() => router.push(DASHBOARD_ROUTE)}
-              />
-              {/* Subtle glow effect on logo hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+            <div className="md:hidden px-4 py-3 border-b border-gray-200/30 dark:border-gray-800/30">
+              <div className="flex items-center justify-center gap-3">
+                <ThemeToggle />
+                <LanguageChangeButton />
+              </div>
             </div>
           )}
-          <CryButton
-            onClick={() => setCollapsed(!collapsed)}
-            className="bg-slate-700/90 hover:bg-slate-600/90 text-white p-2.5 rounded-xl hover:rounded-lg transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl backdrop-blur-sm border border-slate-600/40 hover:border-slate-500/60 relative overflow-hidden group"
-            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+
+          {/* Navigation */}
+          <nav
+            className={`${collapsed ? 'p-2 space-y-0.5 flex flex-col items-center overflow-hidden' : 'flex-1 p-4 space-y-1 overflow-y-auto'}`}
+            ref={navRef}
+            suppressHydrationWarning
           >
-            {/* Button glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-            <div className="relative z-10">
-              {collapsed ? (
-                <ArrowRightIcon className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              ) : (
-                <ArrowLeftIcon className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
-              )}
-            </div>
-          </CryButton>
+            {navItems.map(
+              ({ labelKey, icon, ariaLabel, hasChildren, children, route }) => {
+                const isOpen = openMenu === ariaLabel
+
+                return (
+                  <div key={ariaLabel} className="relative group">
+                    <button
+                      className={`flex items-center gap-4 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group-hover:shadow-lg group-hover:shadow-gray-900/20 ${
+                        collapsed
+                          ? 'w-12 h-12 justify-center p-2'
+                          : 'w-full px-4 py-3'
+                      } touch-manipulation`}
+                      onClick={() => {
+                        if (hasChildren) {
+                          if (collapsed) {
+                            setCollapsed(false)
+                            setTimeout(() => {
+                              setOpenMenu(ariaLabel)
+                            }, 300)
+                          } else {
+                            setOpenMenu(isOpen ? null : ariaLabel)
+                          }
+                        } else if (route) {
+                          // Only set loading if navigating to a different route
+                          if (pathname !== route) {
+                            setLoading(true)
+                          }
+                          router.push(route)
+                          // Close sidebar on mobile after navigation
+                          if (window.innerWidth < 768) {
+                            setCollapsed(true)
+                          }
+                        }
+                      }}
+                    >
+                      <div className="flex items-center justify-center w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                        {icon}
+                      </div>
+                      {!collapsed && (
+                        <span className="text-sm font-medium">
+                          {t(labelKey)}
+                        </span>
+                      )}
+                      {hasChildren && !collapsed && (
+                        <div className="ml-auto">
+                          <div
+                            className={`w-4 h-4 transition-transform duration-200 text-gray-500 dark:text-gray-400 ${isOpen ? 'rotate-90' : ''}`}
+                          >
+                            <ChevronRightIcon className="w-4 h-4" />
+                          </div>
+                        </div>
+                      )}
+                    </button>
+
+                    {/* Tooltip for collapsed state */}
+                    {collapsed && (
+                      <div className="absolute left-full top-0 ml-3 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap z-50 pointer-events-none shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+                        {t(labelKey)}
+                      </div>
+                    )}
+
+                    {/* Sub-items */}
+                    {hasChildren && isOpen && !collapsed && (
+                      <div className="ml-8 mt-2 space-y-1 animate-in slide-in-from-top-2 duration-200">
+                        {children?.map((child) => (
+                          <button
+                            key={child.ariaLabel}
+                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-500 dark:text-gray-400 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800/30 hover:text-gray-900 dark:hover:text-white transition-all duration-200 hover:translate-x-1 touch-manipulation"
+                            onClick={() => {
+                              setOpenMenu(null)
+                              if (child.route) {
+                                // Only set loading if navigating to a different route
+                                if (pathname !== child.route) {
+                                  setLoading(true)
+                                }
+                                router.push(child.route)
+                                // Close sidebar on mobile after navigation
+                                if (window.innerWidth < 768) {
+                                  setCollapsed(true)
+                                }
+                              }
+                            }}
+                          >
+                            <div className="w-1 h-1 bg-gray-400 dark:bg-gray-500 rounded-full"></div>
+                            <span className="font-medium">
+                              {t(child.labelKey)}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              },
+            )}
+          </nav>
         </div>
 
-        {/* Navigation */}
-        <nav
-          ref={navRef}
-          className="flex flex-col gap-2 items-center w-full relative px-2 z-10"
-          suppressHydrationWarning
+        {/* Footer */}
+        <div
+          className={`${collapsed ? 'p-2' : 'p-4'} border-t border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'flex flex-col items-center' : ''}`}
         >
-          {navItems.map(
-            ({ labelKey, icon, ariaLabel, hasChildren, children, route }) => {
-              const isOpen = openMenu === ariaLabel
-
-              return (
-                <div key={ariaLabel} className="relative group w-full">
-                  <CryButton
-                    className="hover:bg-slate-700/70 hover:shadow-lg hover:shadow-slate-900/30 p-3 rounded-xl flex justify-center items-center w-full transition-all duration-300 hover:scale-105 hover:border-slate-600/40 border border-transparent backdrop-blur-sm group-hover:bg-gradient-to-r group-hover:from-slate-700/50 group-hover:to-slate-600/50 relative overflow-hidden"
-                    aria-label={ariaLabel}
-                    onClick={() => {
-                      if (hasChildren) {
-                        if (collapsed) {
-                          // If sidebar is collapsed and item has children, expand sidebar first
-                          setCollapsed(false)
-                          // Small delay to allow sidebar to expand before showing submenu
-                          setTimeout(() => {
-                            setOpenMenu(ariaLabel)
-                          }, 300)
-                        } else {
-                          // If sidebar is expanded, toggle submenu normally
-                          setOpenMenu(isOpen ? null : ariaLabel)
-                        }
-                      } else if (route) {
-                        router.push(route)
-                      }
-                    }}
-                  >
-                    {/* Subtle glow effect on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                    <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
-                      {icon}
-                    </div>
-                  </CryButton>
-
-                  {/* Enhanced tooltip with better styling */}
-                  <span className="absolute left-full top-1/2 -translate-y-1/2 ml-3 bg-slate-900/98 backdrop-blur-xl text-white text-sm rounded-xl py-2.5 px-4 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-50 pointer-events-none shadow-2xl border border-slate-700/60 font-medium transform group-hover:scale-105">
-                    {t(labelKey)}
-                    {/* Tooltip arrow */}
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-slate-900/98 rotate-45 border-l border-b border-slate-700/60" />
-                  </span>
-
-                  {/* Sub-items */}
-                  {hasChildren && isOpen && (
-                    <>
-                      {/* Sub-items when expanded */}
-                      {!collapsed && (
-                        <div className="pl-6 mt-2 space-y-1.5 animate-in slide-in-from-top-2 duration-300">
-                          {children?.map((child) => (
-                            <CryButton
-                              key={child.ariaLabel}
-                              className="flex items-center text-sm px-3 py-2.5 text-slate-300 hover:text-white hover:bg-slate-700/70 rounded-xl w-full transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-900/30 border border-transparent hover:border-slate-600/40 backdrop-blur-sm relative overflow-hidden group"
-                              aria-label={child.ariaLabel}
-                              onClick={() => {
-                                setOpenMenu(null)
-                                if (child.route) router.push(child.route)
-                              }}
-                            >
-                              {/* Subtle glow effect */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                              <span className="mr-3 text-slate-500 font-mono text-xs group-hover:text-blue-400 transition-colors duration-300">
-                                └
-                              </span>
-                              <span className="relative z-10">
-                                {t(child.labelKey)}
-                              </span>
-                            </CryButton>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Enhanced popup sub-items when collapsed */}
-                      {collapsed && !isOpen && (
-                        <div
-                          className="absolute left-full top-0 ml-3 bg-slate-900/98 backdrop-blur-xl rounded-2xl shadow-2xl p-4 space-y-2 z-50 min-w-[200px] border border-slate-700/60 animate-in slide-in-from-left-2 duration-300"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {children?.map((child) => (
-                            <CryButton
-                              key={child.ariaLabel}
-                              className="block w-full text-left text-sm px-4 py-3 text-slate-300 hover:text-white hover:bg-slate-700/70 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-slate-900/30 border border-transparent hover:border-slate-600/40 relative overflow-hidden group"
-                              aria-label={child.ariaLabel}
-                              onClick={() => {
-                                setOpenMenu(null)
-                                if (child.route) router.push(child.route)
-                              }}
-                            >
-                              {/* Subtle glow effect */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                              <span className="relative z-10">
-                                {t(child.labelKey)}
-                              </span>
-                            </CryButton>
-                          ))}
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              )
-            },
-          )}
-        </nav>
-      </div>
-
-      {/* Enhanced Logout Section */}
-      <div className="relative group w-full flex justify-center px-2 pb-4 z-10">
-        <CryButton
-          className="hover:bg-red-600/30 hover:shadow-lg hover:shadow-red-900/30 p-3 rounded-xl flex justify-center items-center w-full transition-all duration-300 hover:scale-105 hover:border-red-500/40 border border-transparent backdrop-blur-sm group-hover:bg-gradient-to-r group-hover:from-red-600/30 group-hover:to-red-500/30 relative overflow-hidden"
-          aria-label="logout"
-          onClick={logout}
-        >
-          {/* Enhanced glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-          <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
-            <SignOutIcon className="h-6 w-6 fill-current text-slate-300 group-hover:text-red-400 transition-colors duration-300" />
+          <div className={collapsed ? 'mb-0' : 'mb-4'}>
+            <button
+              className={`flex items-center gap-4 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group border border-red-200 dark:border-red-500/20 hover:border-red-300 dark:hover:border-red-500/40 touch-manipulation ${
+                collapsed ? 'w-12 h-12 justify-center p-2' : 'w-full px-4 py-3'
+              }`}
+              onClick={() => {
+                logout()
+                // Close sidebar on mobile after logout
+                if (window.innerWidth < 768) {
+                  setCollapsed(true)
+                }
+              }}
+            >
+              <div className="flex items-center justify-center w-5 h-5 text-red-500 dark:text-red-300 group-hover:text-red-600 dark:group-hover:text-red-200 transition-colors">
+                <SignOutIcon className="h-5 w-5" />
+              </div>
+              {!collapsed && (
+                <span className="text-sm font-medium">
+                  {t('dashboard.navigation.logout')}
+                </span>
+              )}
+            </button>
           </div>
-        </CryButton>
-        {/* Enhanced logout tooltip */}
-        <span className="absolute left-full top-1/2 -translate-y-1/2 ml-3 bg-slate-900/98 backdrop-blur-xl text-white text-sm rounded-xl py-2.5 px-4 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-50 pointer-events-none shadow-2xl border border-slate-700/60 font-medium transform group-hover:scale-105">
-          {t('dashboard.navigation.logout')}
-          {/* Tooltip arrow */}
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 bg-slate-900/98 rotate-45 border-l border-b border-slate-700/60" />
-        </span>
-      </div>
-    </aside>
+        </div>
+      </aside>
+    </>
   )
 }

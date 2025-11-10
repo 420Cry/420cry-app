@@ -40,3 +40,7 @@ export const GET_FEAR_AND_GREED_HISTORICAL_API =
 
 // locale
 export const LOCALE_COOKIE_API = '/api/locale/language'
+
+// settings
+export const UPDATE_USER_ACCOUNT_NAME_API =
+  '/api/settings/update-user-account-name'
