@@ -16,7 +16,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
       IAuthResponse
-    >(`${API_URL}/2fa/setup/verify-otp`, body)
+    >(`${API_URL}/api/v1/2fa/setup/verify-otp`, body)
 
     if (response.status === 200 && response.data) {
       const { user, jwt } = response.data
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       const responseBody = {
         response: {
           isSuccess: true,
-          message: 'app.alertTitle.Successful',
+          message: 'app.messages.success.general',
         } as IResponse,
         user,
       }
@@ -33,13 +33,17 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
       if (jwt) {
         CookieService.setJwtCookie(nextResponse, jwt, true)
+        // Set twoFAVerified cookie to true after successful 2FA setup
+        CookieService.setTwoFAVerifiedCookie(nextResponse, 'true', true)
+        // Clear the twoFASetUpSkippedForNow cookie since 2FA is now set up
+        CookieService.clearTwoFASetUpSkippedCookie(nextResponse)
       }
 
       return nextResponse
     }
 
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 401)
+    return createErrorResponse('app.messages.error.general', 401)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }

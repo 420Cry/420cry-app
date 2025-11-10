@@ -26,7 +26,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className="antialiased font-sans">
+      <body className="antialiased font-sans" suppressHydrationWarning={true}>
         <ClientLayout localeData={localeData}>{children}</ClientLayout>
       </body>
     </html>

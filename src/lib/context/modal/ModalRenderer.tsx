@@ -8,7 +8,6 @@ interface ModalProps<T = unknown> {
   onClose: () => void
 }
 
-// eslint-disable-next-line no-unused-vars
 const MODAL_COMPONENTS: Record<string, (props: ModalProps) => JSX.Element> = {
   transaction: ({ data, onClose }) => (
     <TransactionModal

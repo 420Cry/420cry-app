@@ -8,43 +8,67 @@
       "password": "Mật khẩu",
       "repeatedPassword": "Lặp lại mật khẩu"
     },
-    "alertTitle": {
-      "Successful": "Thành công",
-      "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
-      "signUpSuccessful": "Đăng ký thành công! Vui lòng xác nhận tài khoản trong email đã đăng ký.",
-      "somethingWentWrong": "Đã cõ lỗi, vui lòng thử lại sau!",
-      "duplicatedUserNameOrEmail": "Email hoặc tên tài khoản đã tồn tại!",
-      "invalidOrExpiredToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
-      "validToken": "Mã xác nhận hợp lệ",
-      "invalidToken": "Mã xác nhận không hợp lệ",
-      "emailVerifiedSuccessfully": "Xác nhận email thành công",
-      "emailVerificationFailed": "Xác nhận email thất bại",
-      "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
-      "resetSucecess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
-      "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
-      "userNotFound": "người dùng không tồn tại",
-      "logOutSuccessful": "Đăng xuất thành công",
-      "2FASetUpSuccessful": "Thiết lập xác thực hai yếu tố thành công.",
-      "2FAVerifySuccessful": "Xác thực hai yếu tố đã được xác minh thành công.",
-      "invalidOTP": "OTP không hợp lệ",
-      "otpCannotBeEmpty": "OTP cannot be empty",
-      "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
-      "invalidLanguage": "Sai ngôn ngữ",
-      "validTransaction": "Giao dịch được tìm thấy",
-      "validWallet": "Ví được tìm thấy",
-      "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại",
-      "emailNotExist": "Email không tồn tại",
-      "emptyInput": "Hãy nhập một cái gì đó!"
+    "messages": {
+      "success": {
+        "general": "Thành công",
+        "allfieldsAreRequired": "Tất cả các thông tin đăng nhập là bắt buộc!",
+        "logOutSuccessful": "Đăng xuất thành công",
+        "changeLanguageSuccessful": "Đã đổi ngôn ngữ thành công",
+        "usernameUpdated": "Đã cập nhật tên người dùng thành công",
+        "setup2FASuccess": "Đã thiết lập 2FA thành công",
+        "2FAVerifySuccessful": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+        "resetRequestSuccess": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+        "resetSuccess": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!"
+      },
+      "error": {
+        "general": "Đã cõ lỗi, vui lòng thử lại sau!",
+        "validationFailed": "Xác thực dữ liệu thất bại",
+        "invalidLanguage": "Sai ngôn ngữ",
+        "invalidCredentials": "Tên tài khoản hoặc mật khẩu không đúng.",
+        "invalidOTP": "OTP không hợp lệ",
+        "otpCannotBeEmpty": "OTP không thể để trống",
+        "emptyInput": "Hãy nhập một cái gì đó!",
+        "userNotFound": "người dùng không tồn tại",
+        "emailNotExist": "Email không tồn tại",
+        "emailOrUserNameAlreadyExist": "Tên tài khoản hoặc email đã tồn tại",
+        "invalidToken": "Mã xác nhận không hợp lệ hoặc đã hết hạn",
+        "errorUpdateUsername": "Không thể cập nhật tên người dùng",
+        "userNotVerified": "Tài khoản người dùng chưa được xác minh",
+        "validationError": "Lỗi xác thực",
+        "invalidRequest": "Yêu cầu không hợp lệ",
+        "unauthorized": "Không được phép",
+        "forbidden": "Bị cấm",
+        "notFound": "Không tìm thấy",
+        "conflict": "Xung đột",
+        "rateLimited": "Giới hạn tốc độ",
+        "serverError": "Lỗi máy chủ",
+        "badGateway": "Gateway lỗi",
+        "serviceUnavailable": "Dịch vụ không khả dụng",
+        "gatewayTimeout": "Hết thời gian chờ gateway"
+      },
+      "api": {
+        "validTransaction": "Giao dịch được tìm thấy",
+        "validWallet": "Ví được tìm thấy",
+        "validToken": "Mã xác nhận hợp lệ"
+      }
     },
     "rules": {
-      "fullName": "Họ và tến phải có đầy phải có ít nhất 2 kí tự!",
-      "userName": "Tên tài khoản phải có ít nhất 2 kí tự",
-      "email": "Địa chỉ email không đúng cú pháp!",
-      "passwordLength": "Mật khẩu phải có ít nhất 8 kí tự!",
-      "passwordLetterContain": "Mật khẩu phải có ít nhất 1 chữ cái!",
-      "passwordNumberContain": "Mật khẩu phải có ít nhất 1 số!",
-      "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 kí tự dặc biệt!",
-      "repeatedPassword": "Mật khẩu không khớp!"
+      "fullNameMinLength": "Họ và tên phải có ít nhất 2 ký tự",
+      "fullNameMaxLength": "Họ và tên không được vượt quá 100 ký tự",
+      "fullNameFormat": "Họ và tên chỉ được chứa chữ cái, khoảng trắng, dấu gạch ngang và dấu nháy đơn",
+      "userNameMinLength": "Tên tài khoản phải có ít nhất 3 ký tự",
+      "userNameMaxLength": "Tên tài khoản không được vượt quá 50 ký tự",
+      "userNameFormat": "Tên tài khoản chỉ được chứa chữ cái, số và dấu gạch dưới",
+      "emailRequired": "Email là bắt buộc",
+      "emailTooLong": "Email quá dài",
+      "email": "Địa chỉ email không đúng định dạng",
+      "passwordLength": "Mật khẩu phải có ít nhất 8 ký tự",
+      "passwordTooLong": "Mật khẩu không được vượt quá 128 ký tự",
+      "passwordUppercase": "Mật khẩu phải có ít nhất 1 chữ cái viết hoa",
+      "passwordLowercase": "Mật khẩu phải có ít nhất 1 chữ cái viết thường",
+      "passwordNumberContain": "Mật khẩu phải có ít nhất 1 số",
+      "passwordSpecialContain": "Mật khẩu phải có ít nhất 1 ký tự đặc biệt",
+      "repeatedPassword": "Mật khẩu không khớp"
     },
     "common": {
       "showPassword": "Hiện",
@@ -56,7 +80,9 @@
       "ok": "Ok",
       "loading": "Đang tải ...",
       "step": "Bước",
-      "close": "Đóng"
+      "close": "Đóng",
+      "yes": "Có",
+      "no": "Không"
     }
   },
   "header": {
@@ -67,25 +93,45 @@
   "auth": {
     "login": {
       "title": "Đăng nhập",
+      "successTitle": "Đăng nhập thành công",
+      "errorTitle": "Đăng nhập thất bại",
+      "successMessage": "Chào mừng trở lại! Đang chuyển hướng...",
+      "errorMessage": "Không thể đăng nhập. Vui lòng kiểm tra thông tin đăng nhập.",
       "forgotYourPassword": "quên mật khẩu?",
       "rememberMe": "Ghi nhớ đăng nhập?",
       "doNotHaveAnAccount": "Chưa có tài khoản? Đăng ký ngay"
     },
     "signup": {
       "title": "Đăng ký",
+      "successTitle": "Đăng ký thành công",
+      "errorTitle": "Đăng ký thất bại",
+      "successMessage": "Vui lòng kiểm tra email và xác nhận tài khoản.",
+      "errorMessage": "Không thể tạo tài khoản. Vui lòng thử lại.",
       "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
       "verifyEmail": {
         "title": "Xác nhận email của bạn",
+        "successTitle": "Xác nhận thành công",
+        "errorTitle": "Xác nhận thất bại",
+        "successMessage": "Email đã được xác nhận thành công. Bạn có thể đăng nhập ngay.",
+        "errorMessage": "Xác nhận thất bại. Vui lòng kiểm tra mã xác nhận.",
         "message": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn (Mã xác nhận có hiệu lực trong 24 giờ)"
       }
     },
     "resetYourPassword": {
       "resetReq": {
         "title": "Quên mật khẩu",
+        "successTitle": "Yêu cầu đặt lại đã được gửi",
+        "errorTitle": "Yêu cầu đặt lại thất bại",
+        "successMessage": "Vui lòng kiểm tra email và nhấn vào đường link (Thay đổi mật khẩu chỉ cho phép trong vòng 1 tiếng từ khi nhận email)",
+        "errorMessage": "Không thể gửi email đặt lại. Vui lòng kiểm tra địa chỉ email.",
         "subtitle": "Hãy nhập địa chỉ email bạn đã đăng kí. \nChúng tôi sẽ gửi thông tin hướng dẫn để giúp bạn đổi mật khẩu!"
       },
       "resetPasswordForm": {
         "title": "Đổi mật khẩu",
+        "successTitle": "Đặt lại mật khẩu thành công",
+        "errorTitle": "Đặt lại mật khẩu thất bại",
+        "successMessage": "Bạn đã thành công đổi mật khẩu. Hãy đăng nhập lại!",
+        "errorMessage": "Không thể đặt lại mật khẩu. Vui lòng thử lại.",
         "subtitle": "Hãy nhập mật khẩu mới dưới đây để chúng tôi đổi mật khẩu",
         "newPassword": "Mật khẩu mới"
       }
@@ -112,6 +158,10 @@
     },
     "QR": {
       "title": "Cài đặt xác thực hai yếu tố",
+      "successTitle": "Xác minh QR thành công",
+      "errorTitle": "Xác minh QR thất bại",
+      "successMessage": "Thiết lập xác thực hai yếu tố thành công",
+      "errorMessage": "Xác minh thất bại. Vui lòng kiểm tra mã của bạn.",
       "scanQRCodeWithApp": "Nhận mã từ ứng dụng xác thực",
       "description": "Mỗi lần đăng nhập, ngoài mật khẩu, bạn sẽ sử dụng ứng dụng xác thực để tạo mã một lần.",
       "scanQR": "Quét mã QR",
@@ -121,12 +171,23 @@
     },
     "verify": {
       "title": "Xác minh xác thực hai yếu tố",
+      "successTitle": "Xác minh 2FA thành công",
+      "errorTitle": "Xác minh 2FA thất bại",
+      "successMessage": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+      "errorMessage": "Xác minh thất bại. Vui lòng kiểm tra mã của bạn.",
       "description": "Mở ứng dụng xác thực của bạn (như Google Authenticator, Authy hoặc 1Password) và nhập mã 6 chữ số bên dưới.",
       "verifyCode": "Mã xác nhận",
       "havingTroubleWithAuthenticatorApp": "Gặp khó khăn với ứng dụng xác thực?"
     },
     "alternative": {
       "title": "Xác minh 2FA thay thế",
+      "successTitle": "Mã email đã được gửi",
+      "errorTitle": "Mã email thất bại",
+      "warningTitle": "Mã đã hết hạn",
+      "successMessage": "Mã xác minh đã được gửi đến email của bạn.",
+      "errorMessage": "Không thể gửi mã xác minh. Vui lòng thử lại.",
+      "verifySuccessMessage": "Bạn đã xác minh thành công! 2FA đã được xác thực.",
+      "verifyErrorMessage": "Xác minh thất bại. Vui lòng kiểm tra mã của bạn.",
       "description": "Nhận mã qua email thay vào đó.",
       "sendTo": "Email đã gửi đến",
       "resendCode": "Gửi lại mã",
@@ -136,7 +197,8 @@
       "enterVerificationCode": "Nhập mã xác minh",
       "verifyTitle": "Xác minh mã",
       "verifyDescription": "Vui lòng nhập mã xác nhận mà chúng tôi đã gửi đến email của bạn",
-      "backToVerify": "Quay lại xác minh"
+      "backToVerify": "Quay lại xác minh",
+      "otpExpired": "Mã xác minh của bạn đã hết hạn. Vui lòng yêu cầu mã mới."
     }
   },
   "dashboard": {
@@ -155,6 +217,19 @@
         "invalidInput": "Địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử không hợp lệ"
       },
       "searchPlayholder": "Nhập địa chỉ ví, mã giao dịch hoặc mã ký hiệu tiền điện tử"
+    },
+    "userMenu": {
+      "profileSettings": "Cài đặt hồ sơ",
+      "preferences": "Tùy chọn",
+      "signOut": "Đăng xuất",
+      "userId": "ID người dùng",
+      "twoFAStatus": "Trạng thái 2FA",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "enabled": "Đã bật",
+      "disabled": "Đã tắt",
+      "yes": "Có",
+      "no": "Không",
+      "notAvailable": "Không có"
     },
     "transactionModal": {
       "title": "Chi tiết giao dịch",
@@ -248,6 +323,368 @@
         "180days": "180 ngày",
         "oneYear": "1 năm",
         "all": "Tất cả"
+      },
+      "currentSentiment": "Tâm lý thị trường hiện tại",
+      "chartAnalysis": "Phân tích thị trường",
+      "liveData": "Dữ liệu trực tiếp",
+      "loading": "Đang tải...",
+      "loadingChart": "Đang tải dữ liệu biểu đồ...",
+      "dataSource": "Nguồn dữ liệu: Chỉ số Sợ hãi và Tham lam CoinMarketCap",
+      "updatedHourly": "Cập nhật hàng giờ",
+      "pageTitle": "Chỉ số Sợ hãi và Tham lam",
+      "pageDescription": "Theo dõi tâm lý thị trường với phân tích toàn diện về Sợ hãi và Tham lam"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "420Crypto",
+      "subtitle": "Công cụ phân tích thị trường tiền điện tử và khám phá blockchain tiên tiến",
+      "getStarted": "Bắt đầu miễn phí",
+      "signIn": "Đăng nhập",
+      "trustedBy": "Được tin tưởng bởi những người đam mê tiền điện tử trên toàn thế giới",
+      "features": {
+        "marketIndicators": {
+          "title": "Chỉ số thị trường",
+          "description": "Chỉ số Fear & Greed theo thời gian thực và phân tích tâm lý thị trường"
+        },
+        "blockchainExplorer": {
+          "title": "Trình khám phá Blockchain",
+          "description": "Tìm kiếm giao dịch, địa chỉ và dữ liệu ví ngay lập tức"
+        },
+        "securePlatform": {
+          "title": "Nền tảng bảo mật",
+          "description": "Bảo mật cấp doanh nghiệp với bảo vệ 2FA"
+        }
+      },
+      "trustIndicators": {
+        "realTimeData": "Dữ liệu thời gian thực",
+        "securePlatform": "Nền tảng bảo mật",
+        "professionalTools": "Công cụ chuyên nghiệp"
+      }
+    },
+    "fearAndGreed": {
+      "title": "Tâm lý thị trường trực tiếp",
+      "subtitle": "Theo dõi trạng thái cảm xúc của thị trường tiền điện tử với chỉ số Fear & Greed thời gian thực của chúng tôi",
+      "currentSentiment": "Tâm lý thị trường hiện tại",
+      "description": "Chỉ số Fear & Greed đo lường tâm lý thị trường từ 0 (Sợ hãi cực độ) đến 100 (Tham lam cực độ). Điều này giúp xác định các cơ hội mua tiềm năng trong thời gian sợ hãi và cơ hội bán trong thời gian tham lam.",
+      "features": {
+        "realTimeUpdates": "Cập nhật thời gian thực",
+        "historicalAnalysis": "Phân tích lịch sử",
+        "marketInsights": "Hiểu biết thị trường",
+        "tradingSignals": "Tín hiệu giao dịch"
+      },
+      "whyMonitor": "Tại sao nên theo dõi tâm lý thị trường?",
+      "benefits": {
+        "contrarianOpportunities": {
+          "title": "Cơ hội ngược chiều",
+          "description": "Sợ hãi cực độ thường báo hiệu cơ hội mua, trong khi tham lam cực độ có thể chỉ ra điểm bán."
+        },
+        "riskManagement": {
+          "title": "Quản lý rủi ro",
+          "description": "Hiểu tâm lý thị trường để quản lý rủi ro danh mục đầu tư và thời gian tốt hơn."
+        },
+        "dataDrivenDecisions": {
+          "title": "Quyết định dựa trên dữ liệu",
+          "description": "Đưa ra quyết định giao dịch thông minh dựa trên phân tích tâm lý thị trường toàn diện."
+        }
+      },
+      "cta": {
+        "title": "Sẵn sàng khám phá?",
+        "description": "Truy cập vào biểu đồ lịch sử chi tiết, phân tích thị trường và hiểu biết giao dịch nâng cao.",
+        "button": "Bắt đầu dùng thử miễn phí"
+      }
+    },
+    "walletExplorer": {
+      "title": "Trình khám phá Blockchain",
+      "subtitle": "Tìm kiếm và phân tích giao dịch Bitcoin, địa chỉ ví và dữ liệu blockchain theo thời gian thực",
+      "trySearch": "Thử công cụ tìm kiếm của chúng tôi",
+      "searchPlaceholder": "Dán mã hash giao dịch hoặc địa chỉ ví vào đây...",
+      "searchButton": "Tìm kiếm Blockchain",
+      "searching": "Đang tìm kiếm...",
+      "exampleSearches": "Ví dụ tìm kiếm:",
+      "transactionHash": "Mã hash giao dịch",
+      "walletAddress": "Địa chỉ ví",
+      "transactionDescription": "Tìm kiếm chi tiết giao dịch Bitcoin",
+      "walletDescription": "Khám phá lịch sử giao dịch ví",
+      "powerfulAnalysis": "Phân tích Blockchain mạnh mẽ",
+      "features": {
+        "realTimeData": {
+          "title": "Dữ liệu thời gian thực",
+          "description": "Truy cập ngay lập tức vào dữ liệu blockchain mới nhất với công cụ tìm kiếm hiệu suất cao của chúng tôi."
+        },
+        "advancedSearch": {
+          "title": "Tìm kiếm nâng cao",
+          "description": "Tìm kiếm theo mã hash giao dịch, địa chỉ ví hoặc khóa công khai mở rộng (XPUB) để phân tích toàn diện."
+        },
+        "transactionDetails": {
+          "title": "Chi tiết giao dịch",
+          "description": "Xem thông tin giao dịch chi tiết bao gồm đầu vào, đầu ra, phí và trạng thái xác nhận."
+        },
+        "walletAnalytics": {
+          "title": "Phân tích ví",
+          "description": "Phân tích lịch sử số dư ví, mẫu giao dịch và hành vi chi tiêu theo thời gian."
+        }
+      },
+      "cta": {
+        "title": "Sẵn sàng khám phá blockchain?",
+        "description": "Mở khóa truy cập đầy đủ vào trình khám phá blockchain của chúng tôi với phân tích giao dịch chi tiết và hiểu biết ví.",
+        "button": "Lấy quyền truy cập đầy đủ"
+      },
+      "searchResult": {
+        "found": "Tìm thấy kết quả tìm kiếm!",
+        "transactionSuccess": "Chi tiết giao dịch đã được tải thành công. Đăng ký để xem phân tích giao dịch đầy đủ.",
+        "walletSuccess": "Dữ liệu ví đã được tải thành công. Đăng ký để xem phân tích ví chi tiết.",
+        "viewFullDetails": "Xem chi tiết đầy đủ",
+        "transactionHash": "Mã hash giao dịch",
+        "blockHeight": "Chiều cao khối",
+        "size": "Kích thước",
+        "inputs": "Đầu vào",
+        "outputs": "Đầu ra",
+        "transactionValue": "Giá trị giao dịch",
+        "output": "Đầu ra",
+        "moreOutputs": "đầu ra khác",
+        "walletAddress": "Địa chỉ ví",
+        "transactionsFound": "Giao dịch tìm thấy",
+        "status": "Trạng thái",
+        "activeWallet": "Ví hoạt động",
+        "noData": "Không có dữ liệu",
+        "previewDescription": "Đây là bản xem trước dữ liệu giao dịch. Đăng ký để truy cập phân tích chi tiết, theo dõi lịch sử và hiểu biết blockchain nâng cao.",
+        "walletPreviewDescription": "Dữ liệu ví đã được tải thành công. Đăng ký để xem phân tích ví chi tiết, lịch sử giao dịch và theo dõi số dư."
+      },
+      "clickToCopy": "Nhấp để sao chép địa chỉ",
+      "exampleCopied": "Địa chỉ đã được sao chép vào clipboard!",
+      "copyFailed": "Không thể sao chép địa chỉ"
+    },
+    "features": {
+      "title": "Công cụ tiền điện tử toàn diện",
+      "subtitle": "Mọi thứ bạn cần để phân tích, theo dõi và quản lý các khoản đầu tư tiền điện tử của mình",
+      "items": {
+        "marketIndicators": {
+          "title": "Chỉ số thị trường",
+          "description": "Chỉ số Fear & Greed thời gian thực với phân tích lịch sử và theo dõi tâm lý thị trường.",
+          "features": {
+            "liveMarketData": "Dữ liệu thị trường trực tiếp",
+            "historicalCharts": "Biểu đồ lịch sử",
+            "sentimentAnalysis": "Phân tích tâm lý",
+            "tradingInsights": "Hiểu biết giao dịch"
+          }
+        },
+        "blockchainExplorer": {
+          "title": "Trình khám phá Blockchain",
+          "description": "Tìm kiếm và phân tích giao dịch Bitcoin, địa chỉ ví và dữ liệu blockchain.",
+          "features": {
+            "transactionSearch": "Tìm kiếm giao dịch",
+            "walletAnalysis": "Phân tích ví",
+            "addressTracking": "Theo dõi địa chỉ",
+            "xpubSupport": "Hỗ trợ XPUB"
+          }
+        },
+        "securePlatform": {
+          "title": "Nền tảng bảo mật",
+          "description": "Bảo mật cấp doanh nghiệp với xác thực hai yếu tố và lưu trữ dữ liệu được mã hóa.",
+          "features": {
+            "twoFactorProtection": "Bảo vệ 2FA",
+            "secureLogin": "Đăng nhập bảo mật",
+            "dataEncryption": "Mã hóa dữ liệu",
+            "privacyFocused": "Tập trung vào quyền riêng tư"
+          }
+        },
+        "portfolioTracking": {
+          "title": "Theo dõi danh mục đầu tư",
+          "description": "Theo dõi danh mục tiền điện tử của bạn với cập nhật giá thời gian thực và số liệu hiệu suất.",
+          "features": {
+            "portfolioOverview": "Tổng quan danh mục",
+            "priceAlerts": "Cảnh báo giá",
+            "performanceTracking": "Theo dõi hiệu suất",
+            "assetManagement": "Quản lý tài sản"
+          }
+        },
+        "multiLanguage": {
+          "title": "Hỗ trợ đa ngôn ngữ",
+          "description": "Truy cập nền tảng bằng nhiều ngôn ngữ với hỗ trợ quốc tế hóa đầy đủ.",
+          "features": {
+            "englishVietnamese": "Tiếng Anh & Tiếng Việt",
+            "easySwitching": "Chuyển đổi dễ dàng",
+            "localizedContent": "Nội dung địa phương hóa",
+            "globalAccessibility": "Khả năng tiếp cận toàn cầu"
+          }
+        },
+        "realTimeUpdates": {
+          "title": "Cập nhật thời gian thực",
+          "description": "Nhận thông báo và cập nhật tức thì với cơ sở hạ tầng dữ liệu hiệu suất cao của chúng tôi.",
+          "features": {
+            "liveDataFeeds": "Nguồn cấp dữ liệu trực tiếp",
+            "instantUpdates": "Cập nhật tức thì",
+            "highAvailability": "Tính khả dụng cao",
+            "fastPerformance": "Hiệu suất nhanh"
+          }
+        }
+      },
+      "cta": {
+        "title": "Sẵn sàng bắt đầu?",
+        "description": "Tham gia cùng hàng nghìn người đam mê tiền điện tử tin tưởng 420Crypto cho nhu cầu phân tích thị trường và khám phá blockchain của họ.",
+        "getStarted": "Bắt đầu dùng thử miễn phí",
+        "signIn": "Đăng nhập",
+        "benefits": {
+          "freeToStart": "Miễn phí để bắt đầu",
+          "noCreditCard": "Không cần thẻ tín dụng",
+          "cancelAnytime": "Hủy bất cứ lúc nào"
+        }
+      }
+    }
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Ôi! Trang bạn đang tìm kiếm có vẻ đã trôi dạt vào vũ trụ tiền điện tử.",
+    "subDescription": "Đừng lo lắng, ngay cả những nhà giao dịch giỏi nhất đôi khi cũng đi sai đường.",
+    "actions": {
+      "home": {
+        "title": "Về trang chủ",
+        "description": "Quay lại bảng điều khiển chính và khám phá các công cụ crypto của chúng tôi"
+      },
+      "explore": {
+        "title": "Khám phá Blockchain",
+        "description": "Tìm kiếm giao dịch và phân tích dữ liệu ví"
+      },
+      "market": {
+        "title": "Phân tích thị trường",
+        "description": "Kiểm tra chỉ số Fear & Greed và tâm lý thị trường"
+      }
+    },
+    "buttons": {
+      "goHome": "Đưa tôi về nhà",
+      "signIn": "Đăng nhập"
+    },
+    "help": {
+      "title": "Cần trợ giúp để bắt đầu?",
+      "description": "Đây là một số điểm đến phổ biến để đưa bạn trở lại đúng hướng:",
+      "links": {
+        "signUp": "Tạo tài khoản",
+        "dashboard": "Bảng điều khiển",
+        "marketIndicators": "Chỉ báo thị trường"
+      }
+    }
+  },
+  "settings": {
+    "title": "Cài đặt người dùng",
+    "subtitle": "Quản lý cài đặt tài khoản và tùy chọn của bạn",
+    "tabs": {
+      "profile": "Hồ sơ",
+      "security": "Bảo mật",
+      "preferences": "Tùy chọn"
+    },
+    "profile": {
+      "title": "Thông tin hồ sơ",
+      "subtitle": "Cập nhật thông tin cá nhân và chi tiết tài khoản",
+      "editButton": "Chỉnh sửa hồ sơ",
+      "saveButton": "Lưu thay đổi",
+      "cancelButton": "Hủy",
+      "verifyButton": "Xác nhận",
+      "loading": "Đang tải",
+      "accountInfo": "Thông tin tài khoản",
+      "emailVerified": "Xác minh email",
+      "verified": "Đã xác minh",
+      "notVerified": "Chưa xác minh",
+      "memberSince": "Thành viên từ",
+      "userId": "ID người dùng",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "twoFAStatus": "Xác thực hai yếu tố",
+      "enabled": "Đã bật",
+      "disabled": "Đã tắt",
+      "verify2FA": "Yêu cầu xác thực 2FA",
+      "verify2FADescription": "Vui lòng xác thực bằng mã 2FA để cập nhật tên người dùng",
+      "usernameUpdated": "Đã cập nhật tên người dùng thành công",
+      "errorUpdateUsername": "Không thể cập nhật tên người dùng",
+      "setup2FASuccess": "Đã thiết lập 2FA thành công",
+      "uniqueUsername": "Tên người dùng duy nhất của bạn",
+      "saveChanges": "Lưu thay đổi",
+      "accountStatus": "Trạng thái tài khoản",
+      "activeVerified": "Hoạt động & Đã xác minh",
+      "setup2FAButton": "Thiết lập 2FA",
+      "fields": {
+        "fullname": "Họ và tên",
+        "username": "Tên người dùng",
+        "email": "Địa chỉ email"
+      }
+    },
+    "preferences": {
+      "title": "Tùy chọn",
+      "subtitle": "Tùy chỉnh các tùy chọn ứng dụng của bạn",
+      "currency": {
+        "title": "Tùy chọn tiền tệ",
+        "subtitle": "Chọn loại tiền tệ ưa thích để hiển thị giá trị danh mục",
+        "currentCurrency": "Tiền tệ hiện tại",
+        "selectCurrency": "Chọn tiền tệ",
+        "currencies": {
+          "USD": "Đô la Mỹ ($)",
+          "EUR": "Euro (€)",
+          "GBP": "Bảng Anh (£)",
+          "JPY": "Yên Nhật (¥)",
+          "CAD": "Đô la Canada (C$)",
+          "AUD": "Đô la Úc (A$)",
+          "CHF": "Franc Thụy Sĩ (CHF)",
+          "CNY": "Nhân dân tệ Trung Quốc (¥)",
+          "KRW": "Won Hàn Quốc (₩)",
+          "INR": "Rupee Ấn Độ (₹)",
+          "BRL": "Real Brazil (R$)",
+          "RUB": "Ruble Nga (₽)",
+          "MXN": "Peso Mexico ($)",
+          "SGD": "Đô la Singapore (S$)",
+          "HKD": "Đô la Hồng Kông (HK$)",
+          "NOK": "Krone Na Uy (kr)",
+          "SEK": "Krona Thụy Điển (kr)",
+          "DKK": "Krone Đan Mạch (kr)",
+          "PLN": "Zloty Ba Lan (zł)",
+          "CZK": "Koruna Séc (Kč)",
+          "HUF": "Forint Hungary (Ft)",
+          "ILS": "Shekel Israel (₪)",
+          "TRY": "Lira Thổ Nhĩ Kỳ (₺)",
+          "ZAR": "Rand Nam Phi (R)",
+          "THB": "Baht Thái Lan (฿)",
+          "MYR": "Ringgit Malaysia (RM)",
+          "PHP": "Peso Philippines (₱)",
+          "IDR": "Rupiah Indonesia (Rp)",
+          "VND": "Đồng Việt Nam (₫)"
+        }
+      },
+      "language": {
+        "title": "Ngôn ngữ",
+        "subtitle": "Chọn ngôn ngữ ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "theme": {
+        "title": "Chủ đề",
+        "subtitle": "Chọn chủ đề ưa thích của bạn",
+        "change": "Thay đổi"
+      },
+      "notifications": {
+        "title": "Thông báo",
+        "subtitle": "Quản lý tùy chọn thông báo của bạn",
+        "configure": "Cấu hình"
+      }
+    },
+    "security": {
+      "password": {
+        "title": "Mật khẩu và bảo mật",
+        "subtitle": "Thay đổi mật khẩu để bảo vệ tài khoản của bạn",
+        "changeButton": "Thay đổi mật khẩu",
+        "updateButton": "Cập nhật mật khẩu",
+        "cancelButton": "Hủy",
+        "currentPassword": "Mật khẩu hiện tại",
+        "newPassword": "Mật khẩu mới",
+        "confirmPassword": "Xác nhận mật khẩu mới",
+        "lastChanged": "Mật khẩu",
+        "neverChanged": "Chưa bao giờ thay đổi"
+      },
+      "twoFactor": {
+        "title": "Xác thực hai yếu tố",
+        "subtitle": "Thêm một lớp bảo mật bổ sung cho tài khoản của bạn",
+        "enable": "Bật 2FA",
+        "disable": "Tắt 2FA",
+        "enabled": "Xác thực hai yếu tố đã được bật",
+        "disabled": "Xác thực hai yếu tố đã bị tắt",
+        "enabledDesc": "Tài khoản của bạn được bảo vệ bằng 2FA",
+        "disabledDesc": "Thêm 2FA để bảo mật tốt hơn"
       }
     }
   }

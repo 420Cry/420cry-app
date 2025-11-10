@@ -37,7 +37,7 @@ describe('POST /api/2fa/setup', () => {
     const mockResponse = {
       status: 200,
       data: {
-        secret: 'ABC123',
+        secret: '123456',
         qrCode: 'data:image/png;base64,...',
       },
     }
@@ -49,7 +49,7 @@ describe('POST /api/2fa/setup', () => {
     const body = await res.json()
 
     expect(res.status).toBe(200)
-    expect(body.secret).toBe('ABC123')
+    expect(body.secret).toBe('123456')
     expect(body.qrCode).toBe('data:image/png;base64,...')
   })
 
@@ -65,7 +65,7 @@ describe('POST /api/2fa/setup', () => {
 
     expect(res.status).toBe(403)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 when an error is thrown', async () => {
@@ -79,6 +79,6 @@ describe('POST /api/2fa/setup', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 })

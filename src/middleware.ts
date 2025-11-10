@@ -4,6 +4,7 @@ import {
   AUTH_ROUTES,
   SIGN_IN_ROUTE,
   HOME_ROUTE,
+  LANDING_PAGE_ROUTE,
   BLOCKED_ROUTES_FOR_AUTH_USERS,
   TWO_FACTOR_SETUP_ROUTE,
   TWO_FACTOR_VERIFY_ROUTE,
@@ -68,7 +69,7 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
     !twoFAVerified &&
     req.cookies.get('twoFAVerified')?.value === undefined
   ) {
-    const response = NextResponse.redirect(new URL(SIGN_IN_ROUTE, req.url))
+    const response = NextResponse.redirect(new URL(LANDING_PAGE_ROUTE, req.url))
     response.cookies.delete('jwt')
     response.cookies.delete('twoFAVerified')
     response.cookies.delete('twoFASetUpSkippedForNow')
@@ -103,6 +104,11 @@ export async function middleware(req: NextRequest): Promise<NextResponse> {
       return NextResponse.redirect(new URL(redirectTo, req.url))
     }
     return NextResponse.next()
+  }
+
+  // --- Redirect authenticated users from landing page to dashboard ---
+  if (pathname === LANDING_PAGE_ROUTE && isAuthenticated) {
+    return NextResponse.redirect(new URL(HOME_ROUTE, req.url))
   }
 
   // --- Protected route but not authenticated ---
