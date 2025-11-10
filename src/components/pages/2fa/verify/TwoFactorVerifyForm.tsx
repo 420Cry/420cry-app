@@ -12,7 +12,6 @@ import { useTranslations } from 'next-intl'
 import { useAuthStore } from '@/store'
 import {
   HOME_ROUTE,
-  showToast,
   TWO_FACTOR_ALTERNATIVE,
   twoFactorService,
   useLoading,
@@ -33,11 +32,19 @@ const TwoFactorVerifyForm = (): JSX.Element => {
     setLoading(true)
     try {
       if (!user?.uuid) {
-        showToast(false, t('app.messages.error.general'))
+        showNotification(
+          'error',
+          t('2fa.verify.errorTitle'),
+          t('app.messages.error.general'),
+        )
         return
       }
       if (!otp.trim()) {
-        showToast(false, t('app.messages.error.otpCannotBeEmpty'))
+        showNotification(
+          'error',
+          t('2fa.verify.errorTitle'),
+          t('app.messages.error.otpCannotBeEmpty'),
+        )
         return
       }
 
@@ -55,10 +62,18 @@ const TwoFactorVerifyForm = (): JSX.Element => {
         )
         router.push(HOME_ROUTE)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.verify.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.messages.error.general'))
+      showNotification(
+        'error',
+        t('2fa.verify.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setLoading(false)
     }
