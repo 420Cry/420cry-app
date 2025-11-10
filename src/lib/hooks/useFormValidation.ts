@@ -35,7 +35,7 @@ export const useFormValidation = (): UseFormValidationReturn => {
     const isEmpty = [...formData.values()].some((value) => !value)
 
     if (isEmpty) {
-      showToast(false, t('app.messages.success.allfieldsAreRequired'))
+      showToast(false, t('app.messages.error.allfieldsAreRequired'))
       return false
     }
 

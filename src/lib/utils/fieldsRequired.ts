@@ -5,7 +5,7 @@ type TFunction = ReturnType<typeof useTranslations>
 
 export const fieldsRequired = (formData: FormData, t: TFunction): boolean => {
   if ([...formData.values()].some((value) => !value)) {
-    showToast(false, t('app.messages.success.allfieldsAreRequired'))
+    showToast(false, t('app.messages.error.allfieldsAreRequired'))
     return false
   }
 
