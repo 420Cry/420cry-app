@@ -81,7 +81,6 @@ describe('POST /api/settings/update-user-account-name', () => {
     )
   })
 
-
   it('returns 409 with conflict message when username already exists', async () => {
     ;(RequestService.axiosPut as any).mockResolvedValue({
       status: 409,
@@ -98,7 +97,6 @@ describe('POST /api/settings/update-user-account-name', () => {
     expect(data.isSuccess).toBe(false)
     expect(data.message).toBe('app.messages.error.emailOrUserNameAlreadyExist')
   })
-
 
   it('returns default error message for other status codes', async () => {
     ;(RequestService.axiosPut as any).mockResolvedValue({
