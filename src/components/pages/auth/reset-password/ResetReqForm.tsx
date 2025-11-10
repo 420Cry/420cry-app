@@ -54,7 +54,7 @@ const ResetReqForm = (): JSX.Element => {
 
   return (
     <div
-      className="flex items-center justify-center mt-16 sm:mt-32 px-4"
+      className={combineStyles(formStyles.layout.centerVertical)}
       suppressHydrationWarning
     >
       <div className="p-8 sm:p-20 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">

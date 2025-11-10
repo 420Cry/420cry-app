@@ -3,7 +3,13 @@
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
-import { SIGN_IN_ROUTE, authService, useNotification } from '@/lib'
+import {
+  SIGN_IN_ROUTE,
+  authService,
+  combineStyles,
+  formStyles,
+  useNotification,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
 
@@ -98,7 +104,10 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+    <div
+      className={combineStyles(formStyles.layout.centerVertical)}
+      suppressHydrationWarning
+    >
       <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10">
         <div className="flex justify-center mb-6">
           <VerifyAccountIcon color="white" className="h-1/4 w-1/4" />

@@ -598,6 +598,11 @@
       "usernameUpdated": "Username updated successfully",
       "errorUpdateUsername": "Failed to update username",
       "setup2FASuccess": "2FA setup completed successfully",
+      "uniqueUsername": "Your unique username",
+      "saveChanges": "Save Changes",
+      "accountStatus": "Account Status",
+      "activeVerified": "Active & Verified",
+      "setup2FAButton": "Setup 2FA",
       "fields": {
         "fullname": "Full Name",
         "username": "Username",

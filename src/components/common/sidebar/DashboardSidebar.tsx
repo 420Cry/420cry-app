@@ -165,14 +165,14 @@ export default function Sidebar({
       )}
 
       <aside
-        className={`h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl ${
+        className={`h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white border-r border-gray-200/50 dark:border-gray-800/50 flex flex-col transition-all duration-300 ease-in-out shadow-2xl overflow-hidden ${
           collapsed ? 'w-16' : 'w-72'
         } md:relative fixed inset-y-0 left-0 z-50 md:z-auto ${
           collapsed ? '-translate-x-full md:translate-x-0' : 'translate-x-0'
         }`}
         suppressHydrationWarning
       >
-        <div>
+        <div className="flex-1 flex flex-col overflow-hidden">
           {/* Header */}
           <div
             className={`flex items-center border-b border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'justify-center p-4' : 'justify-between p-6'}`}
@@ -220,7 +220,7 @@ export default function Sidebar({
 
           {/* Navigation */}
           <nav
-            className={`flex-1 p-4 space-y-1 ${collapsed ? 'flex flex-col items-center' : ''} overflow-y-auto`}
+            className={`${collapsed ? 'p-2 space-y-0.5 flex flex-col items-center overflow-hidden' : 'flex-1 p-4 space-y-1 overflow-y-auto'}`}
             ref={navRef}
             suppressHydrationWarning
           >
@@ -231,8 +231,10 @@ export default function Sidebar({
                 return (
                   <div key={ariaLabel} className="relative group">
                     <button
-                      className={`flex items-center gap-4 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group-hover:shadow-lg group-hover:shadow-gray-900/20 ${
-                        collapsed ? 'w-12 justify-center' : 'w-full'
+                      className={`flex items-center gap-4 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white transition-all duration-200 group-hover:shadow-lg group-hover:shadow-gray-900/20 ${
+                        collapsed
+                          ? 'w-12 h-12 justify-center p-2'
+                          : 'w-full px-4 py-3'
                       } touch-manipulation`}
                       onClick={() => {
                         if (hasChildren) {
@@ -322,12 +324,12 @@ export default function Sidebar({
 
         {/* Footer */}
         <div
-          className={`p-4 border-t border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'flex flex-col items-center' : ''}`}
+          className={`${collapsed ? 'p-2' : 'p-4'} border-t border-gray-200/30 dark:border-gray-800/30 ${collapsed ? 'flex flex-col items-center' : ''}`}
         >
-          <div className="mb-4">
+          <div className={collapsed ? 'mb-0' : 'mb-4'}>
             <button
-              className={`flex items-center gap-4 px-4 py-3 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group border border-red-200 dark:border-red-500/20 hover:border-red-300 dark:hover:border-red-500/40 touch-manipulation ${
-                collapsed ? 'w-12 justify-center' : 'w-full'
+              className={`flex items-center gap-4 text-gray-600 dark:text-gray-300 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/20 hover:text-red-600 dark:hover:text-red-400 transition-all duration-200 group border border-red-200 dark:border-red-500/20 hover:border-red-300 dark:hover:border-red-500/40 touch-manipulation ${
+                collapsed ? 'w-12 h-12 justify-center p-2' : 'w-full px-4 py-3'
               }`}
               onClick={() => {
                 logout()

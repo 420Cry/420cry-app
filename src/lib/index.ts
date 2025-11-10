@@ -22,6 +22,7 @@ export * from './services/cookies/CookieService'
 export * from './services/locale/localeService'
 export * from './services/currency/CurrencyService'
 export * from './requests/RequestService'
+export * from './services/settings/SettingsService'
 
 // Utils
 export * from './utils/showToast'

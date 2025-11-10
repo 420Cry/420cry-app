@@ -14,19 +14,25 @@ import {
   SuccessCheckIcon,
 } from '@420cry/420cry-lib'
 import { useAuthStore } from '@/store'
-import { showToast, useCurrencyPreference, twoFactorService } from '@/lib'
+import {
+  showToast,
+  useCurrencyPreference,
+  twoFactorService,
+  settingsService,
+} from '@/lib'
 import { SetUpTwoFA } from './SetUpTwoFA'
 
 export const ProfileSettings = (): JSX.Element => {
   const t = useTranslations('settings')
   const tApp = useTranslations()
-  const { user } = useAuthStore()
+  const { user, setUser } = useAuthStore()
   const { formatAmount } = useCurrencyPreference()
   const [isEditingUsername, setIsEditingUsername] = useState(false)
   const [show2FAVerification, setShow2FAVerification] = useState(false)
   const [show2FASetup, setShow2FASetup] = useState(false)
   const [otp, setOtp] = useState('')
   const [verifying, setVerifying] = useState(false)
+  const [savingUsername, setSavingUsername] = useState(false)
 
   const userData = user || {
     uuid: '',
@@ -89,7 +95,7 @@ export const ProfileSettings = (): JSX.Element => {
         setOtp('')
         showToast(true, tApp('app.messages.success.2FAVerifySuccessful'))
       } else {
-        showToast(false, t(response.message))
+        showToast(false, tApp(response.message))
       }
     } catch {
       showToast(false, tApp('app.messages.error.general'))
@@ -104,16 +110,30 @@ export const ProfileSettings = (): JSX.Element => {
   }
 
   const handleSaveUsername = async () => {
+    if (!user || formData.username === user.username) return
+
+    setSavingUsername(true)
     try {
-      if (user && formData.username !== user.username) {
-        // TODO: Implement update username API call
-        // await updateUsername(formData.username)
+      const response =
+        await settingsService.updateUserAccountName.updateUsername({
+          username: formData.username,
+        })
+      if (response.isSuccess) {
+        // Update user in store with new username
+        setUser({
+          ...user,
+          username: formData.username,
+        })
         showToast(true, t('profile.usernameUpdated'))
         setIsEditingUsername(false)
+      } else {
+        showToast(false, tApp(response.message))
       }
     } catch (error) {
       showToast(false, t('profile.errorUpdateUsername'))
       console.error('Error updating username:', error)
+    } finally {
+      setSavingUsername(false)
     }
   }
 
@@ -220,7 +240,7 @@ export const ProfileSettings = (): JSX.Element => {
                     {t('profile.fields.username')}
                   </label>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Your unique username
+                    {t('profile.uniqueUsername')}
                   </p>
                 </div>
               </div>
@@ -254,17 +274,25 @@ export const ProfileSettings = (): JSX.Element => {
               <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-200 dark:border-gray-600">
                 <CryButton
                   onClick={handleSaveUsername}
+                  disabled={
+                    !formData.username.trim() ||
+                    formData.username === user?.username ||
+                    savingUsername
+                  }
                   iconLeft={<CheckCircleSolidIcon className="w-4 h-4" />}
-                  className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium"
+                  className="px-4 py-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-all duration-200"
                 >
-                  Save Changes
+                  {savingUsername
+                    ? tApp('app.common.loading')
+                    : t('profile.saveChanges')}
                 </CryButton>
                 <CryButton
                   onClick={handleCancelUsernameEdit}
+                  disabled={savingUsername}
                   iconLeft={<XIcon className="w-4 h-4" />}
-                  className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm font-medium"
+                  className="px-4 py-2 bg-gray-500 hover:bg-gray-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium"
                 >
-                  Cancel
+                  {tApp('app.common.cancel')}
                 </CryButton>
               </div>
             )}
@@ -342,7 +370,7 @@ export const ProfileSettings = (): JSX.Element => {
                     onClick={handleSetup2FA}
                     className="px-3 py-1.5 text-xs font-medium bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white rounded-lg transition-all duration-200 shadow-sm hover:shadow-md"
                   >
-                    Setup 2FA
+                    {t('profile.setup2FAButton')}
                   </CryButton>
                 )}
               </div>
@@ -356,10 +384,10 @@ export const ProfileSettings = (): JSX.Element => {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                    Account Status
+                    {t('profile.accountStatus')}
                   </p>
                   <p className="text-xs text-gray-600 dark:text-gray-400">
-                    Active & Verified
+                    {t('profile.activeVerified')}
                   </p>
                 </div>
               </div>

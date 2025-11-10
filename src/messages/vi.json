@@ -596,6 +596,11 @@
       "usernameUpdated": "Đã cập nhật tên người dùng thành công",
       "errorUpdateUsername": "Không thể cập nhật tên người dùng",
       "setup2FASuccess": "Đã thiết lập 2FA thành công",
+      "uniqueUsername": "Tên người dùng duy nhất của bạn",
+      "saveChanges": "Lưu thay đổi",
+      "accountStatus": "Trạng thái tài khoản",
+      "activeVerified": "Hoạt động & Đã xác minh",
+      "setup2FAButton": "Thiết lập 2FA",
       "fields": {
         "fullname": "Họ và tên",
         "username": "Tên người dùng",

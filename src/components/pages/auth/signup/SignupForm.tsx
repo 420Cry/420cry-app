@@ -101,16 +101,17 @@ const SignupForm = (): JSX.Element => {
 
   return (
     <div
-      className="flex items-center justify-center px-4 py-8 mt-12"
+      className="flex items-center justify-center min-h-[calc(100vh-80px)] px-4 py-8"
       suppressHydrationWarning
     >
       <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
-        <h1 className="text-center text-white text-2xl sm:text-3xl mb-4 sm:mb-6 font-bold">
+        <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-8 font-bold">
           {t('auth.signup.title')}
         </h1>
         <form onSubmit={handleSubmit} suppressHydrationWarning>
-          <div className="flex flex-wrap mb-4">
-            <div className="w-full sm:w-1/2 sm:pr-4">
+          {/* Name and Email Row */}
+          <div className="flex flex-wrap gap-y-5 mb-6">
+            <div className="w-full sm:w-1/2 sm:pr-3">
               <CryFormTextField
                 label={t('app.fields.fullname')}
                 name="fullName"
@@ -125,7 +126,7 @@ const SignupForm = (): JSX.Element => {
                 </div>
               )}
             </div>
-            <div className="w-full sm:w-1/2">
+            <div className="w-full sm:w-1/2 sm:pl-3">
               <CryFormTextField
                 label={t('app.fields.email')}
                 name="email"
@@ -141,74 +142,99 @@ const SignupForm = (): JSX.Element => {
               )}
             </div>
           </div>
-          <CryFormTextField
-            label={t('app.fields.username')}
-            name="userName"
-            inputClassName={combineStyles(
-              formStyles.input.default,
-              formStyles.input.focus,
+
+          {/* Username Field */}
+          <div className="mb-6">
+            <CryFormTextField
+              label={t('app.fields.username')}
+              name="userName"
+              inputClassName={combineStyles(
+                formStyles.input.default,
+                formStyles.input.focus,
+              )}
+            />
+            {validationErrors.userName && (
+              <div className="text-red-500 text-sm mt-1">
+                {t(validationErrors.userName)}
+              </div>
             )}
-          />
-          {validationErrors.userName && (
-            <div className="text-red-500 text-sm mt-1 mb-4">
-              {t(validationErrors.userName)}
-            </div>
-          )}
-          <CryFormTextField
-            label={t('app.fields.password')}
-            name="password"
-            type="password"
-            hideLabel={hideLabel}
-            showLabel={showLabel}
-            inputClassName={combineStyles(
-              formStyles.input.default,
-              formStyles.input.focus,
+          </div>
+
+          {/* Password Field */}
+          <div className="mb-6">
+            <CryFormTextField
+              label={t('app.fields.password')}
+              name="password"
+              type="password"
+              hideLabel={hideLabel}
+              showLabel={showLabel}
+              inputClassName={combineStyles(
+                formStyles.input.default,
+                formStyles.input.focus,
+              )}
+              slotClassName="text-white"
+            />
+            {validationErrors.password && (
+              <div className="text-red-500 text-sm mt-1">
+                {t(validationErrors.password)}
+              </div>
             )}
-            slotClassName="text-white"
-          />
-          {validationErrors.password && (
-            <div className="text-red-500 text-sm mt-1 mb-4">
-              {t(validationErrors.password)}
-            </div>
-          )}
-          <CryFormTextField
-            label={t('app.fields.repeatedPassword')}
-            name="repeatedPassword"
-            type="password"
-            hideLabel={hideLabel}
-            showLabel={showLabel}
-            inputClassName={combineStyles(
-              formStyles.input.default,
-              formStyles.input.focus,
+          </div>
+
+          {/* Repeat Password Field */}
+          <div className="mb-8">
+            <CryFormTextField
+              label={t('app.fields.repeatedPassword')}
+              name="repeatedPassword"
+              type="password"
+              hideLabel={hideLabel}
+              showLabel={showLabel}
+              inputClassName={combineStyles(
+                formStyles.input.default,
+                formStyles.input.focus,
+              )}
+              slotClassName="text-white"
+            />
+            {validationErrors.repeatedPassword && (
+              <div className="text-red-500 text-sm mt-1">
+                {t(validationErrors.repeatedPassword)}
+              </div>
             )}
-            slotClassName="text-white"
-          />
-          {validationErrors.repeatedPassword && (
-            <div className="text-red-500 text-sm mt-1 mb-4">
-              {t(validationErrors.repeatedPassword)}
-            </div>
-          )}
-          <div className="flex justify-center mt-4">
+          </div>
+
+          {/* Submit Button */}
+          <div className="flex justify-center mb-6">
             <CryButton
               shape="circle"
-              className=" w-44 sm:w-52 text-white"
+              className="w-full sm:w-64 text-white font-semibold"
               type="submit"
               color="primary"
+              size="lg"
             >
               {t('auth.signup.title')}
             </CryButton>
           </div>
         </form>
 
-        <div className="text-center text-sm sm:text-base mt-6 text-yellow-600">
-          {t('auth.signup.orSignInUsing')}
+        {/* Divider */}
+        <div className="relative my-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-white/20"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-4 text-yellow-600 bg-transparent">
+              {t('auth.signup.orSignInUsing')}
+            </span>
+          </div>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 mt-4">
+
+        {/* OAuth Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center gap-4">
           {[GoogleIcon, DiscordIcon].map((Icon, index) => (
             <CryButton
               key={index}
               size="lg"
-              className="bg-transparen w-36 sm:w-40"
+              className="bg-transparent w-full sm:w-48"
               shape="circle"
               variant="outline"
               color="primary"
