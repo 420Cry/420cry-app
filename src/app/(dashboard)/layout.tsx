@@ -8,6 +8,8 @@ import {
   ModalRenderer,
   useLoading,
   ThemeProvider,
+  NotificationProvider,
+  NotificationRenderer,
 } from '@/lib'
 
 function LayoutContent({ children }: { children: ReactNode }) {
@@ -50,6 +52,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
         {/* Render dynamic modals */}
         <ModalRenderer />
+        <NotificationRenderer />
       </div>
     </div>
   )
@@ -63,9 +66,11 @@ export default function DashboardLayout({
   return (
     <ThemeProvider>
       <LoadingProvider>
-        <ModalProvider>
-          <LayoutContent>{children}</LayoutContent>
-        </ModalProvider>
+        <NotificationProvider>
+          <ModalProvider>
+            <LayoutContent>{children}</LayoutContent>
+          </ModalProvider>
+        </NotificationProvider>
       </LoadingProvider>
     </ThemeProvider>
   )

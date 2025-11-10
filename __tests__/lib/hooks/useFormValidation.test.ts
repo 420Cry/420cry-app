@@ -78,7 +78,9 @@ describe('useFormValidation', () => {
       )
 
       expect(validationResult.success).toBe(true)
-      expect(validationResult.data).toEqual({ field: 'value' })
+      if (validationResult.success) {
+        expect(validationResult.data).toEqual({ field: 'value' })
+      }
       expect(showToast).not.toHaveBeenCalled()
     })
 
@@ -99,7 +101,9 @@ describe('useFormValidation', () => {
       )
 
       expect(validationResult.success).toBe(false)
-      expect(validationResult.message).toBe('Invalid input')
+      if (!validationResult.success) {
+        expect(validationResult.message).toBe('Invalid input')
+      }
       expect(showToast).toHaveBeenCalledWith(false, 'Invalid input')
     })
 
@@ -120,7 +124,9 @@ describe('useFormValidation', () => {
       )
 
       expect(validationResult.success).toBe(false)
-      expect(validationResult.message).toBe('Invalid input')
+      if (!validationResult.success) {
+        expect(validationResult.message).toBe('Invalid input')
+      }
     })
   })
 
