@@ -12,21 +12,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const body = await req.json()
     const response = await RequestService.axiosPost<ISignUp, IAuthResponse>(
-      `${API_URL}/users/complete-profile`,
+      `${API_URL}/api/v1/users/complete-profile`,
       body,
     )
-
     switch (response.status) {
       case 201:
         const { user, jwt } = response.data
         const responseBody = {
           response: {
             isSuccess: true,
-            message: 'app.alertTitle.Successful',
-          } as IResponse,
-          user: user ? user : null,
+            message: 'app.messages.success.general',
+          } satisfies IResponse,
+          user,
         }
-
         const nextResponse = NextResponse.json(responseBody)
         if (jwt) {
           CookieService.setJwtCookie(nextResponse, jwt, false)
@@ -37,19 +35,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       case 404:
         return NextResponse.json({
           isSuccess: false,
-          message: 'app.alertTitle.userNotFound',
+          message: 'app.messages.error.userNotFound',
         })
 
       case 400:
         return NextResponse.json({
           isSuccess: false,
-          message: 'app.alertTitle.profileAlreadyCompleted',
+          message: 'app.messages.error.profileAlreadyCompleted',
         })
 
       default:
         return NextResponse.json({
           isSuccess: false,
-          message: 'app.alertTitle.somethingWentWrong',
+          message: 'app.messages.error.general',
         } satisfies IResponse)
     }
   } catch (error) {

@@ -74,7 +74,7 @@ describe('GET /api/wallet-explorer/xpub', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(true)
-    expect(data.message).toBe('app.alertTitle.validWallet')
+    expect(data.message).toBe('app.messages.api.validWallet')
     expect(data.data).toEqual(mockXpubData)
   })
 
@@ -106,7 +106,7 @@ describe('GET /api/wallet-explorer/xpub', () => {
 
     expect(res.status).toBe(200)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 
   it('returns API error status when axios returns non-200', async () => {
@@ -134,7 +134,7 @@ describe('GET /api/wallet-explorer/xpub', () => {
 
     expect(res.status).toBe(404)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 on unexpected error', async () => {
@@ -148,7 +148,7 @@ describe('GET /api/wallet-explorer/xpub', () => {
 
     expect(res.status).toBe(500)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 
   it('returns error with custom status when axios throws with response.status', async () => {
@@ -166,6 +166,6 @@ describe('GET /api/wallet-explorer/xpub', () => {
 
     expect(res.status).toBe(403)
     expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(data.message).toBe('app.messages.error.general')
   })
 })

@@ -7,7 +7,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const body = await request.json()
     const responseBody: IResponse = {
       isSuccess: true,
-      message: 'app.alertTitle.changeLanguageSuccessful',
+      message: 'app.messages.success.changeLanguageSuccessful',
     }
 
     const nextResponse = NextResponse.json(responseBody)
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   } catch {
     const responseBody: IResponse = {
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     }
 
     return NextResponse.json(responseBody)

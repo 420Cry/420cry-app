@@ -3,7 +3,13 @@
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
-import { showToast, SIGN_IN_ROUTE, VerifyEmailTokenService } from '@/lib'
+import {
+  SIGN_IN_ROUTE,
+  authService,
+  combineStyles,
+  formStyles,
+  useNotification,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
 
@@ -14,6 +20,7 @@ interface VerifyEmailFormProps {
 const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const { showNotification } = useNotification()
   const codeKeys = [
     'firstDigit',
     'secondDigit',
@@ -66,14 +73,24 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
     }
 
     try {
-      const response = await VerifyEmailTokenService.verifyToken(payload)
+      const response = await authService.signUp.verifyEmail.verifyToken(payload)
       setVerificationSuccess(response.isSuccess)
-      showToast(response.isSuccess, t(response.message))
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.signup.verifyEmail.successTitle')
+          : t('auth.signup.verifyEmail.errorTitle'),
+        t(response.message),
+      )
       if (response.isSuccess) {
         router.push(SIGN_IN_ROUTE)
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('auth.signup.verifyEmail.errorTitle'),
+        t('app.messages.error.general'),
+      )
       setVerificationSuccess(false)
     } finally {
       setLoading(false)
@@ -87,7 +104,10 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+    <div
+      className={combineStyles(formStyles.layout.centerVertical)}
+      suppressHydrationWarning
+    >
       <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10">
         <div className="flex justify-center mb-6">
           <VerifyAccountIcon color="white" className="h-1/4 w-1/4" />
@@ -117,7 +137,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
           <CryButton
             color="success"
             className="w-52 sm:w-60 text-white"
-            circle
+            shape="circle"
             onClick={handleConfirm}
             disabled={loading}
           >

@@ -7,11 +7,15 @@ export const RESET_PASSWORD_ROUTE = '/auth/reset-password'
 // 2FA
 export const TWO_FACTOR_SETUP_ROUTE = '/2fa/setup'
 export const TWO_FACTOR_VERIFY_ROUTE = '/2fa/verify'
+export const TWO_FACTOR_ALTERNATIVE = '/2fa/alternative'
 export const TWO_FACTOR_SIGNUP_VERIFY_ROUTE = '/auth/signup/verify'
 
 // Home
 export const DASHBOARD_ROUTE = '/dashboard'
-export const HOME_ROUTE = '/'
+export const HOME_ROUTE = '/dashboard'
+export const LANDING_PAGE_ROUTE = '/'
+export const FEAR_AND_GREED_ROUTE = '/indicator/fear-and-greed'
+export const SETTINGS_ROUTE = '/settings'
 
 // Routes for middleware
 export const UN_AUTH_ROUTES = [
@@ -23,13 +27,14 @@ export const UN_AUTH_ROUTES = [
 ]
 
 export const BLOCKED_ROUTES_FOR_AUTH_USERS = [
+  LANDING_PAGE_ROUTE,
   SIGN_IN_ROUTE,
   RESET_PASSWORD_ROUTE,
   SIGN_UP_ROUTE,
 ]
 
 export const AUTH_ROUTES = [
-  HOME_ROUTE,
+  FEAR_AND_GREED_ROUTE,
   DASHBOARD_ROUTE,
   TWO_FACTOR_SETUP_ROUTE,
   TWO_FACTOR_VERIFY_ROUTE,

@@ -22,7 +22,7 @@ describe('SignUpFormSchema', () => {
     })
     expect(result.success).toBe(false)
     expect(result.error?.flatten().fieldErrors.fullName).toContain(
-      'app.rules.fullName',
+      'app.rules.fullNameMinLength',
     )
   })
 
@@ -33,7 +33,7 @@ describe('SignUpFormSchema', () => {
     })
     expect(result.success).toBe(false)
     expect(result.error?.flatten().fieldErrors.userName).toContain(
-      'app.rules.userName',
+      'app.rules.userNameMinLength',
     )
   })
 
@@ -68,7 +68,7 @@ describe('SignUpFormSchema', () => {
     })
     expect(result.success).toBe(false)
     expect(result.error?.flatten().fieldErrors.password).toContain(
-      'app.rules.passwordLetterContain',
+      'app.rules.passwordUppercase',
     )
   })
 

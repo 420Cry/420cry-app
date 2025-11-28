@@ -8,7 +8,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const body = await request.json()
 
     const response = await RequestService.axiosPost(
-      `${API_URL}/2fa/setup`,
+      `${API_URL}/api/v1/2fa/setup`,
       body,
     )
 
@@ -16,11 +16,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       return NextResponse.json(response.data)
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }
