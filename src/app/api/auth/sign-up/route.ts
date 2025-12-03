@@ -18,19 +18,19 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       case 201:
         return NextResponse.json({
           isSuccess: true,
-          message: 'app.alertTitle.Successful',
+          message: 'app.messages.success.general',
         } satisfies IResponse)
 
       case 409:
         return NextResponse.json({
           isSuccess: false,
-          message: 'app.alertTitle.emailOrUserNameAlreadyExist',
+          message: 'app.messages.error.emailOrUserNameAlreadyExist',
         } satisfies IResponse)
 
       default:
         return NextResponse.json({
           isSuccess: false,
-          message: 'app.alertTitle.somethingWentWrong',
+          message: 'app.messages.error.general',
         } satisfies IResponse)
     }
   } catch (error: unknown) {

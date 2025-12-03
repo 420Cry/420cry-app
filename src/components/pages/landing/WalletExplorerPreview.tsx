@@ -2,20 +2,30 @@
 
 import { JSX, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { CryButton, CrySearchBar } from '@420cry/420cry-lib'
+import Link from 'next/link'
+import {
+  ArrowRightIcon,
+  CryButton,
+  CrySearchBar,
+  MagnifyingGlassIcon,
+  CopyIcon,
+} from '@420cry/420cry-lib'
 import {
   resolveSearchInputType,
   showToast,
   externalService,
   SIGN_UP_ROUTE,
 } from '@/lib'
-import { SearchInput } from '@/types'
+import { SearchInput, ITransactionData, ITransactionXPUB } from '@/types'
 
 export default function WalletExplorerPreview(): JSX.Element {
   const t = useTranslations()
   const [searchTerm, setSearchTerm] = useState('')
   const [isSearching, setIsSearching] = useState(false)
-  const [searchResult, setSearchResult] = useState<any>(null)
+  const [searchResult, setSearchResult] = useState<{
+    type: 'transaction' | 'xpubTransaction'
+    data: ITransactionData | ITransactionXPUB
+  } | null>(null)
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
@@ -25,7 +35,7 @@ export default function WalletExplorerPreview(): JSX.Element {
     e.preventDefault()
 
     if (!searchTerm.trim()) {
-      showToast(false, t('app.alertTitle.emptyInput'))
+      showToast(false, t('app.messages.error.emptyInput'))
       return
     }
 
@@ -76,9 +86,12 @@ export default function WalletExplorerPreview(): JSX.Element {
           showToast(false, t('dashboard.search.alert.invalidInput'))
           break
       }
-    } catch (error) {
+    } catch (_error) {
       setSearchResult(null)
-      showToast(false, error instanceof Error ? error.message : String(error))
+      showToast(
+        false,
+        _error instanceof Error ? _error.message : String(_error),
+      )
     } finally {
       setIsSearching(false)
     }
@@ -89,7 +102,7 @@ export default function WalletExplorerPreview(): JSX.Element {
       await navigator.clipboard.writeText(example)
       showToast(true, t('landing.walletExplorer.exampleCopied'))
       setSearchTerm(example)
-    } catch (error) {
+    } catch (_error) {
       showToast(false, t('landing.walletExplorer.copyFailed'))
     }
   }
@@ -149,8 +162,9 @@ export default function WalletExplorerPreview(): JSX.Element {
 
               <CryButton
                 type="submit"
+                color="secondary"
                 disabled={isSearching}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center gap-2"
+                className="w-full py-3 px-6 rounded-lg transition duration-200 flex items-center justify-center gap-2"
               >
                 {isSearching ? (
                   <>
@@ -159,20 +173,10 @@ export default function WalletExplorerPreview(): JSX.Element {
                   </>
                 ) : (
                   <>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                    {t('landing.walletExplorer.searchButton')}
+                    <div className="flex items-center justify-center gap-2">
+                      <MagnifyingGlassIcon className="w-4 h-4" />
+                      {t('landing.walletExplorer.searchButton')}
+                    </div>
                   </>
                 )}
               </CryButton>
@@ -201,19 +205,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                         <h5 className="font-medium text-gray-900 text-sm group-hover:text-blue-700 transition-colors duration-200">
                           {example.type}
                         </h5>
-                        <svg
-                          className="w-3 h-3 text-gray-400 group-hover:text-blue-500 transition-colors duration-200"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                          />
-                        </svg>
+                        <CopyIcon className="w-3 h-3 text-gray-400 group-hover:text-blue-500 transition-colors duration-200" />
                       </div>
                       <p className="text-gray-600 text-xs mt-1">
                         {example.description}
@@ -237,137 +229,139 @@ export default function WalletExplorerPreview(): JSX.Element {
                   </h4>
                 </div>
 
-                {searchResult.type === 'transaction' && searchResult.data && (
-                  <div className="space-y-4">
-                    {/* Transaction Hash */}
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm font-medium text-gray-600">
-                          {t(
-                            'landing.walletExplorer.searchResult.transactionHash',
-                          )}
-                          :
-                        </span>
-                      </div>
-                      <code className="text-xs text-gray-800 bg-gray-100 px-2 py-1 rounded break-all">
-                        {searchResult.data.hash}
-                      </code>
-                    </div>
-
-                    {/* Transaction Details */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="bg-blue-50 rounded-lg p-3">
-                        <div className="text-sm font-medium text-blue-800 mb-1">
-                          {t('landing.walletExplorer.searchResult.blockHeight')}
-                        </div>
-                        <div className="text-lg font-semibold text-blue-900">
-                          {searchResult.data.block_height}
-                        </div>
-                      </div>
-
-                      <div className="bg-purple-50 rounded-lg p-3">
-                        <div className="text-sm font-medium text-purple-800 mb-1">
-                          {t('landing.walletExplorer.searchResult.size')}
-                        </div>
-                        <div className="text-lg font-semibold text-purple-900">
-                          {searchResult.data.size} bytes
-                        </div>
-                      </div>
-
-                      <div className="bg-green-50 rounded-lg p-3">
-                        <div className="text-sm font-medium text-green-800 mb-1">
-                          {t('landing.walletExplorer.searchResult.inputs')}
-                        </div>
-                        <div className="text-lg font-semibold text-green-900">
-                          {searchResult.data.vin_sz}
-                        </div>
-                      </div>
-
-                      <div className="bg-orange-50 rounded-lg p-3">
-                        <div className="text-sm font-medium text-orange-800 mb-1">
-                          {t('landing.walletExplorer.searchResult.outputs')}
-                        </div>
-                        <div className="text-lg font-semibold text-orange-900">
-                          {searchResult.data.vout_sz}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Transaction Value */}
-                    {searchResult.data.out &&
-                      searchResult.data.out.length > 0 && (
-                        <div className="bg-gray-50 rounded-lg p-4">
-                          <div className="text-sm font-medium text-gray-600 mb-2">
+                {searchResult.type === 'transaction' &&
+                  searchResult.data &&
+                  'hash' in searchResult.data && (
+                    <div className="space-y-4">
+                      {/* Transaction Hash */}
+                      <div className="bg-gray-50 rounded-lg p-4">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-sm font-medium text-gray-600">
                             {t(
-                              'landing.walletExplorer.searchResult.transactionValue',
+                              'landing.walletExplorer.searchResult.transactionHash',
                             )}
                             :
-                          </div>
-                          <div className="space-y-2">
-                            {searchResult.data.out
-                              .slice(0, 3)
-                              .map((output: any, index: number) => (
-                                <div
-                                  key={index}
-                                  className="flex justify-between items-center text-sm"
-                                >
-                                  <span className="text-gray-600">
-                                    {t(
-                                      'landing.walletExplorer.searchResult.output',
-                                    )}{' '}
-                                    {output.n || index}:
-                                  </span>
-                                  <span className="font-medium text-gray-900">
-                                    {(output.value / 100000000).toFixed(8)} BTC
-                                  </span>
-                                </div>
-                              ))}
-                            {searchResult.data.out.length > 3 && (
-                              <div className="text-xs text-gray-500 text-center">
-                                ... and {searchResult.data.out.length - 3}{' '}
-                                {t(
-                                  'landing.walletExplorer.searchResult.moreOutputs',
-                                )}
-                              </div>
+                          </span>
+                        </div>
+                        <code className="text-xs text-gray-800 bg-gray-100 px-2 py-1 rounded break-all">
+                          {searchResult.data.hash}
+                        </code>
+                      </div>
+
+                      {/* Transaction Details */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="bg-blue-50 rounded-lg p-3">
+                          <div className="text-sm font-medium text-blue-800 mb-1">
+                            {t(
+                              'landing.walletExplorer.searchResult.blockHeight',
                             )}
                           </div>
+                          <div className="text-lg font-semibold text-blue-900">
+                            {searchResult.data.block_height}
+                          </div>
                         </div>
-                      )}
 
-                    {/* Call to Action */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
-                      <p className="text-blue-700 text-sm mb-3">
-                        {t(
-                          'landing.walletExplorer.searchResult.previewDescription',
+                        <div className="bg-purple-50 rounded-lg p-3">
+                          <div className="text-sm font-medium text-purple-800 mb-1">
+                            {t('landing.walletExplorer.searchResult.size')}
+                          </div>
+                          <div className="text-lg font-semibold text-purple-900">
+                            {searchResult.data.size} bytes
+                          </div>
+                        </div>
+
+                        <div className="bg-green-50 rounded-lg p-3">
+                          <div className="text-sm font-medium text-green-800 mb-1">
+                            {t('landing.walletExplorer.searchResult.inputs')}
+                          </div>
+                          <div className="text-lg font-semibold text-green-900">
+                            {searchResult.data.vin_sz}
+                          </div>
+                        </div>
+
+                        <div className="bg-orange-50 rounded-lg p-3">
+                          <div className="text-sm font-medium text-orange-800 mb-1">
+                            {t('landing.walletExplorer.searchResult.outputs')}
+                          </div>
+                          <div className="text-lg font-semibold text-orange-900">
+                            {searchResult.data.vout_sz}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Transaction Value */}
+                      {searchResult.data.out &&
+                        searchResult.data.out.length > 0 && (
+                          <div className="bg-gray-50 rounded-lg p-4">
+                            <div className="text-sm font-medium text-gray-600 mb-2">
+                              {t(
+                                'landing.walletExplorer.searchResult.transactionValue',
+                              )}
+                              :
+                            </div>
+                            <div className="space-y-2">
+                              {searchResult.data.out.slice(0, 3).map(
+                                (
+                                  output: {
+                                    n?: number
+                                    value: number | string
+                                  },
+                                  index: number,
+                                ) => (
+                                  <div
+                                    key={index}
+                                    className="flex justify-between items-center text-sm"
+                                  >
+                                    <span className="text-gray-600">
+                                      {t(
+                                        'landing.walletExplorer.searchResult.output',
+                                      )}{' '}
+                                      {output.n || index}:
+                                    </span>
+                                    <span className="font-medium text-gray-900">
+                                      {(
+                                        Number(output.value) / 100000000
+                                      ).toFixed(8)}{' '}
+                                      BTC
+                                    </span>
+                                  </div>
+                                ),
+                              )}
+                              {searchResult.data.out.length > 3 && (
+                                <div className="text-xs text-gray-500 text-center">
+                                  ... and {searchResult.data.out.length - 3}{' '}
+                                  {t(
+                                    'landing.walletExplorer.searchResult.moreOutputs',
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         )}
-                      </p>
-                      <a
-                        href="/auth/signup"
-                        className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
-                      >
-                        {t(
-                          'landing.walletExplorer.searchResult.viewFullDetails',
-                        )}
-                        <svg
-                          className="ml-1 w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+
+                      {/* Call to Action */}
+                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
+                        <p className="text-blue-700 text-sm mb-3">
+                          {t(
+                            'landing.walletExplorer.searchResult.previewDescription',
+                          )}
+                        </p>
+                        <Link
+                          href={SIGN_UP_ROUTE}
+                          className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </a>
+                          {t(
+                            'landing.walletExplorer.searchResult.viewFullDetails',
+                          )}
+                          <ArrowRightIcon className="ml-1 w-3 h-3" />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
                 {searchResult.type === 'xpubTransaction' &&
-                  searchResult.data && (
+                  searchResult.data &&
+                  'found' in searchResult.data && (
                     <div className="space-y-4">
                       {/* XPUB Details */}
                       <div className="bg-gray-50 rounded-lg p-4">
@@ -378,7 +372,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                           :
                         </div>
                         <code className="text-xs text-gray-800 bg-gray-100 px-2 py-1 rounded break-all">
-                          {searchResult.data.xpub || 'Extended Public Key'}
+                          Extended Public Key
                         </code>
                       </div>
 
@@ -391,7 +385,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                             )}
                           </div>
                           <div className="text-lg font-semibold text-blue-900">
-                            {searchResult.data.transactions?.length || 0}
+                            {searchResult.data.txs?.length || 0}
                           </div>
                         </div>
 
@@ -416,27 +410,15 @@ export default function WalletExplorerPreview(): JSX.Element {
                             'landing.walletExplorer.searchResult.walletPreviewDescription',
                           )}
                         </p>
-                        <a
-                          href="/auth/signup"
+                        <Link
+                          href={SIGN_UP_ROUTE}
                           className="inline-flex items-center text-green-600 hover:text-green-700 font-medium text-sm"
                         >
                           {t(
                             'landing.walletExplorer.searchResult.viewFullDetails',
                           )}
-                          <svg
-                            className="ml-1 w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </a>
+                          <ArrowRightIcon className="ml-1 w-3 h-3" />
+                        </Link>
                       </div>
                     </div>
                   )}
@@ -532,25 +514,13 @@ export default function WalletExplorerPreview(): JSX.Element {
               <p className="text-gray-600 text-sm mb-4">
                 {t('landing.walletExplorer.cta.description')}
               </p>
-              <a
+              <Link
                 href={SIGN_UP_ROUTE}
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
               >
                 {t('landing.walletExplorer.cta.button')}
-                <svg
-                  className="ml-1 w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
+                <ArrowRightIcon className="ml-1 w-3 h-3" />
+              </Link>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 import { JSX, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { ArrowRightIcon } from '@420cry/420cry-lib'
 import { externalService, SIGN_UP_ROUTE } from '@/lib'
 import { IFearAndGreedIndexData } from '@/types'
 
@@ -205,19 +206,7 @@ export default function FearAndGreedPreview(): JSX.Element {
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium text-sm"
               >
                 {t('landing.fearAndGreed.cta.button')}
-                <svg
-                  className="ml-1 w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <ArrowRightIcon className="ml-1 w-4 h-4" />
               </a>
             </div>
           </div>

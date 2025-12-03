@@ -40,14 +40,14 @@ describe('ApiErrorHandler', () => {
       const result = ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.notFound',
+        'app.messages.error.notFound',
         404,
       )
       expect(console.error).toHaveBeenCalledWith(
         'API Error in test-operation:',
         expect.objectContaining({
           status: 404,
-          message: 'app.alertTitle.notFound',
+          message: 'app.messages.error.notFound',
           resource: 'test-resource',
           error,
         }),
@@ -64,7 +64,7 @@ describe('ApiErrorHandler', () => {
       const result = ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.serverError',
+        'app.messages.error.serverError',
         500,
       )
     })
@@ -83,7 +83,7 @@ describe('ApiErrorHandler', () => {
       ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.invalidCredentials',
+        'app.messages.error.invalidCredentials',
         401,
       )
     })
@@ -102,7 +102,7 @@ describe('ApiErrorHandler', () => {
       ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.emailOrUserNameAlreadyExist',
+        'app.messages.error.emailOrUserNameAlreadyExist',
         409,
       )
     })
@@ -121,7 +121,7 @@ describe('ApiErrorHandler', () => {
       ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.userNotFound',
+        'app.messages.error.userNotFound',
         404,
       )
     })
@@ -140,7 +140,7 @@ describe('ApiErrorHandler', () => {
       ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.invalidOTP',
+        'app.messages.error.invalidOTP',
         401,
       )
     })
@@ -159,7 +159,7 @@ describe('ApiErrorHandler', () => {
       ApiErrorHandler.handle(error, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.somethingWentWrong',
+        'app.messages.error.general',
         418,
       )
     })
@@ -216,7 +216,7 @@ describe('ApiErrorHandler', () => {
       ApiErrorHandler.handleValidationError(validationError, context)
 
       expect(createErrorResponse).toHaveBeenCalledWith(
-        'app.alertTitle.validationError',
+        'app.messages.error.validationError',
         422,
       )
       expect(console.error).toHaveBeenCalledWith(
