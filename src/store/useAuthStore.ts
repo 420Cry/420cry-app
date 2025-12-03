@@ -4,7 +4,6 @@ import { IUser } from '@/types'
 
 interface AuthState {
   user: IUser | null
-  // eslint-disable-next-line no-unused-vars
   setUser: (user: IUser) => void
   clearUser: () => void
 }

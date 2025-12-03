@@ -40,6 +40,26 @@ export class RequestService {
     })
   }
 
+  // Axios PUT
+  public static async axiosPut<TPayload, TResponse>(
+    url: string,
+    payload?: TPayload,
+    config: ExtendedAxiosConfig = {},
+  ): Promise<AxiosResponse<TResponse>> {
+    const jwt = config.withAuth ? await getJWT() : undefined
+
+    const headers = {
+      ...(jwt ? { Authorization: `Bearer ${jwt}` } : {}),
+      ...(config.headers || {}),
+    }
+
+    return axios.put<TResponse>(url, payload, {
+      timeout: 60000,
+      ...config,
+      headers,
+    })
+  }
+
   // Axios GET
   public static async axiosGet<TParams, TResponse>(
     url: string,

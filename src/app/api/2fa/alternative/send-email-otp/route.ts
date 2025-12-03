@@ -11,18 +11,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ITwoFactorAlternativeRequest,
       IResponse
-    >(`${API_URL}/2fa/alternative/send-email-otp`, body)
+    >(`${API_URL}/api/v1/2fa/alternative/send-email-otp`, body)
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.Successful',
+        message: 'app.messages.success.general',
       } satisfies IResponse)
     }
     return NextResponse.json({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     } satisfies IResponse)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }

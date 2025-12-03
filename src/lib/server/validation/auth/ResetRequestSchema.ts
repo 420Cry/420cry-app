@@ -1,5 +1,6 @@
 import { z } from 'zod'
+import { emailSchema } from '../common/commonSchemas'
 
 export const ResetRequestSchema = z.object({
-  email: z.string().trim().email({ message: 'app.rules.email' }),
+  email: emailSchema,
 })

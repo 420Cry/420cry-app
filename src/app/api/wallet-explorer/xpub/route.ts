@@ -14,26 +14,23 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosGet<
       { xpub: string },
       { xpub: ITransactionXPUB }
-    >(`${API_URL}/wallet-explorer/xpub`, { xpub }, { withAuth: true })
+    >(`${API_URL}/api/v1/wallet-explorer/xpub`, { xpub }, { withAuth: false })
 
     const transactionData = response.data.xpub
 
     if (response.status === 200 && transactionData?.found) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.validWallet',
+        message: 'app.messages.api.validWallet',
         data: transactionData,
       } satisfies IResponse & { data: ITransactionXPUB })
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch (error: unknown) {
     const err = error as { response?: { status?: number } }
     const status = err?.response?.status ?? 500
-    const message = 'app.alertTitle.somethingWentWrong'
+    const message = 'app.messages.error.general'
     return createErrorResponse(message, status)
   }
 }
