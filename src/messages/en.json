@@ -44,7 +44,8 @@
         "serverError": "Server error",
         "badGateway": "Bad gateway",
         "serviceUnavailable": "Service unavailable",
-        "gatewayTimeout": "Gateway timeout"
+        "gatewayTimeout": "Gateway timeout",
+        "profileAlreadyCompleted": "Your profile is already completed"
       },
       "api": {
         "validTransaction": "Transaction is found",
@@ -201,6 +202,12 @@
       "verifyDescription": "Please enter the verification token we have sent to your email.",
       "backToVerify": "Back to Verify",
       "otpExpired": "Your verification code has expired. Please request a new one."
+    }
+  },
+  "oauth": {
+    "signup": {
+      "title": "Please complete your profile to continue",
+      "button": "Complete"
     }
   },
   "dashboard": {

@@ -3,11 +3,15 @@ import {
   SignUpFormSchema,
   validateFormData,
   RequestService,
+  COMPLETE_PROFILE_API,
 } from '@/lib'
-import { IResponse, ISignUp } from '@/types'
+import { IResponse, ISignUp, IUser } from '@/types'
 
 export class SignUpService {
-  public async signUpAction(formData: FormData): Promise<IResponse> {
+  public async signUpAction(
+    formData: FormData,
+    isOAuthSignup: boolean,
+  ): Promise<IResponse | { response: IResponse; user?: IUser }> {
     const formValues = {
       fullName: formData.get('fullName')?.toString() || '',
       email: formData.get('email')?.toString() || '',
@@ -33,17 +37,12 @@ export class SignUpService {
         password: validation.data.password,
       }
 
-      return await RequestService.nativeFetchPost<ISignUp, IResponse>(
-        SIGN_UP_API,
-        payload,
-      )
+      return await RequestService.nativeFetchPost<
+        ISignUp,
+        IResponse | { response: IResponse; user?: IUser }
+      >(isOAuthSignup ? COMPLETE_PROFILE_API : SIGN_UP_API, payload)
     } catch (error: unknown) {
-      if (
-        typeof error === 'object' &&
-        error !== null &&
-        'status' in error &&
-        (error as { status?: number }).status === 409
-      ) {
+      if (typeof error === 'object' && error !== null && 'status' in error) {
         return {
           isSuccess: false,
           message: 'app.messages.error.emailOrUserNameAlreadyExist',

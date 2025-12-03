@@ -25,6 +25,7 @@ import {
 
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store'
+// import { OAuthService } from '@/lib/client/auth/oauth/OAuthService'
 
 const SocialButton = ({
   Icon,
@@ -85,6 +86,12 @@ const LogInForm = (): JSX.Element => {
     })
     setLoading(false)
   }
+
+  // const handleOAuthSignIn = (label: string) => {
+  //   if (label === 'Google') {
+  //     OAuthService.handleGoogleService()
+  //   }
+  // }
 
   return (
     <div
@@ -156,7 +163,11 @@ const LogInForm = (): JSX.Element => {
             { icon: GoogleIcon, label: 'Google' },
             { icon: DiscordIcon, label: 'Discord' },
           ].map(({ icon, label }) => (
-            <SocialButton key={label} Icon={icon} label={label} />
+            <SocialButton
+              key={label}
+              Icon={icon}
+              label={label}
+            />
           ))}
         </div>
         <div className="text-center sm:text-base sm:mt-4">

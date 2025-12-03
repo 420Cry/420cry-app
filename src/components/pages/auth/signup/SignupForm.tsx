@@ -1,6 +1,6 @@
 'use client'
 
-import { JSX, useState } from 'react'
+import { JSX, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   CryButton,
@@ -16,9 +16,12 @@ import {
   useClientOnly,
   formStyles,
   combineStyles,
+  HOME_ROUTE,
 } from '@/lib'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
+import { OAuthService } from '@/lib/client/auth/oauth/OAuthService'
+import { useAuthStore } from '@/store'
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()
@@ -31,6 +34,20 @@ const SignupForm = (): JSX.Element => {
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({})
+
+  const searchParams = useSearchParams()
+  const emailParam = searchParams.get('email') || null
+  const fullNameParam = searchParams.get('fullname') || null
+
+  const [isOAuthSignUp, setIsOAuthSignUp] = useState(false)
+  const [email, setEmail] = useState(emailParam || '')
+  const [fullName, setFullName] = useState(fullNameParam || '')
+
+  useEffect(() => {
+    if (emailParam && fullNameParam) {
+      setIsOAuthSignUp(true)
+    }
+  }, [emailParam, fullNameParam])
 
   const validateFormData = (
     formData: FormData,
@@ -77,16 +94,43 @@ const SignupForm = (): JSX.Element => {
 
     setLoading(true)
     try {
-      const response = await authService.signUp.action.signUpAction(formData)
-      showNotification(
-        response.isSuccess ? 'success' : 'error',
-        response.isSuccess
-          ? t('auth.signup.successTitle')
-          : t('auth.signup.errorTitle'),
-        t(response.message),
+      const result = await authService.signUp.action.signUpAction(
+        formData,
+        isOAuthSignUp,
       )
-      if (response.isSuccess) {
-        router.push(SIGN_IN_ROUTE)
+      if ('isSuccess' in result) {
+        showNotification(
+          result.isSuccess ? 'success' : 'error',
+          result.isSuccess
+            ? t('auth.signup.successTitle')
+            : t('auth.signup.errorTitle'),
+          t(result.message),
+        )
+        if (result.isSuccess) {
+          router.push(SIGN_IN_ROUTE)
+        }
+      } else {
+        const { response, user } = result
+        const success = response.isSuccess
+        const message = user
+          ? t(response.message, { fullname: user.fullname })
+          : t(response.message)
+
+        if (user) {
+          user.rememberMe = false
+          useAuthStore.getState().setUser(user)
+        }
+
+        showNotification(
+          success ? 'success' : 'error',
+          success ? t('auth.signup.successTitle') : t('auth.signup.errorTitle'),
+          t(message),
+        )
+
+        if (success && user) {
+          const targetRoute = HOME_ROUTE
+          router.push(targetRoute)
+        }
       }
     } catch {
       showNotification(
@@ -99,6 +143,12 @@ const SignupForm = (): JSX.Element => {
     }
   }
 
+  const handleOAuthSignUp = (title: string) => {
+    if (title === 'Google') {
+      OAuthService.handleGoogleService()
+    }
+  }
+
   return (
     <div
       className="flex items-center justify-center min-h-[calc(100vh-80px)] px-4 py-8"
@@ -106,7 +156,7 @@ const SignupForm = (): JSX.Element => {
     >
       <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
         <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-8 font-bold">
-          {t('auth.signup.title')}
+          {isOAuthSignUp ? t('oauth.signup.title') : t('auth.signup.title')}
         </h1>
         <form onSubmit={handleSubmit} suppressHydrationWarning>
           {/* Name and Email Row */}
@@ -119,6 +169,8 @@ const SignupForm = (): JSX.Element => {
                   formStyles.input.default,
                   formStyles.input.focus,
                 )}
+                value={fullName}
+                onChange={() => setFullName}
               />
               {validationErrors.fullName && (
                 <div className="text-red-500 text-sm mt-1">
@@ -134,6 +186,8 @@ const SignupForm = (): JSX.Element => {
                   formStyles.input.default,
                   formStyles.input.focus,
                 )}
+                value={email}
+                onChange={() => setEmail}
               />
               {validationErrors.email && (
                 <div className="text-red-500 text-sm mt-1">
@@ -230,23 +284,27 @@ const SignupForm = (): JSX.Element => {
 
         {/* OAuth Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          {[GoogleIcon, DiscordIcon].map((Icon, index) => (
-            <CryButton
-              key={index}
-              size="lg"
-              className="bg-transparent w-full sm:w-48"
-              shape="circle"
-              variant="outline"
-              color="primary"
-            >
-              <div className="flex items-center justify-center">
-                <Icon className="h-5 w-5 mr-2" />
-                <span className="text-white">
-                  {Icon === GoogleIcon ? 'Google' : 'Discord'}
-                </span>
-              </div>
-            </CryButton>
-          ))}
+          {[GoogleIcon, DiscordIcon].map((Icon, index) => {
+            const title = Icon === GoogleIcon ? 'Google' : 'Discord'
+            return (
+              <CryButton
+                key={index}
+                size="lg"
+                className="bg-transparent w-full sm:w-48"
+                shape="circle"
+                variant="outline"
+                color="primary"
+              >
+                <div
+                  onClick={() => handleOAuthSignUp(title)}
+                  className="flex items-center justify-center"
+                >
+                  <Icon className="h-5 w-5 mr-2" />
+                  <span className="text-white">{title}</span>
+                </div>
+              </CryButton>
+            )
+          })}
         </div>
       </div>
     </div>
