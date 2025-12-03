@@ -11,7 +11,6 @@ import { IModalState } from '@/types/modal/IModalState'
 
 interface ModalContextProps {
   modal: IModalState
-  // eslint-disable-next-line no-unused-vars
   openModal: (modal: IModalState) => void
   closeModal: () => void
 }

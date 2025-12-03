@@ -31,7 +31,7 @@ describe('POST /api/auth/verify-email-token', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: true,
-      message: 'app.alertTitle.Successful',
+      message: 'app.messages.success.general',
     })
   })
 
@@ -44,7 +44,7 @@ describe('POST /api/auth/verify-email-token', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     })
   })
 
@@ -56,7 +56,7 @@ describe('POST /api/auth/verify-email-token', () => {
     await POST(req as any)
 
     expect(RequestService.axiosPost).toHaveBeenCalledWith(
-      'http://fake-api/users/verify-email-token',
+      'http://fake-api/api/v1/users/verify-email-token',
       mockBody,
     )
   })
@@ -70,7 +70,7 @@ describe('POST /api/auth/verify-email-token', () => {
     const json = await res.json()
     expect(json).toEqual({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     })
   })
 

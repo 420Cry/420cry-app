@@ -13,7 +13,7 @@ function createSuccessResponse(jwt?: string, rememberMe = true) {
   const responseBody = {
     response: {
       isSuccess: true,
-      message: 'app.alertTitle.2FAVerifySuccessful',
+      message: 'app.messages.success.2FAVerifySuccessful',
     },
   }
 
@@ -34,27 +34,24 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ITwoFactorSetUpRequest,
       ITwoFactorVerifyResponse
-    >(`${API_URL}/2fa/alternative/verify-email-otp`, body)
+    >(`${API_URL}/api/v1/2fa/alternative/verify-email-otp`, body)
     if (response.status === 200 && response.data) {
       return createSuccessResponse(response.data.jwt, rememberFlag)
     }
 
     if (response.status === 401) {
-      return createErrorResponse('app.alertTitle.invalidOTP', 401)
+      return createErrorResponse('app.messages.error.invalidOTP', 401)
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch (error: unknown) {
     const err = error as { response?: { status?: number } }
     const status = err?.response?.status ?? 500
 
     const message =
       status === 401
-        ? 'app.alertTitle.invalidOTP'
-        : 'app.alertTitle.somethingWentWrong'
+        ? 'app.messages.error.invalidOTP'
+        : 'app.messages.error.general'
 
     return createErrorResponse(message, status)
   }

@@ -11,18 +11,18 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosPost<
       ISignUpVerificationToken,
       IResponse
-    >(`${API_URL}/users/verify-email-token`, body)
+    >(`${API_URL}/api/v1/users/verify-email-token`, body)
     if (response.status === 200) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.Successful',
+        message: 'app.messages.success.general',
       } satisfies IResponse)
     }
     return NextResponse.json({
       isSuccess: false,
-      message: 'app.alertTitle.somethingWentWrong',
+      message: 'app.messages.error.general',
     } satisfies IResponse)
   } catch {
-    return createErrorResponse('app.alertTitle.somethingWentWrong', 500)
+    return createErrorResponse('app.messages.error.general', 500)
   }
 }
