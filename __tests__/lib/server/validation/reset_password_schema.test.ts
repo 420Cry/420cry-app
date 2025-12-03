@@ -33,7 +33,7 @@ describe('ResetPasswordSchema', () => {
     })
     expect(result.success).toBe(false)
     expect(result.error?.flatten().fieldErrors.newPassword).toContain(
-      'app.rules.passwordLetterContain',
+      'app.rules.passwordUppercase',
     )
   })
 

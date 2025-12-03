@@ -8,7 +8,16 @@ import {
 import { JSX } from 'react'
 
 import { useTranslations } from 'next-intl'
-import { fieldsRequired, showToast, SIGN_IN_ROUTE, authService } from '@/lib'
+import {
+  fieldsRequired,
+  SIGN_IN_ROUTE,
+  authService,
+  useLoading,
+  useNotification,
+  useClientOnly,
+  formStyles,
+  combineStyles,
+} from '@/lib'
 import { useRouter } from 'next/navigation'
 
 const ResetPasswordForm = ({
@@ -18,6 +27,9 @@ const ResetPasswordForm = ({
 }): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
+  const _isClient = useClientOnly()
   const showLabel = t('app.common.showPassword')
   const hideLabel = t('app.common.hidePassword')
 
@@ -26,20 +38,34 @@ const ResetPasswordForm = ({
     const formData = new FormData(e.target as HTMLFormElement)
     if (!fieldsRequired(formData, t)) return
 
-    const response =
-      await authService.resetPassword.verify.verifyResetPasswordAction(
-        formData,
-        resetPasswordId,
-      )
+    setLoading(true)
+    try {
+      const response =
+        await authService.resetPassword.verify.verifyResetPasswordAction(
+          formData,
+          resetPasswordId,
+        )
 
-    showToast(response.isSuccess, t(response.message))
-    if (response.isSuccess) {
-      router.push(SIGN_IN_ROUTE)
+      showNotification(
+        response.isSuccess ? 'success' : 'error',
+        response.isSuccess
+          ? t('auth.resetYourPassword.resetPasswordForm.successTitle')
+          : t('auth.resetYourPassword.resetPasswordForm.errorTitle'),
+        t(response.message),
+      )
+      if (response.isSuccess) {
+        router.push(SIGN_IN_ROUTE)
+      }
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
-    <div className="flex items-center justify-center mt-16 sm:mt-32 px-4">
+    <div
+      className={combineStyles(formStyles.layout.centerVertical)}
+      suppressHydrationWarning
+    >
       <div className="p-8 sm:p-14 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 ">
         <div className="w-full flex flex-col items-center gap-12 justify-center">
           <ResetPasswordIcon />
@@ -55,14 +81,22 @@ const ResetPasswordForm = ({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="w-full max-w-[500px] m-auto">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-[500px] m-auto"
+          suppressHydrationWarning
+        >
           <CryFormTextField
             label={t('app.fields.password')}
             labelClassName="text-neutral-gray-3"
             name="newPassword"
             type="password"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500 "
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+              'w-full max-w-[500px] focus:border-green-500',
+            )}
             showLabel={showLabel}
             hideLabel={hideLabel}
           />
@@ -72,14 +106,18 @@ const ResetPasswordForm = ({
             type="password"
             name="repeatedPassword"
             slotClassName="text-white"
-            inputClassName="bg-black text-white hover:bg-gray-800 dark:bg-gray-900 w-full max-w-[500px] focus:border-green-500"
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
+              'w-full max-w-[500px] focus:border-green-500',
+            )}
             showLabel={showLabel}
             hideLabel={hideLabel}
           />
 
           <div className="flex justify-center mt-10">
             <CryButton
-              circle
+              shape="circle"
               type="submit"
               color="primary"
               className="max-w-52 h-12 w-full"

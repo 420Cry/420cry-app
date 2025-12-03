@@ -14,24 +14,21 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     const response = await RequestService.axiosGet<
       { txid: string },
       { transaction_data: ITransactionData }
-    >(`${API_URL}/wallet-explorer/tx`, { txid }, { withAuth: true })
+    >(`${API_URL}/api/v1/wallet-explorer/tx`, { txid }, { withAuth: false })
 
     if (response.status === 200 && response.data) {
       return NextResponse.json({
         isSuccess: true,
-        message: 'app.alertTitle.validTransaction',
+        message: 'app.messages.api.validTransaction',
         data: response.data.transaction_data,
       } satisfies IResponse & { data: ITransactionData })
     }
 
-    return createErrorResponse(
-      'app.alertTitle.somethingWentWrong',
-      response.status,
-    )
+    return createErrorResponse('app.messages.error.general', response.status)
   } catch (error: unknown) {
     const err = error as { response?: { status?: number } }
     const status = err?.response?.status ?? 500
-    const message = 'app.alertTitle.somethingWentWrong'
+    const message = 'app.messages.error.general'
     return createErrorResponse(message, status)
   }
 }

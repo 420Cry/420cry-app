@@ -21,6 +21,8 @@ vi.mock('@/lib', () => ({
   },
   CookieService: {
     setJwtCookie: vi.fn(),
+    setTwoFAVerifiedCookie: vi.fn(),
+    clearTwoFASetUpSkippedCookie: vi.fn(),
   },
 }))
 
@@ -57,13 +59,21 @@ describe('POST /api/2fa/setup/verify-otp', () => {
 
     expect(res.status).toBe(200)
     expect(body.response.isSuccess).toBe(true)
-    expect(body.response.message).toBe('app.alertTitle.Successful')
+    expect(body.response.message).toBe('app.messages.success.general')
     expect(body.user.email).toBe('success@example.com')
 
     expect(CookieService.setJwtCookie).toHaveBeenCalledWith(
       expect.any(NextResponse),
       'valid-jwt-token',
       true,
+    )
+    expect(CookieService.setTwoFAVerifiedCookie).toHaveBeenCalledWith(
+      expect.any(NextResponse),
+      'true',
+      true,
+    )
+    expect(CookieService.clearTwoFASetUpSkippedCookie).toHaveBeenCalledWith(
+      expect.any(NextResponse),
     )
   })
 
@@ -106,7 +116,7 @@ describe('POST /api/2fa/setup/verify-otp', () => {
 
     expect(res.status).toBe(401)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 
   it('returns 500 on unexpected error', async () => {
@@ -121,6 +131,6 @@ describe('POST /api/2fa/setup/verify-otp', () => {
 
     expect(res.status).toBe(500)
     expect(body.response.isSuccess).toBe(false)
-    expect(body.response.message).toBe('app.alertTitle.somethingWentWrong')
+    expect(body.response.message).toBe('app.messages.error.general')
   })
 })

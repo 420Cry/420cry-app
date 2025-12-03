@@ -8,43 +8,67 @@
       "password": "Password",
       "repeatedPassword": "Repeated Password"
     },
-    "alertTitle": {
-      "Successful": "Successful",
-      "allfieldsAreRequired": "All fields are required!",
-      "signUpSuccessful": "Sign Up Successful! Please check your email and follow the instructions to verify your account.",
-      "somethingWentWrong": "Something went wrong. Please try again later!",
-      "duplicatedUserNameOrEmail": "Email or username already exists!",
-      "invalidOrExpiredToken": "Invalid or expired token",
-      "validToken": "Valid token",
-      "invalidToken": "Invalid token",
-      "emailVerifiedSuccessfully": "Email verified successfully",
-      "emailVerificationFailed": "Email verification failed",
-      "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
-      "resetSuccess": "You have successfully resetted your password. Please login again!",
-      "invalidCredentials": "Invalid username or password.",
-      "userNotFound": "User is not found",
-      "logOutSuccessful": "Logged out",
-      "2FASetUpSuccessful": "Two-factor authentication setup was successful",
-      "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
-      "invalidOTP": "Invalid OTP",
-      "otpCannotBeEmpty": "OTP cannot be empty",
-      "changeLanguageSuccessful": "Language change success!",
-      "invalidLanguage": "Invalid Language",
-      "validTransaction": "Transaction is found",
-      "validWallet": "Wallet is found",
-      "emailOrUserNameAlreadyExist": "Username or email already exists",
-      "emailNotExist": "Email does not exist",
-      "emptyInput": "Please enter something!"
+    "messages": {
+      "success": {
+        "general": "Success",
+        "allfieldsAreRequired": "All fields are required!",
+        "logOutSuccessful": "Logged out",
+        "changeLanguageSuccessful": "Language change success!",
+        "usernameUpdated": "Username updated successfully",
+        "setup2FASuccess": "2FA setup completed successfully",
+        "2FAVerifySuccessful": "You're all set! 2FA has been verified.",
+        "resetRequestSuccess": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
+        "resetSuccess": "You have successfully reset your password. Please login again!"
+      },
+      "error": {
+        "general": "Something went wrong. Please try again later!",
+        "validationFailed": "Validation failed",
+        "invalidLanguage": "Invalid Language",
+        "invalidCredentials": "Invalid username or password.",
+        "invalidOTP": "Invalid OTP",
+        "otpCannotBeEmpty": "OTP cannot be empty",
+        "emptyInput": "Please enter something!",
+        "userNotFound": "User is not found",
+        "emailNotExist": "Email does not exist",
+        "emailOrUserNameAlreadyExist": "Username or email already exists",
+        "invalidToken": "Invalid or expired token",
+        "errorUpdateUsername": "Failed to update username",
+        "userNotVerified": "User account is not verified",
+        "validationError": "Validation error",
+        "invalidRequest": "Invalid request",
+        "unauthorized": "Unauthorized",
+        "forbidden": "Forbidden",
+        "notFound": "Not found",
+        "conflict": "Conflict",
+        "rateLimited": "Rate limited",
+        "serverError": "Server error",
+        "badGateway": "Bad gateway",
+        "serviceUnavailable": "Service unavailable",
+        "gatewayTimeout": "Gateway timeout"
+      },
+      "api": {
+        "validTransaction": "Transaction is found",
+        "validWallet": "Wallet is found",
+        "validToken": "Valid token"
+      }
     },
     "rules": {
-      "fullName": "Full Name must be at least 2 characters long!",
-      "userName": "User Name must be at least 2 characters long!",
-      "email": "Invalid email address!",
-      "passwordLength": "Password must be at least 8 characters long!",
-      "passwordLetterContain": "Password must contain at least one letter!",
-      "passwordNumberContain": "Password must contain at least one number!",
-      "passwordSpecialContain": "Password must contain at least one special character!",
-      "repeatedPassword": "Passwords don't match!"
+      "fullNameMinLength": "Full name must be at least 2 characters long",
+      "fullNameMaxLength": "Full name must not exceed 100 characters",
+      "fullNameFormat": "Full name can only contain letters, spaces, hyphens, and apostrophes",
+      "userNameMinLength": "Username must be at least 3 characters long",
+      "userNameMaxLength": "Username must not exceed 50 characters",
+      "userNameFormat": "Username can only contain letters, numbers, and underscores",
+      "emailRequired": "Email is required",
+      "emailTooLong": "Email is too long",
+      "email": "Invalid email format",
+      "passwordLength": "Password must be at least 8 characters long",
+      "passwordTooLong": "Password must not exceed 128 characters",
+      "passwordUppercase": "Password must contain at least one uppercase letter",
+      "passwordLowercase": "Password must contain at least one lowercase letter",
+      "passwordNumberContain": "Password must contain at least one number",
+      "passwordSpecialContain": "Password must contain at least one special character",
+      "repeatedPassword": "Passwords don't match"
     },
     "common": {
       "showPassword": "Show",
@@ -56,7 +80,9 @@
       "ok": "Ok",
       "loading": "Loading",
       "step": "Step",
-      "close": "Close"
+      "close": "Close",
+      "yes": "Yes",
+      "no": "No"
     }
   },
   "header": {
@@ -67,25 +93,45 @@
   "auth": {
     "login": {
       "title": "Login",
+      "successTitle": "Login Successful",
+      "errorTitle": "Login Failed",
+      "successMessage": "Welcome back! Redirecting...",
+      "errorMessage": "Unable to sign in. Please check your credentials.",
       "forgotYourPassword": "Forgot your password?",
       "rememberMe": "Remember me?",
       "doNotHaveAnAccount": "Do not have an account? Sign up here"
     },
     "signup": {
       "title": "Sign Up",
+      "successTitle": "Sign Up Successful",
+      "errorTitle": "Sign Up Failed",
+      "successMessage": "Please check your email and follow the instructions to verify your account.",
+      "errorMessage": "Unable to create account. Please try again.",
       "orSignInUsing": "Or sign up using",
       "verifyEmail": {
         "title": "Verify your email",
+        "successTitle": "Verification Successful",
+        "errorTitle": "Verification Failed",
+        "successMessage": "Email verified successfully. You can now sign in.",
+        "errorMessage": "Verification failed. Please check your token.",
         "message": "Please enter the verification token we have sent to your email (The token is valid for 24 hours)"
       }
     },
     "resetYourPassword": {
       "resetReq": {
         "title": "Forgot Your Password",
+        "successTitle": "Reset Request Sent",
+        "errorTitle": "Reset Request Failed",
+        "successMessage": "Please check your email and click on the link (You can only change password within 1 hour after receiving email)",
+        "errorMessage": "Unable to send reset email. Please check your email address.",
         "subtitle": "Please enter your registered email address.\nWe will send instructions to help reset your password!"
       },
       "resetPasswordForm": {
         "title": "Reset Your Password",
+        "successTitle": "Password Reset Successful",
+        "errorTitle": "Password Reset Failed",
+        "successMessage": "You have successfully resetted your password. Please login again!",
+        "errorMessage": "Unable to reset password. Please try again.",
         "subtitle": "Enter the new password below so we can reset your password",
         "newPassword": "New Password"
       }
@@ -101,6 +147,8 @@
     },
     "setup": {
       "title": "Protect your account with 2-step verification",
+      "successTitle": "2FA Setup Successful",
+      "errorTitle": "2FA Setup Failed",
       "description": "Each time you sign in, you will need to enter a code. Choose how you want to receive your verification code.",
       "useYourPhone": "Use your phone",
       "receiveViaSMS": "Receive a code via SMS",
@@ -112,6 +160,10 @@
     },
     "QR": {
       "title": "2FA setup",
+      "successTitle": "QR Verification Successful",
+      "errorTitle": "QR Verification Failed",
+      "successMessage": "Two-factor authentication setup was successful",
+      "errorMessage": "Verification failed. Please check your code.",
       "scanQRCodeWithApp": "Get the codes from an authenticator app",
       "description": "Each time you sign in, in addition to your password, you will use an authenticator app to generate a one-time code.",
       "scanQR": "Scan QR code",
@@ -121,12 +173,23 @@
     },
     "verify": {
       "title": "Two-Factor Authentication",
+      "successTitle": "2FA Verification Successful",
+      "errorTitle": "2FA Verification Failed",
+      "successMessage": "You're all set! 2FA has been verified.",
+      "errorMessage": "Verification failed. Please check your code.",
       "description": "Open your authenticator app (like Google Authenticator, Authy, or 1Password) and enter the 6-digit code below.",
       "verifyCode": "Verify Code",
       "havingTroubleWithAuthenticatorApp": "Having trouble with authenticator app?"
     },
     "alternative": {
       "title": "Alternative 2FA Verification",
+      "successTitle": "Email Code Sent",
+      "errorTitle": "Email Code Failed",
+      "warningTitle": "Code Expired",
+      "successMessage": "Verification code has been sent to your email.",
+      "errorMessage": "Unable to send verification code. Please try again.",
+      "verifySuccessMessage": "You're all set! 2FA has been verified.",
+      "verifyErrorMessage": "Verification failed. Please check your code.",
       "description": "Get the code via email instead.",
       "sendTo": "Email sent to",
       "resendCode": "Resend Code",
@@ -136,7 +199,8 @@
       "enterVerificationCode": "Enter Verification Code",
       "verifyTitle": "Verify Code",
       "verifyDescription": "Please enter the verification token we have sent to your email.",
-      "backToVerify": "Back to Verify"
+      "backToVerify": "Back to Verify",
+      "otpExpired": "Your verification code has expired. Please request a new one."
     }
   },
   "dashboard": {
@@ -155,6 +219,19 @@
         "invalidInput": "Invalid Transaction Hash ID or wallet public key"
       },
       "searchPlayholder": "Enter public address, transaction hash, or crypto token"
+    },
+    "userMenu": {
+      "profileSettings": "Profile Settings",
+      "preferences": "Preferences",
+      "signOut": "Sign Out",
+      "userId": "User ID",
+      "twoFAStatus": "2FA Status",
+      "rememberMe": "Remember Me",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "yes": "Yes",
+      "no": "No",
+      "notAvailable": "N/A"
     },
     "transactionModal": {
       "title": "Transaction Details",
@@ -248,6 +325,368 @@
         "180days": "180 days",
         "oneYear": "1 year",
         "all": "all"
+      },
+      "currentSentiment": "Current Market Sentiment",
+      "chartAnalysis": "Market Analysis",
+      "liveData": "Live Data",
+      "loading": "Loading...",
+      "loadingChart": "Loading chart data...",
+      "dataSource": "Data source: CoinMarketCap Fear & Greed Index",
+      "updatedHourly": "Updated hourly",
+      "pageTitle": "Fear & Greed Index",
+      "pageDescription": "Track market sentiment with our comprehensive Fear & Greed analysis"
+    }
+  },
+  "landing": {
+    "hero": {
+      "title": "420Crypto",
+      "subtitle": "Advanced cryptocurrency market analysis and blockchain exploration tools",
+      "getStarted": "Get Started Free",
+      "signIn": "Sign In",
+      "trustedBy": "Trusted by crypto enthusiasts worldwide",
+      "features": {
+        "marketIndicators": {
+          "title": "Market Indicators",
+          "description": "Real-time Fear & Greed Index and market sentiment analysis"
+        },
+        "blockchainExplorer": {
+          "title": "Blockchain Explorer",
+          "description": "Search transactions, addresses, and wallet data instantly"
+        },
+        "securePlatform": {
+          "title": "Secure Platform",
+          "description": "Enterprise-grade security with 2FA protection"
+        }
+      },
+      "trustIndicators": {
+        "realTimeData": "Real-time Data",
+        "securePlatform": "Secure Platform",
+        "professionalTools": "Professional Tools"
+      }
+    },
+    "fearAndGreed": {
+      "title": "Live Market Sentiment",
+      "subtitle": "Track the emotional state of the cryptocurrency market with our real-time Fear & Greed Index",
+      "currentSentiment": "Current Market Sentiment",
+      "description": "The Fear & Greed Index measures market sentiment from 0 (Extreme Fear) to 100 (Extreme Greed). This helps identify potential buying opportunities during fear and selling opportunities during greed.",
+      "features": {
+        "realTimeUpdates": "Real-time updates",
+        "historicalAnalysis": "Historical analysis",
+        "marketInsights": "Market insights",
+        "tradingSignals": "Trading signals"
+      },
+      "whyMonitor": "Why Monitor Market Sentiment?",
+      "benefits": {
+        "contrarianOpportunities": {
+          "title": "Contrarian Opportunities",
+          "description": "Extreme fear often signals buying opportunities, while extreme greed may indicate selling points."
+        },
+        "riskManagement": {
+          "title": "Risk Management",
+          "description": "Understand market psychology to better manage your portfolio risk and timing."
+        },
+        "dataDrivenDecisions": {
+          "title": "Data-Driven Decisions",
+          "description": "Make informed trading decisions based on comprehensive market sentiment analysis."
+        }
+      },
+      "cta": {
+        "title": "Ready to explore?",
+        "description": "Get access to detailed historical charts, market analysis, and advanced trading insights.",
+        "button": "Start Free Trial"
+      }
+    },
+    "walletExplorer": {
+      "title": "Blockchain Explorer",
+      "subtitle": "Search and analyze Bitcoin transactions, wallet addresses, and blockchain data in real-time",
+      "trySearch": "Try Our Search Engine",
+      "searchPlaceholder": "Paste transaction hash or wallet address here...",
+      "searchButton": "Search Blockchain",
+      "searching": "Searching...",
+      "exampleSearches": "Example Searches:",
+      "transactionHash": "Transaction Hash",
+      "walletAddress": "Wallet Address",
+      "transactionDescription": "Search for Bitcoin transaction details",
+      "walletDescription": "Explore wallet transaction history",
+      "powerfulAnalysis": "Powerful Blockchain Analysis",
+      "features": {
+        "realTimeData": {
+          "title": "Real-time Data",
+          "description": "Get instant access to the latest blockchain data with our high-performance search engine."
+        },
+        "advancedSearch": {
+          "title": "Advanced Search",
+          "description": "Search by transaction hash, wallet address, or extended public key (XPUB) for comprehensive analysis."
+        },
+        "transactionDetails": {
+          "title": "Transaction Details",
+          "description": "View detailed transaction information including inputs, outputs, fees, and confirmation status."
+        },
+        "walletAnalytics": {
+          "title": "Wallet Analytics",
+          "description": "Analyze wallet balance history, transaction patterns, and spending behavior over time."
+        }
+      },
+      "cta": {
+        "title": "Ready to explore the blockchain?",
+        "description": "Unlock full access to our blockchain explorer with detailed transaction analysis and wallet insights.",
+        "button": "Get Full Access"
+      },
+      "searchResult": {
+        "found": "Search Result Found!",
+        "transactionSuccess": "Transaction details loaded successfully. Sign up to view full transaction analysis.",
+        "walletSuccess": "Wallet data loaded successfully. Sign up to view detailed wallet analytics.",
+        "viewFullDetails": "View Full Details",
+        "transactionHash": "Transaction Hash",
+        "blockHeight": "Block Height",
+        "size": "Size",
+        "inputs": "Inputs",
+        "outputs": "Outputs",
+        "transactionValue": "Transaction Value",
+        "output": "Output",
+        "moreOutputs": "more outputs",
+        "walletAddress": "Wallet Address",
+        "transactionsFound": "Transactions Found",
+        "status": "Status",
+        "activeWallet": "Active Wallet",
+        "noData": "No Data",
+        "previewDescription": "This is a preview of the transaction data. Sign up to access detailed analysis, historical tracking, and advanced blockchain insights.",
+        "walletPreviewDescription": "Wallet data loaded successfully. Sign up to view detailed wallet analytics, transaction history, and balance tracking."
+      },
+      "clickToCopy": "Click to copy address",
+      "exampleCopied": "Address copied to clipboard!",
+      "copyFailed": "Failed to copy address"
+    },
+    "features": {
+      "title": "Comprehensive Crypto Tools",
+      "subtitle": "Everything you need to analyze, track, and manage your cryptocurrency investments",
+      "items": {
+        "marketIndicators": {
+          "title": "Market Indicators",
+          "description": "Real-time Fear & Greed Index with historical analysis and market sentiment tracking.",
+          "features": {
+            "liveMarketData": "Live market data",
+            "historicalCharts": "Historical charts",
+            "sentimentAnalysis": "Sentiment analysis",
+            "tradingInsights": "Trading insights"
+          }
+        },
+        "blockchainExplorer": {
+          "title": "Blockchain Explorer",
+          "description": "Search and analyze Bitcoin transactions, wallet addresses, and blockchain data.",
+          "features": {
+            "transactionSearch": "Transaction search",
+            "walletAnalysis": "Wallet analysis",
+            "addressTracking": "Address tracking",
+            "xpubSupport": "XPUB support"
+          }
+        },
+        "securePlatform": {
+          "title": "Secure Platform",
+          "description": "Enterprise-grade security with two-factor authentication and encrypted data storage.",
+          "features": {
+            "twoFactorProtection": "2FA protection",
+            "secureLogin": "Secure login",
+            "dataEncryption": "Data encryption",
+            "privacyFocused": "Privacy focused"
+          }
+        },
+        "portfolioTracking": {
+          "title": "Portfolio Tracking",
+          "description": "Monitor your cryptocurrency portfolio with real-time price updates and performance metrics.",
+          "features": {
+            "portfolioOverview": "Portfolio overview",
+            "priceAlerts": "Price alerts",
+            "performanceTracking": "Performance tracking",
+            "assetManagement": "Asset management"
+          }
+        },
+        "multiLanguage": {
+          "title": "Multi-language Support",
+          "description": "Access the platform in multiple languages with full internationalization support.",
+          "features": {
+            "englishVietnamese": "English & Vietnamese",
+            "easySwitching": "Easy switching",
+            "localizedContent": "Localized content",
+            "globalAccessibility": "Global accessibility"
+          }
+        },
+        "realTimeUpdates": {
+          "title": "Real-time Updates",
+          "description": "Get instant notifications and updates with our high-performance data infrastructure.",
+          "features": {
+            "liveDataFeeds": "Live data feeds",
+            "instantUpdates": "Instant updates",
+            "highAvailability": "High availability",
+            "fastPerformance": "Fast performance"
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to Get Started?",
+        "description": "Join thousands of crypto enthusiasts who trust 420Crypto for their market analysis and blockchain exploration needs.",
+        "getStarted": "Start Free Trial",
+        "signIn": "Sign In",
+        "benefits": {
+          "freeToStart": "Free to start",
+          "noCreditCard": "No credit card required",
+          "cancelAnytime": "Cancel anytime"
+        }
+      }
+    }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! The page you're looking for seems to have drifted off into the crypto universe.",
+    "subDescription": "Don't worry, even the best traders sometimes take a wrong turn.",
+    "actions": {
+      "home": {
+        "title": "Go Home",
+        "description": "Return to our main dashboard and explore our crypto tools"
+      },
+      "explore": {
+        "title": "Explore Blockchain",
+        "description": "Search transactions and analyze wallet data"
+      },
+      "market": {
+        "title": "Market Analysis",
+        "description": "Check the Fear & Greed Index and market sentiment"
+      }
+    },
+    "buttons": {
+      "goHome": "Take Me Home",
+      "signIn": "Sign In"
+    },
+    "help": {
+      "title": "Need Help Getting Started?",
+      "description": "Here are some popular destinations to get you back on track:",
+      "links": {
+        "signUp": "Create Account",
+        "dashboard": "Dashboard",
+        "marketIndicators": "Market Indicators"
+      }
+    }
+  },
+  "settings": {
+    "title": "User Settings",
+    "subtitle": "Manage your account settings and preferences",
+    "tabs": {
+      "profile": "Profile",
+      "security": "Security",
+      "preferences": "Preferences"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "subtitle": "Update your personal information and account details",
+      "editButton": "Edit Profile",
+      "saveButton": "Save Changes",
+      "cancelButton": "Cancel",
+      "verifyButton": "Verify",
+      "loading": "Loading",
+      "accountInfo": "Account Information",
+      "emailVerified": "Email Verification",
+      "verified": "Verified",
+      "notVerified": "Not Verified",
+      "memberSince": "Member Since",
+      "userId": "User ID",
+      "rememberMe": "Remember Me",
+      "twoFAStatus": "Two-Factor Authentication",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "verify2FA": "2FA Verification Required",
+      "verify2FADescription": "Please verify with your 2FA code to update your username",
+      "usernameUpdated": "Username updated successfully",
+      "errorUpdateUsername": "Failed to update username",
+      "setup2FASuccess": "2FA setup completed successfully",
+      "uniqueUsername": "Your unique username",
+      "saveChanges": "Save Changes",
+      "accountStatus": "Account Status",
+      "activeVerified": "Active & Verified",
+      "setup2FAButton": "Setup 2FA",
+      "fields": {
+        "fullname": "Full Name",
+        "username": "Username",
+        "email": "Email Address"
+      }
+    },
+    "preferences": {
+      "title": "Preferences",
+      "subtitle": "Customize your application preferences",
+      "currency": {
+        "title": "Currency Preference",
+        "subtitle": "Choose your preferred currency for displaying portfolio values",
+        "currentCurrency": "Current Currency",
+        "selectCurrency": "Select Currency",
+        "currencies": {
+          "USD": "US Dollar ($)",
+          "EUR": "Euro (€)",
+          "GBP": "British Pound (£)",
+          "JPY": "Japanese Yen (¥)",
+          "CAD": "Canadian Dollar (C$)",
+          "AUD": "Australian Dollar (A$)",
+          "CHF": "Swiss Franc (CHF)",
+          "CNY": "Chinese Yuan (¥)",
+          "KRW": "South Korean Won (₩)",
+          "INR": "Indian Rupee (₹)",
+          "BRL": "Brazilian Real (R$)",
+          "RUB": "Russian Ruble (₽)",
+          "MXN": "Mexican Peso ($)",
+          "SGD": "Singapore Dollar (S$)",
+          "HKD": "Hong Kong Dollar (HK$)",
+          "NOK": "Norwegian Krone (kr)",
+          "SEK": "Swedish Krona (kr)",
+          "DKK": "Danish Krone (kr)",
+          "PLN": "Polish Zloty (zł)",
+          "CZK": "Czech Koruna (Kč)",
+          "HUF": "Hungarian Forint (Ft)",
+          "ILS": "Israeli Shekel (₪)",
+          "TRY": "Turkish Lira (₺)",
+          "ZAR": "South African Rand (R)",
+          "THB": "Thai Baht (฿)",
+          "MYR": "Malaysian Ringgit (RM)",
+          "PHP": "Philippine Peso (₱)",
+          "IDR": "Indonesian Rupiah (Rp)",
+          "VND": "Vietnamese Dong (₫)"
+        }
+      },
+      "language": {
+        "title": "Language",
+        "subtitle": "Choose your preferred language",
+        "change": "Change"
+      },
+      "theme": {
+        "title": "Theme",
+        "subtitle": "Choose your preferred theme",
+        "change": "Change"
+      },
+      "notifications": {
+        "title": "Notifications",
+        "subtitle": "Manage your notification preferences",
+        "configure": "Configure"
+      }
+    },
+    "security": {
+      "password": {
+        "title": "Password & Security",
+        "subtitle": "Change your password to keep your account secure",
+        "changeButton": "Change Password",
+        "updateButton": "Update Password",
+        "cancelButton": "Cancel",
+        "currentPassword": "Current Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "lastChanged": "Password",
+        "neverChanged": "Never changed"
+      },
+      "twoFactor": {
+        "title": "Two-Factor Authentication",
+        "subtitle": "Add an extra layer of security to your account",
+        "enable": "Enable 2FA",
+        "disable": "Disable 2FA",
+        "enabled": "Two-Factor Authentication is enabled",
+        "disabled": "Two-Factor Authentication is disabled",
+        "enabledDesc": "Your account is protected with 2FA",
+        "disabledDesc": "Add 2FA for better security"
       }
     }
   }

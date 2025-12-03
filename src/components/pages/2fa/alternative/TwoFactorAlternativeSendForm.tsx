@@ -1,13 +1,20 @@
 'use client'
 
 import { JSX, useState, useMemo, useEffect } from 'react'
-import { CryButton, CryTextField } from '@420cry/420cry-lib'
+import {
+  CryButton,
+  CryTextField,
+  CheckCircleIcon,
+  LoadingIcon,
+  RefreshIcon,
+} from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import {
   HOME_ROUTE,
-  showToast,
   TWO_FACTOR_VERIFY_ROUTE,
   twoFactorService,
+  useLoading,
+  useNotification,
 } from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
@@ -29,6 +36,8 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const user = useAuthStore((state) => state.user)
   const t = useTranslations()
   const router = useRouter()
+  const { setLoading } = useLoading()
+  const { showNotification } = useNotification()
   const email = useMemo(() => maskEmail(user?.email || ''), [user?.email])
 
   // countdown timer
@@ -41,7 +50,11 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
         if (prev <= 1) {
           clearInterval(interval)
           setCanResend(true)
-          showToast(false, t('2fa.alternative.otpExpired'))
+          showNotification(
+            'warning',
+            t('2fa.alternative.warningTitle'),
+            t('2fa.alternative.otpExpired'),
+          )
           return 0
         }
         if (prev === 10 * 60 - 30) {
@@ -52,30 +65,46 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
     }, 1000)
 
     return () => clearInterval(interval)
-  }, [emailSent, t])
+  }, [emailSent, t, showNotification])
 
   const handleSendAlternativeEmail = async () => {
-    const email = user?.email
-    if (!email) {
-      showToast(false, t('app.alertTitle.emailNotExist'))
+    const userEmail = user?.email
+    if (!userEmail) {
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.emailNotExist'),
+      )
       return
     }
 
     setIsSending(true)
     try {
       const response =
-        await twoFactorService.alternative.sendAlternativeEmailOTP(email)
+        await twoFactorService.alternative.sendAlternativeEmailOTP(userEmail)
 
       if (response.isSuccess) {
-        showToast(true, t('2fa.alternative.emailSend', { email }))
+        showNotification(
+          'success',
+          t('2fa.alternative.successTitle'),
+          t('2fa.alternative.emailSend', { email }),
+        )
         setEmailSent(true)
         setTimeLeft(5 * 60) // 5 mins
         setCanResend(false)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.general'),
+      )
     } finally {
       setIsSending(false)
     }
@@ -83,12 +112,21 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
 
   const handleVerify = async () => {
     if (!otp.trim()) {
-      showToast(false, t('app.alertTitle.otpCannotBeEmpty'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.otpCannotBeEmpty'),
+      )
       return
     }
+    setLoading(true)
     try {
       if (!user?.uuid) {
-        showToast(false, t('app.alertTitle.somethingWentWrong'))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t('app.messages.error.general'),
+        )
         return
       }
       const response =
@@ -98,18 +136,39 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
           rememberMe: user.rememberMe,
         })
       if (response.isSuccess) {
-        showToast(true, t('app.alertTitle.2FAVerifySuccessful'))
+        showNotification(
+          'success',
+          t('2fa.alternative.successTitle'),
+          t('app.messages.success.2FAVerifySuccessful'),
+        )
         router.push(HOME_ROUTE)
       } else {
-        showToast(false, t(response.message))
+        showNotification(
+          'error',
+          t('2fa.alternative.errorTitle'),
+          t(response.message),
+        )
       }
     } catch {
-      showToast(false, t('app.alertTitle.somethingWentWrong'))
+      showNotification(
+        'error',
+        t('2fa.alternative.errorTitle'),
+        t('app.messages.error.general'),
+      )
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleBackClick = () => {
     router.push(TWO_FACTOR_VERIFY_ROUTE)
+  }
+
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (emailSent && otp.trim()) {
+      handleVerify()
+    }
   }
 
   const title = emailSent
@@ -122,75 +181,110 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const seconds = timeLeft % 60
 
   return (
-    <div className="w-full max-w-lg bg-white shadow-2xl rounded-2xl p-10 border border-gray-200">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">
-        {title}
-      </h1>
-      <p className="text-gray-700 text-base text-center mb-8 font-mono">
-        {description}
-      </p>
+    <div className="w-full max-w-lg bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-3xl p-12 border border-gray-200/50 backdrop-blur-sm">
+      <div className="text-center mb-8">
+        <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-lg">
+          <CheckCircleIcon className="w-8 h-8 text-white" />
+        </div>
+        <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          {title}
+        </h1>
+        <p className="text-gray-600 text-lg leading-relaxed max-w-md mx-auto">
+          {description}
+        </p>
+      </div>
 
       {!emailSent ? (
-        <div>
+        <div className="space-y-6">
           <div className="flex items-center space-x-4 w-full">
             <CryButton
               onClick={handleSendAlternativeEmail}
               disabled={isSending}
-              className="flex-shrink-0 bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition font-medium shadow-lg text-lg"
-              rounded
+              className="flex-shrink-0 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-2xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 font-semibold shadow-xl hover:shadow-2xl text-lg transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              shape="rounded"
             >
-              {t('2fa.alternative.sendCode')}
+              {isSending ? (
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Sending...</span>
+                </div>
+              ) : (
+                t('2fa.alternative.sendCode')
+              )}
             </CryButton>
 
-            <div className="flex-1 bg-gray-900 text-green-400 font-mono text-sm rounded-lg px-4 py-3 shadow-inner text-right break-all">
-              <span className="text-green-500 mr-2">$</span>
-              {email}
+            <div className="flex-1 bg-gradient-to-r from-gray-900 to-gray-800 text-green-400 font-mono text-sm rounded-2xl px-6 py-4 shadow-inner border border-gray-700 text-right break-all relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/10 to-transparent animate-pulse"></div>
+              <span className="text-green-500 mr-2 relative z-10">$</span>
+              <span className="relative z-10">{email}</span>
             </div>
           </div>
           <CryButton
             onClick={handleBackClick}
-            className="mt-4 w-full bg-gray-300 text-gray-800 text-lg font-semibold px-6 py-3 rounded-xl hover:bg-gray-400 transition-all shadow-lg"
-            rounded
+            variant="outline"
+            color="primary"
+            className="w-full text-lg font-semibold px-6 py-4 rounded-2xl"
+            shape="rounded"
           >
             {t('2fa.alternative.backToVerify')}
           </CryButton>
         </div>
       ) : (
-        <div className="flex flex-col space-y-6 items-center w-full">
-          <CryTextField
-            modelValue={otp}
-            onChange={setOtp}
-            shape="rounded"
-            name="otp"
-            className="w-full text-2xl px-8 py-5 focus:shadow-green-500/50 transition duration-300 font-mono tracking-wider"
-            placeholder={t('2fa.alternative.enterVerificationCode')}
-          />
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col space-y-8 items-center w-full"
+        >
+          <div className="w-full relative">
+            <CryTextField
+              modelValue={otp}
+              onChange={(event) =>
+                setOtp((event.target as HTMLInputElement).value)
+              }
+              shape="rounded"
+              name="otp"
+              className="text-center text-2xl font-mono tracking-widest px-6 py-4 bg-gray-50/50 border-gray-200 focus:border-green-500 focus:bg-white focus:shadow-lg transition-all duration-300 rounded-xl"
+              placeholder={t('2fa.alternative.enterVerificationCode')}
+            />
+          </div>
 
           <CryButton
-            onClick={handleVerify}
-            className="w-full bg-green-600 text-white text-lg font-semibold px-6 py-4 rounded-xl hover:bg-green-700 hover:scale-105 transform transition-all shadow-lg"
-            rounded
+            type="submit"
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white text-lg font-semibold px-8 py-5 rounded-2xl hover:from-green-600 hover:to-emerald-700 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            shape="rounded"
           >
-            {t('2fa.verify.verifyCode')}
+            <div className="flex items-center justify-center space-x-2">
+              <CheckCircleIcon className="w-5 h-5" />
+              <span>{t('2fa.verify.verifyCode')}</span>
+            </div>
           </CryButton>
 
           <CryButton
             onClick={handleSendAlternativeEmail}
             disabled={!canResend || isSending}
-            className={`mt-4 w-full ${
+            className={`w-full ${
               canResend
-                ? 'bg-yellow-500 hover:bg-yellow-600'
-                : 'bg-gray-400 cursor-not-allowed'
-            } text-white text-lg font-semibold px-6 py-3 rounded-xl transition-all shadow-lg`}
-            rounded
+                ? 'bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 hover:scale-105 transform transition-all duration-300 shadow-xl hover:shadow-2xl'
+                : 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed'
+            } text-white text-lg font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg`}
+            shape="rounded"
           >
-            {canResend
-              ? t('2fa.alternative.resendCode')
-              : `${t('2fa.alternative.resendIn')} ${minutes}:${seconds
-                  .toString()
-                  .padStart(2, '0')}`}
+            <div className="flex items-center justify-center space-x-2">
+              {canResend ? (
+                <>
+                  <RefreshIcon className="w-5 h-5 rotate-180" />
+                  <span>{t('2fa.alternative.resendCode')}</span>
+                </>
+              ) : (
+                <>
+                  <LoadingIcon className="w-5 h-5 animate-spin" />
+                  <span>{`${t('2fa.alternative.resendIn')} ${minutes}:${seconds
+                    .toString()
+                    .padStart(2, '0')}`}</span>
+                </>
+              )}
+            </div>
           </CryButton>
-        </div>
+        </form>
       )}
     </div>
   )

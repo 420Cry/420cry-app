@@ -3,14 +3,18 @@
 import { IFearAndGreedIndex } from '@/types'
 import { useTranslations } from 'next-intl'
 import { JSX } from 'react'
+import { FearAndGreedIndexSkeleton } from '@/components'
 
 interface FearAndGreedGaugeProps {
-  data: IFearAndGreedIndex
+  data: IFearAndGreedIndex | null
+  isLoading?: boolean
 }
 
-export default function FearAndGreedGauge({
+function FearAndGreedGaugeContent({
   data,
-}: FearAndGreedGaugeProps): JSX.Element {
+}: {
+  data: IFearAndGreedIndex
+}): JSX.Element {
   const t = useTranslations()
 
   const value = data.value
@@ -42,66 +46,108 @@ export default function FearAndGreedGauge({
   const x = centerX - radius * Math.cos(angle)
   const y = centerY - radius * Math.sin(angle)
   return (
-    <div className="inline-block border border-gray-300 rounded-xl p-6 shadow-md bg-white w-full max-w-[280px] text-center">
-      <h1 className="text-lg font-semibold mb-2">
-        {t('indicator.fearAndGreed.title')}
-      </h1>
-      <svg
-        viewBox="0 0 177 89" // only define the coordinate system
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="mx-auto w-full h-auto" // responsive sizing
-      >
-        {/* Rainbow arcs */}
-        <path
-          d="M4.32557 89C1.87842 89 -0.116956 87.0063 0.00533754 84.5517C0.699657 70.6157 4.64771 57.0372 11.5298 44.9158C12.7419 42.7809 15.492 42.1788 17.5547 43.5013C19.6173 44.8239 20.2101 47.5697 19.0098 49.7114C13.0232 60.393 9.55721 72.3137 8.87958 84.5522C8.74371 87.006 6.77273 89 4.32557 89Z"
-          fill="#EA3943"
-        />
-        <path
-          d="M21.6901 37.5722C19.7476 36.0773 19.3713 33.2759 20.955 31.4022C29.8889 20.833 41.1595 12.505 53.8654 7.08455C56.1178 6.12366 58.6688 7.31812 59.5119 9.62535C60.3549 11.9326 59.1699 14.4778 56.9229 15.4512C45.7896 20.2743 35.8966 27.5843 27.9986 36.8236C26.4046 38.6883 23.6325 39.067 21.6901 37.5722Z"
-          fill="#EA8C01"
-        />
-        <path
-          d="M65.6152 7.63766C64.9496 5.27265 66.3172 2.80197 68.7024 2.25252C82.1656 -0.848809 96.166 -0.74632 109.583 2.55178C111.96 3.13609 113.291 5.62653 112.591 7.98154C111.892 10.3366 109.425 11.6631 107.045 11.092C95.2451 8.26099 82.9557 8.17102 71.1157 10.829C68.7275 11.3651 66.2808 10.0027 65.6152 7.63766Z"
-          fill="#F3D42F"
-        />
-        <path
-          d="M119.49 10.3811C120.39 8.09582 122.971 6.96602 125.198 7.98336C137.835 13.7542 148.946 22.427 157.633 33.3005C159.165 35.2174 158.711 38.0073 156.729 39.4477C154.746 40.8881 151.985 40.4325 150.443 38.5242C142.759 29.0152 133.005 21.4015 121.933 16.2703C119.711 15.2406 118.59 12.6663 119.49 10.3811Z"
-          fill="#93D900"
-        />
-        <path
-          d="M159.373 43.3433C161.432 42.0162 164.184 42.6121 165.401 44.7444C172.249 56.7444 176.219 70.1842 176.993 83.9936C177.131 86.4473 175.148 88.4536 172.701 88.4691C170.254 88.4845 168.27 86.503 168.119 84.05C167.372 71.9256 163.888 60.1293 157.931 49.5566C156.726 47.4176 157.313 44.6704 159.373 43.3433Z"
-          fill="#14C784"
-        />
+    <div className="relative w-full max-w-sm mx-auto">
+      {/* Modern Trading Card Container */}
+      <div className="bg-gray-950 rounded-lg shadow-2xl border border-gray-800 overflow-hidden">
+        {/* Header Section */}
+        <div className="bg-gray-900 p-6 text-white text-center border-b border-gray-700">
+          <h1 className="text-xl font-bold mb-1">
+            {t('indicator.fearAndGreed.title')}
+          </h1>
+          <p className="text-gray-400 text-sm">
+            {t('indicator.fearAndGreed.currentSentiment')}
+          </p>
+        </div>
 
-        {/* Value */}
-        <text
-          x="50%" // center horizontally
-          y="55"
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontSize="28"
-          fontWeight="bold"
-          fill="#333"
-        >
-          {value}
-        </text>
+        {/* Gauge Section */}
+        <div className="p-8 bg-gray-950">
+          <svg
+            viewBox="0 0 177 89"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="mx-auto w-full h-auto max-w-[280px]"
+          >
+            {/* Modern Rainbow arcs with enhanced colors */}
+            <path
+              d="M4.32557 89C1.87842 89 -0.116956 87.0063 0.00533754 84.5517C0.699657 70.6157 4.64771 57.0372 11.5298 44.9158C12.7419 42.7809 15.492 42.1788 17.5547 43.5013C19.6173 44.8239 20.2101 47.5697 19.0098 49.7114C13.0232 60.393 9.55721 72.3137 8.87958 84.5522C8.74371 87.006 6.77273 89 4.32557 89Z"
+              fill="#FF1744"
+            />
+            <path
+              d="M21.6901 37.5722C19.7476 36.0773 19.3713 33.2759 20.955 31.4022C29.8889 20.833 41.1595 12.505 53.8654 7.08455C56.1178 6.12366 58.6688 7.31812 59.5119 9.62535C60.3549 11.9326 59.1699 14.4778 56.9229 15.4512C45.7896 20.2743 35.8966 27.5843 27.9986 36.8236C26.4046 38.6883 23.6325 39.067 21.6901 37.5722Z"
+              fill="#FF6F00"
+            />
+            <path
+              d="M65.6152 7.63766C64.9496 5.27265 66.3172 2.80197 68.7024 2.25252C82.1656 -0.848809 96.166 -0.74632 109.583 2.55178C111.96 3.13609 113.291 5.62653 112.591 7.98154C111.892 10.3366 109.425 11.6631 107.045 11.092C95.2451 8.26099 82.9557 8.17102 71.1157 10.829C68.7275 11.3651 66.2808 10.0027 65.6152 7.63766Z"
+              fill="#FFD600"
+            />
+            <path
+              d="M119.49 10.3811C120.39 8.09582 122.971 6.96602 125.198 7.98336C137.835 13.7542 148.946 22.427 157.633 33.3005C159.165 35.2174 158.711 38.0073 156.729 39.4477C154.746 40.8881 151.985 40.4325 150.443 38.5242C142.759 29.0152 133.005 21.4015 121.933 16.2703C119.711 15.2406 118.59 12.6663 119.49 10.3811Z"
+              fill="#00E676"
+            />
+            <path
+              d="M159.373 43.3433C161.432 42.0162 164.184 42.6121 165.401 44.7444C172.249 56.7444 176.219 70.1842 176.993 83.9936C177.131 86.4473 175.148 88.4536 172.701 88.4691C170.254 88.4845 168.27 86.503 168.119 84.05C167.372 71.9256 163.888 60.1293 157.931 49.5566C156.726 47.4176 157.313 44.6704 159.373 43.3433Z"
+              fill="#00BCD4"
+            />
 
-        {/* Classification */}
-        <text
-          x="50%" // center horizontally
-          y="75"
-          dominantBaseline="middle"
-          textAnchor="middle"
-          fontSize="14"
-          fill="#666"
-        >
-          {classificationText}
-        </text>
+            {/* Value */}
+            <text
+              x="50%"
+              y="55"
+              dominantBaseline="middle"
+              textAnchor="middle"
+              fontSize="32"
+              fontWeight="bold"
+              fill="#ffffff"
+            >
+              {value}
+            </text>
 
-        {/* Pointer */}
-        <circle cx={x} cy={y} r="6" fill="#000" stroke="#fff" strokeWidth="2" />
-      </svg>
+            {/* Classification */}
+            <text
+              x="50%"
+              y="75"
+              dominantBaseline="middle"
+              textAnchor="middle"
+              fontSize="16"
+              fontWeight="600"
+              fill="#9ca3af"
+            >
+              {classificationText}
+            </text>
+
+            {/* Enhanced Pointer */}
+            <circle
+              cx={x}
+              cy={y}
+              r="8"
+              fill="#3b82f6"
+              stroke="#ffffff"
+              strokeWidth="3"
+              className="drop-shadow-lg"
+            />
+          </svg>
+        </div>
+
+        {/* Footer Section */}
+        <div className="bg-gray-900 px-6 py-3 border-t border-gray-700">
+          <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span>{t('indicator.fearAndGreed.liveData')}</span>
+          </div>
+        </div>
+      </div>
     </div>
   )
+}
+
+export default function FearAndGreedGauge({
+  data,
+  isLoading = false,
+}: FearAndGreedGaugeProps): JSX.Element {
+  // Show skeleton while loading or if no data
+  if (isLoading || !data) {
+    return <FearAndGreedIndexSkeleton />
+  }
+
+  return <FearAndGreedGaugeContent data={data} />
 }
