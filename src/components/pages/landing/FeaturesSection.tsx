@@ -84,13 +84,22 @@ export default function FeaturesSection(): JSX.Element {
   ]
 
   return (
-    <section className="py-16 bg-gray-900">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">
+    <section className="relative overflow-hidden bg-slate-950 py-20">
+      <div className="absolute inset-0 neon-gradient opacity-90" aria-hidden />
+      <div className="absolute inset-0 neon-grid" aria-hidden />
+      <div className="absolute inset-0 grid-lines" aria-hidden />
+      <div className="absolute -left-16 bottom-10 w-72 h-72 bg-purple-600/30 rounded-full blur-3xl" />
+
+      <div className="relative max-w-6xl mx-auto px-6 text-slate-50">
+        <div className="text-center mb-16 space-y-3">
+          <div className="inline-flex items-center gap-2 pill">
+            <span className="h-2 w-2 rounded-full bg-purple-300" />
+            {t('landing.features.cta.benefits.freeToStart')}
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold gradient-text">
             {t('landing.features.title')}
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-200/80 max-w-2xl mx-auto">
             {t('landing.features.subtitle')}
           </p>
         </div>
@@ -99,13 +108,16 @@ export default function FeaturesSection(): JSX.Element {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-gray-600 transition-all duration-200 hover:transform hover:scale-105"
+              className="glass-card rounded-2xl p-6 border border-white/10 shadow-lg shadow-purple-500/15 hover:border-cyan-400/40 transition-all duration-200"
             >
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-bold text-white mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-300 mb-4 text-sm leading-relaxed">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl">
+                  {feature.icon}
+                </div>
+                <div className="h-[1px] flex-1 mx-3 bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
+              <p className="text-slate-200/80 mb-4 text-sm leading-relaxed">
                 {feature.description}
               </p>
 
@@ -113,9 +125,9 @@ export default function FeaturesSection(): JSX.Element {
                 {feature.features.map((item, itemIndex) => (
                   <li
                     key={itemIndex}
-                    className="flex items-center gap-2 text-sm text-gray-400"
+                    className="flex items-center gap-2 text-sm text-slate-200/80"
                   >
-                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div>
+                    <div className="w-1.5 h-1.5 bg-cyan-300 rounded-full shadow-[0_0_8px_rgba(34,211,238,0.6)]" />
                     {item}
                   </li>
                 ))}
@@ -125,41 +137,44 @@ export default function FeaturesSection(): JSX.Element {
         </div>
 
         {/* Additional Benefits */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-8 text-center">
-          <h3 className="text-3xl font-bold text-white mb-4">
-            {t('landing.features.cta.title')}
-          </h3>
-          <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-            {t('landing.features.cta.description')}
-          </p>
+        <div className="mt-16 glass-card rounded-2xl p-8 border border-white/10 shadow-2xl shadow-cyan-500/15 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 via-transparent to-cyan-500/20 pointer-events-none" />
+          <div className="relative">
+            <h3 className="text-3xl font-bold text-white mb-4">
+              {t('landing.features.cta.title')}
+            </h3>
+            <p className="text-slate-200/80 mb-8 max-w-2xl">
+              {t('landing.features.cta.description')}
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <CryButton
-              to={SIGN_UP_ROUTE}
-              className="hover:bg-gray-100 font-semibold py-3 px-8 rounded-lg transition duration-200 transform hover:scale-105"
-            >
-              {t('landing.features.cta.getStarted')}
-            </CryButton>
-            <CryButton
-              to={SIGN_IN_ROUTE}
-              className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold py-3 px-8 rounded-lg transition duration-200"
-            >
-              {t('landing.features.cta.signIn')}
-            </CryButton>
-          </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <CryButton
+                to={SIGN_UP_ROUTE}
+                className="btn-neon px-6 py-3 w-full sm:w-auto text-center"
+              >
+                {t('landing.features.cta.getStarted')}
+              </CryButton>
+              <CryButton
+                to={SIGN_IN_ROUTE}
+                className="btn-ghost px-6 py-3 w-full sm:w-auto text-center"
+              >
+                {t('landing.features.cta.signIn')}
+              </CryButton>
+            </div>
 
-          <div className="mt-8 flex justify-center items-center gap-8 text-blue-100 text-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-              <span>{t('landing.features.cta.benefits.freeToStart')}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-              <span>{t('landing.features.cta.benefits.noCreditCard')}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-              <span>{t('landing.features.cta.benefits.cancelAnytime')}</span>
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-slate-200 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                <span>{t('landing.features.cta.benefits.freeToStart')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-cyan-300 rounded-full"></div>
+                <span>{t('landing.features.cta.benefits.noCreditCard')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
+                <span>{t('landing.features.cta.benefits.cancelAnytime')}</span>
+              </div>
             </div>
           </div>
         </div>
