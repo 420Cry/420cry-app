@@ -10,101 +10,141 @@ export default function HeroSection(): JSX.Element {
   const t = useTranslations()
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-[url('/background/blackHoneyComb.jpg')] opacity-20"></div>
+    <section className="relative overflow-hidden bg-slate-950 text-slate-50">
+      {/* Background layers */}
+      <div className="absolute inset-0 neon-gradient" aria-hidden />
+      <div className="absolute inset-0 neon-grid" aria-hidden />
+      <div className="absolute inset-0 grid-lines" aria-hidden />
+      <div className="absolute -left-20 top-10 w-72 h-72 bg-purple-700/30 rounded-full orb" />
+      <div className="absolute right-0 bottom-0 w-96 h-96 bg-cyan-500/25 rounded-full orb" />
 
       {/* Language Switcher */}
       <div className="absolute top-6 right-6 z-20">
-        <LanguageChangeButton />
+        <div className="glass-outline rounded-full px-3 py-2 shadow-lg shadow-cyan-500/10">
+          <LanguageChangeButton />
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-        {/* Logo/Brand */}
-        <div className="mb-8">
-          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4">
-            {t('landing.hero.title')}
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto">
-            {t('landing.hero.subtitle')}
-          </p>
-        </div>
-
-        {/* Feature Highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <div className="text-3xl mb-3">📊</div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {t('landing.hero.features.marketIndicators.title')}
-            </h3>
-            <p className="text-gray-300 text-sm">
-              {t('landing.hero.features.marketIndicators.description')}
-            </p>
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <div className="text-3xl mb-3">🔍</div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {t('landing.hero.features.blockchainExplorer.title')}
-            </h3>
-            <p className="text-gray-300 text-sm">
-              {t('landing.hero.features.blockchainExplorer.description')}
-            </p>
-          </div>
-
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-            <div className="text-3xl mb-3">🔐</div>
-            <h3 className="text-lg font-semibold text-white mb-2">
-              {t('landing.hero.features.securePlatform.title')}
-            </h3>
-            <p className="text-gray-300 text-sm">
-              {t('landing.hero.features.securePlatform.description')}
-            </p>
-          </div>
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href={SIGN_UP_ROUTE}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-lg transition duration-200 transform hover:scale-105 shadow-lg"
-          >
-            {t('landing.hero.getStarted')}
-          </Link>
-          <Link
-            href={SIGN_IN_ROUTE}
-            className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-4 px-8 rounded-lg transition duration-200 transform hover:scale-105"
-          >
-            {t('landing.hero.signIn')}
-          </Link>
-        </div>
-
-        {/* Trust Indicators */}
-        <div className="mt-16 text-center">
-          <p className="text-gray-400 text-sm mb-4">
-            {t('landing.hero.trustedBy')}
-          </p>
-          <div className="flex justify-center items-center gap-8 opacity-60">
-            <div className="text-gray-300 font-semibold">
-              {t('landing.hero.trustIndicators.realTimeData')}
-            </div>
-            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <div className="text-gray-300 font-semibold">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-20 lg:py-28">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
+          {/* Main copy */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 pill">
+              <span className="w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_10px_rgba(34,211,238,0.6)]" />
               {t('landing.hero.trustIndicators.securePlatform')}
             </div>
-            <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-            <div className="text-gray-300 font-semibold">
-              {t('landing.hero.trustIndicators.professionalTools')}
+
+            <div className="space-y-4">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight gradient-text">
+                {t('landing.hero.title')}
+              </h1>
+              <p className="text-lg md:text-xl text-slate-200/90 max-w-2xl">
+                {t('landing.hero.subtitle')}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <span className="pill flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-emerald-300" />
+                {t('landing.hero.features.marketIndicators.title')}
+              </span>
+              <span className="pill flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-indigo-300" />
+                {t('landing.hero.features.blockchainExplorer.title')}
+              </span>
+              <span className="pill flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-cyan-300" />
+                {t('landing.hero.features.securePlatform.title')}
+              </span>
+            </div>
+
+            <div className="glass-card rounded-2xl p-5 sm:p-6 border border-white/10 shadow-xl shadow-purple-500/10">
+              <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
+                <Link
+                  href={SIGN_UP_ROUTE}
+                  className="btn-neon px-6 py-3 text-center w-full sm:w-auto"
+                >
+                  {t('landing.hero.getStarted')}
+                </Link>
+                <Link
+                  href={SIGN_IN_ROUTE}
+                  className="btn-ghost px-6 py-3 text-center w-full sm:w-auto"
+                >
+                  {t('landing.hero.signIn')}
+                </Link>
+                <div className="flex-1 text-left text-sm text-slate-300/90 sm:text-right">
+                  {t('landing.hero.trustIndicators.professionalTools')}
+                </div>
+              </div>
+              <div className="divider-gradient mt-4" aria-hidden />
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-slate-200/80">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.5)]" />
+                  {t('landing.hero.trustIndicators.realTimeData')}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.45)]" />
+                  {t('landing.hero.trustIndicators.securePlatform')}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-fuchsia-400 shadow-[0_0_12px_rgba(217,70,239,0.45)]" />
+                  {t('landing.hero.trustIndicators.professionalTools')}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2"></div>
+          {/* Feature highlights */}
+          <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/10 shadow-2xl shadow-cyan-500/15">
+            <div className="flex items-center justify-between mb-6">
+              <div>
+                <p className="text-sm uppercase tracking-[0.2em] text-slate-300/70">
+                  {t('landing.hero.trustedBy')}
+                </p>
+                <h3 className="text-2xl font-bold text-white">
+                  {t('landing.hero.features.marketIndicators.title')}
+                </h3>
+              </div>
+              <div className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-slate-200">
+                {t('landing.hero.features.securePlatform.title')}
+              </div>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="rounded-xl p-4 bg-white/5 border border-white/10 flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">📊</span>
+                  <p className="text-sm text-slate-200/80">
+                    {t('landing.hero.features.marketIndicators.description')}
+                  </p>
+                </div>
+                <div className="h-1 rounded-full bg-gradient-to-r from-emerald-400/80 via-cyan-400/70 to-purple-400/70" />
+              </div>
+
+              <div className="rounded-xl p-4 bg-white/5 border border-white/10 flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🔍</span>
+                  <p className="text-sm text-slate-200/80">
+                    {t('landing.hero.features.blockchainExplorer.description')}
+                  </p>
+                </div>
+                <div className="h-1 rounded-full bg-gradient-to-r from-cyan-400/80 via-sky-400/70 to-indigo-400/70" />
+              </div>
+
+              <div className="rounded-xl p-4 bg-white/5 border border-white/10 flex flex-col gap-2 sm:col-span-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🔐</span>
+                  <p className="text-sm text-slate-200/80">
+                    {t('landing.hero.features.securePlatform.description')}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-emerald-200">
+                  <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+                  {t('landing.hero.trustIndicators.securePlatform')}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
