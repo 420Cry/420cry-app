@@ -11,6 +11,7 @@ import {
   NotificationProvider,
   NotificationRenderer,
 } from '@/lib'
+import { themeClass, themeCombos } from '@/lib/theme/theme-classes'
 
 function LayoutContent({ children }: { children: ReactNode }) {
   const { loading, setLoading } = useLoading()
@@ -22,7 +23,10 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
   return (
     <div
-      className="flex h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ease-in-out"
+      className={themeClass(
+        'flex h-screen transition-colors duration-300 ease-in-out',
+        themeCombos.bgSurface(),
+      )}
       suppressHydrationWarning
     >
       <DashboardSidebar
@@ -43,7 +47,13 @@ function LayoutContent({ children }: { children: ReactNode }) {
 
         {/* Main content */}
         <main
-          className="flex-1 p-6 overflow-y-auto relative bg-gray-50 dark:bg-gray-900 transition-colors duration-300 ease-in-out"
+          className={themeClass(
+            'flex-1 overflow-y-auto relative transition-colors duration-300 ease-in-out',
+            themeCombos.bgSurface(),
+          )}
+          style={{
+            padding: 'var(--theme-spacing-lg, 1.5rem)',
+          }}
           suppressHydrationWarning
         >
           {children}

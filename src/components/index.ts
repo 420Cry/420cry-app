@@ -30,6 +30,9 @@ export { default as FeaturesSection } from './pages/landing/landingPageSection/F
 // layout
 export { default as ClientLayout } from './layout/ClientLayout'
 
+// theme
+export { ThemeProvider } from './theme/ThemeProvider'
+
 // common
 export { default as DashboardSidebar } from './common/sidebar/DashboardSidebar'
 export { default as LanguageChangeButton } from './common/header/LanguageChangeButton'

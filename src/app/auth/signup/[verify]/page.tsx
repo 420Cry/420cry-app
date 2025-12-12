@@ -41,7 +41,9 @@ const SignUpConfirmationPage = (): JSX.Element => {
   if (status === 'loading') {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="text-gray-700">{t('auth.signup.verifyEmail.title')}</p>
+        <p className="text-gray-700 dark:text-gray-200">
+          {t('auth.signup.verifyEmail.title')}
+        </p>
       </div>
     )
   }

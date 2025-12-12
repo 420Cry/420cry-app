@@ -15,13 +15,18 @@ function LayoutContent({ children }: { children: ReactNode }) {
   const { loading } = useLoading()
 
   return (
-    <div className="flex h-screen bg-gradient-to-r from-green-400 to-emerald-600">
+    <div className="flex h-screen bg-linear-to-r from-success-400 to-success-600">
       <div className="flex-1 flex flex-col relative overflow-hidden">
         {/* Header */}
         <TwoFactorHeader />
 
         {/* Main content */}
-        <main className="flex-1 p-6 flex items-center justify-center">
+        <main
+          className="flex-1 flex items-center justify-center"
+          style={{
+            padding: 'var(--theme-spacing-lg, 1.5rem)',
+          }}
+        >
           {children}
           <BTCLoader show={loading} />
         </main>

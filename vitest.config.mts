@@ -9,8 +9,10 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    deps: {
-      inline: ['@420cry/420cry-lib'],
+    server: {
+      deps: {
+        inline: ['@420cry/420cry-lib'],
+      },
     },
   },
 })

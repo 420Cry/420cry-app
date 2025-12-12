@@ -1,17 +1,26 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/settings/update-user-account-name/route'
-import { RequestService, ApiErrorHandler } from '@/lib'
+import { RequestService } from '@/lib'
+import { ApiErrorHandler } from '@/lib/server/api/errorHandler'
 
-vi.mock('@/lib', () => ({
-  API_URL: 'http://fake-api',
-  RequestService: {
-    axiosPut: vi.fn(),
-  },
+// Mock ApiErrorHandler at the module level where routeHelpers imports it
+vi.mock('@/lib/server/api/errorHandler', () => ({
   ApiErrorHandler: {
     handle: vi.fn(),
   },
 }))
+
+vi.mock('@/lib', async () => {
+  const actual = await vi.importActual('@/lib')
+  return {
+    ...actual,
+    API_URL: 'http://fake-api',
+    RequestService: {
+      axiosPut: vi.fn(),
+    },
+  }
+})
 
 class MockNextRequest {
   constructor(private body: any) {}
@@ -92,10 +101,14 @@ describe('POST /api/settings/update-user-account-name', () => {
     })
     const res = await POST(req as any)
 
-    expect(res.status).toBe(200)
+    // createErrorResponse uses the status code from the response
+    expect(res.status).toBe(409)
     const data = await res.json()
-    expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('app.messages.error.emailOrUserNameAlreadyExist')
+    // Status handler uses createErrorResponse which wraps the response
+    expect(data.response.isSuccess).toBe(false)
+    expect(data.response.message).toBe(
+      'app.messages.error.emailOrUserNameAlreadyExist',
+    )
   })
 
   it('returns default error message for other status codes', async () => {
@@ -109,10 +122,12 @@ describe('POST /api/settings/update-user-account-name', () => {
     })
     const res = await POST(req as any)
 
-    expect(res.status).toBe(200)
+    // createErrorResponse uses the status code from the response
+    expect(res.status).toBe(500)
     const data = await res.json()
-    expect(data.isSuccess).toBe(false)
-    expect(data.message).toBe('settings.profile.errorUpdateUsername')
+    // createErrorResponse wraps the response
+    expect(data.response.isSuccess).toBe(false)
+    expect(data.response.message).toBe('settings.profile.errorUpdateUsername')
   })
 
   it('uses ApiErrorHandler for error handling', async () => {

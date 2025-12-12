@@ -39,7 +39,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
           {showPhoneModal && (
             <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
               <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md text-center animate-scale-in">
-                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-4 mx-auto">
+                <div className="flex items-center justify-center w-16 h-16 bg-linear-to-br from-primary-500 to-secondary-600 rounded-full mb-4 mx-auto">
                   <span className="text-2xl">📱</span>
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-3">
@@ -50,7 +50,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
                 </p>
                 <CryButton
                   onClick={handleCloseModal}
-                  className="px-8 py-3 text-base font-medium bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                  className="px-8 py-3 text-base font-medium bg-linear-to-r from-primary-600 to-secondary-600 text-white rounded-xl hover:from-primary-700 hover:to-secondary-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                 >
                   {t('app.common.ok')}
                 </CryButton>

@@ -22,15 +22,22 @@ export const passwordSchema = z
  */
 export const passwordConfirmationSchema = <T extends z.ZodTypeAny>(
   passwordField: T,
-) => {
+): z.ZodTypeAny => {
   const schema = z.object({
     password: passwordField,
     repeatedPassword: z.string().trim(),
   })
-  return schema.refine((data: any) => data.password === data.repeatedPassword, {
-    message: 'app.rules.repeatedPassword',
-    path: ['repeatedPassword'],
-  })
+  return schema.refine(
+    (data) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const typedData = data as any
+      return typedData.password === typedData.repeatedPassword
+    },
+    {
+      message: 'app.rules.repeatedPassword',
+      path: ['repeatedPassword'],
+    },
+  )
 }
 
 /**
