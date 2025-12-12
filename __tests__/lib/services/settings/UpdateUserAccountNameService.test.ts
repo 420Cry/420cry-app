@@ -30,19 +30,19 @@ vi.mock('@/lib/server/validation/commonSchemas', () => ({
       if (trimmed.length < 3) {
         return {
           success: false,
-          error: { errors: [{ message: 'app.rules.userNameMinLength' }] },
+          error: { issues: [{ message: 'app.rules.userNameMinLength' }] },
         }
       }
       if (trimmed.length > 50) {
         return {
           success: false,
-          error: { errors: [{ message: 'app.rules.userNameMaxLength' }] },
+          error: { issues: [{ message: 'app.rules.userNameMaxLength' }] },
         }
       }
       if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) {
         return {
           success: false,
-          error: { errors: [{ message: 'app.rules.userNameFormat' }] },
+          error: { issues: [{ message: 'app.rules.userNameFormat' }] },
         }
       }
       return { success: true, data: trimmed }

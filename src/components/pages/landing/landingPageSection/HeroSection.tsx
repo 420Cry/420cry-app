@@ -35,10 +35,10 @@ export default function HeroSection(): JSX.Element {
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight gradient-text break-words">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight gradient-text wrap-break-word">
                 {t('landing.hero.title')}
               </h1>
-              <p className="text-lg md:text-xl text-slate-200/90 max-w-2xl break-words">
+              <p className="text-lg md:text-xl text-slate-200/90 max-w-2xl wrap-break-word">
                 {t('landing.hero.subtitle')}
               </p>
             </div>
@@ -137,7 +137,7 @@ export default function HeroSection(): JSX.Element {
                       {t('landing.hero.features.marketIndicators.description')}
                     </p>
                   </div>
-                  <div className="h-1 rounded-full bg-gradient-to-r from-emerald-400/80 via-cyan-400/70 to-purple-400/70" />
+                  <div className="h-1 rounded-full bg-linear-to-r from-emerald-400/80 via-cyan-400/70 to-purple-400/70" />
                 </div>
 
                 <div className="rounded-xl p-4 bg-white/5 border border-white/10 flex flex-col gap-2">
@@ -149,7 +149,7 @@ export default function HeroSection(): JSX.Element {
                       )}
                     </p>
                   </div>
-                  <div className="h-1 rounded-full bg-gradient-to-r from-cyan-400/80 via-sky-400/70 to-indigo-400/70" />
+                  <div className="h-1 rounded-full bg-linear-to-r from-cyan-400/80 via-sky-400/70 to-indigo-400/70" />
                 </div>
 
                 <div className="rounded-xl p-4 bg-white/5 border border-white/10 flex flex-col gap-2 sm:col-span-2">

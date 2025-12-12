@@ -96,10 +96,10 @@ export default function FeaturesSection(): JSX.Element {
             <span className="h-2 w-2 rounded-full bg-purple-300" />
             {t('landing.features.cta.benefits.freeToStart')}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold gradient-text break-words">
+          <h2 className="text-4xl md:text-5xl font-bold gradient-text wrap-break-word">
             {t('landing.features.title')}
           </h2>
-          <p className="text-xl text-slate-200/80 max-w-2xl mx-auto break-words">
+          <p className="text-xl text-slate-200/80 max-w-2xl mx-auto wrap-break-word">
             {t('landing.features.subtitle')}
           </p>
         </div>
@@ -114,12 +114,12 @@ export default function FeaturesSection(): JSX.Element {
                 <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-2xl">
                   {feature.icon}
                 </div>
-                <div className="h-[1px] flex-1 mx-3 bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
+                <div className="h-px flex-1 mx-3 bg-linear-to-r from-transparent via-cyan-400/70 to-transparent" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-2 break-words">
+              <h3 className="text-xl font-bold text-white mb-2 wrap-break-word">
                 {feature.title}
               </h3>
-              <p className="text-slate-200/80 mb-4 text-sm leading-relaxed break-words">
+              <p className="text-slate-200/80 mb-4 text-sm leading-relaxed wrap-break-word">
                 {feature.description}
               </p>
 
@@ -140,12 +140,12 @@ export default function FeaturesSection(): JSX.Element {
 
         {/* Additional Benefits */}
         <div className="mt-16 glass-card rounded-2xl p-8 border border-white/10 shadow-2xl shadow-cyan-500/15 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 via-transparent to-cyan-500/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-r from-purple-600/30 via-transparent to-cyan-500/20 pointer-events-none" />
           <div className="relative">
-            <h3 className="text-3xl font-bold text-white mb-4 break-words">
+            <h3 className="text-3xl font-bold text-white mb-4 wrap-break-word">
               {t('landing.features.cta.title')}
             </h3>
-            <p className="text-slate-200/80 mb-8 max-w-2xl break-words">
+            <p className="text-slate-200/80 mb-8 max-w-2xl wrap-break-word">
               {t('landing.features.cta.description')}
             </p>
 

@@ -10,7 +10,7 @@ export default function NotFoundPage(): JSX.Element {
   const t = useTranslations()
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-900 via-blue-900 to-indigo-900 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/background/blackHoneyComb.jpg')] opacity-20"></div>
 

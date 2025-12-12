@@ -59,10 +59,10 @@ export default function FearAndGreedPreview(): JSX.Element {
             <span className="h-2 w-2 rounded-full bg-emerald-300" />
             {t('landing.hero.trustIndicators.realTimeData')}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold gradient-text break-words">
+          <h2 className="text-4xl md:text-5xl font-bold gradient-text wrap-break-word">
             {t('landing.fearAndGreed.title')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-200/80 max-w-2xl mx-auto break-words">
+          <p className="text-lg md:text-xl text-slate-200/80 max-w-2xl mx-auto wrap-break-word">
             {t('landing.fearAndGreed.subtitle')}
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function FearAndGreedPreview(): JSX.Element {
           {/* Preview Card */}
           <div className="glass-card rounded-2xl p-7 sm:p-8 border border-white/10 shadow-2xl shadow-cyan-500/15">
             <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
-              <h3 className="text-2xl font-bold text-white break-words">
+              <h3 className="text-2xl font-bold text-white wrap-break-word">
                 {t('landing.fearAndGreed.currentSentiment')}
               </h3>
               <span className="pill bg-white/10 border-white/10 text-xs">
@@ -88,7 +88,7 @@ export default function FearAndGreedPreview(): JSX.Element {
                 {/* Gauge Preview */}
                 <div className="relative w-48 h-48 mx-auto flex items-center justify-center">
                   <div className="absolute inset-0 rounded-full bg-white/5 border border-white/10 glow-ring" />
-                  <div className="absolute inset-[10%] rounded-full bg-gradient-to-b from-slate-900/40 to-slate-900/70 border border-white/5" />
+                  <div className="absolute inset-[10%] rounded-full bg-linear-to-b from-slate-900/40 to-slate-900/70 border border-white/5" />
                   <div
                     className={`relative text-6xl font-black ${getSentimentColor(data.data.value)}`}
                   >
@@ -142,7 +142,7 @@ export default function FearAndGreedPreview(): JSX.Element {
 
               <div className="space-y-4">
                 <div className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-xl">
+                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-xl">
                     📈
                   </div>
                   <div className="space-y-1">
@@ -160,7 +160,7 @@ export default function FearAndGreedPreview(): JSX.Element {
                 </div>
 
                 <div className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-xl">
+                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-xl">
                     🎯
                   </div>
                   <div className="space-y-1">
@@ -176,7 +176,7 @@ export default function FearAndGreedPreview(): JSX.Element {
                 </div>
 
                 <div className="flex gap-4 items-start">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-xl">
+                  <div className="shrink-0 w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-xl">
                     📊
                   </div>
                   <div className="space-y-1">
