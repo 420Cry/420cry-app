@@ -28,9 +28,16 @@ const SignupForm = (): JSX.Element => {
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
   const authService = useAuthService()
+  // Store translation keys instead of translated strings so errors update when language changes
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({})
+
+  // Helper function to translate error messages on render
+  const getTranslatedError = (errorKey?: string): string | undefined => {
+    if (!errorKey) return undefined
+    return errorKey.startsWith('app.') ? t(errorKey as any) : errorKey
+  }
 
   const validateFormData = (
     formData: FormData,
@@ -48,9 +55,12 @@ const SignupForm = (): JSX.Element => {
       return { isValid: true, errors: {} }
     }
 
+    // Store translation keys, not translated strings
     const errors: Record<string, string> = {}
     result.error.issues.forEach((err) => {
       const field = err.path[0] as string
+      // Store the translation key (err.message is already a key like 'app.rules.email')
+      // or the message itself if it's not a translation key
       errors[field] = err.message
     })
     return { isValid: false, errors }
@@ -113,7 +123,7 @@ const SignupForm = (): JSX.Element => {
           <CryFormTextField
             label={t('app.fields.fullname')}
             name="fullName"
-            error={validationErrors.fullName}
+            error={getTranslatedError(validationErrors.fullName)}
             wrapperClassName="w-full sm:w-1/2 sm:pr-3"
             labelClassName={formStyles.label.default}
             inputClassName={combineStyles(
@@ -124,7 +134,7 @@ const SignupForm = (): JSX.Element => {
           <CryFormTextField
             label={t('app.fields.email')}
             name="email"
-            error={validationErrors.email}
+            error={getTranslatedError(validationErrors.email)}
             wrapperClassName="w-full sm:w-1/2 sm:pl-3"
             labelClassName={formStyles.label.default}
             inputClassName={combineStyles(
@@ -138,7 +148,7 @@ const SignupForm = (): JSX.Element => {
         <CryFormTextField
           label={t('app.fields.username')}
           name="userName"
-          error={validationErrors.userName}
+          error={getTranslatedError(validationErrors.userName)}
           labelClassName={formStyles.label.default}
           inputClassName={combineStyles(
             formStyles.input.default,
@@ -153,7 +163,7 @@ const SignupForm = (): JSX.Element => {
           type="password"
           hideLabel={hideLabel}
           showLabel={showLabel}
-          error={validationErrors.password}
+          error={getTranslatedError(validationErrors.password)}
           slotClassName="text-white"
           labelClassName={formStyles.label.default}
           inputClassName={combineStyles(
@@ -169,7 +179,7 @@ const SignupForm = (): JSX.Element => {
           type="password"
           hideLabel={hideLabel}
           showLabel={showLabel}
-          error={validationErrors.repeatedPassword}
+          error={getTranslatedError(validationErrors.repeatedPassword)}
           slotClassName="text-white"
           wrapperClassName="mb-8"
           labelClassName={formStyles.label.default}
@@ -218,7 +228,9 @@ const SignupForm = (): JSX.Element => {
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />
                 <span className="text-white">
-                  {Icon === GoogleIcon ? 'Google' : 'Discord'}
+                  {Icon === GoogleIcon
+                    ? t('auth.signup.oauth.google')
+                    : t('auth.signup.oauth.discord')}
                 </span>
               </div>
             </CryButton>
