@@ -2,7 +2,7 @@
 
 import { JSX, ReactNode } from 'react'
 import Image from 'next/image'
-import { Loader } from '@/components'
+import { BTCLoader } from '@/components'
 import {
   LoadingProvider,
   useLoading,
@@ -28,7 +28,7 @@ function AuthLayoutContent({ children }: { children: ReactNode }) {
 
       <div className="relative z-10">
         {children}
-        <Loader show={loading} />
+        <BTCLoader show={loading} />
         <NotificationRenderer />
       </div>
     </div>

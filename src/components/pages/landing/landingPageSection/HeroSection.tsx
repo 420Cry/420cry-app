@@ -3,9 +3,8 @@
 import { JSX } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import { LanguageChangeButton } from '@/components'
+import { LanguageChangeButton, BTC3DCoin } from '@/components'
 import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib'
-
 
 export default function HeroSection(): JSX.Element {
   const t = useTranslations()
@@ -107,7 +106,7 @@ export default function HeroSection(): JSX.Element {
                 </div>
               </div>
               <div className="relative w-full aspect-square max-w-[520px] mx-auto flex items-center justify-center">
-                <div className="text-6xl">₿</div>
+                <BTC3DCoin size={280} />
               </div>
               <p className="text-sm text-slate-200/80 mt-4 text-center">
                 {t('landing.hero.trustIndicators.realTimeData')}

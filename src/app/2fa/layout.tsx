@@ -1,6 +1,6 @@
 'use client'
 
-import { TwoFactorHeader, Loader } from '@/components'
+import { TwoFactorHeader, BTCLoader } from '@/components'
 import { JSX, ReactNode } from 'react'
 import {
   LoadingProvider,
@@ -23,7 +23,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
         {/* Main content */}
         <main className="flex-1 p-6 flex items-center justify-center">
           {children}
-          <Loader show={loading} />
+          <BTCLoader show={loading} />
         </main>
 
         {/* Render dynamic modals */}
