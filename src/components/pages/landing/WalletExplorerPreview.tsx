@@ -113,12 +113,14 @@ export default function WalletExplorerPreview(): JSX.Element {
       example:
         '0b145463a692b8dad410030839496b84539de3bde345d9d59fda179ee13a8690',
       description: t('landing.walletExplorer.transactionDescription'),
+      shortLabel: 'TX',
     },
     {
       type: t('landing.walletExplorer.walletAddress'),
       example:
         'xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKiKrhko4egpiMZbpiaQL2jkwSB1icqYh2cfDfVxdx4df189oLKnC5fSwqPfgyP3hooxujYzAu3fDVmz',
       description: t('landing.walletExplorer.walletDescription'),
+      shortLabel: 'WA',
     },
   ]
 
@@ -135,10 +137,10 @@ export default function WalletExplorerPreview(): JSX.Element {
             <span className="h-2 w-2 rounded-full bg-cyan-300" />
             {t('landing.walletExplorer.powerfulAnalysis')}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold gradient-text">
+          <h2 className="text-4xl md:text-5xl font-bold gradient-text break-words">
             {t('landing.walletExplorer.title')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-200/80 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-200/80 max-w-2xl mx-auto break-words">
             {t('landing.walletExplorer.subtitle')}
           </p>
         </div>
@@ -146,8 +148,8 @@ export default function WalletExplorerPreview(): JSX.Element {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           {/* Search Interface */}
           <div className="glass-card rounded-2xl p-7 sm:p-8 border border-white/10 shadow-2xl shadow-purple-500/15">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
+              <h3 className="text-2xl font-bold text-white break-words">
                 {t('landing.walletExplorer.trySearch')}
               </h3>
               <span className="pill bg-white/10 border-white/10 text-xs">
@@ -207,7 +209,7 @@ export default function WalletExplorerPreview(): JSX.Element {
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 w-10 h-10 bg-white/10 group-hover:bg-cyan-500/20 rounded-lg flex items-center justify-center transition-colors duration-200 text-xs font-semibold text-cyan-200">
-                      {example.type === 'Transaction Hash' ? 'TX' : 'WA'}
+                      {example.shortLabel}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
@@ -501,7 +503,9 @@ export default function WalletExplorerPreview(): JSX.Element {
                   </div>
                   <div className="space-y-1">
                     <h4 className="font-semibold text-white">
-                      {t('landing.walletExplorer.features.walletAnalytics.title')}
+                      {t(
+                        'landing.walletExplorer.features.walletAnalytics.title',
+                      )}
                     </h4>
                     <p className="text-sm text-slate-200/80">
                       {t(

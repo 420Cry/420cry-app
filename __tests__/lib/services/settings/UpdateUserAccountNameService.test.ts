@@ -62,9 +62,8 @@ vi.mock('@/lib/services/settings/SettingsService', () => ({
 }))
 
 // Import after mocks
-const { UpdateUserAccountNameService } = await import(
-  'src/lib/services/settings/user_account_name/UpdateUserAccountNameService'
-)
+const { UpdateUserAccountNameService } =
+  await import('src/lib/services/settings/user_account_name/UpdateUserAccountNameService')
 
 describe('UpdateUserAccountNameService', () => {
   let service: InstanceType<typeof UpdateUserAccountNameService>

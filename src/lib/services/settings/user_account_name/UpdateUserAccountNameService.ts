@@ -20,7 +20,7 @@ export class UpdateUserAccountNameService {
       return {
         isSuccess: false,
         message:
-          validation.error.errors[0]?.message ||
+          validation.error.issues[0]?.message ||
           'app.messages.error.validationFailed',
       }
     }

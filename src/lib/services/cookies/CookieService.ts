@@ -29,7 +29,7 @@ export const CookieService = {
     optionsOverrides: Partial<CookieOptions> = {},
   ): void {
     const options: CookieOptions = {
-      httpOnly: false,
+      httpOnly: true,
       secure: isProd,
       path: '/',
       sameSite: 'lax',
@@ -71,7 +71,7 @@ export const CookieService = {
 
   clearTwoFAVerifiedCookie(response: NextResponse): void {
     response.cookies.set('twoFAVerified', '', {
-      httpOnly: false,
+      httpOnly: true,
       secure: isProd,
       path: '/',
       sameSite: 'lax',

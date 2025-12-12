@@ -90,7 +90,7 @@ describe('useFormValidation', () => {
         safeParse: vi.fn().mockReturnValue({
           success: false,
           error: {
-            errors: [{ message: 'Invalid input' }],
+            issues: [{ message: 'Invalid input' }],
           },
         }),
       }
@@ -113,7 +113,7 @@ describe('useFormValidation', () => {
         safeParse: vi.fn().mockReturnValue({
           success: false,
           error: {
-            errors: [],
+            issues: [{ message: 'Invalid input' }],
           },
         }),
       }

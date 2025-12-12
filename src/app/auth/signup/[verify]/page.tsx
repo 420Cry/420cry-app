@@ -9,7 +9,7 @@ import { IVerifyAccountToken } from '@/types'
 
 const SignUpConfirmationPage = (): JSX.Element => {
   const searchParams = useSearchParams()
-  const token = searchParams.get('token')
+  const token = searchParams?.get('token') ?? null
   const t = useTranslations()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
     'loading',

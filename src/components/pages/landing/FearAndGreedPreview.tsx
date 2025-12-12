@@ -58,10 +58,10 @@ export default function FearAndGreedPreview(): JSX.Element {
             <span className="h-2 w-2 rounded-full bg-emerald-300" />
             {t('landing.hero.trustIndicators.realTimeData')}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold gradient-text">
+          <h2 className="text-4xl md:text-5xl font-bold gradient-text break-words">
             {t('landing.fearAndGreed.title')}
           </h2>
-          <p className="text-lg md:text-xl text-slate-200/80 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-slate-200/80 max-w-2xl mx-auto break-words">
             {t('landing.fearAndGreed.subtitle')}
           </p>
         </div>
@@ -69,8 +69,8 @@ export default function FearAndGreedPreview(): JSX.Element {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           {/* Preview Card */}
           <div className="glass-card rounded-2xl p-7 sm:p-8 border border-white/10 shadow-2xl shadow-cyan-500/15">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-white">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
+              <h3 className="text-2xl font-bold text-white break-words">
                 {t('landing.fearAndGreed.currentSentiment')}
               </h3>
               <span className="pill bg-white/10 border-white/10 text-xs">
@@ -126,7 +126,9 @@ export default function FearAndGreedPreview(): JSX.Element {
                 </div>
               </div>
             ) : (
-              <div className="text-slate-300 text-center">Unable to load market data</div>
+              <div className="text-slate-300 text-center">
+                Unable to load market data
+              </div>
             )}
           </div>
 
@@ -192,7 +194,7 @@ export default function FearAndGreedPreview(): JSX.Element {
               </div>
             </div>
 
-            <div className="glass-card rounded-2xl p-6 border border-white/10 flex items-center justify-between gap-4">
+            <div className="glass-card rounded-2xl p-6 border border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <h4 className="font-semibold text-white">
                   {t('landing.fearAndGreed.cta.title')}
@@ -201,10 +203,7 @@ export default function FearAndGreedPreview(): JSX.Element {
                   {t('landing.fearAndGreed.cta.description')}
                 </p>
               </div>
-              <a
-                href={SIGN_UP_ROUTE}
-                className="btn-neon px-4 py-2 text-sm whitespace-nowrap"
-              >
+              <a href={SIGN_UP_ROUTE} className="btn-neon px-4 py-2 text-sm">
                 {t('landing.fearAndGreed.cta.button')}
                 <ArrowRightIcon className="ml-1 w-4 h-4 inline-block align-middle" />
               </a>

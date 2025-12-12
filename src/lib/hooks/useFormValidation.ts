@@ -54,7 +54,7 @@ export const useFormValidation = (): UseFormValidationReturn => {
     const result = schema.safeParse(data)
 
     if (!result.success) {
-      const errorMessage = result.error.errors[0]?.message || 'Invalid input'
+      const errorMessage = result.error.issues[0]?.message || 'Invalid input'
       showToast(false, t(errorMessage))
       return {
         success: false,

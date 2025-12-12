@@ -14,7 +14,7 @@ const TwoFactorSetupPage = (): JSX.Element => {
   const router = useRouter()
 
   // Read 'method' query param from URL: 'phone' | 'app' | null
-  const method = searchParams.get('method') as 'phone' | 'app' | null
+  const method = (searchParams?.get('method') ?? null) as 'phone' | 'app' | null
   const showPhoneModal = method === 'phone'
 
   const handleSelect = (selectedMethod: 'phone' | 'app') => {
