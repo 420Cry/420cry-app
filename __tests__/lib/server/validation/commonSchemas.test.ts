@@ -8,7 +8,6 @@ import {
   tokenSchema,
   passwordConfirmationSchema,
 } from '@/lib/server/validation/common/commonSchemas'
-import { z } from 'zod'
 
 describe('Common Validation Schemas', () => {
   describe('passwordSchema', () => {

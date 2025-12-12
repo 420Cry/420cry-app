@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/2fa/alternative/send-email-otp/route'
-import { RequestService, API_URL, createErrorResponse } from '@/lib'
+import { RequestService } from '@/lib'
 
 vi.mock('@/lib', () => ({
   API_URL: 'http://fake-api',

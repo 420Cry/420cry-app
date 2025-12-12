@@ -1,16 +1,14 @@
-import {
-  UPDATE_USER_ACCOUNT_NAME_API,
-  RequestService,
-  ApiError,
-  usernameSchema,
-} from '@/lib'
+import { UPDATE_USER_ACCOUNT_NAME_API, ApiError, usernameSchema } from '@/lib'
 import { IResponse } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 interface UpdateUsernamePayload {
   username: string
 }
 
 export class UpdateUserAccountNameService {
+  public constructor(private requestService: IRequestService) {}
+
   public async updateUsername(
     payload: UpdateUsernamePayload,
   ): Promise<IResponse> {
@@ -26,7 +24,7 @@ export class UpdateUserAccountNameService {
     }
 
     try {
-      const result = await RequestService.nativeFetchPost<
+      const result = await this.requestService.nativeFetchPost<
         UpdateUsernamePayload,
         IResponse
       >(UPDATE_USER_ACCOUNT_NAME_API, {

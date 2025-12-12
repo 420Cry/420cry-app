@@ -10,13 +10,13 @@ import React, { JSX } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   fieldsRequired,
-  authService,
   SIGN_IN_ROUTE,
   useLoading,
   useNotification,
   useClientOnly,
   formStyles,
   combineStyles,
+  useAuthService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -26,6 +26,7 @@ const ResetReqForm = (): JSX.Element => {
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
   const _isClient = useClientOnly()
+  const authService = useAuthService()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

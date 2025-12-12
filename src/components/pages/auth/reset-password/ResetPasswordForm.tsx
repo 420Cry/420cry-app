@@ -11,12 +11,12 @@ import { useTranslations } from 'next-intl'
 import {
   fieldsRequired,
   SIGN_IN_ROUTE,
-  authService,
   useLoading,
   useNotification,
   useClientOnly,
   formStyles,
   combineStyles,
+  useAuthService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -30,6 +30,7 @@ const ResetPasswordForm = ({
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
   const _isClient = useClientOnly()
+  const authService = useAuthService()
   const showLabel = t('app.common.showPassword')
   const hideLabel = t('app.common.hidePassword')
 

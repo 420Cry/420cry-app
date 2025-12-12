@@ -11,7 +11,7 @@ import {
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useAuthStore } from '@/store'
-import { twoFactorService, showToast } from '@/lib'
+import { showToast, useTwoFactorService } from '@/lib'
 
 interface SetUpTwoFAProps {
   onClose: () => void
@@ -24,6 +24,7 @@ export const SetUpTwoFA = ({
 }: SetUpTwoFAProps): JSX.Element => {
   const t = useTranslations()
   const { user } = useAuthStore()
+  const twoFactorService = useTwoFactorService()
 
   const [secret, setSecret] = useState('')
   const [qrCode, setQrCode] = useState('')
@@ -53,7 +54,7 @@ export const SetUpTwoFA = ({
     }
 
     fetchQRCodeAndSecret()
-  }, [user?.uuid, t])
+  }, [user?.uuid, t, twoFactorService])
 
   const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault()

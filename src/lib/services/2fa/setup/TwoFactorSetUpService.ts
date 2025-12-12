@@ -1,6 +1,5 @@
 import {
   SET_UP_2FA_API,
-  RequestService,
   VERIFY_2FA_SET_UP_OTP_API,
   SKIP_SETUP_FOR_NOW_API,
 } from '@/lib'
@@ -10,13 +9,16 @@ import {
   ITwoFactorSetUpResponse,
   IUser,
 } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class TwoFactorSetUpService {
+  public constructor(private requestService: IRequestService) {}
+
   public async getQRCodeAndSecret(
     userUUID: ITwoFactorSetUpRequest,
   ): Promise<ITwoFactorSetUpResponse> {
     try {
-      return await RequestService.nativeFetchPost<
+      return await this.requestService.nativeFetchPost<
         ITwoFactorSetUpRequest,
         ITwoFactorSetUpResponse
       >(SET_UP_2FA_API, userUUID)
@@ -32,7 +34,7 @@ export class TwoFactorSetUpService {
     payload: ITwoFactorSetUpRequest,
   ): Promise<{ response: IResponse; user?: IUser }> {
     try {
-      return await RequestService.nativeFetchPost<
+      return await this.requestService.nativeFetchPost<
         ITwoFactorSetUpRequest,
         { response: IResponse; user?: IUser }
       >(VERIFY_2FA_SET_UP_OTP_API, payload)
@@ -48,7 +50,7 @@ export class TwoFactorSetUpService {
 
   public async skipForNow(): Promise<IResponse> {
     try {
-      return await RequestService.nativeFetchPost<null, IResponse>(
+      return await this.requestService.nativeFetchPost<null, IResponse>(
         SKIP_SETUP_FOR_NOW_API,
         null,
       )

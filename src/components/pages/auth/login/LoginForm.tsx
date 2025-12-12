@@ -13,7 +13,6 @@ import {
   HOME_ROUTE,
   RESET_PASSWORD_ROUTE,
   SIGN_UP_ROUTE,
-  authService,
   TWO_FACTOR_SETUP_ROUTE,
   useFormValidation,
   formStyles,
@@ -21,6 +20,7 @@ import {
   combineStyles,
   useNotification,
   useClientOnly,
+  useAuthService,
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
@@ -48,6 +48,7 @@ const LogInForm = (): JSX.Element => {
   const { handleFormSubmission } = useFormValidation()
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
+  const authService = useAuthService()
   const _isClient = useClientOnly()
 
   const handleSubmit = async (e: React.FormEvent) => {

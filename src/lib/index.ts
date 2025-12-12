@@ -14,15 +14,14 @@ export * from './server/api/errorHandler'
 // Validation Schemas
 export * from './server/validation/common/commonSchemas'
 
-// Services
-export { twoFactorService } from './services/2fa/TwoFactorService'
-export { authService } from './services/auth/AuthService'
-export { externalService } from './services/external/ExternalService'
+// Services (utility services - no dependencies)
 export * from './services/cookies/CookieService'
 export * from './services/locale/localeService'
 export * from './services/currency/CurrencyService'
 export * from './requests/RequestService'
-export * from './services/settings/SettingsService'
+
+// Dependency Injection Container
+export * from './container'
 
 // Utils
 export * from './utils/showToast'

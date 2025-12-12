@@ -13,9 +13,9 @@ import { useAuthStore } from '@/store'
 import {
   HOME_ROUTE,
   TWO_FACTOR_ALTERNATIVE,
-  twoFactorService,
   useLoading,
   useNotification,
+  useTwoFactorService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 
@@ -26,6 +26,7 @@ const TwoFactorVerifyForm = (): JSX.Element => {
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
   const user = useAuthStore((state) => state.user)
+  const twoFactorService = useTwoFactorService()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

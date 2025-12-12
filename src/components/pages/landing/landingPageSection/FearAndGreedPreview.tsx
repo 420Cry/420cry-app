@@ -3,11 +3,12 @@
 import { JSX, useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { ArrowRightIcon } from '@420cry/420cry-lib'
-import { externalService, SIGN_UP_ROUTE } from '@/lib'
+import { SIGN_UP_ROUTE, useExternalService } from '@/lib'
 import { IFearAndGreedIndexData } from '@/types'
 
 export default function FearAndGreedPreview(): JSX.Element {
   const t = useTranslations()
+  const externalService = useExternalService()
   const [data, setData] = useState<IFearAndGreedIndexData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -27,7 +28,7 @@ export default function FearAndGreedPreview(): JSX.Element {
     }
 
     fetchData()
-  }, [])
+  }, [externalService])
 
   const getSentimentColor = (value: number) => {
     if (value <= 20) return 'text-red-400'

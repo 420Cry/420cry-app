@@ -1,10 +1,10 @@
 'use client'
 
 import { JSX, useEffect, useState } from 'react'
-import { externalService } from '@/lib'
 import { IFearAndGreedIndexData, IFearAndGreedHistoricalData } from '@/types'
 import { FearAndGreedHistorical, FearAndGreedIndex } from '@/components'
 import { useTranslations } from 'next-intl'
+import { useExternalService } from '@/lib'
 
 export default function FearAndGreedPage(): JSX.Element {
   const [latestData, setLatestData] = useState<IFearAndGreedIndexData | null>(
@@ -15,6 +15,7 @@ export default function FearAndGreedPage(): JSX.Element {
   const [expandedSection, setExpandedSection] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const t = useTranslations()
+  const externalService = useExternalService()
 
   useEffect(() => {
     setIsLoading(true)
@@ -31,7 +32,7 @@ export default function FearAndGreedPage(): JSX.Element {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [])
+  }, [externalService])
 
   const toggleSection = (index: number) => {
     setExpandedSection((prev) => (prev === index ? null : index))

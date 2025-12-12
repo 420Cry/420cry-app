@@ -5,10 +5,10 @@ import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
 import {
   SIGN_IN_ROUTE,
-  authService,
   combineStyles,
   formStyles,
   useNotification,
+  useAuthService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
@@ -21,6 +21,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { showNotification } = useNotification()
+  const authService = useAuthService()
   const codeKeys = [
     'firstDigit',
     'secondDigit',

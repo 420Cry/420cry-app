@@ -10,12 +10,12 @@ import {
 } from '@420cry/420cry-lib'
 import {
   SIGN_IN_ROUTE,
-  authService,
   useLoading,
   useNotification,
   useClientOnly,
   formStyles,
   combineStyles,
+  useAuthService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
@@ -28,6 +28,7 @@ const SignupForm = (): JSX.Element => {
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
   const _isClient = useClientOnly()
+  const authService = useAuthService()
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({})

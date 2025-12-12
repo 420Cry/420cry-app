@@ -110,7 +110,7 @@ export default function BTC3DCoin({
         cancelAnimationFrame(autoRotateRef.current)
       }
     }
-  }, [])
+  }, [isInteracting])
 
   return (
     <div

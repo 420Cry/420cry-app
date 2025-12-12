@@ -1,12 +1,10 @@
-import {
-  SIGN_UP_API,
-  SignUpFormSchema,
-  validateFormData,
-  RequestService,
-} from '@/lib'
+import { SIGN_UP_API, SignUpFormSchema, validateFormData } from '@/lib'
 import { IResponse, ISignUp } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class SignUpService {
+  public constructor(private requestService: IRequestService) {}
+
   public async signUpAction(formData: FormData): Promise<IResponse> {
     const formValues = {
       fullName: formData.get('fullName')?.toString() || '',
@@ -33,7 +31,7 @@ export class SignUpService {
         password: validation.data.password,
       }
 
-      return await RequestService.nativeFetchPost<ISignUp, IResponse>(
+      return await this.requestService.nativeFetchPost<ISignUp, IResponse>(
         SIGN_UP_API,
         payload,
       )

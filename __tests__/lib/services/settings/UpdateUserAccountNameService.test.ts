@@ -67,9 +67,12 @@ const { UpdateUserAccountNameService } =
 
 describe('UpdateUserAccountNameService', () => {
   let service: InstanceType<typeof UpdateUserAccountNameService>
+  const mockRequestService = {
+    nativeFetchPost: mockNativeFetchPost,
+  } as any
 
   beforeEach(() => {
-    service = new UpdateUserAccountNameService()
+    service = new UpdateUserAccountNameService(mockRequestService)
     mockNativeFetchPost.mockClear()
   })
 

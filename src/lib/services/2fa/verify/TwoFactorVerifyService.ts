@@ -1,12 +1,15 @@
-import { VERIFY_2FA_OTP_API, RequestService, ApiError } from '@/lib'
+import { VERIFY_2FA_OTP_API, ApiError } from '@/lib'
 import { IResponse, ITwoFactorVerifyRequest } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class TwoFactorVerifyService {
+  public constructor(private requestService: IRequestService) {}
+
   public async verifyToken(
     payload: ITwoFactorVerifyRequest,
   ): Promise<IResponse> {
     try {
-      const result = await RequestService.nativeFetchPost<
+      const result = await this.requestService.nativeFetchPost<
         ITwoFactorVerifyRequest,
         { response: IResponse }
       >(VERIFY_2FA_OTP_API, payload)

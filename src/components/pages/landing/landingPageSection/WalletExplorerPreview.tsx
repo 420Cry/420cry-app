@@ -13,13 +13,14 @@ import {
 import {
   resolveSearchInputType,
   showToast,
-  externalService,
   SIGN_UP_ROUTE,
+  useExternalService,
 } from '@/lib'
 import { SearchInput, ITransactionData, ITransactionXPUB } from '@/types'
 
 export default function WalletExplorerPreview(): JSX.Element {
   const t = useTranslations()
+  const externalService = useExternalService()
   const [searchTerm, setSearchTerm] = useState('')
   const [isSearching, setIsSearching] = useState(false)
   const [searchResult, setSearchResult] = useState<{

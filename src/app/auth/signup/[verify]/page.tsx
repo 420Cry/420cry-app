@@ -3,7 +3,7 @@
 import { AuthHeader, VerifyEmailForm } from '@/components'
 import { useSearchParams, notFound } from 'next/navigation'
 import { JSX, useEffect, useState } from 'react'
-import { authService } from '@/lib'
+import { useAuthService } from '@/lib'
 import { useTranslations } from 'next-intl'
 import { IVerifyAccountToken } from '@/types'
 
@@ -11,6 +11,7 @@ const SignUpConfirmationPage = (): JSX.Element => {
   const searchParams = useSearchParams()
   const token = searchParams?.get('token') ?? null
   const t = useTranslations()
+  const authService = useAuthService()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
     'loading',
   )
@@ -31,7 +32,7 @@ const SignUpConfirmationPage = (): JSX.Element => {
     }
 
     verifyToken()
-  }, [token])
+  }, [token, authService])
 
   if (status === 'error') {
     notFound()

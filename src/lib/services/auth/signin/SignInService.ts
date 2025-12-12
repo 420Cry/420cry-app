@@ -2,12 +2,14 @@ import {
   SIGN_IN_API,
   SignInFormSchema,
   validateFormData,
-  RequestService,
   ApiError,
 } from '@/lib'
 import { IUser, ISignIn, IResponse } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class SignInService {
+  public constructor(private requestService: IRequestService) {}
+
   public async signInAction(
     formData: FormData,
   ): Promise<{ response: IResponse; user?: IUser }> {
@@ -33,7 +35,7 @@ export class SignInService {
         password: validation.data.password,
         remember: validation.data.rememberMe ?? false,
       }
-      const response = await RequestService.nativeFetchPost<
+      const response = await this.requestService.nativeFetchPost<
         ISignIn,
         { response: IResponse; user?: IUser }
       >(SIGN_IN_API, payload)

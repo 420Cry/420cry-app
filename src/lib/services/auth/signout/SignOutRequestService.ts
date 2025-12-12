@@ -1,11 +1,13 @@
 import { SIGN_OUT_API } from '@/lib/constants/routes'
-import { RequestService } from '@/lib/requests/RequestService'
 import { IResponse } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class SignOutRequestService {
+  public constructor(private requestService: IRequestService) {}
+
   public async signOut(): Promise<IResponse> {
     try {
-      return await RequestService.nativeFetchPost<null, IResponse>(
+      return await this.requestService.nativeFetchPost<null, IResponse>(
         SIGN_OUT_API,
         null,
       )

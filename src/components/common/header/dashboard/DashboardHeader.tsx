@@ -7,11 +7,11 @@ import { LanguageChangeButton, ThemeToggle } from '@/components'
 import {
   resolveSearchInputType,
   showToast,
-  externalService,
   useModal,
   SETTINGS_ROUTE,
-  authService,
   SIGN_IN_ROUTE,
+  useExternalService,
+  useAuthService,
 } from '@/lib'
 import { SearchInput } from '@/types'
 import { useAuthStore } from '@/store/useAuthStore'
@@ -34,6 +34,8 @@ export default function DashboardHeader({
   const { openModal } = useModal()
   const { user, clearUser } = useAuthStore()
   const userMenuRef = useRef<HTMLDivElement>(null)
+  const externalService = useExternalService()
+  const authService = useAuthService()
 
   // Close user menu when clicking outside
   useEffect(() => {

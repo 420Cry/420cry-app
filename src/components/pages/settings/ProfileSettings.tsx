@@ -17,8 +17,8 @@ import { useAuthStore } from '@/store'
 import {
   showToast,
   useCurrencyPreference,
-  twoFactorService,
-  settingsService,
+  useTwoFactorService,
+  useSettingsService,
 } from '@/lib'
 import { SetUpTwoFA } from './SetUpTwoFA'
 
@@ -27,6 +27,8 @@ export const ProfileSettings = (): JSX.Element => {
   const tApp = useTranslations()
   const { user, setUser } = useAuthStore()
   const { formatAmount } = useCurrencyPreference()
+  const twoFactorService = useTwoFactorService()
+  const settingsService = useSettingsService()
   const [isEditingUsername, setIsEditingUsername] = useState(false)
   const [show2FAVerification, setShow2FAVerification] = useState(false)
   const [show2FASetup, setShow2FASetup] = useState(false)
