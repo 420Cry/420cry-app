@@ -1,10 +1,13 @@
 import { RESET_REQUEST_API } from '@/lib/constants/routes'
-import { RequestService, ApiError } from '@/lib/requests/RequestService'
+import { ApiError } from '@/lib/requests/RequestService'
 import { ResetRequestSchema } from '@/lib/server/validation/auth/ResetRequestSchema'
 import { validateFormData } from '@/lib/server/validation/validateFormData'
 import { IResetPasswordRequest, IResponse } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class ResetRequestService {
+  public constructor(private requestService: IRequestService) {}
+
   public async resetRequestAction(formData: FormData): Promise<IResponse> {
     const formValues = {
       email: formData.get('email')?.toString() || '',
@@ -23,7 +26,7 @@ export class ResetRequestService {
         email: validation.data.email,
       }
 
-      return await RequestService.nativeFetchPost<
+      return await this.requestService.nativeFetchPost<
         IResetPasswordRequest,
         IResponse
       >(RESET_REQUEST_API, payload)

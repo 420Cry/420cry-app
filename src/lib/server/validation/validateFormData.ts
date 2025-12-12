@@ -11,7 +11,7 @@ export const validateFormData = <T extends z.ZodTypeAny>(
   if (!result.success) {
     return {
       success: false,
-      message: result.error.errors[0]?.message || 'Invalid input',
+      message: result.error.issues[0]?.message || 'Invalid input',
     }
   }
 

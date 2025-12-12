@@ -5,10 +5,10 @@ import { useTranslations } from 'next-intl'
 import { CryButton, CryTextBox, VerifyAccountIcon } from '@420cry/420cry-lib'
 import {
   SIGN_IN_ROUTE,
-  authService,
   combineStyles,
   formStyles,
   useNotification,
+  useAuthService,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
 import { ISignUpVerificationToken } from '@/types'
@@ -21,6 +21,7 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
   const t = useTranslations()
   const router = useRouter()
   const { showNotification } = useNotification()
+  const authService = useAuthService()
   const codeKeys = [
     'firstDigit',
     'secondDigit',
@@ -108,14 +109,16 @@ const VerifyEmailForm = ({ userToken }: VerifyEmailFormProps): JSX.Element => {
       className={combineStyles(formStyles.layout.centerVertical)}
       suppressHydrationWarning
     >
-      <div className="p-8 sm:p-24 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10">
+      <div className="p-8 sm:p-24 w-full rounded-2xl backdrop-blur-md border border-white/10 max-w-2xl">
+        <div className="mb-8">
+          <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
+            {t('auth.signup.verifyEmail.title')}
+          </h1>
+        </div>
         <div className="flex justify-center mb-6">
           <VerifyAccountIcon color="white" className="h-1/4 w-1/4" />
         </div>
 
-        <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-10 font-bold">
-          {t('auth.signup.verifyEmail.title')}
-        </h1>
         <p className="text-center text-base sm:text-lg text-gray-600 mb-6">
           {t('auth.signup.verifyEmail.message')}
         </p>

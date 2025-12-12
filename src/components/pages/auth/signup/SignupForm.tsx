@@ -7,18 +7,18 @@ import {
   GoogleIcon,
   DiscordIcon,
   CryFormTextField,
+  CryForm,
 } from '@420cry/420cry-lib'
 import {
   SIGN_IN_ROUTE,
-  authService,
   useLoading,
   useNotification,
-  useClientOnly,
+  useAuthService,
+  SignUpFormSchema,
   formStyles,
   combineStyles,
 } from '@/lib'
 import { useRouter } from 'next/navigation'
-import { SignUpFormSchema } from '@/lib/server/validation/auth/SignUpFormSchema'
 
 const SignupForm = (): JSX.Element => {
   const t = useTranslations()
@@ -27,10 +27,17 @@ const SignupForm = (): JSX.Element => {
   const router = useRouter()
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
-  const _isClient = useClientOnly()
+  const authService = useAuthService()
+  // Store translation keys instead of translated strings so errors update when language changes
   const [validationErrors, setValidationErrors] = useState<
     Record<string, string>
   >({})
+
+  // Helper function to translate error messages on render
+  const getTranslatedError = (errorKey?: string): string | undefined => {
+    if (!errorKey) return undefined
+    return errorKey.startsWith('app.') ? t(errorKey as any) : errorKey
+  }
 
   const validateFormData = (
     formData: FormData,
@@ -43,22 +50,20 @@ const SignupForm = (): JSX.Element => {
       repeatedPassword: formData.get('repeatedPassword') as string,
     }
 
-    try {
-      SignUpFormSchema.parse(data)
+    const result = SignUpFormSchema.safeParse(data)
+    if (result.success) {
       return { isValid: true, errors: {} }
-    } catch (error: unknown) {
-      const errors: Record<string, string> = {}
-      if (error && typeof error === 'object' && 'errors' in error) {
-        const zodError = error as {
-          errors: Array<{ path: string[]; message: string }>
-        }
-        zodError.errors.forEach((err) => {
-          const field = err.path[0]
-          errors[field] = err.message
-        })
-      }
-      return { isValid: false, errors }
     }
+
+    // Store translation keys, not translated strings
+    const errors: Record<string, string> = {}
+    result.error.issues.forEach((err) => {
+      const field = err.path[0] as string
+      // Store the translation key (err.message is already a key like 'app.rules.email')
+      // or the message itself if it's not a translation key
+      errors[field] = err.message
+    })
+    return { isValid: false, errors }
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -104,117 +109,98 @@ const SignupForm = (): JSX.Element => {
       className="flex items-center justify-center min-h-[calc(100vh-80px)] px-4 py-8"
       suppressHydrationWarning
     >
-      <div className="p-6 sm:p-12 w-full max-w-[900px] rounded-2xl backdrop-blur-md border border-white/10 max-h-[90vh] overflow-auto">
-        <h1 className="text-center text-white text-2xl sm:text-3xl mb-6 sm:mb-8 font-bold">
-          {t('auth.signup.title')}
-        </h1>
-        <form onSubmit={handleSubmit} suppressHydrationWarning>
-          {/* Name and Email Row */}
-          <div className="flex flex-wrap gap-y-5 mb-6">
-            <div className="w-full sm:w-1/2 sm:pr-3">
-              <CryFormTextField
-                label={t('app.fields.fullname')}
-                name="fullName"
-                inputClassName={combineStyles(
-                  formStyles.input.default,
-                  formStyles.input.focus,
-                )}
-              />
-              {validationErrors.fullName && (
-                <div className="text-red-500 text-sm mt-1">
-                  {t(validationErrors.fullName)}
-                </div>
-              )}
-            </div>
-            <div className="w-full sm:w-1/2 sm:pl-3">
-              <CryFormTextField
-                label={t('app.fields.email')}
-                name="email"
-                inputClassName={combineStyles(
-                  formStyles.input.default,
-                  formStyles.input.focus,
-                )}
-              />
-              {validationErrors.email && (
-                <div className="text-red-500 text-sm mt-1">
-                  {t(validationErrors.email)}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Username Field */}
-          <div className="mb-6">
-            <CryFormTextField
-              label={t('app.fields.username')}
-              name="userName"
-              inputClassName={combineStyles(
-                formStyles.input.default,
-                formStyles.input.focus,
-              )}
-            />
-            {validationErrors.userName && (
-              <div className="text-red-500 text-sm mt-1">
-                {t(validationErrors.userName)}
-              </div>
+      <CryForm
+        variant="card"
+        maxWidth="2xl"
+        containerClassName="max-h-[90vh] overflow-auto"
+        title={t('auth.signup.title')}
+        spacing="lg"
+        onSubmit={handleSubmit}
+        formClassName=""
+      >
+        {/* Name and Email Row */}
+        <div className="flex flex-wrap gap-y-5 mb-6">
+          <CryFormTextField
+            label={t('app.fields.fullname')}
+            name="fullName"
+            error={getTranslatedError(validationErrors.fullName)}
+            wrapperClassName="w-full sm:w-1/2 sm:pr-3"
+            labelClassName={formStyles.label.default}
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
             )}
-          </div>
-
-          {/* Password Field */}
-          <div className="mb-6">
-            <CryFormTextField
-              label={t('app.fields.password')}
-              name="password"
-              type="password"
-              hideLabel={hideLabel}
-              showLabel={showLabel}
-              inputClassName={combineStyles(
-                formStyles.input.default,
-                formStyles.input.focus,
-              )}
-              slotClassName="text-white"
-            />
-            {validationErrors.password && (
-              <div className="text-red-500 text-sm mt-1">
-                {t(validationErrors.password)}
-              </div>
+          />
+          <CryFormTextField
+            label={t('app.fields.email')}
+            name="email"
+            error={getTranslatedError(validationErrors.email)}
+            wrapperClassName="w-full sm:w-1/2 sm:pl-3"
+            labelClassName={formStyles.label.default}
+            inputClassName={combineStyles(
+              formStyles.input.default,
+              formStyles.input.focus,
             )}
-          </div>
+          />
+        </div>
 
-          {/* Repeat Password Field */}
-          <div className="mb-8">
-            <CryFormTextField
-              label={t('app.fields.repeatedPassword')}
-              name="repeatedPassword"
-              type="password"
-              hideLabel={hideLabel}
-              showLabel={showLabel}
-              inputClassName={combineStyles(
-                formStyles.input.default,
-                formStyles.input.focus,
-              )}
-              slotClassName="text-white"
-            />
-            {validationErrors.repeatedPassword && (
-              <div className="text-red-500 text-sm mt-1">
-                {t(validationErrors.repeatedPassword)}
-              </div>
-            )}
-          </div>
+        {/* Username Field */}
+        <CryFormTextField
+          label={t('app.fields.username')}
+          name="userName"
+          error={getTranslatedError(validationErrors.userName)}
+          labelClassName={formStyles.label.default}
+          inputClassName={combineStyles(
+            formStyles.input.default,
+            formStyles.input.focus,
+          )}
+        />
 
-          {/* Submit Button */}
-          <div className="flex justify-center mb-6">
-            <CryButton
-              shape="circle"
-              className="w-full sm:w-64 text-white font-semibold"
-              type="submit"
-              color="primary"
-              size="lg"
-            >
-              {t('auth.signup.title')}
-            </CryButton>
-          </div>
-        </form>
+        {/* Password Field */}
+        <CryFormTextField
+          label={t('app.fields.password')}
+          name="password"
+          type="password"
+          hideLabel={hideLabel}
+          showLabel={showLabel}
+          error={getTranslatedError(validationErrors.password)}
+          slotClassName="text-white"
+          labelClassName={formStyles.label.default}
+          inputClassName={combineStyles(
+            formStyles.input.default,
+            formStyles.input.focus,
+          )}
+        />
+
+        {/* Repeat Password Field */}
+        <CryFormTextField
+          label={t('app.fields.repeatedPassword')}
+          name="repeatedPassword"
+          type="password"
+          hideLabel={hideLabel}
+          showLabel={showLabel}
+          error={getTranslatedError(validationErrors.repeatedPassword)}
+          slotClassName="text-white"
+          wrapperClassName="mb-8"
+          labelClassName={formStyles.label.default}
+          inputClassName={combineStyles(
+            formStyles.input.default,
+            formStyles.input.focus,
+          )}
+        />
+
+        {/* Submit Button */}
+        <div className="flex justify-center mb-6">
+          <CryButton
+            shape="circle"
+            className="w-full sm:w-64 text-white font-semibold"
+            type="submit"
+            color="primary"
+            size="lg"
+          >
+            {t('auth.signup.title')}
+          </CryButton>
+        </div>
 
         {/* Divider */}
         <div className="relative my-8">
@@ -242,13 +228,15 @@ const SignupForm = (): JSX.Element => {
               <div className="flex items-center justify-center">
                 <Icon className="h-5 w-5 mr-2" />
                 <span className="text-white">
-                  {Icon === GoogleIcon ? 'Google' : 'Discord'}
+                  {Icon === GoogleIcon
+                    ? t('auth.signup.oauth.google')
+                    : t('auth.signup.oauth.discord')}
                 </span>
               </div>
             </CryButton>
           ))}
         </div>
-      </div>
+      </CryForm>
     </div>
   )
 }

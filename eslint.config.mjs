@@ -1,15 +1,56 @@
-import { FlatCompat } from '@eslint/eslintrc'
-
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-})
+import js from '@eslint/js'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import typescriptParser from '@typescript-eslint/parser'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import prettier from 'eslint-config-prettier'
+import globals from 'globals'
 
 const eslintConfig = [
-  ...compat.config({
-    extends: ['next/core-web-vitals', 'next/typescript', 'next'],
-  }),
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'dist/**',
+      'build/**',
+      '*.config.js',
+      '*.config.mjs',
+      '*.config.ts',
+      'coverage/**',
+      '.vercel/**',
+      'public/**',
+      '**/*.d.ts',
+    ],
+  },
+  js.configs.recommended,
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    languageOptions: {
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+      react,
+      'react-hooks': reactHooks,
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
     rules: {
       // === React Rules ===
       'react/jsx-uses-react': 'off',
@@ -73,6 +114,7 @@ const eslintConfig = [
       'no-duplicate-imports': 'error',
       camelcase: 'warn',
       'consistent-return': 'warn',
+      'no-undef': 'off', // TypeScript handles this
 
       // === Code Style ===
       quotes: ['warn', 'single'],
@@ -80,6 +122,24 @@ const eslintConfig = [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
+  // Relaxed rules for test files
+  {
+    files: ['**/__tests__/**/*', '**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/explicit-member-accessibility': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_|^(res|req|mock|Mock)',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+      camelcase: 'off', // snake_case is common in API responses
+    },
+  },
+  prettier,
 ]
 
 export default eslintConfig

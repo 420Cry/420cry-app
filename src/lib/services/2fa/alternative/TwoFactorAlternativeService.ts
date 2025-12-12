@@ -1,7 +1,6 @@
 import {
   ALTERNATIVE_2FA_API,
   ApiError,
-  RequestService,
   VERIFY_ALTERNATIVE_2FA_API,
 } from '@/lib'
 import {
@@ -9,11 +8,14 @@ import {
   ITwoFactorAlternativeRequest,
   ITwoFactorVerifyRequest,
 } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class TwoFactorAlternativeService {
+  public constructor(private requestService: IRequestService) {}
+
   public async sendAlternativeEmailOTP(email: string): Promise<IResponse> {
     try {
-      return await RequestService.nativeFetchPost<
+      return await this.requestService.nativeFetchPost<
         ITwoFactorAlternativeRequest,
         IResponse
       >(ALTERNATIVE_2FA_API, { email })
@@ -28,7 +30,7 @@ export class TwoFactorAlternativeService {
     payload: ITwoFactorVerifyRequest,
   ): Promise<IResponse> {
     try {
-      const result = await RequestService.nativeFetchPost<
+      const result = await this.requestService.nativeFetchPost<
         ITwoFactorVerifyRequest,
         { response: IResponse }
       >(VERIFY_ALTERNATIVE_2FA_API, payload)

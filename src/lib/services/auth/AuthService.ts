@@ -5,6 +5,7 @@ import { SignOutRequestService } from './signout/SignOutRequestService'
 import { SignUpService } from './signup/SignUpService'
 import { VerifyAccountTokenService } from './signup/VerifyAccountTokenService'
 import { VerifyEmailTokenService } from './signup/VerifyEmailTokenService'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class AuthService {
   public signIn: SignInService
@@ -19,20 +20,17 @@ export class AuthService {
     verify: VerifyResetPasswordService
   }
 
-  public constructor() {
-    this.signIn = new SignInService()
-    this.signOut = new SignOutRequestService()
+  public constructor(requestService: IRequestService) {
+    this.signIn = new SignInService(requestService)
+    this.signOut = new SignOutRequestService(requestService)
     this.signUp = {
-      action: new SignUpService(),
-      verifyAccount: new VerifyAccountTokenService(),
-      verifyEmail: new VerifyEmailTokenService(),
+      action: new SignUpService(requestService),
+      verifyAccount: new VerifyAccountTokenService(requestService),
+      verifyEmail: new VerifyEmailTokenService(requestService),
     }
     this.resetPassword = {
-      request: new ResetRequestService(),
-      verify: new VerifyResetPasswordService(),
+      request: new ResetRequestService(requestService),
+      verify: new VerifyResetPasswordService(requestService),
     }
   }
 }
-
-// singleton instance
-export const authService = new AuthService()

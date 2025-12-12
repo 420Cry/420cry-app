@@ -5,9 +5,9 @@ import { CryButton, CryTextField } from '@420cry/420cry-lib'
 import { useTranslations } from 'next-intl'
 import {
   HOME_ROUTE,
-  twoFactorService,
   useLoading,
   useNotification,
+  useTwoFactorService,
 } from '@/lib'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -24,6 +24,7 @@ const TwoFactorSetupQRCode = ({
   const router = useRouter()
   const { setLoading: setGlobalLoading } = useLoading()
   const { showNotification } = useNotification()
+  const twoFactorService = useTwoFactorService()
   const [secret, setSecret] = useState('')
   const [qrCode, setQrCode] = useState('')
   const [loading, setLoading] = useState(true)
@@ -51,7 +52,7 @@ const TwoFactorSetupQRCode = ({
     }
 
     fetchQRCodeAndSecret()
-  }, [userUuid, t, showNotification])
+  }, [userUuid, t, showNotification, twoFactorService])
 
   const handleSubmit = async (
     e?: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,

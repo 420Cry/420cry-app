@@ -9,20 +9,21 @@ export * from './server/validation/auth/SignUpFormSchema'
 export * from './server/validation/auth/ResetPasswordSchema'
 export * from './server/validation/validateFormData'
 export * from './server/api/createErrorResponse'
+export * from './server/api/createSuccessResponse'
 export * from './server/api/errorHandler'
+export * from './server/api/routeHelpers'
 
 // Validation Schemas
 export * from './server/validation/common/commonSchemas'
 
-// Services
-export { twoFactorService } from './services/2fa/TwoFactorService'
-export { authService } from './services/auth/AuthService'
-export { externalService } from './services/external/ExternalService'
+// Services (utility services - no dependencies)
 export * from './services/cookies/CookieService'
 export * from './services/locale/localeService'
 export * from './services/currency/CurrencyService'
 export * from './requests/RequestService'
-export * from './services/settings/SettingsService'
+
+// Dependency Injection Container
+export * from './container'
 
 // Utils
 export * from './utils/showToast'
@@ -46,3 +47,7 @@ export * from './context/modal/ModalRenderer'
 export * from './context/notification/NotificationContext'
 export * from './context/notification/NotificationRenderer'
 export * from './context/theme/ThemeContext'
+
+// Theme
+export * from './theme/theme-config'
+export * from './theme/theme-classes'

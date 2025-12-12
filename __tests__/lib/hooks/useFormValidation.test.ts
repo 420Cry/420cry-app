@@ -90,7 +90,7 @@ describe('useFormValidation', () => {
         safeParse: vi.fn().mockReturnValue({
           success: false,
           error: {
-            errors: [{ message: 'Invalid input' }],
+            issues: [{ message: 'Invalid input' }],
           },
         }),
       }
@@ -113,7 +113,7 @@ describe('useFormValidation', () => {
         safeParse: vi.fn().mockReturnValue({
           success: false,
           error: {
-            errors: [],
+            issues: [],
           },
         }),
       }
@@ -127,6 +127,7 @@ describe('useFormValidation', () => {
       if (!validationResult.success) {
         expect(validationResult.message).toBe('Invalid input')
       }
+      expect(showToast).toHaveBeenCalledWith(false, 'Invalid input')
     })
   })
 

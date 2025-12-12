@@ -1,12 +1,15 @@
-import { VERIFY_EMAIL_TOKEN_API, RequestService } from '@/lib'
+import { VERIFY_EMAIL_TOKEN_API } from '@/lib'
 import { IResponse, ISignUpVerificationToken } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class VerifyEmailTokenService {
+  public constructor(private requestService: IRequestService) {}
+
   public async verifyToken(
     payload: ISignUpVerificationToken,
   ): Promise<IResponse> {
     try {
-      return await RequestService.nativeFetchPost<
+      return await this.requestService.nativeFetchPost<
         ISignUpVerificationToken,
         IResponse
       >(VERIFY_EMAIL_TOKEN_API, payload)

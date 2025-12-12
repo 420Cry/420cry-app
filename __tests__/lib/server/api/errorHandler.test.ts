@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
-import { ApiErrorHandler } from '@/lib/server/api/errorHandler'
-import { createErrorResponse } from '@/lib/server/api/createErrorResponse'
+import { ApiErrorHandler, createErrorResponse } from '@/lib'
 
 // Mock the createErrorResponse function
 vi.mock('@/lib/server/api/createErrorResponse', () => ({
