@@ -22,16 +22,16 @@ export const passwordSchema = z
  */
 export const passwordConfirmationSchema = <T extends z.ZodTypeAny>(
   passwordField: T,
-): z.ZodEffects<z.ZodObject<{ password: T; repeatedPassword: z.ZodString }>> =>
-  z
-    .object({
-      password: passwordField,
-      repeatedPassword: z.string().trim(),
-    })
-    .refine((data) => data.password === data.repeatedPassword, {
-      message: 'app.rules.repeatedPassword',
-      path: ['repeatedPassword'],
-    })
+) => {
+  const schema = z.object({
+    password: passwordField,
+    repeatedPassword: z.string().trim(),
+  })
+  return schema.refine((data: any) => data.password === data.repeatedPassword, {
+    message: 'app.rules.repeatedPassword',
+    path: ['repeatedPassword'],
+  })
+}
 
 /**
  * Common email validation schema

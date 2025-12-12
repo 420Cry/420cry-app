@@ -17,7 +17,7 @@ export const LANDING_PAGE_ROUTE = '/'
 export const FEAR_AND_GREED_ROUTE = '/indicator/fear-and-greed'
 export const SETTINGS_ROUTE = '/settings'
 
-// Routes for middleware
+// Routes for proxy
 export const UN_AUTH_ROUTES = [
   SIGN_IN_ROUTE,
   SIGN_UP_ROUTE,

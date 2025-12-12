@@ -14,7 +14,7 @@ import {
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || '')
 
-export async function middleware(req: NextRequest): Promise<NextResponse> {
+export async function proxy(req: NextRequest): Promise<NextResponse> {
   const { pathname } = req.nextUrl
   const jwtToken = req.cookies.get('jwt')?.value
   const twoFASetUpSkippedForNow =
