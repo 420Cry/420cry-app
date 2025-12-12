@@ -1,17 +1,26 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { POST } from 'src/app/api/auth/sign-up/route'
-import { RequestService, ApiErrorHandler } from '@/lib'
+import { RequestService } from '@/lib'
+import { ApiErrorHandler } from '@/lib/server/api/errorHandler'
 
-vi.mock('@/lib', () => ({
-  API_URL: 'http://fake-api',
-  RequestService: {
-    axiosPost: vi.fn(),
-  },
+// Mock ApiErrorHandler at the module level where routeHelpers imports it
+vi.mock('@/lib/server/api/errorHandler', () => ({
   ApiErrorHandler: {
     handle: vi.fn(),
   },
 }))
+
+vi.mock('@/lib', async () => {
+  const actual = await vi.importActual('@/lib')
+  return {
+    ...actual,
+    API_URL: 'http://fake-api',
+    RequestService: {
+      axiosPost: vi.fn(),
+    },
+  }
+})
 
 class MockNextRequest {
   constructor(private body: any) {}
@@ -58,9 +67,12 @@ describe('POST route handler', () => {
     const res = await POST(req as any)
 
     const json = await res.json()
+    // createErrorResponse wraps the response
     expect(json).toEqual({
-      isSuccess: false,
-      message: 'app.messages.error.general',
+      response: {
+        isSuccess: false,
+        message: 'app.messages.error.general',
+      },
     })
   })
 
@@ -84,9 +96,12 @@ describe('POST route handler', () => {
     const res = await POST(req as any)
 
     const json = await res.json()
+    // createErrorResponse wraps the response
     expect(json).toEqual({
-      isSuccess: false,
-      message: 'app.messages.error.general',
+      response: {
+        isSuccess: false,
+        message: 'app.messages.error.general',
+      },
     })
   })
 
@@ -115,30 +130,36 @@ describe('POST route handler', () => {
     })
     expect(res.status).toBe(500)
   })
-})
 
-it('returns failure JSON when status is 400', async () => {
-  ;(RequestService.axiosPost as any).mockResolvedValue({ status: 400 })
+  it('returns failure JSON when status is 400', async () => {
+    ;(RequestService.axiosPost as any).mockResolvedValue({ status: 400 })
 
-  const req = new MockNextRequest({ some: 'data' })
-  const res = await POST(req as any)
+    const req = new MockNextRequest({ some: 'data' })
+    const res = await POST(req as any)
 
-  const json = await res.json()
-  expect(json).toEqual({
-    isSuccess: false,
-    message: 'app.messages.error.general',
+    const json = await res.json()
+    // createErrorResponse wraps the response
+    expect(json).toEqual({
+      response: {
+        isSuccess: false,
+        message: 'app.messages.error.general',
+      },
+    })
   })
-})
 
-it('returns failure JSON when status is 409 (Conflict)', async () => {
-  ;(RequestService.axiosPost as any).mockResolvedValue({ status: 409 })
+  it('returns failure JSON when status is 409 (Conflict)', async () => {
+    ;(RequestService.axiosPost as any).mockResolvedValue({ status: 409 })
 
-  const req = new MockNextRequest({ some: 'data' })
-  const res = await POST(req as any)
+    const req = new MockNextRequest({ some: 'data' })
+    const res = await POST(req as any)
 
-  const json = await res.json()
-  expect(json).toEqual({
-    isSuccess: false,
-    message: 'app.messages.error.emailOrUserNameAlreadyExist',
+    const json = await res.json()
+    // Status handler uses createErrorResponse which wraps the response
+    expect(json).toEqual({
+      response: {
+        isSuccess: false,
+        message: 'app.messages.error.emailOrUserNameAlreadyExist',
+      },
+    })
   })
 })

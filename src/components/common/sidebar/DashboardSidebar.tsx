@@ -11,9 +11,9 @@ import {
   SETTINGS_ROUTE,
   showToast,
   SIGN_IN_ROUTE,
-  authService,
   useClientOnly,
   useLoading,
+  useAuthService,
 } from '@/lib'
 
 import { LanguageChangeButton, ThemeToggle } from '@/components'
@@ -63,6 +63,7 @@ export default function Sidebar({
   const [openMenu, setOpenMenu] = useState<string | null>(null)
   const isClient = useClientOnly()
   const navRef = useRef<HTMLDivElement>(null)
+  const authService = useAuthService()
 
   const { clearUser } = useAuthStore()
 

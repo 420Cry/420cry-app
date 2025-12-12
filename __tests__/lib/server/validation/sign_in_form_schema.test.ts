@@ -69,7 +69,7 @@ describe('SignInFormSchema', () => {
   })
 
   it('passes if rememberMe is omitted', () => {
-    const { rememberMe, ...rest } = validData
+    const { rememberMe: _rememberMe, ...rest } = validData
     const result = SignInFormSchema.safeParse(rest)
     expect(result.success).toBe(true)
   })

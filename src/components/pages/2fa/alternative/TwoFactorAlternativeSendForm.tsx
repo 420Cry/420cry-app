@@ -12,9 +12,9 @@ import { useTranslations } from 'next-intl'
 import {
   HOME_ROUTE,
   TWO_FACTOR_VERIFY_ROUTE,
-  twoFactorService,
   useLoading,
   useNotification,
+  useTwoFactorService,
 } from '@/lib'
 import { useAuthStore } from '@/store'
 import { useRouter } from 'next/navigation'
@@ -38,6 +38,7 @@ const TwoFactorAlternativeSendForm = (): JSX.Element => {
   const router = useRouter()
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
+  const twoFactorService = useTwoFactorService()
   const email = useMemo(() => maskEmail(user?.email || ''), [user?.email])
 
   // countdown timer

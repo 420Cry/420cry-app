@@ -4,6 +4,7 @@ import {
   CryButton,
   CryCheckBox,
   CryFormTextField,
+  CryForm,
   DiscordIcon,
   GoogleIcon,
 } from '@420cry/420cry-lib'
@@ -13,7 +14,6 @@ import {
   HOME_ROUTE,
   RESET_PASSWORD_ROUTE,
   SIGN_UP_ROUTE,
-  authService,
   TWO_FACTOR_SETUP_ROUTE,
   useFormValidation,
   formStyles,
@@ -21,6 +21,7 @@ import {
   combineStyles,
   useNotification,
   useClientOnly,
+  useAuthService,
 } from '@/lib'
 
 import { useRouter } from 'next/navigation'
@@ -48,6 +49,7 @@ const LogInForm = (): JSX.Element => {
   const { handleFormSubmission } = useFormValidation()
   const { setLoading } = useLoading()
   const { showNotification } = useNotification()
+  const authService = useAuthService()
   const _isClient = useClientOnly()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,65 +93,68 @@ const LogInForm = (): JSX.Element => {
       className={combineStyles(formStyles.layout.centerVertical)}
       suppressHydrationWarning
     >
-      <div className={formStyles.container.card}>
-        <h1 className={formStyles.text.title}>{t('auth.login.title')}</h1>
+      <CryForm
+        variant="card"
+        maxWidth="2xl"
+        title={t('auth.login.title')}
+        spacing="md"
+        onSubmit={handleSubmit}
+        formClassName=""
+      >
+        <CryFormTextField
+          label={t('app.fields.username')}
+          labelClassName={formStyles.label.default}
+          name="userName"
+          inputClassName={combineStyles(
+            formStyles.input.default,
+            formStyles.input.focus,
+          )}
+        />
+        <CryFormTextField
+          label={t('app.fields.password')}
+          labelClassName={formStyles.label.default}
+          name="password"
+          type="password"
+          hideLabel={hideLabel}
+          showLabel={showLabel}
+          slotClassName="text-white"
+          inputClassName={combineStyles(
+            formStyles.input.default,
+            formStyles.input.focus,
+          )}
+        />
 
-        <form onSubmit={handleSubmit} suppressHydrationWarning>
-          <CryFormTextField
-            label={t('app.fields.username')}
-            labelClassName={formStyles.label.default}
-            name="userName"
-            inputClassName={combineStyles(
-              formStyles.input.default,
-              formStyles.input.focus,
-            )}
-          />
-          <CryFormTextField
-            label={t('app.fields.password')}
-            labelClassName={formStyles.label.default}
-            name="password"
-            type="password"
-            hideLabel={hideLabel}
-            showLabel={showLabel}
-            slotClassName="text-white"
-            inputClassName={combineStyles(
-              formStyles.input.default,
-              formStyles.input.focus,
-            )}
-          />
-
-          <div className={formStyles.layout.spaceBetween}>
-            <div className="inline-flex items-center text-left">
-              <CryCheckBox
-                text={t('auth.login.rememberMe')}
-                size="sm"
-                className="!text-sm"
-                modelValue={false}
-                name="rememberMe"
-              />
-            </div>
-            <div className="text-right mb-1">
-              <a href={RESET_PASSWORD_ROUTE} className={formStyles.text.link}>
-                {t('auth.login.forgotYourPassword')}
-              </a>
-            </div>
+        <div className={formStyles.layout.spaceBetween}>
+          <div className="inline-flex items-center text-left">
+            <CryCheckBox
+              text={t('auth.login.rememberMe')}
+              size="sm"
+              className="text-sm"
+              modelValue={false}
+              name="rememberMe"
+            />
           </div>
+          <div className="text-right mb-1">
+            <a href={RESET_PASSWORD_ROUTE} className={formStyles.text.link}>
+              {t('auth.login.forgotYourPassword')}
+            </a>
+          </div>
+        </div>
 
-          <div
-            className={combineStyles(
-              formStyles.layout.centerHorizontal,
-              formStyles.spacing.large,
-            )}
+        <div
+          className={combineStyles(
+            formStyles.layout.centerHorizontal,
+            formStyles.spacing.large,
+          )}
+        >
+          <CryButton
+            shape="circle"
+            className={formStyles.button.submit}
+            type="submit"
           >
-            <CryButton
-              shape="circle"
-              className={formStyles.button.submit}
-              type="submit"
-            >
-              {t('auth.login.title')}
-            </CryButton>
-          </div>
-        </form>
+            {t('auth.login.title')}
+          </CryButton>
+        </div>
 
         <div className="flex flex-wrap justify-center my-6 gap-4">
           {[
@@ -167,7 +172,7 @@ const LogInForm = (): JSX.Element => {
             {t('auth.login.doNotHaveAnAccount')}
           </a>
         </div>
-      </div>
+      </CryForm>
     </div>
   )
 }

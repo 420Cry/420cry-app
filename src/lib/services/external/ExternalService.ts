@@ -1,5 +1,6 @@
 import { FearAndGreedService } from './fear_and_greed/FearAndGreedService'
 import { TransactionService } from './wallet_explorer/TransactionService'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class ExternalService {
   public indicator: {
@@ -9,15 +10,12 @@ export class ExternalService {
     searchTransaction: TransactionService
   }
 
-  public constructor() {
+  public constructor(requestService: IRequestService) {
     this.indicator = {
-      fearAndGreed: new FearAndGreedService(),
+      fearAndGreed: new FearAndGreedService(requestService),
     }
     this.walletExplorer = {
-      searchTransaction: new TransactionService(),
+      searchTransaction: new TransactionService(requestService),
     }
   }
 }
-
-// singleton instance
-export const externalService = new ExternalService()

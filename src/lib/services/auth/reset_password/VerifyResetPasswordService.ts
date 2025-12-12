@@ -1,10 +1,12 @@
 import { VERIFY_RESET_PASSWORD_API } from '@/lib/constants/routes'
-import { RequestService } from '@/lib/requests/RequestService'
 import { ResetPasswordSchema } from '@/lib/server/validation/auth/ResetPasswordSchema'
 import { validateFormData } from '@/lib/server/validation/validateFormData'
 import { IResponse, IVerifyResetPassword } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class VerifyResetPasswordService {
+  public constructor(private requestService: IRequestService) {}
+
   public async verifyResetPasswordAction(
     formData: FormData,
     resetPasswordToken?: string,
@@ -30,7 +32,7 @@ export class VerifyResetPasswordService {
         resetPasswordToken: validation.data.resetPasswordToken,
       }
 
-      return await RequestService.nativeFetchPost<
+      return await this.requestService.nativeFetchPost<
         IVerifyResetPassword,
         IResponse
       >(VERIFY_RESET_PASSWORD_API, payload)

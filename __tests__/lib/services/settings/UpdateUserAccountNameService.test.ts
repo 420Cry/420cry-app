@@ -30,19 +30,19 @@ vi.mock('@/lib/server/validation/commonSchemas', () => ({
       if (trimmed.length < 3) {
         return {
           success: false,
-          error: { errors: [{ message: 'app.rules.userNameMinLength' }] },
+          error: { issues: [{ message: 'app.rules.userNameMinLength' }] },
         }
       }
       if (trimmed.length > 50) {
         return {
           success: false,
-          error: { errors: [{ message: 'app.rules.userNameMaxLength' }] },
+          error: { issues: [{ message: 'app.rules.userNameMaxLength' }] },
         }
       }
       if (!/^[a-zA-Z0-9_]+$/.test(trimmed)) {
         return {
           success: false,
-          error: { errors: [{ message: 'app.rules.userNameFormat' }] },
+          error: { issues: [{ message: 'app.rules.userNameFormat' }] },
         }
       }
       return { success: true, data: trimmed }
@@ -62,15 +62,17 @@ vi.mock('@/lib/services/settings/SettingsService', () => ({
 }))
 
 // Import after mocks
-const { UpdateUserAccountNameService } = await import(
-  'src/lib/services/settings/user_account_name/UpdateUserAccountNameService'
-)
+const { UpdateUserAccountNameService } =
+  await import('src/lib/services/settings/user_account_name/UpdateUserAccountNameService')
 
 describe('UpdateUserAccountNameService', () => {
   let service: InstanceType<typeof UpdateUserAccountNameService>
+  const mockRequestService = {
+    nativeFetchPost: mockNativeFetchPost,
+  } as any
 
   beforeEach(() => {
-    service = new UpdateUserAccountNameService()
+    service = new UpdateUserAccountNameService(mockRequestService)
     mockNativeFetchPost.mockClear()
   })
 

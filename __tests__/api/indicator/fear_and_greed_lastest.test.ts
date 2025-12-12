@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { NextResponse } from 'next/server'
 import { GET } from 'src/app/api/indicator/fear-and-greed-lastest/route'
-import { RequestService, createErrorResponse } from '@/lib'
+import { RequestService } from '@/lib'
 
 vi.mock('@/lib', () => ({
   API_URL: 'http://fake-api',

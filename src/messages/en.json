@@ -108,6 +108,10 @@
       "successMessage": "Please check your email and follow the instructions to verify your account.",
       "errorMessage": "Unable to create account. Please try again.",
       "orSignInUsing": "Or sign up using",
+      "oauth": {
+        "google": "Google",
+        "discord": "Discord"
+      },
       "verifyEmail": {
         "title": "Verify your email",
         "successTitle": "Verification Successful",

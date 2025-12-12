@@ -1,20 +1,22 @@
 import {
   GET_FEAR_AND_GREED_HISTORICAL_API,
   GET_FEAR_AND_GREED_LASTEST_API,
-  RequestService,
 } from '@/lib'
 import {
   IFearAndGreedHistoricalData,
   IFearAndGreedIndexData,
   IResponse,
 } from '@/types'
+import type { IRequestService } from '@/lib/container/ServiceContainer'
 
 export class FearAndGreedService {
+  public constructor(private requestService: IRequestService) {}
+
   public async getFearAndGreedIndextLatest(): Promise<
     IResponse & { data?: IFearAndGreedIndexData }
   > {
     try {
-      const result = await RequestService.nativeFetchGet<
+      const result = await this.requestService.nativeFetchGet<
         undefined,
         IResponse & { data?: IFearAndGreedIndexData }
       >(GET_FEAR_AND_GREED_LASTEST_API, undefined)
@@ -35,7 +37,7 @@ export class FearAndGreedService {
     IResponse & { data?: IFearAndGreedHistoricalData }
   > {
     try {
-      const result = await RequestService.nativeFetchGet<
+      const result = await this.requestService.nativeFetchGet<
         undefined,
         IResponse & { data?: IFearAndGreedHistoricalData }
       >(GET_FEAR_AND_GREED_HISTORICAL_API, undefined)

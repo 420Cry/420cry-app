@@ -8,7 +8,6 @@ import {
   tokenSchema,
   passwordConfirmationSchema,
 } from '@/lib/server/validation/common/commonSchemas'
-import { z } from 'zod'
 
 describe('Common Validation Schemas', () => {
   describe('passwordSchema', () => {
@@ -30,7 +29,7 @@ describe('Common Validation Schemas', () => {
       ({ password, error }) => {
         const result = passwordSchema.safeParse(password)
         expect(result.success).toBe(false)
-        expect(result.error?.errors[0]?.message).toBe(error)
+        expect(result.error?.issues[0]?.message).toBe(error)
       },
     )
   })
@@ -56,7 +55,7 @@ describe('Common Validation Schemas', () => {
     it.each(invalidEmails)('fails validation for email: %s', (email) => {
       const result = emailSchema.safeParse(email)
       expect(result.success).toBe(false)
-      expect(result.error?.errors[0]?.message).toBe('app.rules.email')
+      expect(result.error?.issues[0]?.message).toBe('app.rules.email')
     })
   })
 
@@ -77,7 +76,7 @@ describe('Common Validation Schemas', () => {
       (username) => {
         const result = usernameSchema.safeParse(username)
         expect(result.success).toBe(false)
-        expect(result.error?.errors[0]?.message).toBe(
+        expect(result.error?.issues[0]?.message).toBe(
           'app.rules.userNameMinLength',
         )
       },
@@ -96,7 +95,7 @@ describe('Common Validation Schemas', () => {
     it.each(invalidNames)('fails validation for full name: %s', (name) => {
       const result = fullNameSchema.safeParse(name)
       expect(result.success).toBe(false)
-      expect(result.error?.errors[0]?.message).toBe(
+      expect(result.error?.issues[0]?.message).toBe(
         'app.rules.fullNameMinLength',
       )
     })
@@ -129,7 +128,7 @@ describe('Common Validation Schemas', () => {
     it.each(invalidTokens)('fails validation for token: %s', (token) => {
       const result = tokenSchema.safeParse(token)
       expect(result.success).toBe(false)
-      expect(result.error?.errors[0]?.message).toBe('app.rules.tokenRequired')
+      expect(result.error?.issues[0]?.message).toBe('app.rules.tokenRequired')
     })
   })
 
@@ -154,10 +153,10 @@ describe('Common Validation Schemas', () => {
 
       const result = schema.safeParse(data)
       expect(result.success).toBe(false)
-      expect(result.error?.errors[0]?.message).toBe(
+      expect(result.error?.issues[0]?.message).toBe(
         'app.rules.repeatedPassword',
       )
-      expect(result.error?.errors[0]?.path).toEqual(['repeatedPassword'])
+      expect(result.error?.issues[0]?.path).toEqual(['repeatedPassword'])
     })
 
     it('validates password field using provided schema', () => {
@@ -170,7 +169,7 @@ describe('Common Validation Schemas', () => {
       const result = schema.safeParse(data)
       expect(result.success).toBe(false)
       // Should fail on password validation, not confirmation
-      expect(result.error?.errors[0]?.path).toEqual(['password'])
+      expect(result.error?.issues[0]?.path).toEqual(['password'])
     })
   })
 })

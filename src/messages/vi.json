@@ -108,6 +108,10 @@
       "successMessage": "Vui lòng kiểm tra email và xác nhận tài khoản.",
       "errorMessage": "Không thể tạo tài khoản. Vui lòng thử lại.",
       "orSignInUsing": "Hoặc đăng ký bằng các ứng dụng bên dưới",
+      "oauth": {
+        "google": "Google",
+        "discord": "Discord"
+      },
       "verifyEmail": {
         "title": "Xác nhận email của bạn",
         "successTitle": "Xác nhận thành công",
@@ -147,6 +151,8 @@
     },
     "setup": {
       "title": "Bảo vệ tài khoản của bạn bằng xác thực hai yếu tố",
+      "successTitle": "Thiết lập 2FA thành công",
+      "errorTitle": "Thiết lập 2FA thất bại",
       "description": "Mỗi lần bạn đăng nhập, bạn sẽ cần nhập mã. Chọn cách bạn muốn nhận mã xác minh",
       "useYourPhone": "Sử dụng điện thoại",
       "receiveViaSMS": "Nhận mã qua tin nhắn SMS",

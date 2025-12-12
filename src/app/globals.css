@@ -1,96 +1,79 @@
 @import 'tailwindcss';
 @config "../../tailwind.config.ts";
 
-/* Theme CSS Variables */
+/* Theme CSS Variables - Generated from @420cry/420cry-lib theme system */
 :root {
-  /* Light theme colors */
-  --color-button-default-bg: #ffffff; /* white */
-  --color-button-default-text: #1f2937; /* gray-800 */
-  --color-button-default-border: #d1d5db; /* gray-300 */
-  --color-button-default-hover: #f3f4f6; /* gray-100 */
-  --color-button-default-ring: #d1d5db; /* gray-300 */
+  /* Light theme colors - using theme system */
+  --color-button-default-bg: var(--theme-gray-50, #f9fafb);
+  --color-button-default-text: var(--theme-gray-800, #1f2937);
+  --color-button-default-border: var(--theme-gray-300, #d1d5db);
+  --color-button-default-hover: var(--theme-gray-100, #f3f4f6);
+  --color-button-default-ring: var(--theme-gray-300, #d1d5db);
 
-  --color-button-outline-border: #d1d5db; /* gray-300 */
-  --color-button-outline-text: #1f2937; /* gray-800 */
-  --color-button-outline-hover-bg: #f3f4f6; /* gray-100 */
-  --color-button-outline-hover-text: #1f2937; /* gray-800 */
+  --color-button-outline-border: var(--theme-gray-300, #d1d5db);
+  --color-button-outline-text: var(--theme-gray-800, #1f2937);
+  --color-button-outline-hover-bg: var(--theme-gray-100, #f3f4f6);
+  --color-button-outline-hover-text: var(--theme-gray-800, #1f2937);
 
-  --color-button-text-text: #1f2937; /* gray-800 */
-  --color-button-text-hover: #f3f4f6; /* gray-100 */
+  --color-button-text-text: var(--theme-gray-800, #1f2937);
+  --color-button-text-hover: var(--theme-gray-100, #f3f4f6);
 
-  --color-badge-bg: #f3f4f6; /* gray-100 */
-  --color-badge-text: #1f2937; /* gray-800 */
-  --color-badge-ring: #d1d5db; /* gray-300 */
+  --color-badge-bg: var(--theme-gray-100, #f3f4f6);
+  --color-badge-text: var(--theme-gray-800, #1f2937);
+  --color-badge-ring: var(--theme-gray-300, #d1d5db);
 
-  /* Input field colors */
-  --color-input-bg: #ffffff; /* white */
-  --color-input-text: #1f2937; /* gray-800 */
-  --color-input-border: #d1d5db; /* gray-300 */
-  --color-input-placeholder: #9ca3af; /* gray-400 */
-  --color-input-focus-border: #3b82f6; /* blue-500 */
-  --color-input-focus-ring: #3b82f6; /* blue-500 */
+  /* Input field colors - using theme system */
+  --color-input-bg: #ffffff;
+  --color-input-text: var(--theme-gray-800, #1f2937);
+  --color-input-border: var(--theme-gray-300, #d1d5db);
+  --color-input-placeholder: var(--theme-gray-400, #9ca3af);
+  --color-input-focus-border: var(--theme-primary-500, #0ea5e9);
+  --color-input-focus-ring: var(--theme-primary-500, #0ea5e9);
 
-  /* Card colors */
-  --color-card-border: #d1d5db; /* gray-300 */
-  --color-card-bg-light: #ffffff; /* white */
-  --color-card-bg-dark: #1f2937; /* gray-800 */
-  --color-card-icon: #6b7280; /* gray-500 */
-  --color-card-hover: #f3f4f6; /* gray-100 */
-  --color-card-ring: #6b7280; /* gray-500 */
+  /* Card colors - using theme system */
+  --color-card-border: var(--theme-gray-300, #d1d5db);
+  --color-card-bg-light: #ffffff;
+  --color-card-bg-dark: var(--theme-gray-800, #1f2937);
+  --color-card-icon: var(--theme-gray-500, #6b7280);
+  --color-card-hover: var(--theme-gray-100, #f3f4f6);
+  --color-card-ring: var(--theme-gray-500, #6b7280);
 }
 
 .dark {
-  /* Dark theme colors */
-  --color-button-default-bg: #1f2937; /* gray-800 */
-  --color-button-default-text: #ffffff; /* white */
-  --color-button-default-border: #374151; /* gray-700 */
-  --color-button-default-hover: #374151; /* gray-700 */
-  --color-button-default-ring: #374151; /* gray-700 */
+  /* Dark theme colors - using theme system */
+  --color-button-default-bg: var(--theme-gray-800, #1f2937);
+  --color-button-default-text: #ffffff;
+  --color-button-default-border: var(--theme-gray-700, #374151);
+  --color-button-default-hover: var(--theme-gray-700, #374151);
+  --color-button-default-ring: var(--theme-gray-700, #374151);
 
-  --color-button-outline-border: #4b5563; /* gray-600 */
-  --color-button-outline-text: #ffffff; /* white */
-  --color-button-outline-hover-bg: #374151; /* gray-700 */
-  --color-button-outline-hover-text: #ffffff; /* white */
+  --color-button-outline-border: var(--theme-gray-600, #4b5563);
+  --color-button-outline-text: #ffffff;
+  --color-button-outline-hover-bg: var(--theme-gray-700, #374151);
+  --color-button-outline-hover-text: #ffffff;
 
-  --color-button-text-text: #ffffff; /* white */
-  --color-button-text-hover: #374151; /* gray-700 */
+  --color-button-text-text: #ffffff;
+  --color-button-text-hover: var(--theme-gray-700, #374151);
 
-  --color-badge-bg: #374151; /* gray-700 */
-  --color-badge-text: #ffffff; /* white */
-  --color-badge-ring: #4b5563; /* gray-600 */
+  --color-badge-bg: var(--theme-gray-700, #374151);
+  --color-badge-text: #ffffff;
+  --color-badge-ring: var(--theme-gray-600, #4b5563);
 
-  /* Input field colors */
-  --color-input-bg: #374151; /* gray-700 */
-  --color-input-text: #ffffff; /* white */
-  --color-input-border: #4b5563; /* gray-600 */
-  --color-input-placeholder: #9ca3af; /* gray-400 */
-  --color-input-focus-border: #60a5fa; /* blue-400 */
-  --color-input-focus-ring: #60a5fa; /* blue-400 */
+  /* Input field colors - using theme system */
+  --color-input-bg: var(--theme-gray-700, #374151);
+  --color-input-text: #ffffff;
+  --color-input-border: var(--theme-gray-600, #4b5563);
+  --color-input-placeholder: var(--theme-gray-400, #9ca3af);
+  --color-input-focus-border: var(--theme-primary-400, #38bdf8);
+  --color-input-focus-ring: var(--theme-primary-400, #38bdf8);
 
-  /* Card colors */
-  --color-card-border: #4b5563; /* gray-600 */
-  --color-card-bg-light: #ffffff; /* white */
-  --color-card-bg-dark: #1f2937; /* gray-800 */
-  --color-card-icon: #9ca3af; /* gray-400 */
-  --color-card-hover: #374151; /* gray-700 */
-  --color-card-ring: #4b5563; /* gray-600 */
-}
-
-/* Smooth theme transitions */
-* {
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    color 0.3s ease,
-    fill 0.3s ease,
-    stroke 0.3s ease;
-}
-
-/* Prevent transitions on transform and opacity for better performance */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  /* Card colors - using theme system */
+  --color-card-border: var(--theme-gray-600, #4b5563);
+  --color-card-bg-light: #ffffff;
+  --color-card-bg-dark: var(--theme-gray-800, #1f2937);
+  --color-card-icon: var(--theme-gray-400, #9ca3af);
+  --color-card-hover: var(--theme-gray-700, #374151);
+  --color-card-ring: var(--theme-gray-600, #4b5563);
 }
 
 input:-webkit-autofill,
@@ -153,4 +136,183 @@ input:-webkit-autofill:active {
 /* Modal scale-in animation */
 .animate-scale-in {
   animation: scale-in 0.2s ease-out;
+}
+
+/* Neon landing theme primitives - using theme system */
+:root {
+  --neon-primary: var(--theme-secondary-600, #9333ea);
+  --neon-secondary: var(--theme-primary-500, #0ea5e9);
+  --neon-accent: #22d3ee;
+  --neon-surface: rgba(15, 23, 42, 0.75);
+  --neon-border: rgba(255, 255, 255, 0.09);
+  --neon-highlight: rgba(147, 51, 234, 0.4); /* Using theme secondary-600 */
+  --neon-glow:
+    0 0 40px rgba(147, 51, 234, 0.25), 0 0 80px rgba(14, 165, 233, 0.25);
+}
+
+@layer base {
+  body {
+    background-color: #050816;
+  }
+
+  /* Smooth theme transitions */
+  * {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease,
+      fill 0.3s ease,
+      stroke 0.3s ease;
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+}
+
+@layer utilities {
+  .neon-gradient {
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(124, 58, 237, 0.25),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at 80% 0%,
+        rgba(14, 165, 233, 0.25),
+        transparent 30%
+      ),
+      radial-gradient(
+        circle at 50% 80%,
+        rgba(34, 211, 238, 0.2),
+        transparent 32%
+      ),
+      linear-gradient(
+        145deg,
+        #0b1021 0%,
+        #0f172a 35%,
+        #0b1021 65%,
+        #090d1a 100%
+      );
+  }
+
+  .neon-grid {
+    background-image: url('/background/landingPageBackground.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+    mix-blend-mode: screen;
+  }
+
+  .gradient-text {
+    background: linear-gradient(
+      120deg,
+      #fff 0%,
+      #a5b4fc 45%,
+      var(--theme-secondary-600, #9333ea) 70%,
+      #22d3ee 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glow-ring {
+    box-shadow:
+      0 0 0 1px var(--neon-border),
+      var(--neon-glow);
+  }
+
+  .grid-lines {
+    background-image:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 120px 120px;
+    mask-image: radial-gradient(circle at center, black 0%, transparent 70%);
+    opacity: 0.5;
+  }
+
+  .orb {
+    filter: blur(80px);
+    opacity: 0.7;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(255, 255, 255, 0.04),
+        transparent 35%
+      ),
+      var(--neon-surface);
+    border: 1px solid var(--neon-border);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(18px);
+  }
+
+  .glass-outline {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+  }
+
+  .btn-neon {
+    background: linear-gradient(120deg, #7c3aed, #0ea5e9, #22d3ee);
+    color: #0a0f1f;
+    font-weight: 700;
+    border-radius: 9999px;
+    box-shadow:
+      0 10px 30px rgba(124, 58, 237, 0.35),
+      0 0 0 1px rgba(255, 255, 255, 0.12);
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      filter 0.25s ease;
+  }
+
+  .btn-neon:hover {
+    transform: translateY(-1px) scale(1.01);
+    filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.45));
+  }
+
+  .btn-ghost {
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.04);
+    color: #e2e8f0;
+    font-weight: 600;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(34, 211, 238, 0.6);
+    color: #fff;
+    background: rgba(34, 211, 238, 0.06);
+  }
+
+  .pill {
+    border-radius: 9999px;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.01em;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    color: #cbd5e1;
+  }
+
+  .divider-gradient {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(34, 211, 238, 0.6),
+      transparent
+    );
+  }
 }

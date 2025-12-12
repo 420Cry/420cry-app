@@ -16,7 +16,7 @@ export const formStyles = {
   label: {
     default: 'text-neutral-gray-3',
     required:
-      "text-neutral-gray-3 after:content-['*'] after:text-red-500 after:ml-1", // eslint-disable-line quotes
+      "text-neutral-gray-3 after:content-['*'] after:text-red-500 after:ml-1",
   },
 
   // Container styles
