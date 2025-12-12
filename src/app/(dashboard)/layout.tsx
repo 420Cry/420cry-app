@@ -1,6 +1,6 @@
 'use client'
 
-import { DashboardSidebar, DashboardHeader, Loader } from '@/components'
+import { DashboardSidebar, DashboardHeader, BTCLoader } from '@/components'
 import { JSX, ReactNode, useState } from 'react'
 import {
   LoadingProvider,
@@ -47,7 +47,7 @@ function LayoutContent({ children }: { children: ReactNode }) {
           suppressHydrationWarning
         >
           {children}
-          <Loader show={loading} />
+          <BTCLoader show={loading} />
         </main>
 
         {/* Render dynamic modals */}
